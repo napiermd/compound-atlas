@@ -1,0 +1,402 @@
+// CompoundAtlas — Prisma Schema
+// PostgreSQL database schema for the evidence-based enhancement platform
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── AUTH ───────────────────────────────────────────
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  stacks        Stack[]
+  cycles        Cycle[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ─── COMPOUNDS ──────────────────────────────────────
+
+enum CompoundCategory {
+  SUPPLEMENT
+  NOOTROPIC
+  PEPTIDE
+  ANABOLIC
+  SARM
+  GH_SECRETAGOGUE
+  FAT_LOSS
+  HORMONAL
+  ADAPTOGEN
+  AMINO_ACID
+  VITAMIN_MINERAL
+  OTHER
+}
+
+enum LegalStatus {
+  LEGAL           // OTC, widely available
+  PRESCRIPTION    // Requires Rx in most jurisdictions
+  GRAY_MARKET     // Legal to possess, not FDA-approved
+  SCHEDULED       // Controlled substance
+  RESEARCH_ONLY   // For research purposes
+  BANNED          // Prohibited (e.g., by WADA or law)
+}
+
+model Compound {
+  id              String           @id @default(cuid())
+  slug            String           @unique
+  name            String
+  aliases         String[]         // Brand names, alternate spellings
+  category        CompoundCategory
+  subcategory     String?          // e.g., "racetam", "oral_steroid", "GLP-1_agonist"
+  description     String?          @db.Text
+  legalStatus     LegalStatus      @default(LEGAL)
+
+  // Pharmacology
+  halfLife        String?          // e.g., "4-6 hours", "5-7 days"
+  onset           String?          // e.g., "30-60 minutes"
+  duration        String?          // e.g., "4-6 hours"
+  routeOfAdmin    String[]         // ["oral", "injection", "sublingual", "topical"]
+  mechanismShort  String?          // Brief MOA summary
+
+  // Dosing
+  doseMin         Float?
+  doseTypical     Float?
+  doseMax         Float?
+  doseUnit        String?          // "mg", "IU", "mcg", etc.
+  doseFrequency   String?          // "daily", "2x/week", "3x/day"
+
+  // Scores (computed by pipeline)
+  evidenceScore   Float?           // 0-100
+  safetyScore     Float?           // 0-100
+  studyCount      Int              @default(0)
+  metaAnalysisCount Int            @default(0)
+  lastResearchSync DateTime?
+
+  // Relations
+  studies         CompoundStudy[]
+  sideEffects     CompoundSideEffect[]
+  interactions    CompoundInteraction[] @relation("SourceCompound")
+  interactedBy    CompoundInteraction[] @relation("TargetCompound")
+  mechanisms      CompoundMechanism[]
+  stackCompounds  StackCompound[]
+  outcomes        Outcome[]
+
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  @@index([category])
+  @@index([evidenceScore])
+  @@index([slug])
+}
+
+// ─── STUDIES ────────────────────────────────────────
+
+enum StudyType {
+  META_ANALYSIS
+  SYSTEMATIC_REVIEW
+  RCT                  // Randomized Controlled Trial
+  CONTROLLED_TRIAL     // Non-randomized
+  COHORT
+  CASE_CONTROL
+  CROSS_SECTIONAL
+  CASE_REPORT
+  ANIMAL
+  IN_VITRO
+  REVIEW
+  OTHER
+}
+
+enum EvidenceLevel {
+  A  // Strong: consistent RCTs/meta-analyses
+  B  // Moderate: some RCTs or strong observational
+  C  // Weak: case studies, observational, limited data
+  D  // Very weak: anecdotal, in-vitro only, animal only
+}
+
+model Study {
+  id                   String        @id @default(cuid())
+  pmid                 String?       @unique  // PubMed ID
+  doi                  String?       @unique
+  semanticScholarId    String?       @unique
+  title                String
+  abstract             String?       @db.Text
+  authors              String[]
+  journal              String?
+  year                 Int?
+  publicationDate      DateTime?
+  studyType            StudyType
+  evidenceLevel        EvidenceLevel?
+  sampleSize           Int?
+  durationWeeks        Float?
+  population           String?       // "trained males 18-35", "elderly 65+", etc.
+  effectSize           Float?        // Cohen's d or equivalent
+  confidenceInterval   String?       // "0.3-0.8"
+  isOpenAccess         Boolean       @default(false)
+  fullTextUrl          String?
+  tldr                 String?       // AI-generated summary
+
+  // Relations
+  compounds            CompoundStudy[]
+  outcomes             Outcome[]
+
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+
+  @@index([studyType])
+  @@index([year])
+  @@index([evidenceLevel])
+}
+
+model CompoundStudy {
+  id         String   @id @default(cuid())
+  compoundId String
+  studyId    String
+  compound   Compound @relation(fields: [compoundId], references: [id], onDelete: Cascade)
+  study      Study    @relation(fields: [studyId], references: [id], onDelete: Cascade)
+
+  @@unique([compoundId, studyId])
+}
+
+// ─── OUTCOMES ───────────────────────────────────────
+
+enum EffectDirection {
+  INCREASE
+  DECREASE
+  NO_CHANGE
+  MIXED
+}
+
+enum EffectMagnitude {
+  TRIVIAL
+  SMALL
+  MODERATE
+  LARGE
+  VERY_LARGE
+}
+
+model Outcome {
+  id                      String          @id @default(cuid())
+  studyId                 String
+  compoundId              String
+  metric                  String          // "lean_mass", "vo2max", "cortisol", "reaction_time"
+  metricCategory          String?         // "body_composition", "cognitive", "hormonal", "cardiovascular"
+  direction               EffectDirection
+  magnitude               EffectMagnitude?
+  statisticalSignificance Boolean?
+  pValue                  Float?
+  notes                   String?         @db.Text
+
+  study    Study    @relation(fields: [studyId], references: [id], onDelete: Cascade)
+  compound Compound @relation(fields: [compoundId], references: [id], onDelete: Cascade)
+
+  @@index([metric])
+  @@index([compoundId])
+}
+
+// ─── COMPOUND METADATA ──────────────────────────────
+
+model CompoundSideEffect {
+  id         String   @id @default(cuid())
+  compoundId String
+  name       String   // "hepatotoxicity", "headache", "insomnia"
+  severity   String?  // "mild", "moderate", "severe"
+  frequency  String?  // "common", "uncommon", "rare"
+  notes      String?
+  compound   Compound @relation(fields: [compoundId], references: [id], onDelete: Cascade)
+}
+
+model CompoundInteraction {
+  id               String   @id @default(cuid())
+  sourceCompoundId String
+  targetCompoundId String
+  interactionType  String   // "synergistic", "antagonistic", "contraindicated", "caution"
+  severity         String?  // "mild", "moderate", "severe"
+  description      String?  @db.Text
+  source           Compound @relation("SourceCompound", fields: [sourceCompoundId], references: [id])
+  target           Compound @relation("TargetCompound", fields: [targetCompoundId], references: [id])
+
+  @@unique([sourceCompoundId, targetCompoundId])
+}
+
+model CompoundMechanism {
+  id           String   @id @default(cuid())
+  compoundId   String
+  pathway      String   // "mTOR activation", "acetylcholine modulation", "5-alpha reductase"
+  description  String?  @db.Text
+  compound     Compound @relation(fields: [compoundId], references: [id], onDelete: Cascade)
+}
+
+// ─── STACKS ─────────────────────────────────────────
+
+enum StackGoal {
+  RECOMP
+  BULK
+  CUT
+  COGNITIVE
+  SLEEP
+  LONGEVITY
+  RECOVERY
+  JOINT_HEALTH
+  MOOD
+  LIBIDO
+  GENERAL_HEALTH
+  CUSTOM
+}
+
+model Stack {
+  id            String          @id @default(cuid())
+  name          String
+  slug          String          @unique
+  description   String?         @db.Text
+  goal          StackGoal
+  durationWeeks Int?
+  isPublic      Boolean         @default(false)
+  evidenceScore Float?          // Computed aggregate
+  upvotes       Int             @default(0)
+  forkCount     Int             @default(0)
+  forkedFromId  String?
+  creatorId     String
+  creator       User            @relation(fields: [creatorId], references: [id])
+  forkedFrom    Stack?          @relation("StackForks", fields: [forkedFromId], references: [id])
+  forks         Stack[]         @relation("StackForks")
+  compounds     StackCompound[]
+  cycles        Cycle[]
+
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  @@index([goal])
+  @@index([isPublic, upvotes])
+}
+
+model StackCompound {
+  id         String   @id @default(cuid())
+  stackId    String
+  compoundId String
+  dose       Float?
+  unit       String?  // "mg", "IU", "mcg"
+  frequency  String?  // "daily", "2x/week", "M/W/F"
+  startWeek  Int?     // Week of stack to start this compound
+  endWeek    Int?     // Week of stack to end this compound
+  notes      String?
+
+  stack    Stack    @relation(fields: [stackId], references: [id], onDelete: Cascade)
+  compound Compound @relation(fields: [compoundId], references: [id])
+
+  @@unique([stackId, compoundId])
+}
+
+// ─── CYCLE TRACKING ─────────────────────────────────
+
+enum CycleStatus {
+  PLANNED
+  ACTIVE
+  COMPLETED
+  PAUSED
+  ABORTED
+}
+
+model Cycle {
+  id         String      @id @default(cuid())
+  userId     String
+  stackId    String?     // Optional: can be freeform
+  name       String
+  startDate  DateTime?
+  endDate    DateTime?
+  status     CycleStatus @default(PLANNED)
+  notes      String?     @db.Text
+
+  user       User            @relation(fields: [userId], references: [id])
+  stack      Stack?          @relation(fields: [stackId], references: [id])
+  entries    CycleEntry[]
+  bloodwork  BloodworkPanel[]
+
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  @@index([userId, status])
+}
+
+model CycleEntry {
+  id              String   @id @default(cuid())
+  cycleId         String
+  date            DateTime
+  compoundsTaken  Json?    // [{ compoundId, dose, unit }]
+  weight          Float?
+  bodyFatPercent  Float?
+  restingHR       Int?
+  bloodPressure   String?  // "120/80"
+  sleepHours      Float?
+  sleepQuality    Int?     // 1-10
+  mood            Int?     // 1-10
+  energy          Int?     // 1-10
+  libido          Int?     // 1-10
+  appetite        Int?     // 1-10
+  symptoms        String[] // ["headache", "joint_pain", "acne"]
+  notes           String?  @db.Text
+
+  cycle Cycle @relation(fields: [cycleId], references: [id], onDelete: Cascade)
+
+  @@unique([cycleId, date])
+  @@index([cycleId, date])
+}
+
+model BloodworkPanel {
+  id       String   @id @default(cuid())
+  cycleId  String
+  date     DateTime
+  labName  String?
+  results  Json     // Flexible JSON for all lab values
+  fileUrl  String?  // Uploaded PDF
+  notes    String?  @db.Text
+
+  cycle Cycle @relation(fields: [cycleId], references: [id], onDelete: Cascade)
+
+  @@index([cycleId, date])
+}

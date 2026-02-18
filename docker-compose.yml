@@ -1,0 +1,47 @@
+# CompoundAtlas — Local Development Services
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: compoundatlas-db
+    environment:
+      POSTGRES_USER: atlas
+      POSTGRES_PASSWORD: atlas_dev
+      POSTGRES_DB: compoundatlas
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U atlas"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: compoundatlas-redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Optional: Typesense for full-text search
+  typesense:
+    image: typesense/typesense:27.1
+    container_name: compoundatlas-search
+    environment:
+      TYPESENSE_API_KEY: compound_atlas_dev_key
+      TYPESENSE_DATA_DIR: /data
+    ports:
+      - "8108:8108"
+    volumes:
+      - typesense-data:/data
+
+volumes:
+  pgdata:
+  typesense-data:

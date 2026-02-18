@@ -1,0 +1,70 @@
+# Alpha-GPC — Cholinergic nootropic
+slug: alpha-gpc
+name: Alpha-GPC
+aliases:
+  - L-alpha-glycerylphosphorylcholine
+  - choline alfoscerate
+  - alpha-glycerophosphocholine
+category: NOOTROPIC
+subcategory: cholinergic
+legalStatus: LEGAL
+description: |
+  Alpha-GPC is a choline-containing phospholipid that crosses the blood-brain barrier
+  efficiently. It serves as a precursor to acetylcholine synthesis and has demonstrated
+  cognitive-enhancing properties, particularly in aging populations. It also shows
+  acute effects on growth hormone secretion and power output.
+
+halfLife: "4-6 hours"
+onset: "30-60 minutes"
+duration: "4-6 hours"
+routeOfAdmin:
+  - oral
+mechanismShort: "Rapidly absorbed choline donor; crosses BBB and upregulates acetylcholine synthesis in cortical neurons"
+
+dosing:
+  min: 300
+  typical: 600
+  max: 1200
+  unit: mg
+  frequency: daily
+  notes: "300-600mg for nootropic effect; 600mg pre-workout for power output"
+
+sideEffects:
+  - name: headache
+    severity: mild
+    frequency: uncommon
+    notes: "Usually from excess acetylcholine; reduce dose"
+  - name: GI_discomfort
+    severity: mild
+    frequency: uncommon
+  - name: fishy_body_odor
+    severity: mild
+    frequency: rare
+    notes: "From TMAO production; dose-dependent"
+
+interactions:
+  - target: racetams
+    type: synergistic
+    severity: mild
+    description: "Provides choline substrate that racetams increase demand for"
+  - target: acetylcholinesterase_inhibitors
+    type: caution
+    severity: moderate
+    description: "Additive cholinergic effects; monitor for excess"
+
+mechanisms:
+  - pathway: acetylcholine_synthesis
+    description: "Provides bioavailable choline for ACh production; enhances cholinergic neurotransmission"
+  - pathway: phosphatidylcholine_production
+    description: "Supports cell membrane integrity and phospholipid turnover"
+  - pathway: growth_hormone
+    description: "Acute GH secretion increase observed at 600mg+ doses"
+
+searchTerms:
+  pubmed:
+    - "alpha-GPC AND (cognition OR cognitive OR memory)"
+    - "choline alfoscerate AND human"
+    - "alpha-glycerophosphocholine AND power output"
+  semanticScholar:
+    - "alpha-GPC cognitive enhancement"
+    - "choline alfoscerate clinical trials"
