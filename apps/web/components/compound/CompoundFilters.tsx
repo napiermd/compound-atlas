@@ -18,7 +18,7 @@ import { formatCategory } from "@/lib/utils";
 import { CompoundCard } from "./CompoundCard";
 import type { CompoundSummary } from "./types";
 
-interface CategoryCount {
+export interface CategoryCount {
   category: CompoundCategory;
   count: number;
 }
