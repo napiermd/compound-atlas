@@ -8,14 +8,17 @@ export const stackRouter = router({
   list: publicProcedure
     .input(
       z.object({
-        limit: z.number().min(1).max(50).default(12),
+        limit: z.number().min(1).max(100).default(50),
         cursor: z.string().nullish(),
         goal: z.nativeEnum(StackGoal).optional(),
         publicOnly: z.boolean().default(true),
+        sortBy: z
+          .enum(["newest", "evidenceScore", "upvotes"])
+          .default("newest"),
       })
     )
     .query(async ({ input }) => {
-      const { limit, cursor, goal, publicOnly } = input;
+      const { limit, cursor, goal, publicOnly, sortBy } = input;
       const stacks = await db.stack.findMany({
         take: limit + 1,
         cursor: cursor ? { id: cursor } : undefined,
@@ -23,16 +26,26 @@ export const stackRouter = router({
           ...(publicOnly && { isPublic: true }),
           ...(goal && { goal }),
         },
-        orderBy: [{ upvotes: "desc" }, { createdAt: "desc" }],
+        orderBy:
+          sortBy === "evidenceScore"
+            ? [
+                { evidenceScore: { sort: "desc", nulls: "last" } },
+                { createdAt: "desc" },
+              ]
+            : sortBy === "upvotes"
+              ? [{ upvotes: "desc" }, { createdAt: "desc" }]
+              : [{ createdAt: "desc" }],
         include: {
           creator: { select: { name: true, image: true } },
           compounds: {
             include: {
-              compound: { select: { name: true, slug: true, category: true } },
+              compound: {
+                select: { name: true, slug: true, category: true },
+              },
             },
             take: 6,
           },
-          _count: { select: { cycles: true } },
+          _count: { select: { cycles: true, forks: true } },
         },
       });
 
@@ -51,7 +64,19 @@ export const stackRouter = router({
         include: {
           creator: { select: { name: true, image: true } },
           compounds: {
-            include: { compound: true },
+            include: {
+              compound: {
+                select: {
+                  id: true,
+                  slug: true,
+                  name: true,
+                  category: true,
+                  legalStatus: true,
+                  evidenceScore: true,
+                  doseUnit: true,
+                },
+              },
+            },
             orderBy: { startWeek: "asc" },
           },
           forks: {
@@ -60,6 +85,26 @@ export const stackRouter = router({
             include: { creator: { select: { name: true } } },
           },
           _count: { select: { cycles: true, forks: true } },
+        },
+      });
+    }),
+
+  getInteractions: publicProcedure
+    .input(
+      z.object({
+        compoundIds: z.array(z.string()).min(2).max(30),
+      })
+    )
+    .query(async ({ input }) => {
+      const { compoundIds } = input;
+      return db.compoundInteraction.findMany({
+        where: {
+          sourceCompoundId: { in: compoundIds },
+          targetCompoundId: { in: compoundIds },
+        },
+        include: {
+          source: { select: { name: true, slug: true } },
+          target: { select: { name: true, slug: true } },
         },
       });
     }),
@@ -90,10 +135,27 @@ export const stackRouter = router({
       const baseSlug = slugify(stackData.name);
       const slug = `${baseSlug}-${Date.now()}`;
 
+      // Compute composite evidence score from compound data
+      let evidenceScore: number | null = null;
+      if (compounds.length > 0) {
+        const compoundIds = compounds.map((c) => c.compoundId);
+        const compoundData = await db.compound.findMany({
+          where: { id: { in: compoundIds } },
+          select: { evidenceScore: true },
+        });
+        const scored = compoundData.filter((c) => c.evidenceScore != null);
+        if (scored.length > 0) {
+          evidenceScore =
+            scored.reduce((sum, c) => sum + c.evidenceScore!, 0) /
+            scored.length;
+        }
+      }
+
       return db.stack.create({
         data: {
           ...stackData,
           slug,
+          evidenceScore,
           creatorId: ctx.session.user.id,
           compounds: { create: compounds },
         },

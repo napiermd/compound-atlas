@@ -1,40 +1,41 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { db } from "@/lib/db";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { formatCategory } from "@/lib/utils";
+import { StackGallery } from "@/components/stack/StackGallery";
+import type { StackSummary } from "@/components/stack/types";
 
-export const metadata: Metadata = { title: "Stacks" };
+export const metadata: Metadata = {
+  title: "Stacks — CompoundAtlas",
+  description: "Community-built compound protocols, evidence-scored and forkable.",
+};
 
 export default async function StacksPage() {
-  const stacks = await db.stack.findMany({
+  const raw = await db.stack.findMany({
     where: { isPublic: true },
-    orderBy: [{ upvotes: "desc" }, { createdAt: "desc" }],
-    take: 50,
+    orderBy: { createdAt: "desc" },
+    take: 100,
     include: {
-      creator: { select: { name: true } },
+      creator: { select: { name: true, image: true } },
       compounds: {
-        include: { compound: { select: { name: true } } },
+        include: {
+          compound: { select: { name: true, slug: true, category: true } },
+        },
         take: 6,
       },
-      _count: { select: { cycles: true } },
+      _count: { select: { cycles: true, forks: true } },
     },
   });
 
+  // Serialize Date objects for client component
+  const stacks: StackSummary[] = JSON.parse(JSON.stringify(raw));
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Stacks</h1>
-          <p className="text-muted-foreground mt-1">
+          <p className="text-muted-foreground mt-1 text-sm">
             Community-built compound protocols
           </p>
         </div>
@@ -43,60 +44,19 @@ export default async function StacksPage() {
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {stacks.map((stack) => (
-          <Link key={stack.id} href={`/stacks/${stack.slug}`}>
-            <Card className="hover:bg-accent transition-colors h-full cursor-pointer">
-              <CardHeader>
-                <div className="flex justify-between items-start gap-2">
-                  <CardTitle className="text-base leading-tight">
-                    {stack.name}
-                  </CardTitle>
-                  <span className="text-xs text-muted-foreground shrink-0">
-                    {stack.upvotes} ↑
-                  </span>
-                </div>
-                <Badge variant="secondary" className="w-fit text-xs">
-                  {formatCategory(stack.goal)}
-                </Badge>
-                {stack.description && (
-                  <CardDescription className="text-xs line-clamp-2">
-                    {stack.description}
-                  </CardDescription>
-                )}
-              </CardHeader>
-              <CardContent className="pt-0">
-                <div className="flex flex-wrap gap-1 mb-2">
-                  {stack.compounds.slice(0, 5).map((sc) => (
-                    <Badge key={sc.id} variant="outline" className="text-xs">
-                      {sc.compound.name}
-                    </Badge>
-                  ))}
-                  {stack.compounds.length > 5 && (
-                    <Badge variant="outline" className="text-xs">
-                      +{stack.compounds.length - 5}
-                    </Badge>
-                  )}
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  by {stack.creator.name ?? "anonymous"} ·{" "}
-                  {stack._count.cycles} cycle
-                  {stack._count.cycles !== 1 ? "s" : ""}
-                </p>
-              </CardContent>
-            </Card>
+      {stacks.length === 0 ? (
+        <div className="py-24 text-center text-muted-foreground">
+          <p className="text-sm">No public stacks yet.</p>
+          <Link
+            href="/stacks/new"
+            className="text-sm underline underline-offset-2 hover:text-foreground mt-2 block"
+          >
+            Build the first one
           </Link>
-        ))}
-
-        {stacks.length === 0 && (
-          <div className="col-span-full text-center py-16 text-muted-foreground">
-            No public stacks yet.{" "}
-            <Link href="/stacks/new" className="underline">
-              Be the first.
-            </Link>
-          </div>
-        )}
-      </div>
+        </div>
+      ) : (
+        <StackGallery stacks={stacks} />
+      )}
     </div>
   );
 }

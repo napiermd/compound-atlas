@@ -1,0 +1,68 @@
+import type { CompoundCategory, StackGoal } from "@prisma/client";
+
+export interface CompoundOption {
+  id: string;
+  slug: string;
+  name: string;
+  category: CompoundCategory;
+  evidenceScore: number | null;
+  doseUnit: string | null;
+}
+
+export type UpdatableField =
+  | "dose"
+  | "unit"
+  | "frequency"
+  | "startWeek"
+  | "endWeek"
+  | "notes";
+
+export interface StackedCompound {
+  rowId: string;
+  compoundId: string;
+  name: string;
+  category: CompoundCategory;
+  evidenceScore: number | null;
+  dose: string;
+  unit: string;
+  frequency: string;
+  startWeek: string;
+  endWeek: string;
+  notes: string;
+  notesOpen: boolean;
+}
+
+export interface StackInteraction {
+  id: string;
+  sourceCompoundId: string;
+  targetCompoundId: string;
+  interactionType: string;
+  severity: string | null;
+  description: string | null;
+  source: { name: string; slug: string };
+  target: { name: string; slug: string };
+}
+
+export interface StackSummary {
+  id: string;
+  slug: string;
+  name: string;
+  description: string | null;
+  goal: StackGoal;
+  durationWeeks: number | null;
+  isPublic: boolean;
+  evidenceScore: number | null;
+  upvotes: number;
+  forkCount: number;
+  createdAt: string;
+  creator: { name: string | null; image: string | null };
+  compounds: Array<{
+    id: string;
+    compound: {
+      name: string;
+      slug: string;
+      category: CompoundCategory;
+    };
+  }>;
+  _count: { cycles: number; forks: number };
+}

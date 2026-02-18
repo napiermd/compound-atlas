@@ -12,6 +12,11 @@ export const cycleRouter = router({
       include: {
         stack: { select: { name: true, slug: true } },
         _count: { select: { entries: true } },
+        entries: {
+          orderBy: { date: "desc" },
+          take: 1,
+          select: { date: true },
+        },
       },
     });
   }),
@@ -26,7 +31,20 @@ export const cycleRouter = router({
           bloodwork: { orderBy: { date: "asc" } },
           stack: {
             include: {
-              compounds: { include: { compound: true } },
+              compounds: {
+                include: {
+                  compound: {
+                    select: {
+                      id: true,
+                      name: true,
+                      slug: true,
+                      category: true,
+                      doseUnit: true,
+                    },
+                  },
+                },
+                orderBy: { startWeek: "asc" },
+              },
             },
           },
         },
@@ -46,8 +64,14 @@ export const cycleRouter = router({
       })
     )
     .mutation(async ({ ctx, input }) => {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const status =
+        input.startDate && input.startDate <= today
+          ? CycleStatus.ACTIVE
+          : CycleStatus.PLANNED;
       return db.cycle.create({
-        data: { ...input, userId: ctx.session.user.id },
+        data: { ...input, userId: ctx.session.user.id, status },
       });
     }),
 
@@ -74,6 +98,15 @@ export const cycleRouter = router({
       z.object({
         cycleId: z.string(),
         date: z.date(),
+        compoundsTaken: z
+          .array(
+            z.object({
+              compoundId: z.string(),
+              dose: z.number().optional(),
+              unit: z.string().optional(),
+            })
+          )
+          .optional(),
         weight: z.number().positive().optional(),
         bodyFatPercent: z.number().min(0).max(100).optional(),
         sleepHours: z.number().min(0).max(24).optional(),
@@ -93,10 +126,35 @@ export const cycleRouter = router({
         where: { id: input.cycleId, userId: ctx.session.user.id },
       });
       if (!cycle) throw new TRPCError({ code: "NOT_FOUND" });
+
+      const normalizedDate = new Date(input.date);
+      normalizedDate.setHours(0, 0, 0, 0);
+
       return db.cycleEntry.upsert({
-        where: { cycleId_date: { cycleId: input.cycleId, date: input.date } },
-        create: input,
-        update: input,
+        where: {
+          cycleId_date: { cycleId: input.cycleId, date: normalizedDate },
+        },
+        create: { ...input, date: normalizedDate },
+        update: { ...input, date: normalizedDate },
       });
+    }),
+
+  addBloodwork: protectedProcedure
+    .input(
+      z.object({
+        cycleId: z.string(),
+        date: z.date(),
+        labName: z.string().optional(),
+        results: z.record(z.number().nullable()),
+        fileUrl: z.string().optional(),
+        notes: z.string().optional(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const cycle = await db.cycle.findFirst({
+        where: { id: input.cycleId, userId: ctx.session.user.id },
+      });
+      if (!cycle) throw new TRPCError({ code: "NOT_FOUND" });
+      return db.bloodworkPanel.create({ data: input });
     }),
 });
