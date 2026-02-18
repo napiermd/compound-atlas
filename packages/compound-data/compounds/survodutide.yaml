@@ -1,0 +1,71 @@
+# Survodutide — Dual GLP-1/Glucagon receptor agonist
+slug: survodutide
+name: Survodutide
+aliases:
+  - BI 456906
+  - GLP-1 glucagon dual agonist
+category: FAT_LOSS
+subcategory: dual_GLP1_glucagon_agonist
+legalStatus: RESEARCH_ONLY
+clinicalPhase: "Phase III"
+description: |
+  Survodutide is an investigational once-weekly dual GLP-1 and glucagon receptor agonist
+  developed by Boehringer Ingelheim and Zealand Pharma. Phase II trials demonstrated ~19%
+  weight loss at 46 weeks. Currently in Phase III for obesity and metabolic dysfunction-
+  associated steatohepatitis (MASH/NASH). Glucagon co-agonism provides additional hepatic
+  fat reduction beyond GLP-1 alone, making it particularly relevant for fatty liver disease.
+  Not available outside clinical trials.
+
+halfLife: "~7 days (estimated)"
+onset: "Weeks for weight loss; appetite suppression within days"
+duration: "Ongoing; effects reverse after discontinuation"
+routeOfAdmin:
+  - subcutaneous
+mechanismShort: "Dual GLP-1/glucagon receptor agonist; adds hepatic fat mobilization and increased energy expenditure to GLP-1 satiety effects"
+
+dosing:
+  min: 0.3
+  typical: 4.8
+  max: 9.6
+  unit: mg
+  frequency: "Once weekly subcutaneous (trial doses)"
+  notes: "Phase II/III trial doses: 0.3mg → 0.9mg → 1.8mg → 3.0mg → 4.8mg → 6.0mg → 7.2mg → 9.6mg with slow titration. Not approved."
+
+sideEffects:
+  - name: nausea
+    severity: moderate
+    frequency: very_common
+    notes: "Class GLP-1 effect; most pronounced during titration"
+  - name: diarrhea
+    severity: mild
+    frequency: common
+  - name: vomiting
+    severity: moderate
+    frequency: common
+  - name: heart_rate_increase
+    severity: mild
+    frequency: common
+    notes: "From glucagon receptor agonism; monitor in cardiac patients"
+  - name: pancreatitis
+    severity: severe
+    frequency: rare
+    notes: "Class effect; monitor liver enzymes and amylase/lipase"
+
+interactions: []
+
+mechanisms:
+  - pathway: GLP1_receptor_agonism
+    description: "Activates hypothalamic and peripheral GLP-1 receptors for appetite suppression, satiety, and incretin insulin secretion"
+  - pathway: glucagon_receptor_agonism
+    description: "Hepatic glucagon receptor activation drives beta-oxidation of fatty acids, reduces hepatic fat accumulation (steatosis), and increases energy expenditure"
+  - pathway: NASH_MASH_resolution
+    description: "Combination of GLP-1 and glucagon effects synergistically reduce liver fat, inflammation, and fibrosis in preclinical and early clinical data"
+
+searchTerms:
+  pubmed:
+    - "survodutide AND obesity AND Phase II AND weight loss"
+    - "BI 456906 AND NASH OR MASH AND liver AND clinical trial"
+    - "GLP-1 glucagon dual agonist AND metabolic disease"
+  semanticScholar:
+    - "survodutide dual agonist GLP-1 glucagon obesity NASH"
+    - "glucagon receptor agonist liver fat hepatic steatosis"

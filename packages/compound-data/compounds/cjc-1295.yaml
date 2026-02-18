@@ -1,0 +1,80 @@
+# CJC-1295 — Long-acting GHRH analog
+slug: cjc-1295
+name: CJC-1295
+aliases:
+  - Modified GRF 1-29
+  - Mod GRF 1-29
+  - CJC1295
+  - Sermorelin analog
+category: PEPTIDE
+subcategory: GHRH_analog
+legalStatus: GRAY_MARKET
+clinicalPhase: "No formal trials"
+description: |
+  CJC-1295 is a synthetic analog of growth hormone-releasing hormone (GHRH). Two forms
+  exist: with DAC (Drug Affinity Complex) extending half-life to 6–8 days via albumin
+  binding, and without DAC (Modified GRF 1-29) with a 30-minute half-life mimicking
+  natural pulsatile GH release. Used to stimulate GH and IGF-1 for muscle growth, fat
+  loss, recovery, and anti-aging. Commonly combined with ipamorelin for synergistic GH
+  pulse amplification.
+
+halfLife: "~30 min without DAC; 6–8 days with DAC"
+onset: "15–30 minutes post-injection (GH pulse)"
+duration: "GH pulse 2–3 hours; IGF-1 elevation sustained with DAC"
+routeOfAdmin:
+  - subcutaneous
+  - intramuscular
+mechanismShort: "GHRH receptor agonist on pituitary somatotrophs; stimulates pulsatile GH release and downstream IGF-1 production"
+
+dosing:
+  min: 100
+  typical: 200
+  max: 300
+  unit: mcg
+  frequency: "1–3x/day without DAC; 1–2x/week with DAC"
+  notes: "Without DAC: inject fasted before bed or AM. With DAC: once or twice weekly sufficient. Always combine with GHRP for maximum effect."
+
+sideEffects:
+  - name: water_retention
+    severity: mild
+    frequency: common
+    notes: "From elevated GH/IGF-1; typically mild, resolves with dose reduction"
+  - name: tingling_numbness
+    severity: mild
+    frequency: uncommon
+    notes: "Paresthesias from GH elevation; transient"
+  - name: carpal_tunnel_syndrome
+    severity: moderate
+    frequency: uncommon
+    notes: "At higher doses or prolonged use; fluid retention compresses carpal tunnel"
+  - name: injection_site_reaction
+    severity: mild
+    frequency: common
+    notes: "Redness, itching; rotate sites"
+
+interactions:
+  - target: ipamorelin
+    type: synergistic
+    severity: mild
+    description: "Gold standard combination: GHRH (CJC-1295) + GHRP (ipamorelin) produce synergistic GH pulses far exceeding either alone"
+  - target: mk-677
+    type: synergistic
+    severity: mild
+    description: "MK-677 provides sustained oral GH elevation; CJC-1295 adds pulsatile GH on top for additive IGF-1 increases"
+
+mechanisms:
+  - pathway: GHRH_receptor_agonism
+    description: "Binds pituitary GHRH receptors, triggering cAMP cascade and somatotroph GH synthesis and release"
+  - pathway: IGF1_stimulation
+    description: "Elevated GH drives hepatic IGF-1 production, mediating anabolic and lipolytic effects"
+  - pathway: albumin_binding_DAC
+    description: "DAC variant covalently binds serum albumin, extending half-life from 30 min to 6–8 days"
+
+searchTerms:
+  pubmed:
+    - "GHRH analog AND growth hormone secretion AND human"
+    - "CJC-1295 AND growth hormone AND IGF-1"
+    - "modified GRF 1-29 AND pulsatile growth hormone"
+  semanticScholar:
+    - "CJC-1295 growth hormone releasing hormone analog"
+    - "GHRH peptide analog growth hormone secretagogue pulsatile"

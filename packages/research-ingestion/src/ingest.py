@@ -19,6 +19,7 @@ Usage:
 import os
 import sys
 import uuid
+import time
 from pathlib import Path
 from datetime import datetime, timedelta
 from typing import Optional
@@ -426,6 +427,7 @@ def main(
     since: str = typer.Option("7d", help="Time window for incremental (7d, 2w, 1m)"),
     compound: Optional[str] = typer.Option(None, help="Single compound slug to process"),
     dry_run: bool = typer.Option(False, "--dry-run", help="Show what would be written without writing"),
+    delay: float = typer.Option(2.0, "--delay", help="Seconds to sleep between compounds"),
 ):
     """CompoundAtlas research ingestion pipeline."""
     console.print("[bold]CompoundAtlas Research Ingestion Pipeline[/bold]")
@@ -476,7 +478,7 @@ def main(
 
     summaries = []
     try:
-        for comp in compounds:
+        for i, comp in enumerate(compounds):
             try:
                 # Each compound gets its own fresh connection during the write phase
                 summary = ingest_compound(comp, pubmed, s2, since_days, dry_run)
@@ -497,6 +499,8 @@ def main(
                     "db_linked": 0,
                     "error": str(e),
                 })
+            if delay > 0 and i < len(compounds) - 1:
+                time.sleep(delay)
     finally:
         pubmed.close()
         s2.close()

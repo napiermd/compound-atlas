@@ -1,0 +1,75 @@
+# Vitamin D3 — Cholecalciferol, essential secosteroid hormone
+slug: vitamin-d3
+name: Vitamin D3
+aliases:
+  - Cholecalciferol
+  - Vitamin D
+  - 25-hydroxyvitamin D
+  - calcitriol precursor
+  - D3
+category: VITAMIN_MINERAL
+subcategory: fat_soluble_vitamin
+legalStatus: LEGAL
+clinicalPhase: "Approved"
+description: |
+  Vitamin D3 (cholecalciferol) is a fat-soluble secosteroid hormone precursor, synthesized
+  in skin upon UV-B exposure and obtained through diet and supplementation. Converted to
+  25(OH)D3 (calcidiol) in liver, then to active 1,25(OH)2D3 (calcitriol) in kidneys.
+  Calcitriol regulates calcium/phosphate homeostasis and activates vitamin D receptors
+  (VDR) present in virtually every cell type. Deficiency (25-OH-D <20 ng/mL) is pandemic,
+  affecting >40% of Americans. Beyond bone metabolism, VDR signaling regulates immunity,
+  muscle function, cardiovascular health, and gene expression of hundreds of genes.
+  Large RCTs (VITAL, etc.) have refined the CV/cancer benefit picture: mortality and cancer
+  benefits seen in true deficiency; supplementation in already-replete individuals shows
+  less clear benefit. Safe at standard doses; toxicity only at extreme doses (>10,000 IU/day
+  long-term without monitoring).
+
+halfLife: "25(OH)D3: ~2–3 weeks"
+onset: "Serum 25-OH-D rises within days; clinical effects over weeks to months"
+duration: "Tissue stores persist weeks after cessation"
+routeOfAdmin:
+  - oral
+mechanismShort: "Precursor to calcitriol; binds vitamin D receptor (nuclear receptor) in all cell types; regulates calcium homeostasis, immunity, muscle function, and expression of 200+ genes"
+
+dosing:
+  min: 1000
+  typical: 5000
+  max: 10000
+  unit: IU
+  frequency: "Once daily oral with fat-containing meal"
+  notes: "Optimal 25-OH-D level: 40–60 ng/mL (consensus varies; 30+ for deficiency correction). Most deficient individuals need 5,000 IU/day to reach optimal range. Co-supplementation with K2 (MK-7, 100–200mcg) helps direct calcium to bone. Check 25-OH-D blood levels before and after starting."
+
+sideEffects:
+  - name: hypercalcemia
+    severity: moderate
+    frequency: rare
+    notes: "Only at very high doses (>10,000 IU/day long-term without monitoring). Symptoms: nausea, weakness, polyuria, confusion. Monitor 25-OH-D levels."
+  - name: hypercalciuria
+    severity: mild
+    frequency: uncommon
+    notes: "Kidney stone risk in susceptible individuals at higher doses; adequate hydration and K2 co-supplementation reduce risk"
+
+interactions:
+  - target: fish-oil
+    type: synergistic
+    severity: mild
+    description: "Fat-soluble vitamins absorb better with fatty meals; fish oil co-administration enhances D3 absorption"
+
+mechanisms:
+  - pathway: VDR_nuclear_signaling
+    description: "Calcitriol (active metabolite) binds VDR; VDR-RXR heterodimer regulates transcription of 200+ target genes involved in calcium, immune, and cell cycle regulation"
+  - pathway: calcium_phosphate_homeostasis
+    description: "Increases intestinal calcium and phosphate absorption; regulates renal reabsorption; essential for bone mineralization"
+  - pathway: immune_modulation
+    description: "VDR expressed on all immune cells; regulates innate and adaptive immunity; deficiency associated with increased infection susceptibility and autoimmune risk"
+  - pathway: muscle_function
+    description: "VDR in skeletal muscle regulates calcium handling and protein synthesis; deficiency causes myopathy and weakness"
+
+searchTerms:
+  pubmed:
+    - "vitamin D supplementation AND VITAL AND cancer AND cardiovascular AND randomized"
+    - "vitamin D deficiency AND mortality AND immune function AND clinical"
+    - "cholecalciferol AND 25-hydroxyvitamin D AND randomized controlled trial"
+  semanticScholar:
+    - "vitamin D3 cholecalciferol deficiency supplementation clinical"
+    - "vitamin D VDR immune function calcium bone clinical trial"

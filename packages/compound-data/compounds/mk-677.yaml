@@ -1,0 +1,79 @@
+# MK-677 — Ibutamoren, oral GH secretagogue
+slug: mk-677
+name: MK-677
+aliases:
+  - Ibutamoren
+  - Ibutamoren Mesylate
+  - L-163,191
+  - MK677
+category: GH_SECRETAGOGUE
+subcategory: ghrelin_receptor_agonist
+legalStatus: RESEARCH_ONLY
+clinicalPhase: "Phase II"
+description: |
+  MK-677 (Ibutamoren) is an oral, non-peptide ghrelin receptor agonist that stimulates
+  pulsatile GH and IGF-1 secretion from the pituitary. Unlike exogenous HGH, MK-677
+  works through the body's own GH axis, maintaining physiologic pulsatility. Phase II
+  trials in elderly subjects and GH-deficient populations demonstrated significant
+  increases in IGF-1 (up to 60–80% above baseline), lean mass gains, and improved bone
+  density. Also increases deep sleep (slow-wave). 24-hour coverage from single daily oral
+  dose. Does not suppress natural GH secretion. Main concerns: insulin resistance, cortisol
+  elevation, water retention, and increased appetite (via ghrelin pathway). Not FDA-approved.
+
+halfLife: "~24 hours"
+onset: "Elevated IGF-1 within days; sleep improvement within 1–2 weeks; body composition changes over months"
+duration: "Effects persist during dosing; IGF-1 returns to baseline within days of cessation"
+routeOfAdmin:
+  - oral
+mechanismShort: "Ghrelin receptor (GHSR-1a) agonist; stimulates pulsatile GH release from anterior pituitary; elevates IGF-1 without suppressing endogenous GH axis"
+
+dosing:
+  min: 10
+  typical: 25
+  max: 50
+  unit: mg
+  frequency: "Once daily oral (evening preferred for sleep/GH pulse alignment)"
+  notes: "Most studied dose: 25mg/day. Lower doses (10–15mg) reduce hunger and insulin resistance side effects. Evening dosing aligns with natural GH pulsatility. No PCT required. Can be run continuously."
+
+sideEffects:
+  - name: increased_appetite
+    severity: moderate
+    frequency: very_common
+    notes: "Ghrelin agonism directly stimulates appetite; significant hunger increase, especially early. Can undermine cutting goals."
+  - name: water_retention
+    severity: mild
+    frequency: common
+    notes: "Dose-dependent fluid retention; often resolves after first few weeks. Reduce dose if significant."
+  - name: insulin_resistance
+    severity: moderate
+    frequency: common
+    notes: "GH-driven insulin antagonism; fasting glucose and HbA1c may rise. Monitor in pre-diabetic individuals. Dose reduction helps."
+  - name: cortisol_elevation
+    severity: mild
+    frequency: uncommon
+    notes: "Modest cortisol increases documented in studies; usually not clinically significant"
+  - name: lethargy
+    severity: mild
+    frequency: common
+    notes: "Morning drowsiness, especially early in use; evening dosing mitigates this"
+
+interactions: []
+
+mechanisms:
+  - pathway: ghrelin_receptor_agonism
+    description: "Mimics acylated ghrelin at GHSR-1a receptors in pituitary and hypothalamus; stimulates GH secretion and increases appetite"
+  - pathway: GH_pulse_amplification
+    description: "Increases amplitude and frequency of GH pulses from anterior pituitary; maintains physiologic pulsatility unlike exogenous GH"
+  - pathway: IGF1_elevation
+    description: "Hepatic IGF-1 synthesis increases 40–80% above baseline; mediates anabolic, tissue-repair, and lipolytic effects"
+  - pathway: slow_wave_sleep
+    description: "Increases slow-wave (deep) sleep duration; GH secretion naturally peaks in deep sleep — MK-677 amplifies this synergistically"
+
+searchTerms:
+  pubmed:
+    - "MK-677 AND ibutamoren AND IGF-1 AND elderly AND randomized"
+    - "ibutamoren AND lean body mass AND bone density AND clinical trial"
+    - "MK-677 AND growth hormone AND ghrelin receptor AND Phase II"
+  semanticScholar:
+    - "MK-677 ibutamoren ghrelin receptor GH secretagogue IGF-1"
+    - "oral growth hormone secretagogue muscle mass bone density clinical"

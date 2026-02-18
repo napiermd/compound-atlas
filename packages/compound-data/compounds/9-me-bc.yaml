@@ -1,0 +1,71 @@
+# 9-MBC — 9-Methyl-β-carboline, dopaminergic neurogenic
+slug: 9-me-bc
+name: 9-MBC
+aliases:
+  - 9-Methyl-beta-carboline
+  - 9-methyl-9H-pyrido[3,4-b]indole
+  - 9-MBC
+category: NOOTROPIC
+subcategory: beta_carboline
+legalStatus: RESEARCH_ONLY
+clinicalPhase: "Preclinical"
+description: |
+  9-Methyl-β-carboline (9-MBC) is a synthetic beta-carboline compound with documented
+  dopaminergic neuroprotective and neurogenic effects in rodent models. Preclinical data
+  shows it increases dopaminergic neuron density in the substantia nigra, promotes
+  neurogenesis, enhances cognitive performance, and protects against MPTP-induced
+  Parkinson's-like neurodegeneration. Popular in experimental nootropic communities for
+  mood, motivation, and cognitive enhancement. Zero human clinical data. Unknown safety
+  profile in humans. No regulatory status — pure research compound. Long-term effects
+  completely unknown. Among the most speculative compounds in the nootropic space.
+
+halfLife: "Unknown in humans"
+onset: "Unknown; animal models show acute behavioral effects within hours"
+duration: "Unknown"
+routeOfAdmin:
+  - oral
+  - sublingual
+mechanismShort: "MAO-A/B inhibitor; promotes dopaminergic neuron proliferation and differentiation; neuroprotective in MPTP Parkinson's models; increases BDNF and GDNF expression (preclinical only)"
+
+dosing:
+  min: 5
+  typical: 15
+  max: 25
+  unit: mg
+  frequency: "Once daily or every other day; extreme caution — no human data"
+  notes: "All dosing extrapolated from animal studies and community reports. No established human dose. MAO inhibitor properties require avoiding serotonergic drugs. Zero clinical safety data. High uncertainty."
+
+sideEffects:
+  - name: unknown_safety_profile
+    severity: unknown
+    frequency: unknown
+    notes: "No human clinical data. All effects extrapolated from rodent studies. Long-term consequences completely unknown."
+  - name: serotonin_syndrome_risk
+    severity: severe
+    frequency: unknown
+    notes: "MAO-A inhibitory properties create serotonin syndrome risk with SSRIs, SNRIs, triptans, tramadol, other serotonergic compounds. Potentially life-threatening."
+  - name: tyramine_sensitivity
+    severity: moderate
+    frequency: unknown
+    notes: "MAO inhibition may cause hypertensive crisis with tyramine-rich foods (aged cheese, cured meats, fermented foods)"
+
+interactions: []
+
+mechanisms:
+  - pathway: MAO_inhibition
+    description: "Inhibits MAO-A and MAO-B; increases dopamine, serotonin, and norepinephrine levels; protective effect on dopaminergic neurons"
+  - pathway: dopaminergic_neurogenesis
+    description: "Promotes proliferation and differentiation of dopaminergic progenitor cells; increases tyrosine hydroxylase-positive neuron density in animal models"
+  - pathway: BDNF_GDNF_upregulation
+    description: "Increases BDNF and GDNF expression in hippocampus and midbrain; promotes neuronal survival and plasticity"
+  - pathway: neuroprotection
+    description: "Protects dopaminergic neurons against MPTP toxicity in Parkinson's models; mechanism involves MAO inhibition and direct neuroprotective effects"
+
+searchTerms:
+  pubmed:
+    - "9-methyl-beta-carboline AND dopaminergic AND neuroprotection AND Parkinson"
+    - "9-MBC AND neurogenesis AND BDNF AND cognitive AND rodent"
+    - "beta-carboline AND MAO inhibitor AND dopamine AND neuroprotection"
+  semanticScholar:
+    - "9-methyl-beta-carboline dopaminergic neurogenesis neuroprotection"
+    - "9-MBC Parkinson dopamine neuron MAO inhibitor"

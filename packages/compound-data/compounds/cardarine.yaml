@@ -1,0 +1,72 @@
+# Cardarine — GW501516, PPAR-delta agonist
+slug: cardarine
+name: Cardarine
+aliases:
+  - GW501516
+  - GW1516
+  - Endurobol
+  - GSK-516
+  - PPAR-delta agonist
+category: SARM
+subcategory: PPAR_delta_agonist
+legalStatus: RESEARCH_ONLY
+clinicalPhase: "No formal trials"
+description: |
+  Cardarine (GW501516) is a PPARδ agonist (not technically a SARM) that dramatically
+  increases fat oxidation, endurance, and metabolic rate by activating genes involved in
+  fatty acid catabolism. Human clinical development was halted by GlaxoSmithKline in 2007
+  after accelerated tumor development was observed across multiple organ systems in long-term
+  rodent toxicity studies. Despite this, it remains widely used in athletic communities.
+  The cancer risk in humans is unknown but the animal data is consistent and concerning.
+  This profile is presented for harm reduction purposes only.
+
+  WARNING: Cardarine caused rapid cancer development in animal studies at doses comparable
+  to human use. The carcinogenic mechanism (PPARδ activation promoting cell survival and
+  proliferation) is not species-specific. Use in humans carries unknown but potentially
+  serious cancer risk.
+
+halfLife: "16–24 hours"
+onset: "Days for endurance; 2–4 weeks for fat loss"
+duration: "Effects active during dosing period"
+routeOfAdmin:
+  - oral
+mechanismShort: "PPARδ/β agonist; transcriptionally activates fatty acid oxidation genes (CPT1, ABCA1) in skeletal muscle; dramatically increases mitochondrial biogenesis and fat burning"
+
+dosing:
+  min: 5
+  typical: 10
+  max: 20
+  unit: mg
+  frequency: "Once daily oral"
+  notes: "WARNING: GlaxoSmithKline halted all development due to cancer findings in animals. No safe dose established. 10–20mg/day used historically before safety data emerged. Do not exceed 8 weeks. High personal risk."
+
+sideEffects:
+  - name: potential_carcinogenesis
+    severity: severe
+    frequency: unknown
+    notes: "CRITICAL: Consistent tumor promotion across multiple organ systems in rodent studies at human-equivalent doses. Mechanism (PPARδ promoting cell survival) applies to humans. Unknown risk, but biologically plausible."
+  - name: liver_enzyme_elevation
+    severity: mild
+    frequency: uncommon
+    notes: "Mild ALT/AST elevations reported"
+
+interactions: []
+
+mechanisms:
+  - pathway: PPAR_delta_agonism
+    description: "Activates peroxisome proliferator-activated receptor delta (PPARδ/β), a nuclear receptor regulating genes involved in fatty acid oxidation and energy metabolism"
+  - pathway: fatty_acid_oxidation
+    description: "Transcriptionally upregulates CPT1, ABCA1, ANGPTL4, and other genes that increase mitochondrial fat burning in muscle"
+  - pathway: mitochondrial_biogenesis
+    description: "Induces mitochondrial biogenesis via downstream PGC-1α activation, increasing oxidative capacity and endurance"
+  - pathway: AMPK_interaction
+    description: "Synergizes with AMPK signaling to enhance metabolic flexibility and shift substrate utilization toward fat"
+
+searchTerms:
+  pubmed:
+    - "GW501516 AND PPAR delta AND (cancer OR tumor OR carcinogenesis)"
+    - "cardarine AND endurance AND fatty acid oxidation AND animal"
+    - "PPARdelta agonist AND exercise AND metabolic"
+  semanticScholar:
+    - "GW501516 cardarine PPAR delta agonist endurance fat oxidation"
+    - "PPARdelta agonist cancer risk tumor promotion"

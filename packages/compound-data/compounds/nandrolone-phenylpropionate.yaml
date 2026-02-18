@@ -1,0 +1,83 @@
+# Nandrolone Phenylpropionate — NPP, fast nandrolone ester
+slug: nandrolone-phenylpropionate
+name: Nandrolone Phenylpropionate
+aliases:
+  - NPP
+  - Durabolin
+  - nandrolone PP
+  - 19-nortestosterone phenylpropionate
+category: ANABOLIC
+subcategory: 19_nor_anabolic
+legalStatus: SCHEDULED
+clinicalPhase: "Approved"
+description: |
+  Nandrolone Phenylpropionate (NPP) is a short-acting ester of nandrolone
+  (19-nortestosterone), a synthetic anabolic steroid with high anabolic-to-androgenic
+  ratio (~3:1 vs testosterone). Approved in some countries for anemia, osteoporosis,
+  and muscle-wasting diseases. NPP's 4-5 day half-life requires twice-weekly injections
+  but clears faster than Deca-Durabolin (decanoate ester). Highly anabolic with lower
+  androgenicity and minimal DHT conversion; however, strongly suppressive and notable for
+  "Deca dick" (progesterone-mediated libido/erectile dysfunction). Significant collagen
+  synthesis increases benefit connective tissue. Schedule III controlled substance.
+
+halfLife: "~4–5 days"
+onset: "1–2 weeks for strength; 4–6 weeks for muscle mass changes"
+duration: "Suppression persists 3–4 months post-cycle without PCT"
+routeOfAdmin:
+  - intramuscular
+mechanismShort: "Highly anabolic 19-nor androgen; partial AR agonist with progestogenic activity; minimal aromatization; high anabolic-to-androgenic ratio via tissue-specific AR binding"
+
+dosing:
+  min: 100
+  typical: 300
+  max: 600
+  unit: mg
+  frequency: "Twice weekly intramuscular injection"
+  notes: "Performance: 200–400mg/week in 2 injections. Always run with testosterone base to mitigate libido suppression. Requires PCT. Schedule III controlled substance."
+
+sideEffects:
+  - name: testosterone_suppression
+    severity: severe
+    frequency: very_common
+    notes: "Strong HPG suppression — must be run with exogenous testosterone base. Post-cycle recovery slow without PCT."
+  - name: libido_dysfunction
+    severity: severe
+    frequency: common
+    notes: "'Deca dick' — progesterone receptor activity reduces libido and causes erectile dysfunction, especially without testosterone base. Cabergoline may help."
+  - name: progesterone_activity
+    severity: moderate
+    frequency: common
+    notes: "19-nor structure confers progestogenic activity; gynecomastia risk despite low aromatization. AI alone may be insufficient; cabergoline or bromocriptine used."
+  - name: lipid_changes
+    severity: moderate
+    frequency: common
+    notes: "HDL reduction, LDL elevation; cardiovascular risk"
+  - name: acne
+    severity: mild
+    frequency: uncommon
+    notes: "Lower androgenicity than testosterone; acne less common"
+
+interactions:
+  - target: testosterone-cypionate
+    type: synergistic
+    severity: moderate
+    description: "Standard stack; testosterone provides androgenic base to prevent libido suppression while nandrolone adds anabolic mass"
+
+mechanisms:
+  - pathway: androgen_receptor_agonism
+    description: "Binds AR with high affinity; activates anabolic gene programs in muscle; preferentially anabolic over androgenic"
+  - pathway: progestogen_activity
+    description: "19-nor structure gives significant progestogenic activity; binds progesterone receptor, suppressing LH/FSH and affecting libido"
+  - pathway: collagen_synthesis
+    description: "Strongly stimulates collagen synthesis; improves connective tissue, tendon, and joint health — basis for therapeutic use in joint disorders"
+  - pathway: erythropoiesis
+    description: "Stimulates EPO production; increases red blood cell mass; therapeutic basis for anemia indication"
+
+searchTerms:
+  pubmed:
+    - "nandrolone phenylpropionate AND muscle AND anabolic AND clinical"
+    - "nandrolone AND collagen synthesis AND connective tissue AND joint"
+    - "19-nortestosterone AND anabolic steroid AND side effects"
+  semanticScholar:
+    - "nandrolone phenylpropionate anabolic androgenic steroid muscle"
+    - "nandrolone progestogenic activity libido erectile dysfunction"

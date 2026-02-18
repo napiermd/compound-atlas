@@ -1,0 +1,71 @@
+# TB-500 — Thymosin Beta-4 synthetic peptide
+slug: tb-500
+name: TB-500
+aliases:
+  - Thymosin Beta-4
+  - TB4
+  - Tβ4
+  - thymosin beta-4 fragment
+category: PEPTIDE
+subcategory: tissue_repair
+legalStatus: GRAY_MARKET
+clinicalPhase: "No formal trials"
+description: |
+  TB-500 is a synthetic form of Thymosin Beta-4, a naturally occurring peptide found in
+  nearly all human cells. It plays a central role in actin sequestration, cell migration,
+  angiogenesis, and wound healing. Research use focuses on accelerating tendon, ligament,
+  and muscle repair, reducing inflammation, and improving flexibility. Evidence comes
+  primarily from animal models and human anecdote. Not approved for human use.
+
+halfLife: "~4 hours plasma; tissue effects persist days to weeks"
+onset: "1–2 weeks for subjective effects"
+duration: "Cumulative over loading phase; maintenance monthly"
+routeOfAdmin:
+  - subcutaneous
+  - intramuscular
+mechanismShort: "Sequesters G-actin, promotes cell migration and angiogenesis via eNOS upregulation and anti-inflammatory cytokine modulation"
+
+dosing:
+  min: 2.5
+  typical: 7.5
+  max: 20
+  unit: mg
+  frequency: "2x/week (loading 4–6 weeks), then 2–2.5mg 2x/month maintenance"
+  notes: "Loading: 5–20mg/week split 2 injections. Maintenance: 2–2.5mg 2x/month. Reconstitute with bacteriostatic water."
+
+sideEffects:
+  - name: injection_site_reaction
+    severity: mild
+    frequency: common
+    notes: "Redness, brief swelling; rotate injection sites"
+  - name: fatigue
+    severity: mild
+    frequency: uncommon
+    notes: "Transient, typically resolves within days"
+  - name: potential_tumor_promotion
+    severity: severe
+    frequency: rare
+    notes: "Theoretical concern: promotes angiogenesis and cell migration; do not use with active malignancy"
+
+interactions:
+  - target: bpc-157
+    type: synergistic
+    severity: mild
+    description: "Complementary tissue repair pathways. BPC-157 acts via NO/VEGF; TB-500 via actin/cell migration. Popular injury recovery combination."
+
+mechanisms:
+  - pathway: actin_sequestration
+    description: "Binds G-actin with high affinity, modulating cytoskeletal dynamics and enabling cell migration critical for tissue repair"
+  - pathway: angiogenesis_promotion
+    description: "Upregulates eNOS and promotes new blood vessel formation to improve perfusion of injured tissue"
+  - pathway: anti_inflammatory
+    description: "Reduces pro-inflammatory cytokines including TNF-α; promotes regulatory T-cell activity"
+
+searchTerms:
+  pubmed:
+    - "thymosin beta-4 AND (wound healing OR tendon OR tissue repair)"
+    - "thymosin beta-4 AND angiogenesis AND inflammation"
+    - "TB-500 OR thymosin beta4 AND regeneration"
+  semanticScholar:
+    - "thymosin beta-4 tissue repair wound healing"
+    - "TB-500 peptide regeneration mechanism actin"

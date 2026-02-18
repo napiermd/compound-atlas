@@ -1,0 +1,66 @@
+# YK-11 — Steroidal SARM / myostatin inhibitor
+slug: yk-11
+name: YK-11
+aliases:
+  - YK11
+  - steroidal SARM
+category: SARM
+subcategory: myostatin_inhibitor
+legalStatus: RESEARCH_ONLY
+clinicalPhase: "Preclinical"
+description: |
+  YK-11 is a synthetic steroidal compound that acts as both a partial androgen receptor
+  agonist and a myostatin inhibitor — making it structurally unique among compounds
+  marketed as SARMs (it is more accurately classified as a synthetic steroid with
+  SARM-like properties). In vitro data shows suppression of myostatin (MSTN) via Follistatin
+  upregulation, potentially removing the primary biological brake on muscle growth.
+  Exclusively in vitro evidence; no animal pharmacokinetic or efficacy data. No human data.
+  The most speculative compound in common use.
+
+halfLife: "Unknown"
+onset: "Unknown; in vitro effects only"
+duration: "Unknown"
+routeOfAdmin:
+  - oral
+mechanismShort: "Partial AR agonist with structural similarity to DHT; upregulates Follistatin to inhibit myostatin, potentially removing the ceiling on muscle hypertrophy"
+
+dosing:
+  min: 2
+  typical: 5
+  max: 10
+  unit: mg
+  frequency: "Once or twice daily oral"
+  notes: "All dosing is extrapolated from community self-experimentation. No established dose. Steroidal structure likely requires PCT. Extreme caution: zero in vivo or human safety data."
+
+sideEffects:
+  - name: testosterone_suppression
+    severity: severe
+    frequency: very_common
+    notes: "Steroidal structure — suppression expected and likely severe. PCT mandatory."
+  - name: hepatotoxicity
+    severity: severe
+    frequency: unknown
+    notes: "Steroidal compound; hepatotoxicity risk is plausible. Monitor LFTs."
+  - name: unknown_safety_profile
+    severity: unknown
+    frequency: unknown
+    notes: "No in vivo or human safety data exists. Entirely unknown long-term risk profile."
+
+interactions: []
+
+mechanisms:
+  - pathway: androgen_receptor_partial_agonism
+    description: "Binds androgen receptor as partial agonist, activating downstream anabolic programs in muscle cells (in vitro)"
+  - pathway: follistatin_upregulation
+    description: "Induces Follistatin expression in myocytes, which binds and inhibits myostatin (GDF-8), theoretically removing the limit on muscle fiber hypertrophy"
+  - pathway: myostatin_inhibition
+    description: "Via Follistatin induction, reduces active myostatin signaling through ActRIIB, allowing unconstrained muscle protein accretion (in vitro only)"
+
+searchTerms:
+  pubmed:
+    - "YK-11 AND myostatin AND follistatin AND muscle"
+    - "YK11 AND androgen receptor AND SARM AND in vitro"
+    - "myostatin inhibitor AND SARM AND muscle hypertrophy"
+  semanticScholar:
+    - "YK-11 myostatin inhibitor follistatin androgen receptor"
+    - "steroidal SARM muscle growth myostatin"

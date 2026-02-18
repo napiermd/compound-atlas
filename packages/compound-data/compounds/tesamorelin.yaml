@@ -1,0 +1,78 @@
+# Tesamorelin — FDA-approved GHRH analog (Egrifta)
+slug: tesamorelin
+name: Tesamorelin
+aliases:
+  - Egrifta
+  - TH9507
+  - tesamorelin acetate
+category: PEPTIDE
+subcategory: GHRH_analog
+legalStatus: PRESCRIPTION
+clinicalPhase: "Approved"
+description: |
+  Tesamorelin is a stabilized synthetic analog of GHRH, FDA-approved as Egrifta for
+  HIV-associated lipodystrophy (excess visceral fat). It reduces visceral adipose tissue
+  by 15–20% via sustained GH/IGF-1 elevation. Off-label interest for body composition,
+  anti-aging, and cognitive function — particularly given data suggesting IGF-1 may
+  support hippocampal function. Unlike CJC-1295, it has a defined clinical evidence base
+  from placebo-controlled trials.
+
+halfLife: "~26 minutes; effects sustained via continuous GH stimulation"
+onset: "4–8 weeks for body composition changes"
+duration: "Effects require ongoing dosing; reverse within weeks of discontinuation"
+routeOfAdmin:
+  - subcutaneous
+mechanismShort: "Stabilized GHRH analog binding pituitary GHRH receptors; stimulates GH/IGF-1 production, reducing visceral fat via lipolysis"
+
+dosing:
+  min: 1
+  typical: 2
+  max: 2
+  unit: mg
+  frequency: "Once daily subcutaneous"
+  notes: "FDA-approved dose: 2mg/day subcutaneous at bedtime. Inject in abdomen. Do not inject into scar tissue or bruised areas."
+
+sideEffects:
+  - name: injection_site_reaction
+    severity: mild
+    frequency: very_common
+    notes: "Erythema, pruritus, pain at injection site — most common adverse effect"
+  - name: peripheral_edema
+    severity: mild
+    frequency: common
+    notes: "From fluid retention related to GH elevation; usually mild"
+  - name: arthralgias
+    severity: mild
+    frequency: common
+    notes: "Joint aches from elevated GH/IGF-1; dose-dependent"
+  - name: carpal_tunnel_syndrome
+    severity: moderate
+    frequency: uncommon
+    notes: "From fluid retention; resolves with dose reduction or discontinuation"
+  - name: glucose_intolerance
+    severity: moderate
+    frequency: uncommon
+    notes: "GH is counter-regulatory to insulin; monitor glucose, especially in pre-diabetics"
+
+interactions:
+  - target: hgh
+    type: synergistic
+    severity: moderate
+    description: "Additive GH/IGF-1 elevation; combined use increases risk of GH excess side effects. Not typically combined."
+
+mechanisms:
+  - pathway: GHRH_receptor_agonism
+    description: "Binds pituitary GHRH receptors with 7–10x longer half-life than native GHRH due to structural stabilization"
+  - pathway: IGF1_elevation
+    description: "Sustained GH elevation drives hepatic IGF-1 production, mediating anabolic and lipolytic downstream effects"
+  - pathway: visceral_fat_reduction
+    description: "Elevated GH activates hormone-sensitive lipase in visceral adipocytes, selectively mobilizing intra-abdominal fat stores"
+
+searchTerms:
+  pubmed:
+    - "tesamorelin AND lipodystrophy AND randomized controlled trial"
+    - "tesamorelin AND visceral fat AND HIV AND clinical"
+    - "TH9507 AND growth hormone AND IGF-1 AND body composition"
+  semanticScholar:
+    - "tesamorelin GHRH analog visceral adiposity HIV lipodystrophy"
+    - "tesamorelin growth hormone cognitive function"

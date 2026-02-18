@@ -1,0 +1,74 @@
+# RAD-140 — Testolone, potent SARM
+slug: rad-140
+name: RAD-140
+aliases:
+  - Testolone
+  - RAD140
+  - LY-2452473 analog
+category: SARM
+subcategory: selective_androgen_receptor_modulator
+legalStatus: RESEARCH_ONLY
+clinicalPhase: "Phase I"
+description: |
+  RAD-140 (Testolone) is a highly potent oral SARM originally developed by Radius Health
+  for hormone receptor-positive breast cancer. Phase I completed in breast cancer patients.
+  In animal models it demonstrated near-anabolic-steroid-equivalent muscle growth with
+  brain-protective (neuroprotective) effects via AR activation in neural tissue. Among the
+  most potent SARMs by milligram. Significant testosterone suppression, liver toxicity cases
+  reported. WADA-prohibited.
+
+halfLife: "~60 hours"
+onset: "2–3 weeks for strength; 6–8 weeks for body composition changes"
+duration: "Long suppression recovery: 6–10 weeks"
+routeOfAdmin:
+  - oral
+mechanismShort: "Potent selective AR agonist; high muscle:prostate anabolic ratio; also activates neuroprotective AR pathways in brain"
+
+dosing:
+  min: 5
+  typical: 10
+  max: 20
+  unit: mg
+  frequency: "Once daily oral"
+  notes: "Long half-life means once-daily dosing is ideal. Fitness community uses 5–20mg for 8–12 weeks. Requires PCT. Start low due to high potency."
+
+sideEffects:
+  - name: testosterone_suppression
+    severity: severe
+    frequency: very_common
+    notes: "Significant suppression at 10mg+; PCT with SERMs mandatory"
+  - name: hepatotoxicity
+    severity: severe
+    frequency: uncommon
+    notes: "Case reports of drug-induced liver injury (DILI) including cholestatic hepatitis. Monitor LFTs."
+  - name: aggression_mood_changes
+    severity: moderate
+    frequency: uncommon
+    notes: "From androgenic activity; more pronounced than ostarine"
+  - name: hair_loss
+    severity: moderate
+    frequency: uncommon
+    notes: "DHT-pathway activity possible in scalp AR; androgenic alopecia risk in predisposed individuals"
+  - name: lipid_changes
+    severity: moderate
+    frequency: common
+    notes: "HDL reduction; cardiovascular risk with long-term use"
+
+interactions: []
+
+mechanisms:
+  - pathway: androgen_receptor_agonism
+    description: "Very high affinity AR agonism; activates muscle and bone anabolic programs"
+  - pathway: neuroprotection
+    description: "AR activation in neural tissue is neuroprotective; reduces neuronal death in models of acute and chronic neurodegeneration"
+  - pathway: muscle_protein_synthesis
+    description: "Potent activation of AR-driven anabolic gene programs in skeletal muscle"
+
+searchTerms:
+  pubmed:
+    - "RAD-140 AND Testolone AND (cancer OR breast cancer) AND Phase I"
+    - "RAD140 AND neuroprotection AND androgen receptor"
+    - "RAD-140 AND liver AND hepatotoxicity"
+  semanticScholar:
+    - "RAD-140 testolone selective androgen receptor modulator anabolic"
+    - "RAD140 neuroprotection breast cancer SARM"

@@ -1,0 +1,68 @@
+# NSI-189 — Neurogenic antidepressant, hippocampal regenerative
+slug: nsi-189
+name: NSI-189
+aliases:
+  - NSI189
+  - nicotinamide-benzylpiperazine
+category: NOOTROPIC
+subcategory: neurogenic_antidepressant
+legalStatus: RESEARCH_ONLY
+clinicalPhase: "Phase II"
+description: |
+  NSI-189 is a novel benzylpiperazine-aminopyridine compound developed by Neuralstem Inc.
+  specifically to stimulate hippocampal neurogenesis — growth of new neurons — in adult
+  humans. Phase I demonstrated hippocampal volume increases (measurable on MRI) and
+  Phase II trials in major depressive disorder showed mixed but promising results.
+  The compound acts through an unknown mechanism to increase hippocampal stem cell
+  proliferation and differentiation. Used experimentally for depression, cognitive
+  enhancement, and post-traumatic brain injury recovery. Not approved. Available from
+  research chemical vendors. Represents a genuinely novel mechanism with legitimate
+  clinical data, though Phase II results were mixed.
+
+halfLife: "~2–3 hours (estimated)"
+onset: "Neurogenesis effects may take weeks to months; subjective cognitive effects reported within days by some users"
+duration: "Neurogenesis benefits may persist after cessation (structural change)"
+routeOfAdmin:
+  - oral
+mechanismShort: "Stimulates hippocampal neurogenesis via unknown mechanism; increases stem cell proliferation and differentiation; demonstrated hippocampal volume increase on MRI in Phase I"
+
+dosing:
+  min: 40
+  typical: 80
+  max: 160
+  unit: mg
+  frequency: "Once or twice daily oral"
+  notes: "Phase I used 40–160mg/day. Community typically uses 40–80mg/day. Unknown long-term safety. No established protocol. Research chemical — use with caution."
+
+sideEffects:
+  - name: emotional_blunting
+    severity: moderate
+    frequency: uncommon
+    notes: "Some users report emotional blunting or flatness at higher doses; mechanism unclear"
+  - name: cognitive_side_effects
+    severity: mild
+    frequency: uncommon
+    notes: "Paradoxical cognitive worsening reported by some users; mechanism unknown"
+  - name: unknown_long_term_effects
+    severity: unknown
+    frequency: unknown
+    notes: "Stimulating neurogenesis in adults has unknown long-term consequences. Limited human safety data beyond short trials."
+
+interactions: []
+
+mechanisms:
+  - pathway: hippocampal_neurogenesis
+    description: "Primary mechanism: stimulates proliferation and differentiation of hippocampal neural progenitor cells; increases hippocampal volume (demonstrated by MRI in Phase I)"
+  - pathway: BDNF_pathway
+    description: "May upregulate BDNF and related neurotrophic signaling, though exact mechanism remains unknown"
+  - pathway: unknown_mechanism
+    description: "Precise molecular target not yet identified; mechanism of neurogenesis stimulation is under active investigation"
+
+searchTerms:
+  pubmed:
+    - "NSI-189 AND hippocampal neurogenesis AND depression AND Phase I OR Phase II"
+    - "NSI-189 AND major depressive disorder AND randomized clinical trial"
+    - "hippocampal neurogenesis AND adult AND antidepressant AND volume"
+  semanticScholar:
+    - "NSI-189 neurogenesis hippocampus depression clinical trial"
+    - "adult hippocampal neurogenesis antidepressant stem cell proliferation"

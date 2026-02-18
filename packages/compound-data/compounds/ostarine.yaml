@@ -1,0 +1,75 @@
+# Ostarine — MK-2866, most studied SARM
+slug: ostarine
+name: Ostarine
+aliases:
+  - MK-2866
+  - Enobosarm
+  - GTx-024
+  - MK2866
+category: SARM
+subcategory: selective_androgen_receptor_modulator
+legalStatus: RESEARCH_ONLY
+clinicalPhase: "Phase II"
+description: |
+  Ostarine (MK-2866, Enobosarm) is the most clinically studied SARM. Phase II trials
+  completed for cancer cachexia showed significant lean mass gains and improved physical
+  function at 1–3mg/day. Phase III was initiated but not completed. Despite trial history,
+  it remains unapproved. Used widely in the research and fitness communities for muscle
+  preservation, recomposition, and joint support. Suppresses endogenous testosterone in a
+  dose- and duration-dependent manner. WADA-prohibited.
+
+halfLife: "~24 hours"
+onset: "2–3 weeks for noticeable muscle effects"
+duration: "Effects persist weeks; suppression recovers over 4–6 weeks post-cycle"
+routeOfAdmin:
+  - oral
+mechanismShort: "Selective AR agonist with tissue selectivity for muscle and bone over prostate and sebaceous glands; anabolic without full androgenic activity"
+
+dosing:
+  min: 10
+  typical: 20
+  max: 30
+  unit: mg
+  frequency: "Once daily oral"
+  notes: "Research doses: 1–3mg/day (clinical). Fitness community: 10–30mg/day 8–12 weeks. PCT may be warranted at higher doses/longer cycles. WADA prohibited."
+
+sideEffects:
+  - name: testosterone_suppression
+    severity: moderate
+    frequency: common
+    notes: "Dose and duration-dependent; 20–30mg for 8–12 weeks causes significant suppression requiring post-cycle therapy"
+  - name: elevated_liver_enzymes
+    severity: mild
+    frequency: uncommon
+    notes: "Mild ALT/AST elevations at higher doses; monitor LFTs"
+  - name: lipid_changes
+    severity: mild
+    frequency: common
+    notes: "Reduces HDL cholesterol; larger impact with oral SARMs vs. injectable androgens"
+  - name: vision_disturbances
+    severity: moderate
+    frequency: uncommon
+    notes: "Yellow-tinted vision (Ostarine vision) reported; cause unclear; discontinue if persistent"
+
+interactions:
+  - target: lgd-4033
+    type: synergistic
+    severity: moderate
+    description: "Often stacked for recomposition; additive anabolic effects but significantly more suppression. Requires robust PCT."
+
+mechanisms:
+  - pathway: androgen_receptor_agonism
+    description: "Binds androgen receptor with high affinity, preferentially activating anabolic pathways in skeletal muscle and bone"
+  - pathway: tissue_selectivity
+    description: "Achieves selectivity by differentially recruiting coactivator/corepressor proteins in different tissues vs. full androgens"
+  - pathway: muscle_protein_synthesis
+    description: "Activates AR target genes (IGF-1, follistatin) promoting muscle protein synthesis and nitrogen retention"
+
+searchTerms:
+  pubmed:
+    - "ostarine AND MK-2866 AND (muscle OR cancer cachexia) AND clinical"
+    - "enobosarm AND Phase II AND lean body mass AND randomized"
+    - "selective androgen receptor modulator AND muscle wasting AND human"
+  semanticScholar:
+    - "ostarine MK-2866 SARM muscle wasting clinical trial"
+    - "selective androgen receptor modulator muscle bone selectivity"

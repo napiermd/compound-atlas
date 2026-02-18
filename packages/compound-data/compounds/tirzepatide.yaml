@@ -1,0 +1,89 @@
+# Tirzepatide — Dual GLP-1/GIP agonist (Mounjaro / Zepbound)
+slug: tirzepatide
+name: Tirzepatide
+aliases:
+  - Mounjaro
+  - Zepbound
+  - LY3298176
+  - dual GLP-1 GIP agonist
+category: FAT_LOSS
+subcategory: dual_GLP1_GIP_agonist
+legalStatus: PRESCRIPTION
+clinicalPhase: "Approved"
+description: |
+  Tirzepatide is a once-weekly injectable dual agonist of GLP-1 and GIP receptors, approved
+  as Mounjaro for type 2 diabetes and Zepbound for chronic weight management. In the SURMOUNT
+  trials, tirzepatide 15mg produced ~22.5% average weight loss over 72 weeks — the greatest
+  pharmacological weight reduction ever demonstrated in a pivotal trial. GIP agonism adds
+  metabolic benefits beyond GLP-1 alone, including adipocyte sensitization and muscle
+  preservation. Superior efficacy vs. semaglutide in head-to-head trials (SURPASS-2).
+
+halfLife: "~5 days"
+onset: "Appetite suppression within days; full effect over months"
+duration: "Ongoing; weight regain begins within weeks of stopping"
+routeOfAdmin:
+  - subcutaneous
+mechanismShort: "Dual GLP-1/GIP receptor agonist; GIP agonism sensitizes adipocytes and augments incretin effect beyond GLP-1 alone"
+
+dosing:
+  min: 2.5
+  typical: 10
+  max: 15
+  unit: mg
+  frequency: "Once weekly subcutaneous"
+  notes: "Titrate: 2.5mg x4 weeks → 5mg → 7.5mg → 10mg → 12.5mg → 15mg. Inject abdomen, thigh, or upper arm. Rotate sites weekly."
+
+sideEffects:
+  - name: nausea
+    severity: moderate
+    frequency: very_common
+    notes: "Most common; peaks during titration, improves over weeks"
+  - name: diarrhea
+    severity: mild
+    frequency: common
+    notes: "GI motility effects; typically transient"
+  - name: vomiting
+    severity: moderate
+    frequency: common
+    notes: "Particularly during dose escalation"
+  - name: constipation
+    severity: mild
+    frequency: common
+    notes: "Alternate with diarrhea; from motility changes"
+  - name: pancreatitis
+    severity: severe
+    frequency: rare
+    notes: "Black box warning; discontinue with severe abdominal pain"
+  - name: thyroid_C_cell_tumors
+    severity: severe
+    frequency: rare
+    notes: "Rodent carcinogenicity signal; contraindicated with MTC/MEN2 history"
+  - name: muscle_loss
+    severity: moderate
+    frequency: common
+    notes: "Lean mass preservation better than with semaglutide but still significant; prioritize resistance training and protein intake"
+
+interactions:
+  - target: semaglutide
+    type: antagonistic
+    severity: moderate
+    description: "Both are injectable GLP-1 agonists with overlapping mechanisms; not combined. Tirzepatide shows superior weight loss in head-to-head data."
+
+mechanisms:
+  - pathway: GLP1_receptor_agonism
+    description: "Activates GLP-1 receptors in pancreas, hypothalamus, and gut to suppress appetite, delay gastric emptying, and stimulate insulin secretion"
+  - pathway: GIP_receptor_agonism
+    description: "Simultaneously activates GIP receptors; GIP agonism sensitizes adipocytes to insulin, modulates glucagon, and may preserve lean mass better than GLP-1 alone"
+  - pathway: hypothalamic_satiety
+    description: "Dual receptor activation in arcuate and paraventricular nuclei produces greater satiety signal than GLP-1 alone"
+  - pathway: incretin_amplification
+    description: "Combined GLP-1 and GIP incretin effects produce more robust glucose-dependent insulin secretion"
+
+searchTerms:
+  pubmed:
+    - "tirzepatide AND weight loss AND SURMOUNT AND randomized controlled trial"
+    - "tirzepatide AND type 2 diabetes AND glycemic AND SURPASS"
+    - "tirzepatide AND semaglutide AND comparison AND head-to-head"
+  semanticScholar:
+    - "tirzepatide dual GIP GLP-1 agonist obesity weight loss"
+    - "tirzepatide SURMOUNT trial body composition"

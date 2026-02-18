@@ -1,0 +1,91 @@
+# Testosterone Cypionate — Injectable androgen, gold standard TRT
+slug: testosterone-cypionate
+name: Testosterone Cypionate
+aliases:
+  - Test Cyp
+  - TC
+  - Depo-Testosterone
+  - testosterone cypionate injection
+category: ANABOLIC
+subcategory: testosterone_ester
+legalStatus: SCHEDULED
+clinicalPhase: "Approved"
+description: |
+  Testosterone Cypionate is a long-acting ester of testosterone, the primary endogenous
+  male androgen. Approved for hypogonadism (TRT) and delayed puberty. The 8-day half-life
+  allows weekly or twice-weekly injections, maintaining stable serum testosterone levels.
+  The gold standard for TRT; extensively studied in clinical medicine. At supraphysiologic
+  doses used in bodybuilding (200–600mg/week), it produces significant muscle hypertrophy,
+  strength, and erythropoiesis but causes HPG axis suppression, erythrocytosis, and
+  estrogen-related side effects via aromatization. Controlled substance (Schedule III).
+
+halfLife: "~8 days"
+onset: "1–2 weeks for androgen effects; peak levels at 72 hours post-injection"
+duration: "Cycle length 8–16 weeks; suppression recovery 3–6 months without PCT"
+routeOfAdmin:
+  - intramuscular
+  - subcutaneous
+mechanismShort: "Binds androgen receptor as full agonist; activates muscle, bone, erythropoiesis, and CNS AR programs; aromatizes to estradiol via CYP19A1"
+
+dosing:
+  min: 100
+  typical: 200
+  max: 600
+  unit: mg
+  frequency: "Intramuscular injection weekly or E3.5D"
+  notes: "TRT: 100–200mg/week. Performance: 300–600mg/week. Requires aromatase inhibitor at supraphysiologic doses to manage estrogen. PCT with Nolvadex/Clomid post-cycle mandatory. Controlled substance (Schedule III USA)."
+
+sideEffects:
+  - name: testosterone_suppression
+    severity: severe
+    frequency: very_common
+    notes: "Complete HPG axis shutdown at any dose; endogenous testosterone production ceases. Requires PCT or lifelong TRT if prolonged use."
+  - name: erythrocytosis
+    severity: moderate
+    frequency: common
+    notes: "Stimulates EPO production; hematocrit elevation, thrombosis risk. Monitor CBC. Therapeutic phlebotomy may be needed."
+  - name: aromatization_estrogen
+    severity: moderate
+    frequency: common
+    notes: "Converts to estradiol; gynecomastia, water retention, mood changes. Manage with AI (anastrozole, exemestane) if needed."
+  - name: acne
+    severity: mild
+    frequency: common
+    notes: "Androgen-driven sebaceous gland stimulation; dose-dependent"
+  - name: hair_loss
+    severity: moderate
+    frequency: common
+    notes: "DHT conversion via 5-alpha reductase; androgenic alopecia in predisposed individuals. Finasteride can mitigate."
+  - name: lipid_changes
+    severity: moderate
+    frequency: common
+    notes: "HDL reduction, LDL increase at supraphysiologic doses. Cardiovascular risk with long-term performance use."
+  - name: testicular_atrophy
+    severity: moderate
+    frequency: very_common
+    notes: "LH/FSH suppression causes testicular shrinkage; HCG co-administration prevents this."
+
+interactions:
+  - target: nandrolone-phenylpropionate
+    type: synergistic
+    severity: moderate
+    description: "Classic 'test base + nandrolone' stack; additive anabolism with estrogen management required"
+
+mechanisms:
+  - pathway: androgen_receptor_agonism
+    description: "Full AR agonist; activates complete androgen program in muscle, bone, brain, and erythropoietic tissue"
+  - pathway: aromatization
+    description: "Converted to 17β-estradiol by CYP19A1 (aromatase) in adipose and other tissues; estrogen effects are significant at higher doses"
+  - pathway: DHT_conversion
+    description: "5-alpha reductase converts testosterone to dihydrotestosterone (DHT) in skin, prostate, scalp; responsible for androgenic side effects"
+  - pathway: erythropoiesis
+    description: "Stimulates renal EPO production and directly stimulates bone marrow; increases red blood cell mass and oxygen-carrying capacity"
+
+searchTerms:
+  pubmed:
+    - "testosterone cypionate AND hypogonadism AND randomized controlled trial"
+    - "testosterone AND muscle mass AND body composition AND men AND clinical"
+    - "testosterone replacement therapy AND cardiovascular AND erythrocytosis"
+  semanticScholar:
+    - "testosterone cypionate TRT hypogonadism anabolic effects"
+    - "supraphysiologic testosterone muscle strength body composition"

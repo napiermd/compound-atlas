@@ -32,6 +32,7 @@ interface CompoundYaml {
   category: string;
   subcategory?: string;
   legalStatus?: string;
+  clinicalPhase?: string;
   description?: string;
   halfLife?: string;
   onset?: string;
@@ -89,6 +90,7 @@ async function main() {
         name: data.name,
         aliases: data.aliases ?? [],
         subcategory: data.subcategory ?? null,
+        clinicalPhase: data.clinicalPhase ?? null,
         description: data.description ?? null,
         legalStatus: (data.legalStatus as LegalStatus) ?? "LEGAL",
         halfLife: data.halfLife ?? null,
@@ -108,6 +110,7 @@ async function main() {
         aliases: data.aliases ?? [],
         category: data.category as CompoundCategory,
         subcategory: data.subcategory ?? null,
+        clinicalPhase: data.clinicalPhase ?? null,
         description: data.description ?? null,
         legalStatus: (data.legalStatus as LegalStatus) ?? "LEGAL",
         halfLife: data.halfLife ?? null,

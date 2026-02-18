@@ -1,0 +1,67 @@
+# SS-31 — Elamipretide, mitochondria-targeting peptide
+slug: ss-31
+name: SS-31
+aliases:
+  - elamipretide
+  - Bendavia
+  - MTP-131
+  - szeto-schiller peptide 31
+category: PEPTIDE
+subcategory: mitochondrial
+legalStatus: RESEARCH_ONLY
+clinicalPhase: "Phase II"
+description: |
+  SS-31 (elamipretide) is a water-soluble aromatic-cationic tetrapeptide that selectively
+  targets the inner mitochondrial membrane via cardiolipin interaction. It stabilizes
+  mitochondrial cristae structure, reduces ROS production, and restores ATP synthesis
+  efficiency in damaged mitochondria. Phase II and III trials are ongoing for heart
+  failure with preserved ejection fraction (HFpEF), Barth syndrome, and age-associated
+  frailty. Has demonstrated significant improvements in exercise capacity and cardiac
+  function in multiple RCTs.
+
+halfLife: "~2.6 hours (plasma)"
+onset: "Acute: 30–60 minutes; Clinical: weeks to months"
+duration: "Requires ongoing treatment for sustained benefits"
+routeOfAdmin:
+  - subcutaneous
+  - intravenous
+mechanismShort: "Selectively partitions to inner mitochondrial membrane via cardiolipin binding; stabilizes cristae, reduces ROS, and restores ATP production efficiency"
+
+dosing:
+  min: 4
+  typical: 40
+  max: 40
+  unit: mg
+  frequency: "Once daily subcutaneous (clinical trial dose)"
+  notes: "Phase II/III trials use 40mg/day SC. Research-use human dosing typically follows trial protocols. IV formulations used in acute cardiac settings."
+
+sideEffects:
+  - name: injection_site_reaction
+    severity: mild
+    frequency: very_common
+    notes: "Erythema, pruritus, pain at injection site — most common adverse event in trials"
+  - name: nausea
+    severity: mild
+    frequency: uncommon
+    notes: "Transient, reported in some trial participants"
+
+interactions: []
+
+mechanisms:
+  - pathway: cardiolipin_interaction
+    description: "Selectively concentrates in inner mitochondrial membrane by binding cardiolipin, a phospholipid critical for cristae architecture"
+  - pathway: cristae_stabilization
+    description: "Prevents cardiolipin peroxidation and cristae remodeling, maintaining electron transport chain supercomplex organization"
+  - pathway: ROS_reduction
+    description: "Reduces mitochondrial reactive oxygen species generation by improving electron flow efficiency through ETC"
+  - pathway: ATP_restoration
+    description: "Restores ATP synthesis capacity in stressed or aging mitochondria; improves bioenergetic reserve"
+
+searchTerms:
+  pubmed:
+    - "elamipretide AND heart failure AND randomized controlled trial"
+    - "SS-31 AND mitochondria AND aging AND clinical"
+    - "elamipretide AND Barth syndrome AND cardiac function"
+  semanticScholar:
+    - "elamipretide SS-31 mitochondria cardiolipin heart failure"
+    - "mitochondria targeted peptide cardiac dysfunction clinical trial"

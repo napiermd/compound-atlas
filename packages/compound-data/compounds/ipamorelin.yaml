@@ -1,0 +1,74 @@
+# Ipamorelin — Selective GHRP peptide
+slug: ipamorelin
+name: Ipamorelin
+aliases:
+  - NNC 26-0161
+  - ipamorelin acetate
+category: PEPTIDE
+subcategory: GHRP
+legalStatus: GRAY_MARKET
+clinicalPhase: "No formal trials"
+description: |
+  Ipamorelin is a pentapeptide growth hormone releasing peptide (GHRP) that selectively
+  stimulates GH release with minimal effect on cortisol, prolactin, or appetite —
+  distinguishing it from GHRP-2 and GHRP-6. Works by mimicking ghrelin at GHS-R1a
+  receptors. Typically combined with a GHRH analog (CJC-1295) for synergistic GH pulses.
+  The cleanest GHRP available, making it preferred for long-term anti-aging and recovery
+  protocols.
+
+halfLife: "~2 hours"
+onset: "15–30 minutes (GH pulse)"
+duration: "GH pulse 2–3 hours post-injection"
+routeOfAdmin:
+  - subcutaneous
+  - intramuscular
+mechanismShort: "Ghrelin mimetic at GHS-R1a receptors; amplifies GH pulse without raising cortisol or prolactin"
+
+dosing:
+  min: 100
+  typical: 200
+  max: 300
+  unit: mcg
+  frequency: "2–3x/day, fasted (AM, pre-workout, before bed)"
+  notes: "Inject 15–30 min before bed for maximum GH pulse during slow-wave sleep. Avoid carbs/fat 1h before injection. Combine with CJC-1295 for synergy."
+
+sideEffects:
+  - name: water_retention
+    severity: mild
+    frequency: uncommon
+    notes: "Significantly less than GHRP-2 or GHRP-6"
+  - name: injection_site_reaction
+    severity: mild
+    frequency: common
+    notes: "Redness, brief soreness; rotate sites"
+  - name: mild_hunger
+    severity: mild
+    frequency: uncommon
+    notes: "Less pronounced than GHRP-6; ghrelin-like appetite effects are attenuated"
+
+interactions:
+  - target: cjc-1295
+    type: synergistic
+    severity: mild
+    description: "Ipamorelin (GHRP) + CJC-1295 (GHRH) is the gold standard peptide stack. Together produce 4–10x greater GH release than either alone."
+  - target: mk-677
+    type: synergistic
+    severity: mild
+    description: "Both act on GHS-R1a; additive GH and IGF-1 effects with possible receptor saturation at maximum doses"
+
+mechanisms:
+  - pathway: GHS_R1a_agonism
+    description: "Binds ghrelin/GHS-R1a receptors on pituitary somatotrophs, triggering calcium-dependent GH exocytosis"
+  - pathway: somatostatin_suppression
+    description: "Transiently reduces somatostatin tone, allowing larger GH pulses"
+  - pathway: selective_GH_release
+    description: "Unlike GHRP-2/6, does not activate ACTH/cortisol or prolactin pathways"
+
+searchTerms:
+  pubmed:
+    - "ipamorelin AND growth hormone AND secretagogue"
+    - "GHRP AND ghrelin mimetic AND pituitary AND human"
+    - "growth hormone releasing peptide AND selective AND cortisol"
+  semanticScholar:
+    - "ipamorelin growth hormone releasing peptide selectivity mechanism"
+    - "GHRP ghrelin mimetic growth hormone secretion"

@@ -1,0 +1,73 @@
+# Primobolan — Metenolone, mild anabolic steroid
+slug: primobolan
+name: Primobolan
+aliases:
+  - Metenolone Enanthate
+  - Metenolone Acetate
+  - Primo
+  - methenolone
+category: ANABOLIC
+subcategory: dihydrotestosterone_derivative
+legalStatus: SCHEDULED
+clinicalPhase: "Approved"
+description: |
+  Primobolan (Metenolone) is a mild anabolic steroid available as injectable enanthate
+  and oral acetate forms. DHT-derivative with no aromatization, low androgenicity,
+  and minimal hepatotoxicity (particularly the injectable form). Historically used for
+  muscle wasting, osteoporosis, and malnutrition. Known for "quality" lean muscle gains
+  with minimal water retention and low side effect profile compared to other anabolics.
+  Immune-modulating properties documented. Long associated with elite athletics due to
+  perceived "clean" profile. Still causes HPG suppression. Schedule III controlled substance.
+
+halfLife: "10–14 days (enanthate); 4–6 hours (acetate oral)"
+onset: "3–4 weeks for noticeable muscle changes"
+duration: "Suppression recovery 6–8 weeks post-cycle"
+routeOfAdmin:
+  - intramuscular
+  - oral
+mechanismShort: "DHT-derived anabolic; binds AR without aromatization; no estrogenic activity; anabolic with low androgenicity; notable immune-modulatory effects"
+
+dosing:
+  min: 200
+  typical: 400
+  max: 800
+  unit: mg
+  frequency: "Injectable: once weekly IM. Oral: 50–150mg/day"
+  notes: "Performance (injectable): 400–600mg/week. Oral is significantly less bioavailable and more hepatotoxic per unit. Often combined with testosterone. Schedule III controlled substance."
+
+sideEffects:
+  - name: testosterone_suppression
+    severity: moderate
+    frequency: very_common
+    notes: "Suppresses HPG axis; less severe than testosterone or nandrolone but requires PCT for longer cycles"
+  - name: lipid_changes
+    severity: moderate
+    frequency: common
+    notes: "HDL reduction at higher doses; cardiovascular risk with long-term use"
+  - name: hair_loss
+    severity: mild
+    frequency: uncommon
+    notes: "DHT derivative; androgenic alopecia risk in predisposed individuals, though lower than testosterone"
+  - name: hepatotoxicity
+    severity: mild
+    frequency: uncommon
+    notes: "Oral acetate form has mild hepatotoxicity (17-alpha-alkylated). Injectable enanthate does not."
+
+interactions: []
+
+mechanisms:
+  - pathway: androgen_receptor_agonism
+    description: "DHT-derived structure binds AR with moderate affinity; activates anabolic gene programs in muscle without conversion to estrogen"
+  - pathway: no_aromatization
+    description: "Cannot be aromatized to estrogen due to DHT-derived structure; eliminates estrogen-related side effects"
+  - pathway: immune_modulation
+    description: "Documented immunostimulatory properties; used historically in HIV-wasting and immune-compromised patients"
+
+searchTerms:
+  pubmed:
+    - "metenolone AND muscle wasting AND anabolic AND clinical"
+    - "primobolan AND immune function AND HIV AND anabolic steroid"
+    - "metenolone enanthate AND body composition AND anabolic"
+  semanticScholar:
+    - "primobolan metenolone anabolic steroid DHT derivative"
+    - "metenolone immune modulation muscle preservation"

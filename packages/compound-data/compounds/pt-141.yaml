@@ -1,0 +1,74 @@
+# PT-141 — Bremelanotide, melanocortin-based sexual function peptide
+slug: pt-141
+name: PT-141
+aliases:
+  - bremelanotide
+  - Vyleesi
+  - PT141
+category: PEPTIDE
+subcategory: sexual_function
+legalStatus: PRESCRIPTION
+clinicalPhase: "Approved"
+description: |
+  PT-141 (bremelanotide) is an FDA-approved melanocortin receptor agonist sold as Vyleesi
+  for hypoactive sexual desire disorder (HSDD) in premenopausal women. Unlike PDE5
+  inhibitors, it acts centrally on the hypothalamus rather than on vascular smooth muscle.
+  Off-label use by men for erectile dysfunction and libido enhancement is common. It
+  produces sexual arousal and desire independent of physical stimulation via MC3R and MC4R
+  agonism. Works within 45 minutes; effects last 6–12 hours.
+
+halfLife: "~2.7 hours"
+onset: "45 minutes to 1 hour"
+duration: "6–12 hours"
+routeOfAdmin:
+  - subcutaneous
+mechanismShort: "MC3R and MC4R agonist in the hypothalamus; activates central arousal pathways independent of vascular mechanisms"
+
+dosing:
+  min: 0.75
+  typical: 1.75
+  max: 2
+  unit: mg
+  frequency: "As needed, maximum 1x/24 hours, 8x/month"
+  notes: "FDA-approved dose for women: 1.75mg SC abdomen or thigh 45 min before anticipated activity. Men commonly use 1–2mg. Do not use more than once in 24 hours."
+
+sideEffects:
+  - name: nausea
+    severity: moderate
+    frequency: very_common
+    notes: "Most common side effect (~40% of users); typically resolves within 2 hours. Pre-treat with ondansetron if problematic."
+  - name: flushing
+    severity: mild
+    frequency: common
+    notes: "Warmth, redness of face/neck/chest; from melanocortin receptor activation in skin vasculature"
+  - name: headache
+    severity: mild
+    frequency: common
+    notes: "Typically mild, resolves spontaneously"
+  - name: hypertension
+    severity: moderate
+    frequency: uncommon
+    notes: "Transient blood pressure elevation; contraindicated with cardiovascular disease, uncontrolled hypertension"
+  - name: hyperpigmentation
+    severity: mild
+    frequency: rare
+    notes: "Focal skin darkening with repeated injection at same site; rotate sites"
+
+interactions: []
+
+mechanisms:
+  - pathway: MC3R_MC4R_agonism
+    description: "Activates melanocortin MC3 and MC4 receptors in the hypothalamus, triggering central arousal circuits independent of genital vasodilation"
+  - pathway: dopamine_modulation
+    description: "Central melanocortin activation modulates dopaminergic pathways in nucleus accumbens and limbic system, increasing sexual motivation"
+  - pathway: oxytocin_release
+    description: "MC4R activation promotes hypothalamic oxytocin release, contributing to arousal and pair-bonding behavior"
+
+searchTerms:
+  pubmed:
+    - "bremelanotide AND sexual dysfunction AND randomized controlled trial"
+    - "PT-141 AND sexual desire AND melanocortin AND human"
+    - "bremelanotide AND HSDD AND female AND clinical trial"
+  semanticScholar:
+    - "bremelanotide melanocortin sexual dysfunction treatment"
+    - "PT-141 erectile dysfunction hypoactive sexual desire"

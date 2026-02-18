@@ -1,0 +1,74 @@
+# LGD-4033 — Ligandrol, potent oral SARM
+slug: lgd-4033
+name: LGD-4033
+aliases:
+  - Ligandrol
+  - VK5211
+  - LGD4033
+category: SARM
+subcategory: selective_androgen_receptor_modulator
+legalStatus: RESEARCH_ONLY
+clinicalPhase: "Phase II"
+description: |
+  LGD-4033 (Ligandrol) is a potent oral SARM with Phase I safety data and Phase II trial
+  data for hip fracture recovery (VK5211, 1–2mg/day). Significantly more anabolic than
+  ostarine at milligram doses — 1mg/day in Phase I produced ~1.2kg lean mass gain.
+  Widely used in fitness communities for bulking. Causes robust testosterone suppression
+  even at low doses. Not approved for human use. WADA-prohibited. Among the most detected
+  substances in athlete doping cases.
+
+halfLife: "24–36 hours"
+onset: "1–2 weeks for noticeable strength; 4–6 weeks for body composition"
+duration: "Suppression persists 4–6 weeks post-cycle"
+routeOfAdmin:
+  - oral
+mechanismShort: "High-affinity selective AR agonist; near-complete receptor occupancy at low doses produces significant muscle anabolism with moderate bone activation"
+
+dosing:
+  min: 2
+  typical: 10
+  max: 20
+  unit: mg
+  frequency: "Once daily oral"
+  notes: "Research/clinical doses: 0.1–22mg in trials. Fitness community: 5–20mg/day 6–12 weeks. Significant suppression at 10mg+ requires PCT. Do not exceed 20mg."
+
+sideEffects:
+  - name: testosterone_suppression
+    severity: severe
+    frequency: very_common
+    notes: "Strong dose-dependent suppression of LH, FSH, and testosterone. Near-complete suppression at 10mg+. Robust PCT required (Nolvadex or Clomid 4–6 weeks)."
+  - name: elevated_liver_enzymes
+    severity: moderate
+    frequency: common
+    notes: "Hepatotoxicity cases reported; monitor LFTs during cycle"
+  - name: lipid_changes
+    severity: moderate
+    frequency: common
+    notes: "Significant HDL reduction; cardiovascular risk at high doses"
+  - name: water_retention
+    severity: mild
+    frequency: common
+    notes: "From androgenic activity; typically mild at lower doses"
+
+interactions:
+  - target: ostarine
+    type: synergistic
+    severity: moderate
+    description: "Stacked for recomposition; additive anabolic effects with significantly compounded suppression"
+
+mechanisms:
+  - pathway: androgen_receptor_agonism
+    description: "Binds AR with very high affinity (Ki ~1nM), activating muscle and bone anabolic programs while partially sparing prostate and scalp"
+  - pathway: muscle_protein_synthesis
+    description: "Robustly increases muscle protein synthesis via downstream AR target gene activation"
+  - pathway: bone_density
+    description: "Activates bone AR to increase mineral density; basis for hip fracture indication"
+
+searchTerms:
+  pubmed:
+    - "LGD-4033 AND Ligandrol AND lean mass AND Phase I OR Phase II"
+    - "VK5211 AND hip fracture AND clinical trial"
+    - "selective androgen receptor modulator AND muscle AND bone AND human"
+  semanticScholar:
+    - "LGD-4033 Ligandrol SARM anabolic selective androgen receptor"
+    - "VK5211 hip fracture muscle mass recovery"

@@ -1,0 +1,84 @@
+# HGH — Human Growth Hormone, recombinant somatropin
+slug: hgh
+name: HGH
+aliases:
+  - Human Growth Hormone
+  - Somatropin
+  - rHGH
+  - Norditropin
+  - Genotropin
+  - Humatrope
+  - growth hormone
+category: HORMONAL
+subcategory: growth_hormone
+legalStatus: PRESCRIPTION
+clinicalPhase: "Approved"
+description: |
+  Human Growth Hormone (somatropin) is FDA-approved recombinant hGH identical to
+  endogenous pituitary GH. Approved indications include adult GH deficiency, pediatric
+  GH deficiency, Turner syndrome, Prader-Willi syndrome, HIV wasting, and short bowel
+  syndrome. In healthy adults, GH drives IGF-1 production (primarily hepatic), promoting
+  lipolysis, lean mass maintenance, and tissue repair. At supraphysiologic doses used in
+  athletics, GH produces significant fat loss, tissue repair enhancement, and modest
+  lean mass gains; direct muscle growth effects are largely IGF-1 mediated. Long-term
+  supraphysiologic use carries risks of diabetes, acromegaly-like changes, and
+  carpal tunnel syndrome. Strict prescription control; banned by WADA.
+
+halfLife: "~20–30 minutes (endogenous-like pulsatile); effects persist hours via IGF-1"
+onset: "Fat loss: 2–4 weeks. Tissue repair: weeks. Muscle changes: months."
+duration: "IGF-1 elevation persists 12–24 hours post-injection"
+routeOfAdmin:
+  - subcutaneous
+  - intramuscular
+mechanismShort: "Binds GH receptor on hepatocytes → IGF-1 production; directly stimulates lipolysis in adipose; promotes nitrogen retention and tissue repair via IGF-1/mTOR/PI3K"
+
+dosing:
+  min: 1
+  typical: 2
+  max: 6
+  unit: IU
+  frequency: "Once daily subcutaneous injection (typically evening or pre-sleep)"
+  notes: "Anti-aging/TRT-adjacent: 1–2 IU/day. Performance: 2–4 IU/day. Bodybuilding extremes: 4–6 IU/day. Fasting morning injection maximizes lipolysis. Prescription only — significant legal risk. WADA prohibited."
+
+sideEffects:
+  - name: carpal_tunnel_syndrome
+    severity: moderate
+    frequency: common
+    notes: "Fluid retention and nerve compression at higher doses; often dose-dependent and reversible on discontinuation"
+  - name: insulin_resistance
+    severity: moderate
+    frequency: common
+    notes: "GH antagonizes insulin action; glucose intolerance and elevated HbA1c at supraphysiologic doses. Diabetes risk with long-term use."
+  - name: water_retention
+    severity: mild
+    frequency: common
+    notes: "Dose-dependent edema; typically resolves with dose reduction"
+  - name: acromegaly_features
+    severity: severe
+    frequency: uncommon
+    notes: "Long-term supraphysiologic use: jaw, hand, and foot enlargement; visceral organ enlargement. Irreversible with prolonged use."
+  - name: injection_site_reactions
+    severity: mild
+    frequency: common
+    notes: "Lipohypertrophy or lipoatrophy with repeated SC injection at same site; rotate sites"
+
+interactions: []
+
+mechanisms:
+  - pathway: GH_receptor_signaling
+    description: "Binds GHR, activating JAK2/STAT5 signaling cascade; drives hepatic and peripheral IGF-1 production"
+  - pathway: IGF1_production
+    description: "Hepatic IGF-1 synthesis is primary mediator of growth-promoting effects; IGF-1 activates mTOR, PI3K/Akt for muscle protein synthesis"
+  - pathway: lipolysis
+    description: "Directly promotes adipose triglyceride lipase activity; shifts substrate utilization toward fatty acid oxidation"
+  - pathway: nitrogen_retention
+    description: "Promotes protein anabolism and nitrogen retention in muscle tissue via IGF-1 and direct GHR signaling"
+
+searchTerms:
+  pubmed:
+    - "growth hormone AND adult deficiency AND body composition AND randomized"
+    - "somatropin AND IGF-1 AND muscle mass AND clinical trial"
+    - "human growth hormone AND athletic performance AND fat loss AND clinical"
+  semanticScholar:
+    - "human growth hormone somatropin IGF-1 body composition"
+    - "growth hormone deficiency replacement therapy lean mass fat loss"

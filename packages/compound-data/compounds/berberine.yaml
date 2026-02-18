@@ -1,0 +1,75 @@
+# Berberine — Plant alkaloid, metabolic regulator
+slug: berberine
+name: Berberine
+aliases:
+  - berberine HCl
+  - berberine hydrochloride
+  - berberine chloride
+category: SUPPLEMENT
+subcategory: plant_alkaloid
+legalStatus: LEGAL
+clinicalPhase: "Phase II"
+description: |
+  Berberine is an isoquinoline alkaloid found in plants including Berberis and goldenseal.
+  Extensive clinical trial data (primarily from China) demonstrates efficacy comparable
+  to metformin for type 2 diabetes blood glucose control. Activates AMPK — the primary
+  cellular energy sensor — driving downstream effects on glucose metabolism, lipid
+  metabolism, and inflammation. Also improves lipid profiles (LDL-C reduction comparable
+  to low-dose statins in some studies). Increasingly recognized as a legitimate metabolic
+  therapeutic. Used for blood glucose management, weight loss, PCOS, and cardiovascular
+  risk reduction. Bioavailability is poor (5–20%) but active, and can be improved with
+  lipid formulations. Generally well-tolerated.
+
+halfLife: "~4–6 hours"
+onset: "Blood glucose effects within days; lipid effects over 4–8 weeks"
+duration: "Effects active during dosing; benefits may partially persist"
+routeOfAdmin:
+  - oral
+mechanismShort: "AMPK activator; inhibits complex I of mitochondrial respiratory chain (similar to metformin); reduces hepatic gluconeogenesis; activates GLUT4 translocation; reduces intestinal glucose absorption"
+
+dosing:
+  min: 500
+  typical: 1000
+  max: 1500
+  unit: mg
+  frequency: "500mg 2–3x daily with meals"
+  notes: "1,500mg/day in divided doses with meals is most studied. Poor bioavailability — take with meals. Berberine phytosome formulations (Berbevis) have 10x better absorption. Cyclic use (8 weeks on, 4 weeks off) recommended by some to prevent tolerance."
+
+sideEffects:
+  - name: GI_upset
+    severity: mild
+    frequency: common
+    notes: "Nausea, cramping, constipation, or diarrhea, especially early in use; dose with food, start low and titrate up"
+  - name: hypoglycemia_risk
+    severity: moderate
+    frequency: uncommon
+    notes: "Can lower blood glucose significantly; caution with other blood sugar-lowering medications. Monitor glucose."
+  - name: drug_interactions
+    severity: moderate
+    frequency: common
+    notes: "CYP3A4 and CYP2D6 inhibitor; affects metabolism of many medications. Check interactions with all current medications."
+
+interactions:
+  - target: semaglutide
+    type: synergistic
+    severity: moderate
+    description: "Additive blood glucose lowering and weight effects; monitor for hypoglycemia with combined use"
+
+mechanisms:
+  - pathway: AMPK_activation
+    description: "Activates AMP-activated protein kinase (AMPK) by inhibiting mitochondrial complex I; AMPK activation drives glucose uptake, fat oxidation, and reduced gluconeogenesis"
+  - pathway: GLUT4_translocation
+    description: "Promotes GLUT4 glucose transporter translocation to cell surface; increases peripheral glucose uptake independent of insulin"
+  - pathway: hepatic_gluconeogenesis_inhibition
+    description: "Reduces hepatic glucose output by inhibiting gluconeogenic enzymes; mechanism similar to metformin"
+  - pathway: gut_microbiome_modulation
+    description: "Modifies gut microbiome composition; reduces Firmicutes, increases Bacteroidetes; partially mediates metabolic effects"
+
+searchTerms:
+  pubmed:
+    - "berberine AND type 2 diabetes AND metformin AND randomized controlled trial"
+    - "berberine AND lipid AND LDL AND cholesterol AND clinical"
+    - "berberine AND AMPK AND glucose AND insulin resistance AND human"
+  semanticScholar:
+    - "berberine AMPK metformin type 2 diabetes glucose metabolism"
+    - "berberine lipid cholesterol cardiovascular clinical trial"

@@ -1,0 +1,71 @@
+# Noopept — Dipeptide nootropic, fast-acting
+slug: noopept
+name: Noopept
+aliases:
+  - GVS-111
+  - N-phenylacetyl-L-prolylglycine ethyl ester
+  - omberacetam
+category: NOOTROPIC
+subcategory: dipeptide_nootropic
+legalStatus: GRAY_MARKET
+clinicalPhase: "No formal trials"
+description: |
+  Noopept is a synthetic dipeptide originally developed in Russia as a peptide mimic of
+  the C-terminal fragment of piracetam. Rapidly crosses the blood-brain barrier and
+  converts to cycloprolylglycine, an endogenous neuropeptide. Among the most potent
+  nootropics by mass — effective at 10–30mg vs piracetam's 1,600–4,800mg. Stimulates
+  NGF and BDNF expression; described as an anxiolytic-nootropic with memory-consolidating
+  properties. Extensively studied in Russian pre-clinical and limited clinical literature
+  (primarily post-stroke and traumatic brain injury). Gray-market legal status in the US
+  and most Western countries. Sublingual administration significantly increases bioavailability.
+
+halfLife: "~5–10 minutes (rapid hydrolysis); cycloprolylglycine metabolite is active"
+onset: "15–30 minutes"
+duration: "3–6 hours"
+routeOfAdmin:
+  - oral
+  - sublingual
+mechanismShort: "Dipeptide nootropic; metabolizes to cycloprolylglycine; upregulates NGF and BDNF; modulates AMPA and NMDA receptors; anxiolytic-nootropic profile"
+
+dosing:
+  min: 10
+  typical: 20
+  max: 30
+  unit: mg
+  frequency: "Once or twice daily (sublingual preferred for bioavailability)"
+  notes: "10–30mg is typical. Sublingual dosing bypasses hepatic first-pass. Start at 10mg to assess tolerance. Can be taken with choline source to reduce headaches. Not recommended >30mg."
+
+sideEffects:
+  - name: headache
+    severity: mild
+    frequency: common
+    notes: "Racetam-class headache from increased acetylcholine demand; choline supplementation (alpha-GPC, CDP-choline) typically resolves this"
+  - name: irritability
+    severity: mild
+    frequency: uncommon
+    notes: "Some users report irritability or mild anxiety at higher doses or with prolonged use"
+  - name: brain_fog_rebound
+    severity: mild
+    frequency: uncommon
+    notes: "Some users report cognitive fog on days off after extended use; usually resolves"
+
+interactions: []
+
+mechanisms:
+  - pathway: NGF_BDNF_upregulation
+    description: "Stimulates Nerve Growth Factor (NGF) and Brain-Derived Neurotrophic Factor (BDNF) expression; promotes neuroplasticity and neuroprotection"
+  - pathway: AMPA_modulation
+    description: "Potentiates AMPA receptor function; increases AMPA receptor density; improves learning and memory consolidation"
+  - pathway: cycloprolylglycine_conversion
+    description: "Metabolizes to cycloprolylglycine, an endogenous neuropeptide with NMDA modulating and neuroprotective properties"
+  - pathway: acetylcholine_modulation
+    description: "Increases ACh release and sensitivity in hippocampus; cholinergic enhancement of memory formation"
+
+searchTerms:
+  pubmed:
+    - "noopept AND cognitive AND neuroprotection AND clinical OR animal"
+    - "GVS-111 AND BDNF AND NGF AND brain AND rat"
+    - "noopept AND traumatic brain injury OR stroke AND recovery"
+  semanticScholar:
+    - "noopept GVS-111 dipeptide nootropic BDNF NGF neuroprotection"
+    - "cycloprolylglycine noopept AMPA NMDA cognitive memory"

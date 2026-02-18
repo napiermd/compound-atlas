@@ -1,0 +1,65 @@
+# MOTS-c — Mitochondrial-derived peptide, exercise mimetic
+slug: mots-c
+name: MOTS-c
+aliases:
+  - mitochondrial open reading frame of the 12S rRNA-c
+  - MOTS c peptide
+category: PEPTIDE
+subcategory: mitochondrial
+legalStatus: RESEARCH_ONLY
+clinicalPhase: "Preclinical"
+description: |
+  MOTS-c is a 16-amino-acid peptide encoded in the mitochondrial genome (12S rRNA region),
+  making it the first mitochondria-derived peptide identified. It acts as a metabolic
+  regulator, improving insulin sensitivity, activating AMPK, and mimicking exercise
+  adaptations. Circulating levels decline with age and in metabolic disease. Animal data
+  shows reversal of diet-induced obesity, improved glucose tolerance, and extended
+  lifespan. Currently in early Phase I human trials. Compelling candidate for metabolic
+  disease, longevity, and performance.
+
+halfLife: "Unknown in humans; hours estimated"
+onset: "Days to weeks in animal models"
+duration: "Ongoing dosing required for sustained effects"
+routeOfAdmin:
+  - subcutaneous
+  - intravenous
+mechanismShort: "Mitochondria-to-nucleus retrograde signaling via AMPK and AICAR; improves insulin sensitivity, metabolic flexibility, and exercise capacity"
+
+dosing:
+  min: 5
+  typical: 10
+  max: 15
+  unit: mg
+  frequency: "Daily or 5x/week subcutaneous (research dosing from animal studies)"
+  notes: "Human dosing is purely experimental. Animal studies use 5–15mg/kg. Human self-experimentation reports typically 5–15mg/day SC. No established human dose."
+
+sideEffects:
+  - name: injection_site_reaction
+    severity: mild
+    frequency: common
+    notes: "Expected with subcutaneous peptide administration"
+  - name: unknown_long_term_effects
+    severity: unknown
+    frequency: unknown
+    notes: "No long-term human safety data exists. Research compound only."
+
+interactions: []
+
+mechanisms:
+  - pathway: AMPK_activation
+    description: "Activates AMP-activated protein kinase, the master metabolic sensor, improving glucose uptake and fatty acid oxidation"
+  - pathway: AICAR_pathway
+    description: "Generates AICAR (AMPK activator) via folate cycle disruption, mimicking exercise-induced AMPK activation"
+  - pathway: insulin_sensitization
+    description: "Improves insulin receptor signaling independently of weight change; reverses diet-induced insulin resistance in animal models"
+  - pathway: nuclear_retrograde_signaling
+    description: "Translocates from mitochondria to nucleus, acting as a transcription factor to regulate stress response genes"
+
+searchTerms:
+  pubmed:
+    - "MOTS-c AND mitochondrial peptide AND (metabolism OR insulin OR AMPK)"
+    - "MOTS-c AND aging AND longevity AND mouse"
+    - "mitochondrial derived peptide AND metabolic AND exercise"
+  semanticScholar:
+    - "MOTS-c mitochondrial peptide AMPK insulin sensitivity"
+    - "mitochondrial open reading frame peptide metabolic regulation"

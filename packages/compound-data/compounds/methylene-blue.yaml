@@ -1,0 +1,81 @@
+# Methylene Blue — Mitochondrial electron carrier, cognitive enhancer
+slug: methylene-blue
+name: Methylene Blue
+aliases:
+  - MB
+  - methylthioninium chloride
+  - Urolene Blue
+  - phenothiazine dye
+category: NOOTROPIC
+subcategory: mitochondrial_enhancer
+legalStatus: LEGAL
+clinicalPhase: "Approved"
+description: |
+  Methylene Blue is an FDA-approved medication (for methemoglobinemia and urinary tract
+  infections) with a documented history as a cognitive enhancer dating to the 19th century.
+  At low doses (0.5–4mg/kg), it acts as a mitochondrial electron carrier, improving
+  oxidative phosphorylation efficiency and ATP production. Extensive preclinical evidence
+  for neuroprotection, memory enhancement, and Alzheimer's/dementia-related mitochondrial
+  dysfunction. Used experimentally for cognitive enhancement, anti-aging, and mood
+  optimization. Hormetic dose-response: low doses are beneficial while high doses become
+  pro-oxidant and potentially harmful. Turns urine blue — benign side effect.
+  No significant safety concerns at low doses. Available OTC as pharmaceutical grade.
+
+halfLife: "~5–6 hours"
+onset: "Acute cognitive effects within 1–2 hours; mitochondrial effects cumulative"
+duration: "4–8 hours per dose; blue urine for ~24 hours"
+routeOfAdmin:
+  - oral
+  - intravenous
+mechanismShort: "Alternative mitochondrial electron carrier in complex I-IV chain; improves oxidative phosphorylation; MAO inhibitor; antioxidant at low doses; hormetic dose-response"
+
+dosing:
+  min: 0.5
+  typical: 10
+  max: 80
+  unit: mg
+  frequency: "Once daily oral (avoid late evening due to potential stimulant effects)"
+  notes: "Cognitive enhancement: 0.5–4mg/kg or 5–20mg total. Pharmaceutical-grade required (not industrial methylene blue). Low doses (under 1mg/kg) most consistent for cognitive benefit. High doses (>4mg/kg) may be counterproductive. Turns urine blue."
+
+sideEffects:
+  - name: blue_urine_discoloration
+    severity: mild
+    frequency: very_common
+    notes: "Harmless blue/green urine discoloration; resolves within 24–48 hours of cessation"
+  - name: serotonin_syndrome_risk
+    severity: severe
+    frequency: uncommon
+    notes: "MAO inhibitor properties — potentially dangerous interaction with SSRIs, SNRIs, triptans, tramadol. Serotonin syndrome risk. Do not combine."
+  - name: nausea
+    severity: mild
+    frequency: uncommon
+    notes: "Mild GI upset at higher doses; take with food"
+  - name: skin_discoloration
+    severity: mild
+    frequency: uncommon
+    notes: "Blue skin tint at high doses; harmless but cosmetically undesirable"
+
+interactions:
+  - target: semaglutide
+    type: unknown
+    severity: mild
+    description: "No established interaction; both affect metabolic pathways but no documented interaction"
+
+mechanisms:
+  - pathway: mitochondrial_electron_carrier
+    description: "Alternative electron carrier in the mitochondrial respiratory chain; accepts electrons from NADH and donates to cytochrome c, bypassing dysfunctional complex I; improves ATP production efficiency"
+  - pathway: MAO_inhibition
+    description: "Inhibits monoamine oxidase; increases monoamine neurotransmitter levels (serotonin, dopamine, norepinephrine); basis for mood and cognitive effects"
+  - pathway: antioxidant
+    description: "At low doses, acts as antioxidant by accepting electrons from superoxide and other ROS; at high doses, becomes pro-oxidant"
+  - pathway: tau_aggregation_inhibition
+    description: "Inhibits tau protein aggregation; studied as potential Alzheimer's disease modifier"
+
+searchTerms:
+  pubmed:
+    - "methylene blue AND cognitive function AND memory AND clinical OR randomized"
+    - "methylene blue AND mitochondria AND neuroprotection AND Alzheimer"
+    - "methylthioninium AND tau aggregation AND dementia AND clinical"
+  semanticScholar:
+    - "methylene blue cognitive enhancement mitochondria memory"
+    - "methylene blue neuroprotection Alzheimer tau aggregation"

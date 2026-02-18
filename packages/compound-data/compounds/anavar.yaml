@@ -1,0 +1,74 @@
+# Anavar — Oxandrolone, oral anabolic steroid
+slug: anavar
+name: Anavar
+aliases:
+  - Oxandrolone
+  - Oxandrin
+  - Var
+category: ANABOLIC
+subcategory: dihydrotestosterone_derivative
+legalStatus: SCHEDULED
+clinicalPhase: "Approved"
+description: |
+  Anavar (Oxandrolone) is an oral anabolic steroid with FDA approval for muscle wasting
+  (HIV, burns, surgery recovery, alcoholic hepatitis). DHT-derived, therefore no
+  aromatization and no estrogen-related side effects. Among the mildest oral anabolics in
+  terms of androgenicity. Does not cause significant water retention. Clinical studies
+  confirm lean mass preservation and strength in multiple disease states including AIDS
+  wasting, Turner syndrome, and burn patients. Hepatotoxic as an oral 17-alpha-alkylated
+  compound. Suppresses testosterone. Widely used in women due to lower virilization risk
+  vs. other anabolics. Schedule III controlled substance.
+
+halfLife: "9–10 hours"
+onset: "2–3 weeks for strength; 4–6 weeks for body composition"
+duration: "Suppression recovers in 4–8 weeks post-cycle; shorter at lower doses"
+routeOfAdmin:
+  - oral
+mechanismShort: "Oral DHT-derived anabolic; binds AR in muscle/bone without aromatization; high anabolic-to-androgenic ratio; FDA-approved for wasting conditions"
+
+dosing:
+  min: 10
+  typical: 40
+  max: 100
+  unit: mg
+  frequency: "Oral once or twice daily"
+  notes: "Clinical: 2.5–20mg/day. Performance men: 40–80mg/day for 6–8 weeks. Women: 5–20mg/day (virilization risk increases above 20mg). Hepatotoxicity risk — avoid alcohol, limit cycle length. Schedule III controlled substance."
+
+sideEffects:
+  - name: testosterone_suppression
+    severity: moderate
+    frequency: very_common
+    notes: "Dose and duration-dependent HPG suppression; milder than testosterone/nandrolone at standard doses; PCT recommended for cycles over 4 weeks"
+  - name: hepatotoxicity
+    severity: moderate
+    frequency: common
+    notes: "17-alpha-alkylated oral; liver enzyme elevations common. Monitor LFTs. Avoid alcohol. Limit cycle to 6–8 weeks."
+  - name: lipid_changes
+    severity: moderate
+    frequency: very_common
+    notes: "Significant HDL reduction even at low doses; one of the most lipid-unfriendly oral steroids by mg. Cardiovascular risk."
+  - name: virilization_women
+    severity: severe
+    frequency: uncommon
+    notes: "Clitoral enlargement, voice deepening, hirsutism in women — risk increases above 20mg/day and with longer cycles. Irreversible if prolonged."
+
+interactions: []
+
+mechanisms:
+  - pathway: androgen_receptor_agonism
+    description: "DHT-derived; binds AR in muscle and bone, activating anabolic programs without estrogenic conversion"
+  - pathway: no_aromatization
+    description: "DHT structure prevents aromatase conversion; no estrogen-related side effects (gynecomastia, water retention)"
+  - pathway: nitrogen_retention
+    description: "Increases nitrogen retention in muscle; promotes lean mass accretion without significant water retention"
+  - pathway: IGF1_stimulation
+    description: "Stimulates local IGF-1 production in muscle tissue, contributing to anabolic effects"
+
+searchTerms:
+  pubmed:
+    - "oxandrolone AND muscle wasting AND HIV AND randomized controlled trial"
+    - "oxandrolone AND burn patients AND lean body mass AND clinical"
+    - "oxandrolone AND Turner syndrome AND growth AND clinical"
+  semanticScholar:
+    - "oxandrolone anavar anabolic steroid muscle wasting clinical"
+    - "oxandrolone DHT oral anabolic body composition"

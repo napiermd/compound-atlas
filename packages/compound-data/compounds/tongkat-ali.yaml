@@ -1,0 +1,70 @@
+# Tongkat Ali — Eurycoma longifolia, testosterone support adaptogen
+slug: tongkat-ali
+name: Tongkat Ali
+aliases:
+  - Eurycoma longifolia
+  - Longjack
+  - Malaysian ginseng
+  - Pasak Bumi
+  - eurycomanone
+category: SUPPLEMENT
+subcategory: adaptogen
+legalStatus: LEGAL
+clinicalPhase: "Phase II"
+description: |
+  Tongkat Ali (Eurycoma longifolia) is a Southeast Asian medicinal plant root with
+  evidence for increasing free testosterone in men with suboptimal testosterone levels.
+  Clinical trials (primarily using standardized 200–400mg aqueous root extract) show
+  modest but statistically significant increases in free testosterone (10–40%) in
+  hypogonadal-range men, older men, and those under stress — likely through reduction
+  of SHBG and cortisol-mediated HPG suppression. Does not appear to increase testosterone
+  beyond the normal physiologic range in healthy young men. Human trials also support
+  improvement in male fertility parameters, stress hormone reduction, and muscle strength
+  in resistance-trained subjects. Well-tolerated. Popular "natural" alternative to TRT
+  among men with borderline low testosterone.
+
+halfLife: "Unknown (herb extract; multiple active compounds)"
+onset: "2–4 weeks for hormonal effects; benefits accumulate over 8+ weeks"
+duration: "Effects likely require continued supplementation to maintain"
+routeOfAdmin:
+  - oral
+mechanismShort: "Reduces SHBG and cortisol to free more testosterone; possible direct LH/FSH stimulation; eurycomanone (active quassinoid) drives most studied effects"
+
+dosing:
+  min: 100
+  typical: 200
+  max: 400
+  unit: mg
+  frequency: "Once daily oral (standardized extract)"
+  notes: "Clinical studies used 200–400mg/day of standardized root extract (200:1 water-soluble extract most studied). LJ100 brand used in most trials. Effects most pronounced in men with low-normal or below-normal testosterone."
+
+sideEffects:
+  - name: insomnia
+    severity: mild
+    frequency: uncommon
+    notes: "Stimulatory properties in some users; avoid late evening dosing"
+  - name: restlessness
+    severity: mild
+    frequency: uncommon
+    notes: "Mildly stimulating adaptogen; agitation in sensitive individuals at higher doses"
+
+interactions: []
+
+mechanisms:
+  - pathway: SHBG_reduction
+    description: "Reduces sex hormone-binding globulin levels, increasing free (bioavailable) testosterone fraction"
+  - pathway: cortisol_reduction
+    description: "Reduces cortisol; elevated cortisol suppresses LH pulsatility and Leydig cell function. Cortisol reduction restores testicular testosterone production."
+  - pathway: LH_FSH_stimulation
+    description: "Possible direct stimulation of pituitary LH and FSH release via hypothalamic-pituitary axis; drives testicular testosterone production"
+  - pathway: spermatogenesis
+    description: "Improves sperm count, motility, and morphology in infertile men; mechanism involves testosterone restoration and direct effects on spermatogonia"
+
+searchTerms:
+  pubmed:
+    - "Eurycoma longifolia AND testosterone AND randomized controlled trial AND men"
+    - "tongkat ali AND stress AND cortisol AND hormone AND clinical"
+    - "Eurycoma longifolia AND male fertility AND sperm AND clinical"
+  semanticScholar:
+    - "Eurycoma longifolia tongkat ali testosterone SHBG cortisol"
+    - "tongkat ali adaptogen male fertility sperm quality clinical"

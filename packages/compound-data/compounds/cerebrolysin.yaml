@@ -1,0 +1,76 @@
+# Cerebrolysin — Neuropeptide mixture, neuroprotective
+slug: cerebrolysin
+name: Cerebrolysin
+aliases:
+  - FPF 1070
+  - cerebrolysin injection
+  - porcine brain hydrolysate
+category: NOOTROPIC
+subcategory: neuropeptide_mixture
+legalStatus: GRAY_MARKET
+clinicalPhase: "Phase III"
+description: |
+  Cerebrolysin is a standardized porcine brain-derived peptide mixture containing low
+  molecular weight neuropeptides and amino acids. Widely used in Eastern Europe, China,
+  and Latin America for stroke recovery, traumatic brain injury, Alzheimer's disease,
+  and vascular dementia — with regulatory approval in many countries outside the US/UK.
+  Phase III trials have been conducted for acute ischemic stroke (CASTA trial) with
+  mixed but generally positive results. Mechanism involves neurotrophic factor-like
+  activity mimicking BDNF and NGF, promoting neuronal survival, dendritic sprouting,
+  and neuroplasticity. Injectable only (IV/IM). Gray-market in the US — not FDA approved
+  but widely imported. Legitimate clinical use context in stroke neurology.
+
+halfLife: "Unknown (peptide mixture with variable components)"
+onset: "IV: effects within 1–2 weeks of treatment course; IM similar but slower"
+duration: "Benefits from treatment courses may persist weeks to months"
+routeOfAdmin:
+  - intravenous
+  - intramuscular
+mechanismShort: "Porcine brain peptide mixture with neurotrophic factor-like activity; activates BDNF/NGF signaling pathways; promotes neuroplasticity, neuronal survival, and synaptogenesis"
+
+dosing:
+  min: 5
+  typical: 20
+  max: 60
+  unit: ml
+  frequency: "IV infusion or IM injection, typically in 10–20 day courses"
+  notes: "Clinical protocols: 10–30mL IV for 10–20 days (stroke). Cognitive enhancement community: 5–10mL IM per injection, 10-day courses. Must be injectable formulation. Repeat courses every 3–6 months."
+
+sideEffects:
+  - name: injection_site_reactions
+    severity: mild
+    frequency: common
+    notes: "IM injection discomfort; standard injection site rotation recommended"
+  - name: hypersensitivity
+    severity: moderate
+    frequency: uncommon
+    notes: "Porcine-derived product; allergic reactions possible. Test with small dose first."
+  - name: overstimulation
+    severity: mild
+    frequency: uncommon
+    notes: "Some users report agitation, insomnia, or excessive mental activation especially at higher doses or initial courses"
+  - name: seizure_risk
+    severity: moderate
+    frequency: rare
+    notes: "Rare seizure reports in patients with predisposing neurological conditions. Caution in seizure-prone individuals."
+
+interactions: []
+
+mechanisms:
+  - pathway: BDNF_NGF_mimicry
+    description: "Neuropeptide components mimic BDNF and NGF activity; activate TrkB and TrkA signaling; promote neuronal survival and differentiation"
+  - pathway: neuroplasticity
+    description: "Promotes synaptic plasticity, dendritic sprouting, and long-term potentiation; enhances learning and memory consolidation"
+  - pathway: neuroprotection
+    description: "Reduces excitotoxicity and oxidative stress; protects neurons in ischemic and traumatic injury contexts"
+  - pathway: cholinergic_enhancement
+    description: "Enhances cholinergic neurotransmission; may contribute to improvements in Alzheimer's-related cognitive deficits"
+
+searchTerms:
+  pubmed:
+    - "cerebrolysin AND stroke AND randomized controlled trial AND CASTA"
+    - "cerebrolysin AND Alzheimer AND cognitive function AND clinical trial"
+    - "cerebrolysin AND traumatic brain injury AND neuroprotection AND clinical"
+  semanticScholar:
+    - "cerebrolysin neuropeptide stroke Alzheimer neuroprotection"
+    - "cerebrolysin BDNF NGF neuroplasticity clinical"

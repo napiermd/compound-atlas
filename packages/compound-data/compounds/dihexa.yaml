@@ -1,0 +1,70 @@
+# Dihexa — HGF potentiator, cognitive peptide
+slug: dihexa
+name: Dihexa
+aliases:
+  - PNB-0408
+  - N-hexanoic-Tyr-Ile-(6) aminohexanoic amide
+category: NOOTROPIC
+subcategory: neurogenic
+legalStatus: RESEARCH_ONLY
+clinicalPhase: "Preclinical"
+description: |
+  Dihexa is a small peptide derived from angiotensin IV, designed to potentiate
+  hepatocyte growth factor (HGF) and its receptor c-Met. In animal models it produces
+  dramatic improvements in cognitive function, synaptogenesis, and long-term potentiation —
+  reportedly 7-orders of magnitude more potent than BDNF at driving synaptic connectivity.
+  Developed at Washington State University. No human clinical trial data exists. Oral and
+  transdermal bioavailability are both reported. Extreme caution warranted: HGF
+  potentiation could theoretically accelerate existing malignancies.
+
+halfLife: "Unknown; estimated days due to high lipophilicity"
+onset: "Days to weeks in animal models"
+duration: "Extended; lipophilic accumulation"
+routeOfAdmin:
+  - oral
+  - sublingual
+  - transdermal
+mechanismShort: "Potentiates HGF/c-Met receptor signaling, dramatically enhancing synaptogenesis, dendritic spine density, and hippocampal LTP"
+
+dosing:
+  min: 2
+  typical: 4
+  max: 10
+  unit: mg
+  frequency: "Daily or 3–5x/week (research dosing)"
+  notes: "No established human dose. Research dosing typically 2–10mg/day sublingual or transdermal. Some users report high potency at 1–3mg. Extreme caution: no human safety data."
+
+sideEffects:
+  - name: unknown_safety_profile
+    severity: unknown
+    frequency: unknown
+    notes: "No human safety data. Preclinical compound only."
+  - name: potential_cancer_risk
+    severity: severe
+    frequency: unknown
+    notes: "HGF/c-Met pathway promotes cell growth and migration; theoretical risk of promoting existing malignancies. Do not use with cancer history."
+  - name: headache
+    severity: mild
+    frequency: uncommon
+    notes: "Reported anecdotally"
+
+interactions: []
+
+mechanisms:
+  - pathway: HGF_cMet_potentiation
+    description: "Binds and activates c-Met (HGF receptor), triggering downstream signaling cascades promoting synaptic formation and neuronal growth"
+  - pathway: synaptogenesis
+    description: "Dramatically increases dendritic spine density and number of synaptic connections in hippocampus and cortex"
+  - pathway: LTP_enhancement
+    description: "Potentiates long-term potentiation, the cellular correlate of learning and memory"
+  - pathway: BDNF_independent_neurotrophy
+    description: "Exerts neurogenic effects via a BDNF-independent pathway, potentially complementary to conventional neurotrophin approaches"
+
+searchTerms:
+  pubmed:
+    - "dihexa AND cognitive AND (rat OR mouse OR animal)"
+    - "HGF AND c-Met AND synaptogenesis AND cognition"
+    - "angiotensin IV analog AND neuroprotection AND learning"
+  semanticScholar:
+    - "dihexa HGF c-Met cognitive function synaptogenesis"
+    - "hepatocyte growth factor potentiator neuroplasticity memory"

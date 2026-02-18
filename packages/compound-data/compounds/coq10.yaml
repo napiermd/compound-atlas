@@ -1,0 +1,73 @@
+# CoQ10 — Coenzyme Q10, mitochondrial electron carrier
+slug: coq10
+name: CoQ10
+aliases:
+  - Coenzyme Q10
+  - ubiquinol
+  - ubiquinone
+  - CoQ-10
+  - mitoquinol
+category: SUPPLEMENT
+subcategory: mitochondrial_cofactor
+legalStatus: LEGAL
+clinicalPhase: "Phase II"
+description: |
+  Coenzyme Q10 (CoQ10) is a fat-soluble quinone compound endogenous to mitochondrial
+  inner membranes, serving as an essential electron carrier in the respiratory chain
+  (complexes I–III) and a lipophilic antioxidant. Endogenous synthesis declines with age
+  and is depleted by statins (HMG-CoA reductase inhibition blocks the CoQ10 synthesis
+  pathway). Clinical evidence supports: reduced blood pressure in hypertension, reduced
+  statin-associated myopathy with co-supplementation, and potential benefit in heart
+  failure (Q-SYMBIO trial). Ubiquinol form (reduced) has superior bioavailability vs.
+  ubiquinone, especially in older adults. Used broadly for cardiovascular health, mitochondrial
+  function, anti-aging, and statin myopathy prevention. Safe and well-tolerated.
+
+halfLife: "~33 hours (ubiquinol)"
+onset: "Plasma CoQ10 rises within days; clinical effects over 4–12 weeks"
+duration: "Requires continued supplementation to maintain elevated levels"
+routeOfAdmin:
+  - oral
+mechanismShort: "Electron shuttle in mitochondrial ETC (complex I-III); lipophilic antioxidant protecting cell membranes; regenerates vitamins C and E; replenishes statin-depleted CoQ10"
+
+dosing:
+  min: 100
+  typical: 200
+  max: 600
+  unit: mg
+  frequency: "Once or twice daily with fat-containing meal"
+  notes: "100–200mg/day standard for general use. 300–600mg for heart failure or statin myopathy. Ubiquinol form preferred for those over 40 or with absorption issues. Take with meals — fat-soluble. Divide doses twice daily for higher doses."
+
+sideEffects:
+  - name: GI_upset
+    severity: mild
+    frequency: uncommon
+    notes: "Mild nausea or GI discomfort at higher doses; take with food"
+  - name: insomnia
+    severity: mild
+    frequency: rare
+    notes: "Stimulatory effects on mitochondrial function may disturb sleep in sensitive individuals; morning dosing preferred"
+
+interactions:
+  - target: fish-oil
+    type: synergistic
+    severity: mild
+    description: "Synergistic mitochondrial and cardiovascular benefits; both improve endothelial function"
+
+mechanisms:
+  - pathway: mitochondrial_electron_transfer
+    description: "Shuttles electrons from NADH (complex I) and FADH2 (complex II) to cytochrome c (complex III); essential for ATP production via oxidative phosphorylation"
+  - pathway: antioxidant
+    description: "Reduced ubiquinol form is a potent lipophilic antioxidant; protects mitochondrial membranes from oxidative damage; regenerates vitamins C and E"
+  - pathway: endothelial_function
+    description: "Improves nitric oxide bioavailability and endothelial function; mechanism for blood pressure reduction"
+  - pathway: statin_depletion_reversal
+    description: "Statins block HMG-CoA reductase, reducing mevalonate pathway — the same pathway used for CoQ10 synthesis; supplementation reverses statin-induced CoQ10 depletion"
+
+searchTerms:
+  pubmed:
+    - "coenzyme Q10 AND heart failure AND Q-SYMBIO AND randomized"
+    - "CoQ10 AND statin AND myopathy AND supplementation AND clinical"
+    - "ubiquinol AND blood pressure AND hypertension AND randomized controlled trial"
+  semanticScholar:
+    - "CoQ10 coenzyme Q10 mitochondria heart failure cardiovascular"
+    - "CoQ10 statin myopathy ubiquinol supplementation"

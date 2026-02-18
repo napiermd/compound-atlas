@@ -1,0 +1,83 @@
+# Retatrutide — Triple GLP-1/GIP/Glucagon receptor agonist
+slug: retatrutide
+name: Retatrutide
+aliases:
+  - LY3437943
+  - triple agonist
+  - GLP-1 GIP glucagon agonist
+category: FAT_LOSS
+subcategory: triple_agonist
+legalStatus: RESEARCH_ONLY
+clinicalPhase: "Phase III"
+description: |
+  Retatrutide is an investigational triple agonist of GLP-1, GIP, and glucagon receptors
+  developed by Eli Lilly. Phase II data demonstrated 24.2% average weight loss at 24 weeks
+  — exceeding any approved therapy. Glucagon agonism adds hepatic fat mobilization and
+  energy expenditure beyond dual GLP-1/GIP. Currently in Phase III trials for obesity and
+  type 2 diabetes. Not available outside clinical trials; compounded versions circulate in
+  gray market. Represents the next frontier of obesity pharmacology.
+
+halfLife: "~6 days (estimated)"
+onset: "Weeks for weight loss; appetite suppression within days"
+duration: "Ongoing; effects reverse after discontinuation"
+routeOfAdmin:
+  - subcutaneous
+mechanismShort: "Triple GLP-1/GIP/glucagon receptor agonist; adds hepatic fat mobilization and increased energy expenditure to GLP-1/GIP incretin effects"
+
+dosing:
+  min: 1
+  typical: 8
+  max: 12
+  unit: mg
+  frequency: "Once weekly subcutaneous (trial doses)"
+  notes: "Phase II trial doses ranged from 1–12mg/week with titration. No approved dosing protocol. Not approved for use outside clinical trials."
+
+sideEffects:
+  - name: nausea
+    severity: moderate
+    frequency: very_common
+    notes: "Similar to semaglutide/tirzepatide; most common during titration"
+  - name: vomiting
+    severity: moderate
+    frequency: common
+    notes: "GI effects from triple receptor activation; titration-dependent"
+  - name: diarrhea
+    severity: mild
+    frequency: common
+  - name: pancreatitis
+    severity: severe
+    frequency: rare
+    notes: "Class effect; monitor for severe abdominal pain"
+  - name: heart_rate_increase
+    severity: mild
+    frequency: common
+    notes: "Glucagon receptor agonism raises resting heart rate; clinically relevant in cardiac patients"
+
+interactions:
+  - target: semaglutide
+    type: antagonistic
+    severity: moderate
+    description: "Overlapping GLP-1 mechanisms; not combined"
+  - target: tirzepatide
+    type: antagonistic
+    severity: moderate
+    description: "Overlapping GLP-1/GIP mechanisms; not combined"
+
+mechanisms:
+  - pathway: GLP1_receptor_agonism
+    description: "Activates GLP-1 receptors for appetite suppression, gastric emptying delay, and incretin insulin secretion"
+  - pathway: GIP_receptor_agonism
+    description: "GIP agonism sensitizes adipocytes, augments incretin response, and may improve lean mass preservation"
+  - pathway: glucagon_receptor_agonism
+    description: "Glucagon receptor activation increases hepatic glucose production, mobilizes fat from liver, and raises basal metabolic rate via thermogenesis"
+  - pathway: energy_expenditure_increase
+    description: "Glucagon component drives higher energy expenditure vs. GLP-1 or dual agonists, contributing to superior weight loss"
+
+searchTerms:
+  pubmed:
+    - "retatrutide AND obesity AND Phase II AND weight loss"
+    - "LY3437943 AND triple agonist AND GLP-1 GIP glucagon"
+    - "triple receptor agonist AND obesity AND clinical trial"
+  semanticScholar:
+    - "retatrutide triple agonist GLP-1 GIP glucagon obesity"
+    - "triple incretin receptor agonist weight loss phase II"

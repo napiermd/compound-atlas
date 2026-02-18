@@ -1,0 +1,93 @@
+# Semaglutide — GLP-1 receptor agonist (Ozempic / Wegovy)
+slug: semaglutide
+name: Semaglutide
+aliases:
+  - Ozempic
+  - Wegovy
+  - Rybelsus
+  - semaglutide injection
+  - GLP-1 agonist
+category: FAT_LOSS
+subcategory: GLP1_agonist
+legalStatus: PRESCRIPTION
+clinicalPhase: "Approved"
+description: |
+  Semaglutide is a GLP-1 receptor agonist approved for type 2 diabetes (Ozempic, 0.5–2mg
+  weekly SC; Rybelsus, 7–14mg oral daily) and chronic weight management (Wegovy, up to
+  2.4mg weekly SC). In the STEP trials, semaglutide 2.4mg produced ~15% average weight
+  loss vs. 2.4% placebo over 68 weeks. Cardiovascular outcomes trials (SUSTAIN-6) show
+  significant MACE reduction. Robust evidence base across type 2 diabetes, obesity, MASH,
+  and cardiovascular risk reduction. One of the most impactful drugs of the 2020s.
+
+halfLife: "~7 days (injection); ~1 week"
+onset: "Appetite suppression within days; full weight loss effect over months"
+duration: "Ongoing; effects reverse within ~8 weeks of discontinuation"
+routeOfAdmin:
+  - subcutaneous
+  - oral
+mechanismShort: "GLP-1 receptor agonist: delays gastric emptying, suppresses appetite via hypothalamic signaling, stimulates glucose-dependent insulin secretion"
+
+dosing:
+  min: 0.25
+  typical: 1
+  max: 2.4
+  unit: mg
+  frequency: "Once weekly (injection); once daily (oral Rybelsus)"
+  notes: "Titrate slowly: 0.25mg/week x4, then 0.5mg, then 1mg, then 1.7mg, then 2.4mg (Wegovy protocol). Inject abdomen, thigh, or upper arm. Oral form requires fasted administration with ≤4oz water."
+
+sideEffects:
+  - name: nausea
+    severity: moderate
+    frequency: very_common
+    notes: "Most common side effect, especially during titration; typically improves after 4–8 weeks"
+  - name: vomiting
+    severity: moderate
+    frequency: common
+    notes: "Particularly during dose escalation; eat smaller meals, avoid high-fat foods"
+  - name: diarrhea
+    severity: mild
+    frequency: common
+    notes: "GI motility changes; typically resolves with time"
+  - name: constipation
+    severity: mild
+    frequency: common
+    notes: "From delayed gastric emptying; increase fiber and fluid intake"
+  - name: pancreatitis
+    severity: severe
+    frequency: rare
+    notes: "Discontinue immediately with severe abdominal pain. Contraindicated with history of pancreatitis."
+  - name: thyroid_C_cell_tumors
+    severity: severe
+    frequency: rare
+    notes: "Observed in rodent studies; contraindicated with personal/family history of MTC or MEN2. Black box warning."
+  - name: muscle_loss
+    severity: moderate
+    frequency: common
+    notes: "Rapid weight loss can include significant lean mass loss; resistance training and high protein intake are essential"
+
+interactions:
+  - target: tirzepatide
+    type: antagonistic
+    severity: moderate
+    description: "Not combined — both are injectable weight loss agents acting on overlapping pathways. Tirzepatide is generally more effective."
+
+mechanisms:
+  - pathway: GLP1_receptor_agonism
+    description: "Binds and activates GLP-1 receptors in pancreas, brain, gut, and cardiovascular system with 94% homology to native GLP-1 but 7-day half-life"
+  - pathway: hypothalamic_appetite_suppression
+    description: "Activates GLP-1 receptors in hypothalamic arcuate nucleus, reducing NPY/AgRP appetite-stimulating neurons and increasing POMC satiety neurons"
+  - pathway: gastric_emptying_delay
+    description: "Slows gastric emptying, prolonging satiety and blunting post-meal glucose excursions"
+  - pathway: incretin_effect
+    description: "Stimulates glucose-dependent insulin secretion from pancreatic beta cells; does not cause hypoglycemia in non-diabetics"
+  - pathway: cardiovascular_protection
+    description: "Direct GLP-1 receptor effects on cardiac and vascular tissue reduce MACE risk independent of weight loss"
+
+searchTerms:
+  pubmed:
+    - "semaglutide AND weight loss AND randomized controlled trial"
+    - "semaglutide AND obesity AND cardiovascular AND STEP trial"
+    - "semaglutide AND type 2 diabetes AND glycemic AND meta-analysis"
+  semanticScholar:
+    - "semaglutide GLP-1 receptor agonist obesity weight loss"
+    - "semaglutide cardiovascular outcomes SUSTAIN trial"

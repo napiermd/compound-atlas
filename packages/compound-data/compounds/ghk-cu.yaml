@@ -1,0 +1,65 @@
+# GHK-Cu — Copper peptide, skin and collagen regeneration
+slug: ghk-cu
+name: GHK-Cu
+aliases:
+  - copper peptide
+  - GHK copper
+  - glycyl-histidyl-lysine copper
+  - copper tripeptide-1
+category: PEPTIDE
+subcategory: wound_healing
+legalStatus: GRAY_MARKET
+clinicalPhase: "Preclinical"
+description: |
+  GHK-Cu is a naturally occurring copper complex found in human plasma, saliva, and urine.
+  Plasma levels decline from ~200 ng/mL at age 20 to ~80 ng/mL by age 60. GHK-Cu activates
+  genes involved in tissue remodeling, collagen synthesis, antioxidant defense, and
+  anti-inflammatory signaling. Topical formulations are widely available OTC and
+  well-established for skin aging and wound healing. Injectable use is experimental.
+
+halfLife: "Minutes in plasma; tissue effects are prolonged"
+onset: "Topical: 4–8 weeks; Injectable: 1–2 weeks"
+duration: "Cumulative with chronic use"
+routeOfAdmin:
+  - topical
+  - subcutaneous
+mechanismShort: "Activates collagen synthesis and wound healing genes; broad anti-inflammatory and antioxidant effects via Nrf2 and NF-κB pathways"
+
+dosing:
+  min: 1
+  typical: 2
+  max: 5
+  unit: mg
+  frequency: "Daily subcutaneous (injectable); 2x/day topical"
+  notes: "Topical: 1–2% concentration. Injectable: 1–5mg/day SC in research context. Topical is the established, lower-risk route."
+
+sideEffects:
+  - name: injection_site_reaction
+    severity: mild
+    frequency: uncommon
+    notes: "Mild redness at subcutaneous site; rare with topical use"
+  - name: skin_darkening
+    severity: mild
+    frequency: rare
+    notes: "Near eyes with topical application; avoid mucous membranes"
+
+interactions: []
+
+mechanisms:
+  - pathway: collagen_synthesis
+    description: "Upregulates collagen I, III, VII and elastin in fibroblasts; reverses collagen fragmentation in aged skin"
+  - pathway: antioxidant_upregulation
+    description: "Increases SOD, catalase, and glutathione via Nrf2 activation"
+  - pathway: anti_inflammatory
+    description: "Reduces IL-1β, TNF-α, TGF-β1; suppresses NF-κB inflammatory signaling"
+  - pathway: angiogenesis
+    description: "Promotes new blood vessel formation and nerve fiber growth to accelerate wound closure"
+
+searchTerms:
+  pubmed:
+    - "GHK-Cu AND (skin OR wound OR collagen) AND human"
+    - "copper peptide AND (anti-aging OR wound healing OR fibroblast)"
+    - "glycyl-histidyl-lysine AND regeneration AND clinical"
+  semanticScholar:
+    - "GHK copper peptide skin aging collagen synthesis"
+    - "copper tripeptide wound healing anti-inflammatory Nrf2"

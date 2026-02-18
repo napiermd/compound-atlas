@@ -111,6 +111,9 @@ model Compound {
   doseUnit        String?          // "mg", "IU", "mcg", etc.
   doseFrequency   String?          // "daily", "2x/week", "3x/day"
 
+  // Clinical development status
+  clinicalPhase   String?          // "Phase I", "Phase II", "Phase III", "Approved", "Preclinical", "No formal trials"
+
   // Scores (computed by pipeline)
   evidenceScore   Float?           // 0-100
   safetyScore     Float?           // 0-100

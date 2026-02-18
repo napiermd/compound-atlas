@@ -1,0 +1,80 @@
+# NAD+ Precursors — NMN/NR, longevity supplements
+slug: nad-precursors
+name: NAD+ Precursors
+aliases:
+  - NMN
+  - NR
+  - nicotinamide mononucleotide
+  - nicotinamide riboside
+  - Tru Niagen
+  - Beta-NMN
+  - NAD booster
+category: SUPPLEMENT
+subcategory: NAD_precursor
+legalStatus: LEGAL
+clinicalPhase: "Phase II"
+description: |
+  NAD+ (nicotinamide adenine dinucleotide) precursors — primarily NMN (nicotinamide
+  mononucleotide) and NR (nicotinamide riboside) — are orally bioavailable compounds
+  that raise intracellular NAD+ levels. NAD+ declines ~50% between age 40–60, implicating
+  it in aging-related metabolic dysfunction. NAD+ is the essential cofactor for sirtuins
+  (SIRT1–7), PARP enzymes, and the mitochondrial electron transport chain. Multiple Phase I/II
+  human trials confirm oral NMN and NR significantly increase blood NAD+ levels. NR
+  (Tru Niagen) has the most published human data. Benefits demonstrated in humans include
+  improved muscle function in older adults, improved exercise capacity, and metabolic
+  parameters. The longevity narrative is largely extrapolated from animal data showing
+  remarkable effects; human trials are younger. Safe and well-tolerated.
+
+halfLife: "NMN: ~2.5 hours. NR: ~2.7 hours for parent; metabolites longer."
+onset: "Blood NAD+ elevation within hours; physiologic effects over weeks to months"
+duration: "NAD+ elevation requires continued supplementation; returns to baseline within days"
+routeOfAdmin:
+  - oral
+mechanismShort: "Orally bioavailable NAD+ precursors; NR converts to NMN then NAD+; NMN converts directly to NAD+; elevates NAD+ for sirtuin activation, PARP DNA repair, and mitochondrial biogenesis"
+
+dosing:
+  min: 250
+  typical: 500
+  max: 1000
+  unit: mg
+  frequency: "Once daily oral (morning)"
+  notes: "Most Phase II trials used 250–500mg/day NR or NMN. Higher doses (1,000mg) used in some studies. Morning dosing aligns with circadian NAD+ biology. NR and NMN appear roughly equivalent in practice. Sublingual NMN may bypass gut conversion. Combine with resveratrol or apigenin to reduce NMN degradation (inhibit CD38)."
+
+sideEffects:
+  - name: flushing
+    severity: mild
+    frequency: uncommon
+    notes: "Mild flushing reported, particularly with NR; less than niacin. Usually resolves with continued use."
+  - name: GI_upset
+    severity: mild
+    frequency: uncommon
+    notes: "Mild nausea or GI discomfort at higher doses; take with or without food"
+  - name: potential_cancer_concern
+    severity: unknown
+    frequency: unknown
+    notes: "Theoretical concern: NAD+ elevation may accelerate proliferation of pre-existing cancer cells. Animal data mixed. No human signal observed. Theoretical risk in active cancer patients."
+
+interactions:
+  - target: berberine
+    type: synergistic
+    severity: mild
+    description: "AMPK activation by berberine and sirtuin/mitochondrial activation by NAD+ precursors may have complementary anti-aging metabolic effects"
+
+mechanisms:
+  - pathway: NAD_synthesis
+    description: "NMN and NR are direct precursors to NAD+; NR is phosphorylated to NMN, which is then adenylated to NAD+ via NMNAT enzymes"
+  - pathway: sirtuin_activation
+    description: "NAD+-dependent deacetylases SIRT1–7 regulate aging-related processes: mitochondrial biogenesis (SIRT1/PGC-1α), DNA repair (SIRT6), and stress resistance"
+  - pathway: PARP_DNA_repair
+    description: "PARP enzymes consume NAD+ during DNA damage repair; adequate NAD+ levels maintain genomic stability"
+  - pathway: mitochondrial_biogenesis
+    description: "SIRT1 activation by NAD+ deacetylates and activates PGC-1α; drives mitochondrial biogenesis and oxidative metabolism"
+
+searchTerms:
+  pubmed:
+    - "nicotinamide riboside AND NAD AND human AND clinical trial AND randomized"
+    - "NMN AND nicotinamide mononucleotide AND NAD AND muscle AND clinical"
+    - "NAD precursor AND aging AND sirtuin AND human AND clinical"
+  semanticScholar:
+    - "nicotinamide riboside NMN NAD+ aging sirtuin clinical"
+    - "NAD precursor NMN NR longevity metabolic human"

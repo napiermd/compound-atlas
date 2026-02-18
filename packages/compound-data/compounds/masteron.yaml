@@ -1,0 +1,77 @@
+# Masteron — Drostanolone, anti-estrogenic anabolic
+slug: masteron
+name: Masteron
+aliases:
+  - Drostanolone Propionate
+  - Drostanolone Enanthate
+  - Drostanolone
+  - Mast
+category: ANABOLIC
+subcategory: dihydrotestosterone_derivative
+legalStatus: SCHEDULED
+clinicalPhase: "Approved"
+description: |
+  Masteron (Drostanolone) is a DHT-derived anabolic steroid originally developed and
+  approved for inoperable breast cancer treatment in the 1970s. Available as propionate
+  (short-acting, EOD injections) and enanthate (long-acting, twice-weekly). Unique among
+  anabolics for its anti-estrogenic properties — drostanolone acts as an aromatase
+  inhibitor and directly competes with estrogen at the receptor level. Does not aromatize.
+  Produces hard, dense muscle appearance with minimal water retention, making it popular
+  pre-competition. Low anabolic potency relative to other steroids. Suppresses
+  testosterone. Schedule III controlled substance.
+
+halfLife: "~2–3 days (propionate); ~10 days (enanthate)"
+onset: "2–3 weeks"
+duration: "Cycle length 8–12 weeks; suppression recovery 4–8 weeks"
+routeOfAdmin:
+  - intramuscular
+mechanismShort: "DHT-derived androgen with intrinsic anti-estrogenic activity; no aromatization; competes with estrogen at receptor level; moderate AR agonist with hardening/drying cosmetic effects"
+
+dosing:
+  min: 200
+  typical: 400
+  max: 600
+  unit: mg
+  frequency: "Propionate: EOD IM injection. Enanthate: twice weekly IM."
+  notes: "Performance: 300–500mg/week. Typically used as a finisher compound in cutting phases. Requires testosterone base. Schedule III controlled substance."
+
+sideEffects:
+  - name: testosterone_suppression
+    severity: moderate
+    frequency: very_common
+    notes: "HPG axis suppression; PCT required. Typically milder than testosterone at equivalent doses."
+  - name: hair_loss
+    severity: moderate
+    frequency: common
+    notes: "Strong DHT derivative; significant androgenic alopecia risk in predisposed individuals"
+  - name: acne
+    severity: mild
+    frequency: common
+    notes: "DHT-driven sebaceous gland stimulation; dose-dependent"
+  - name: lipid_changes
+    severity: moderate
+    frequency: common
+    notes: "HDL reduction; cardiovascular risk with prolonged use"
+
+interactions:
+  - target: testosterone-cypionate
+    type: synergistic
+    severity: mild
+    description: "Anti-estrogenic properties of masteron reduce need for external AI when combined with testosterone; used in cutting stacks"
+
+mechanisms:
+  - pathway: androgen_receptor_agonism
+    description: "DHT-derived; binds AR in muscle tissue without aromatization, producing anabolic effects"
+  - pathway: anti_estrogenic
+    description: "Acts as aromatase inhibitor and competes with estrogen at receptor level; reduces estrogenic activity systemically"
+  - pathway: no_aromatization
+    description: "DHT structure prevents conversion to estrogen; produces hard, dry appearance by reducing estrogen-driven water retention"
+
+searchTerms:
+  pubmed:
+    - "drostanolone AND breast cancer AND anti-estrogen AND clinical"
+    - "masteron AND anabolic steroid AND body composition AND aromatase"
+    - "drostanolone propionate AND androgen AND muscle"
+  semanticScholar:
+    - "drostanolone masteron anabolic anti-estrogenic DHT steroid"
+    - "drostanolone aromatase inhibitor breast cancer androgen"

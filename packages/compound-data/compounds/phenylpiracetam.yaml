@@ -1,0 +1,73 @@
+# Phenylpiracetam — Phenotropil, stimulant nootropic
+slug: phenylpiracetam
+name: Phenylpiracetam
+aliases:
+  - Phenotropil
+  - Carphedon
+  - phenyl-piracetam
+  - 4-phenylpiracetam
+category: NOOTROPIC
+subcategory: racetam
+legalStatus: GRAY_MARKET
+clinicalPhase: "No formal trials"
+description: |
+  Phenylpiracetam is a phenyl-substituted derivative of piracetam developed in Russia in
+  the 1980s. The phenyl group addition increases CNS penetration and adds stimulant
+  properties not present in piracetam. Used in Russia for asthenic conditions, cognitive
+  impairment post-stroke, and as a cold-tolerance adaptogen. WADA-prohibited (stimulant).
+  Effects include increased alertness, focus, cold tolerance, psychomotor speed, and
+  motivation — described as "clean stimulation" without piracetam's subtle cognitive
+  improvements. Tolerance develops rapidly (2–3 days); requires cycling (2–3x/week maximum).
+  No rigorous human clinical trials. Sold as unscheduled gray-market nootropic.
+
+halfLife: "3–5 hours"
+onset: "30–60 minutes (acute stimulant effects)"
+duration: "4–6 hours per dose"
+routeOfAdmin:
+  - oral
+mechanismShort: "Phenyl-substituted piracetam; enhances dopamine and norepinephrine activity; increases NMDA/AMPA receptor density; stimulant and cognitive-enhancing properties"
+
+dosing:
+  min: 50
+  typical: 100
+  max: 200
+  unit: mg
+  frequency: "1–2 times per week maximum (tolerance management)"
+  notes: "100mg is the most common single dose. Rapid tolerance development demands strict cycling — daily use loses effect within days. Best used for high-demand days. Not for daily use."
+
+sideEffects:
+  - name: tolerance
+    severity: moderate
+    frequency: very_common
+    notes: "Extremely rapid tolerance development (2–3 days of consecutive use). Must cycle (2-3x/week maximum). Daily use renders it ineffective within a week."
+  - name: insomnia
+    severity: moderate
+    frequency: common
+    notes: "Stimulant properties interfere with sleep if dosed after noon; avoid afternoon/evening use"
+  - name: irritability
+    severity: mild
+    frequency: uncommon
+    notes: "Stimulant-related mood edge; some users report irritability or anxiety at higher doses"
+  - name: headache
+    severity: mild
+    frequency: uncommon
+    notes: "Racetam-class headache (possibly choline-related); choline supplementation may help"
+
+interactions: []
+
+mechanisms:
+  - pathway: dopamine_norepinephrine_enhancement
+    description: "Increases dopaminergic and noradrenergic activity; basis for stimulant and motivation-enhancing effects"
+  - pathway: AMPA_NMDA_modulation
+    description: "Like piracetam, increases AMPA and NMDA receptor density/sensitivity; improves synaptic plasticity and memory consolidation"
+  - pathway: acetylcholine_modulation
+    description: "Enhances cholinergic transmission in hippocampus; contributes to cognitive-enhancing effects"
+
+searchTerms:
+  pubmed:
+    - "phenylpiracetam AND cognitive AND clinical OR stroke OR asthenia"
+    - "carphedon AND nootropic AND stimulant AND performance"
+    - "phenylpiracetam AND WADA AND doping AND athlete"
+  semanticScholar:
+    - "phenylpiracetam carphedon racetam nootropic stimulant cognitive"
+    - "phenotropil cognitive enhancement stroke recovery Russian"

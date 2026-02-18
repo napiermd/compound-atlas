@@ -1,0 +1,80 @@
+# Fish Oil — Omega-3 fatty acids, EPA/DHA
+slug: fish-oil
+name: Fish Oil
+aliases:
+  - Omega-3
+  - EPA/DHA
+  - eicosapentaenoic acid
+  - docosahexaenoic acid
+  - marine omega-3
+  - Vascepa
+  - Lovaza
+category: SUPPLEMENT
+subcategory: fatty_acid
+legalStatus: LEGAL
+clinicalPhase: "Approved"
+description: |
+  Fish oil provides the omega-3 long-chain polyunsaturated fatty acids EPA
+  (eicosapentaenoic acid) and DHA (docosahexaenoic acid). Among the most extensively
+  studied supplements with multiple meta-analyses and large RCTs. FDA-approved
+  prescription omega-3 formulations (Vascepa — pure EPA; Lovaza — EPA+DHA) for severe
+  hypertriglyceridemia. The REDUCE-IT trial demonstrated significant cardiovascular
+  mortality benefit with high-dose EPA (icosapentaenoic acid, Vascepa) in statin-treated
+  patients. DHA is structural component of neuronal membranes; EPA is primarily
+  anti-inflammatory. Evidence supports triglyceride reduction, mild blood pressure
+  lowering, and anti-inflammatory effects. Widely used for cardiovascular, brain, and
+  anti-inflammatory purposes.
+
+halfLife: "EPA: ~2 days; DHA: ~2.5 days tissue turnover"
+onset: "Triglyceride reduction: 2–4 weeks. Anti-inflammatory effects: 4–8 weeks."
+duration: "Effects require continued supplementation; tissue depletion over weeks after cessation"
+routeOfAdmin:
+  - oral
+mechanismShort: "EPA and DHA compete with arachidonic acid for COX/LOX enzymes, shifting eicosanoid production toward anti-inflammatory SPMs; DHA incorporates into cell membranes affecting fluidity and receptor function"
+
+dosing:
+  min: 1000
+  typical: 2000
+  max: 4000
+  unit: mg
+  frequency: "Once or twice daily with meals (EPA+DHA content, not total fish oil)"
+  notes: "Read labels for actual EPA+DHA content — fish oil capsules often contain 30–50% omega-3. Target 2–4g EPA+DHA/day for triglycerides. 1–2g for general cardiovascular/anti-inflammatory benefit. Take with fatty meals for absorption. Enteric-coated reduces fish burp."
+
+sideEffects:
+  - name: fishy_aftertaste
+    severity: mild
+    frequency: common
+    notes: "Fish burp common with standard formulations; enteric-coated or refrigerated capsules reduce this"
+  - name: GI_upset
+    severity: mild
+    frequency: uncommon
+    notes: "Mild GI discomfort at higher doses; take with food, split doses"
+  - name: bleeding_risk
+    severity: mild
+    frequency: rare
+    notes: "Mild platelet inhibition at high doses (>3g/day); caution with anticoagulants. Clinical significance generally low."
+
+interactions:
+  - target: berberine
+    type: synergistic
+    severity: mild
+    description: "Complementary lipid-lowering effects; additive reduction in triglycerides and inflammation"
+
+mechanisms:
+  - pathway: eicosanoid_competition
+    description: "EPA and DHA competitively inhibit arachidonic acid metabolism by COX and LOX enzymes; shifts prostaglandin/leukotriene production toward less inflammatory series-3 and series-5 variants"
+  - pathway: SPM_production
+    description: "Precursors to specialized pro-resolving mediators (SPMs): resolvins, protectins, and maresins — actively resolve rather than merely suppress inflammation"
+  - pathway: triglyceride_reduction
+    description: "Reduces hepatic VLDL synthesis; increases beta-oxidation of fatty acids; dramatically reduces very high triglycerides (>500mg/dL)"
+  - pathway: membrane_fluidity
+    description: "DHA incorporation into neuronal and erythrocyte membranes improves membrane fluidity, ion channel function, and receptor sensitivity"
+
+searchTerms:
+  pubmed:
+    - "fish oil AND omega-3 AND cardiovascular mortality AND REDUCE-IT AND randomized"
+    - "EPA DHA AND triglycerides AND randomized controlled trial"
+    - "omega-3 AND anti-inflammatory AND EPA AND resolvin AND clinical"
+  semanticScholar:
+    - "fish oil omega-3 EPA DHA cardiovascular triglyceride clinical"
+    - "omega-3 fatty acid inflammation resolvin protectin SPM"
