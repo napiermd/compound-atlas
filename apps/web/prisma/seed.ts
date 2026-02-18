@@ -14,7 +14,7 @@ interface SideEffect {
 }
 
 interface Interaction {
-  target: string;
+  target: string; // slug of target compound
   type: string;
   severity?: string;
   description?: string;
@@ -64,9 +64,13 @@ async function main() {
 
   const files = fs
     .readdirSync(compoundDataDir)
-    .filter((f) => f.endsWith(".yaml") || f.endsWith(".yml"));
+    .filter((f) => f.endsWith(".yaml") || f.endsWith(".yml"))
+    .sort();
 
   console.log(`Seeding ${files.length} compound(s)...\n`);
+
+  // ── Pass 1: upsert compounds, side effects, mechanisms ──────────────────
+  const allData: CompoundYaml[] = [];
 
   for (const file of files) {
     const raw = fs.readFileSync(path.join(compoundDataDir, file), "utf-8");
@@ -77,7 +81,8 @@ async function main() {
       continue;
     }
 
-    // Upsert the compound (without relations first)
+    allData.push(data);
+
     const compound = await db.compound.upsert({
       where: { slug: data.slug },
       update: {
@@ -118,7 +123,7 @@ async function main() {
       },
     });
 
-    // Delete and recreate nested relations to stay in sync with YAML
+    // Side effects — delete + recreate to stay in sync
     await db.compoundSideEffect.deleteMany({ where: { compoundId: compound.id } });
     if (data.sideEffects?.length) {
       await db.compoundSideEffect.createMany({
@@ -132,6 +137,7 @@ async function main() {
       });
     }
 
+    // Mechanisms — delete + recreate
     await db.compoundMechanism.deleteMany({ where: { compoundId: compound.id } });
     if (data.mechanisms?.length) {
       await db.compoundMechanism.createMany({
@@ -146,6 +152,54 @@ async function main() {
     console.log(`  ✓ ${data.name}`);
   }
 
+  // ── Pass 2: interactions (all compounds must exist first) ────────────────
+  console.log("\nLinking interactions...");
+
+  const allCompounds = await db.compound.findMany({
+    select: { id: true, slug: true },
+  });
+  const slugToId = new Map(allCompounds.map((c) => [c.slug, c.id]));
+
+  let linked = 0;
+  let skipped = 0;
+
+  for (const data of allData) {
+    if (!data.interactions?.length) continue;
+
+    const sourceId = slugToId.get(data.slug);
+    if (!sourceId) continue;
+
+    // Clear existing outbound interactions from this source compound
+    await db.compoundInteraction.deleteMany({
+      where: { sourceCompoundId: sourceId },
+    });
+
+    for (const interaction of data.interactions) {
+      const targetId = slugToId.get(interaction.target);
+      if (!targetId) {
+        skipped++;
+        continue;
+      }
+
+      await db.compoundInteraction.create({
+        data: {
+          sourceCompoundId: sourceId,
+          targetCompoundId: targetId,
+          interactionType: interaction.type,
+          severity: interaction.severity ?? null,
+          description: interaction.description ?? null,
+        },
+      });
+      linked++;
+    }
+  }
+
+  if (skipped > 0) {
+    console.log(
+      `  ⚠  ${skipped} interaction target(s) not found in DB — skipped (add those compounds to link them)`
+    );
+  }
+  console.log(`  ✓ ${linked} interaction(s) linked`);
   console.log("\nSeed complete.");
 }
 

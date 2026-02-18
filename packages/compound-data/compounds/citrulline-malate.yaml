@@ -1,0 +1,73 @@
+# Citrulline Malate — NO precursor + Krebs cycle support
+slug: citrulline-malate
+name: Citrulline Malate
+aliases:
+  - L-citrulline malate
+  - citrulline DL-malate
+  - citrulline 2:1
+  - Citrulline Malate 2:1
+category: SUPPLEMENT
+subcategory: ergogenic_aid
+legalStatus: LEGAL
+description: |
+  Citrulline malate combines L-citrulline (an amino acid) with malate (a Krebs cycle
+  intermediate) in a 2:1 ratio. L-citrulline raises plasma arginine levels more effectively
+  than supplemental arginine itself due to superior GI absorption and bypass of hepatic
+  first-pass metabolism. This boosts nitric oxide (NO) production, causing vasodilation,
+  improved blood flow, and the characteristic exercise pump. Malate independently supports
+  mitochondrial ATP production. Together they reduce fatigue, improve multi-set training
+  volume, and accelerate ammonia clearance.
+
+halfLife: "L-citrulline ~60 minutes (plasma); effects on NO persist 2-4 hours"
+onset: "45-60 minutes; take pre-workout"
+duration: "3-5 hours"
+routeOfAdmin:
+  - oral
+mechanismShort: "L-citrulline converts to arginine → NO via NOS → vasodilation; malate fuels Krebs cycle ATP synthesis and accelerates ammonia clearance"
+
+dosing:
+  min: 4000
+  typical: 8000
+  max: 10000
+  unit: mg
+  frequency: "daily (45-60 min pre-workout)"
+  notes: "Standard dose 8g of 2:1 citrulline:malate pre-workout. Pure L-citrulline dose is 3-6g for equivalent effect. Take with 400-500ml water."
+
+sideEffects:
+  - name: GI_discomfort
+    severity: mild
+    frequency: uncommon
+    notes: "High doses (>10g) may cause nausea or cramping; take with water; reduce dose if needed"
+  - name: blood_pressure_reduction
+    severity: mild
+    frequency: uncommon
+    notes: "Mild BP reduction via NO; generally favorable but monitor if on antihypertensives"
+
+interactions:
+  - target: beta-alanine
+    type: synergistic
+    severity: mild
+    description: "Citrulline improves O2 delivery and reduces ammonia fatigue; beta-alanine buffers lactic acid; complementary pre-workout fatigue reduction"
+  - target: creatine-monohydrate
+    type: synergistic
+    severity: mild
+    description: "Creatine replenishes ATP in fast-twitch fibers; citrulline enhances blood flow and O2 delivery; classic pre-workout trifecta with beta-alanine"
+
+mechanisms:
+  - pathway: arginine_NO_pathway
+    description: "L-citrulline is converted to L-arginine in the kidneys and enterocytes; arginine is substrate for endothelial nitric oxide synthase (eNOS)"
+  - pathway: vasodilation
+    description: "NO activates soluble guanylate cyclase → cGMP → smooth muscle relaxation → vasodilation → increased muscle blood flow and oxygen delivery"
+  - pathway: krebs_cycle_support
+    description: "Malate is a direct Krebs cycle intermediate (malate-aspartate shuttle), supporting mitochondrial NADH oxidation and ATP production"
+  - pathway: ammonia_clearance
+    description: "Citrulline is a direct component of the urea cycle; supplementation accelerates ammonia detoxification, reducing exercise-induced fatigue"
+
+searchTerms:
+  pubmed:
+    - "citrulline malate AND (resistance training OR performance OR fatigue) AND human"
+    - "L-citrulline AND nitric oxide AND exercise AND randomized"
+    - "citrulline AND (blood flow OR vasodilation OR muscle endurance)"
+  semanticScholar:
+    - "citrulline malate exercise performance resistance training"
+    - "L-citrulline arginine nitric oxide bioavailability"

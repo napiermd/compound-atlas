@@ -1,0 +1,80 @@
+# Ashwagandha — Most clinically validated adaptogen
+slug: ashwagandha
+name: Ashwagandha
+aliases:
+  - withania somnifera
+  - indian ginseng
+  - KSM-66
+  - Sensoril
+  - winter cherry
+category: ADAPTOGEN
+subcategory: herbal_adaptogen
+legalStatus: LEGAL
+description: |
+  Ashwagandha (Withania somnifera) is an Ayurvedic herb and one of the most extensively
+  researched adaptogens. It reduces cortisol, modulates the HPA axis, and has demonstrated
+  benefits for stress, anxiety, testosterone, muscle recovery, and sleep quality across
+  multiple double-blind RCTs. KSM-66 (full-spectrum root extract) and Sensoril (leaf/root
+  blend) are the two clinically validated standardized extracts.
+
+halfLife: "~12 hours (withanolides)"
+onset: "2-4 weeks for stress and cortisol effects; acute anxiolytic effects within 60-90 min"
+duration: "Effects persist with daily use; 2-3 week wash-out to baseline"
+routeOfAdmin:
+  - oral
+mechanismShort: "Withanolides modulate HPA axis, reduce cortisol, potentiate GABA-A signaling, and inhibit NF-kB inflammation"
+
+dosing:
+  min: 300
+  typical: 600
+  max: 1200
+  unit: mg
+  frequency: "daily (split 2x/day)"
+  notes: "Use standardized extract (KSM-66 or Sensoril). Take with food to reduce GI upset. Evening dose supports sleep."
+
+sideEffects:
+  - name: GI_upset
+    severity: mild
+    frequency: uncommon
+    notes: "Nausea and loose stools; take with food to resolve"
+  - name: drowsiness
+    severity: mild
+    frequency: uncommon
+    notes: "Mild sedation at higher doses; move evening dose to bedtime"
+  - name: thyroid_stimulation
+    severity: moderate
+    frequency: rare
+    notes: "May increase T3/T4; monitor thyroid function if on thyroid medication"
+  - name: hepatotoxicity
+    severity: severe
+    frequency: rare
+    notes: "Rare case reports of liver injury; discontinue if jaundice or elevated LFTs appear"
+
+interactions:
+  - target: l-theanine
+    type: synergistic
+    severity: mild
+    description: "Complementary anxiolytic mechanisms: L-theanine provides acute GABA-A effects, ashwagandha works chronically via HPA modulation"
+  - target: magnesium-glycinate
+    type: synergistic
+    severity: mild
+    description: "Additive stress reduction and sleep improvement via distinct mechanisms; both reduce HPA hyperactivity"
+
+mechanisms:
+  - pathway: HPA_axis_modulation
+    description: "Withanolides suppress corticotropin-releasing hormone (CRH) and ACTH, reducing downstream cortisol secretion"
+  - pathway: GABA_A_potentiation
+    description: "Withanolide A acts as a positive allosteric modulator of GABA-A receptors, producing anxiolytic effects independent of benzodiazepine sites"
+  - pathway: NF_kB_inhibition
+    description: "Suppresses NF-kB signaling cascade, reducing pro-inflammatory cytokines (IL-6, TNF-alpha)"
+  - pathway: testosterone_support
+    description: "Reduces cortisol-mediated testosterone suppression and supports LH secretion; RCT evidence for 15-40% T increase"
+
+searchTerms:
+  pubmed:
+    - "ashwagandha AND (cortisol OR stress OR anxiety) AND randomized controlled trial"
+    - "withania somnifera AND testosterone AND human"
+    - "KSM-66 OR Sensoril AND clinical trial AND human"
+  semanticScholar:
+    - "ashwagandha adaptogen stress cortisol randomized"
+    - "withania somnifera testosterone muscle recovery"

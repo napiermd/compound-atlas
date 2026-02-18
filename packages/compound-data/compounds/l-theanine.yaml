@@ -1,0 +1,76 @@
+# L-Theanine — Relaxed focus without sedation
+slug: l-theanine
+name: L-Theanine
+aliases:
+  - theanine
+  - gamma-ethylamino-L-glutamic acid
+  - Suntheanine
+  - L-γ-glutamylethylamide
+category: AMINO_ACID
+subcategory: nootropic_amino_acid
+legalStatus: LEGAL
+description: |
+  L-Theanine is an amino acid found naturally in green and black tea (Camellia sinensis).
+  It promotes a state of relaxed alertness — reducing anxiety without causing sedation —
+  and is particularly well-studied in combination with caffeine. It increases alpha brain
+  wave activity (8-14 Hz), modulates GABA and glutamate systems, and has a strong safety
+  profile with minimal side effects. The caffeine+theanine stack (1:2 ratio) is among the
+  most replicated cognitive enhancement combinations in the literature.
+
+halfLife: "~1 hour (plasma)"
+onset: "30-60 minutes"
+duration: "3-5 hours"
+routeOfAdmin:
+  - oral
+mechanismShort: "GABA-A positive allosteric modulation, NMDA/AMPA antagonism, alpha-wave induction, catecholamine modulation"
+
+dosing:
+  min: 100
+  typical: 200
+  max: 400
+  unit: mg
+  frequency: "daily or as needed"
+  notes: "Classic stack: 200mg L-theanine with 100mg caffeine. Take independently for acute stress or sleep onset."
+
+sideEffects:
+  - name: mild_sedation
+    severity: mild
+    frequency: rare
+    notes: "Only at 400mg+ in sensitive individuals; not observed at standard doses"
+
+interactions:
+  - target: ashwagandha
+    type: synergistic
+    severity: mild
+    description: "Complementary anxiolytic mechanisms: L-theanine is acute and fast-acting, ashwagandha chronic via HPA modulation"
+  - target: modafinil
+    type: synergistic
+    severity: mild
+    description: "Attenuates modafinil-associated anxiety and edge while preserving wakefulness; well-documented pairing"
+  - target: alpha-gpc
+    type: synergistic
+    severity: mild
+    description: "Alpha-GPC provides cholinergic focus drive; L-theanine reduces overstimulation; clean, balanced cognitive stack"
+  - target: magnesium-glycinate
+    type: synergistic
+    severity: mild
+    description: "Both promote GABA-ergic tone and sleep quality; magnesium via NMDA antagonism, theanine via GABA-A modulation"
+
+mechanisms:
+  - pathway: GABA_A_modulation
+    description: "Positive allosteric modulator of GABA-A receptors, increasing inhibitory tone without benzodiazepine-site binding"
+  - pathway: glutamate_receptor_antagonism
+    description: "Antagonizes AMPA and NMDA glutamate receptors, reducing excitatory neurotransmission and anxiety"
+  - pathway: alpha_wave_induction
+    description: "Increases occipital and parietal alpha-frequency oscillations (8-14 Hz), associated with relaxed, focused wakefulness"
+  - pathway: catecholamine_modulation
+    description: "Modulates dopamine and serotonin in limbic regions; contributes to mood and anxiety effects"
+
+searchTerms:
+  pubmed:
+    - "L-theanine AND (anxiety OR stress OR relaxation) AND human AND randomized"
+    - "L-theanine AND caffeine AND (cognition OR attention OR performance)"
+    - "theanine AND alpha waves AND EEG"
+  semanticScholar:
+    - "L-theanine cognitive performance anxiolytic human"
+    - "theanine caffeine combination attention focus"

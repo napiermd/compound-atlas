@@ -1,0 +1,74 @@
+# Magnesium Glycinate — Most bioavailable form for neurological applications
+slug: magnesium-glycinate
+name: Magnesium Glycinate
+aliases:
+  - magnesium bisglycinate
+  - magnesium diglycinate
+  - chelated magnesium
+  - magnesium glycinate chelate
+category: VITAMIN_MINERAL
+subcategory: essential_mineral
+legalStatus: LEGAL
+description: |
+  Magnesium glycinate is magnesium chelated to glycine, offering superior bioavailability
+  and GI tolerance compared to cheaper forms (oxide, sulfate, citrate). Magnesium is a
+  cofactor in over 300 enzymatic reactions including ATP synthesis, DNA repair, and protein
+  synthesis. An estimated 50-75% of US adults are deficient. Deficiency correlates strongly
+  with poor sleep, anxiety, muscle cramps, hypertension, and impaired glucose metabolism.
+  Glycinate form is the preferred choice for neurological, sleep, and stress applications.
+
+halfLife: "~24-48 hours (tissue saturation kinetics; not plasma half-life)"
+onset: "Acute sleep and muscle relaxation: 30-60 min; chronic stress and cortisol reduction: 4-8 weeks of consistent dosing"
+duration: "Continuous with daily use; tissue levels deplete slowly over 1-2 weeks of cessation"
+routeOfAdmin:
+  - oral
+mechanismShort: "NMDA receptor voltage-dependent block, calcium channel regulation, HPA axis modulation, ATP synthesis cofactor, melatonin precursor support"
+
+dosing:
+  min: 200
+  typical: 400
+  max: 800
+  unit: mg
+  frequency: "daily (evening preferred)"
+  notes: "Dose as elemental magnesium. Glycinate form is ~14% elemental Mg by weight. Take at bedtime for sleep benefit. Split doses >400mg to optimize absorption."
+
+sideEffects:
+  - name: loose_stools
+    severity: mild
+    frequency: uncommon
+    notes: "Much less than oxide or citrate forms; rare at standard doses with glycinate chelate"
+  - name: drowsiness
+    severity: mild
+    frequency: uncommon
+    notes: "Mild sedation at higher doses; advantageous when taken at bedtime for sleep"
+
+interactions:
+  - target: ashwagandha
+    type: synergistic
+    severity: mild
+    description: "Complementary HPA axis modulation: both reduce cortisol and improve sleep quality via distinct mechanisms (NMDA block vs. withanolide action)"
+  - target: l-theanine
+    type: synergistic
+    severity: mild
+    description: "Both promote GABAergic relaxation — magnesium via NMDA antagonism, L-theanine via GABA-A modulation; synergistic for sleep onset and anxiety"
+
+mechanisms:
+  - pathway: NMDA_receptor_block
+    description: "Magnesium acts as a voltage-dependent blocker of NMDA glutamate receptor channels, reducing CNS excitability and promoting sleep and relaxation"
+  - pathway: calcium_channel_regulation
+    description: "Competes with calcium at voltage-gated calcium channels, reducing neurotransmitter release, vasoconstriction, and smooth muscle tension"
+  - pathway: ATP_cofactor
+    description: "Required for ATP synthesis; physiologically active ATP exists as Mg-ATP complex; deficiency impairs mitochondrial energy production"
+  - pathway: HPA_axis_modulation
+    description: "Regulates CRH, ACTH, and cortisol secretion; deficiency associated with HPA hyperactivity; supplementation attenuates cortisol response to stress"
+  - pathway: melatonin_synthesis_support
+    description: "Required cofactor for serotonin N-acetyltransferase (SNAT), the rate-limiting enzyme in melatonin synthesis from serotonin"
+
+searchTerms:
+  pubmed:
+    - "magnesium AND (sleep OR insomnia OR sleep quality) AND randomized controlled trial"
+    - "magnesium AND (anxiety OR cortisol OR stress) AND human"
+    - "magnesium glycinate OR bisglycinate AND bioavailability OR absorption"
+  semanticScholar:
+    - "magnesium supplementation sleep quality insomnia"
+    - "magnesium deficiency anxiety cortisol HPA axis"

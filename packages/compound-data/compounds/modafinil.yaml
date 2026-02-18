@@ -1,0 +1,85 @@
+# Modafinil — Wakefulness-promoting agent, FDA approved
+slug: modafinil
+name: Modafinil
+aliases:
+  - Provigil
+  - Alertec
+  - Modalert
+  - Modvigil
+  - modafinil HCl
+category: NOOTROPIC
+subcategory: eugeroic
+legalStatus: PRESCRIPTION
+description: |
+  Modafinil is a Schedule IV wakefulness-promoting agent FDA-approved for narcolepsy,
+  shift work sleep disorder, and obstructive sleep apnea. Off-label it is widely used
+  as a cognitive enhancer for focus, working memory, and sustained wakefulness. Unlike
+  amphetamines, it has minimal cardiovascular side effects, low addiction potential, and
+  a more targeted mechanism. Evidence for cognitive enhancement in healthy adults is mixed
+  but reasonably consistent for tasks requiring sustained attention.
+
+halfLife: "12-15 hours"
+onset: "30-60 minutes"
+duration: "8-12 hours of wakefulness promotion"
+routeOfAdmin:
+  - oral
+mechanismShort: "Weak DAT inhibition raises synaptic dopamine; activates orexin/hypocretin neurons; increases histamine and NE"
+
+dosing:
+  min: 100
+  typical: 200
+  max: 400
+  unit: mg
+  frequency: "once daily, morning"
+  notes: "Take before noon to prevent insomnia. 100mg is effective and better tolerated for many users. Food delays but does not reduce absorption."
+
+sideEffects:
+  - name: insomnia
+    severity: moderate
+    frequency: common
+    notes: "Dose-dependent; take before noon; half-life of 12-15h precludes afternoon dosing"
+  - name: headache
+    severity: mild
+    frequency: common
+    notes: "Commonly from dehydration; ensure 2-3L water intake on modafinil days"
+  - name: reduced_appetite
+    severity: mild
+    frequency: common
+    notes: "Schedule meals proactively; does not impair absorption of nutrients when eaten"
+  - name: anxiety
+    severity: mild
+    frequency: uncommon
+    notes: "More likely at 200-400mg; L-theanine 200mg may attenuate without reducing wakefulness"
+  - name: Stevens_Johnson_syndrome
+    severity: severe
+    frequency: rare
+    notes: "Rare but serious dermatological reaction; discontinue immediately at any skin rash"
+
+interactions:
+  - target: l-theanine
+    type: synergistic
+    severity: mild
+    description: "L-theanine reduces modafinil-associated anxiety and jitteriness while preserving wakefulness benefits"
+  - target: alpha-gpc
+    type: synergistic
+    severity: mild
+    description: "Alpha-GPC may enhance modafinil's cognitive effects; acetylcholine support complements dopaminergic mechanism"
+
+mechanisms:
+  - pathway: dopamine_reuptake_inhibition
+    description: "Weak, non-releasing DAT inhibitor; increases synaptic dopamine primarily in striatum and nucleus accumbens without amphetamine-like releasing activity"
+  - pathway: orexin_activation
+    description: "Activates hypothalamic orexin/hypocretin neurons that regulate wakefulness, appetite, and arousal"
+  - pathway: norepinephrine_modulation
+    description: "Inhibits norepinephrine reuptake in the locus coeruleus, promoting alertness and vigilance"
+  - pathway: histamine_release
+    description: "Increases hypothalamic histamine release downstream of orexin activation, promoting wakefulness via H1 receptors"
+
+searchTerms:
+  pubmed:
+    - "modafinil AND (cognitive OR working memory OR executive function) AND healthy adults"
+    - "modafinil AND (narcolepsy OR shift work) AND randomized controlled trial"
+    - "modafinil AND fatigue AND performance"
+  semanticScholar:
+    - "modafinil cognitive enhancement healthy subjects meta-analysis"
+    - "modafinil mechanism wakefulness orexin"

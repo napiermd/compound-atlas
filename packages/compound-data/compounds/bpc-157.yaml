@@ -1,0 +1,76 @@
+# BPC-157 — Healing peptide, gray market research compound
+slug: bpc-157
+name: BPC-157
+aliases:
+  - body protection compound 157
+  - pentadecapeptide BPC 157
+  - PL 14736
+  - bpc157
+category: PEPTIDE
+subcategory: healing_peptide
+legalStatus: GRAY_MARKET
+description: |
+  BPC-157 is a synthetic pentadecapeptide (15 amino acids) derived from a portion of body
+  protection compound found in human gastric juice. It has extensive animal evidence for
+  accelerating healing of tendons, ligaments, muscles, gut mucosa, and neurological tissue.
+  Human clinical data is limited to GI indications. Widely used by athletes off-label for
+  injury recovery and gut healing. Currently research-use only with no approved human
+  indications outside gastric ulcer studies.
+
+halfLife: "~4 hours (subcutaneous)"
+onset: "Days to weeks depending on injury type and route"
+duration: "Effects accumulate over course of use; may persist post-cycle"
+routeOfAdmin:
+  - subcutaneous_injection
+  - intramuscular_injection
+  - oral
+mechanismShort: "Upregulates VEGF and GH receptors; activates FAK-paxillin tendon repair pathway; modulates NO-cGMP system"
+
+dosing:
+  min: 200
+  typical: 400
+  max: 600
+  unit: mcg
+  frequency: "1-2x/day"
+  notes: "Inject near injury site for local effects. Oral dosing (higher dose) may work for gut issues. Reconstitute lyophilized powder in bacteriostatic water."
+
+sideEffects:
+  - name: injection_site_reaction
+    severity: mild
+    frequency: uncommon
+    notes: "Minor redness and swelling at injection site; rotate sites daily"
+  - name: nausea
+    severity: mild
+    frequency: rare
+    notes: "Occasional at higher doses; usually transient and resolves spontaneously"
+  - name: unknown_long_term_effects
+    severity: moderate
+    frequency: unknown
+    notes: "No long-term human safety data; use with awareness of limited clinical evidence"
+
+interactions:
+  - target: creatine-monohydrate
+    type: synergistic
+    severity: mild
+    description: "Creatine supports muscle energy metabolism and volumization while BPC-157 accelerates structural tissue repair"
+
+mechanisms:
+  - pathway: VEGF_upregulation
+    description: "Stimulates vascular endothelial growth factor expression, promoting angiogenesis and vascularization at injury sites"
+  - pathway: GH_receptor_sensitization
+    description: "Upregulates growth hormone receptor expression, enhancing GH-mediated tissue repair and IGF-1 signaling"
+  - pathway: FAK_paxillin_pathway
+    description: "Activates focal adhesion kinase (FAK) and paxillin signaling, critical mediators of tendon and ligament fibroblast migration"
+  - pathway: NO_cGMP_modulation
+    description: "Modulates nitric oxide-cGMP signaling; cytoprotective and anti-inflammatory via NOS pathway"
+  - pathway: gut_cytoprotection
+    description: "Direct cytoprotective effects on GI mucosa; upregulates prostaglandin E2 and reduces mucosal inflammatory damage"
+
+searchTerms:
+  pubmed:
+    - "BPC-157 AND (tendon OR ligament OR muscle) AND (healing OR repair)"
+    - "BPC 157 AND gastrointestinal AND gastroprotective"
+    - "pentadecapeptide BPC 157 AND animal model"
+  semanticScholar:
+    - "BPC-157 tissue healing regeneration mechanism"
+    - "body protection compound 157 tendon ligament"

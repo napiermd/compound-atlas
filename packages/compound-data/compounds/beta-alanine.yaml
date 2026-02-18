@@ -1,0 +1,66 @@
+# Beta-Alanine — Intramuscular pH buffer via carnosine
+slug: beta-alanine
+name: Beta-Alanine
+aliases:
+  - β-alanine
+  - CarnoSyn
+  - beta alanine
+  - carnosine precursor
+category: SUPPLEMENT
+subcategory: ergogenic_amino_acid
+legalStatus: LEGAL
+description: |
+  Beta-alanine is a non-essential amino acid and the rate-limiting precursor to carnosine,
+  a dipeptide (beta-alanine + histidine) concentrated in skeletal muscle. Carnosine acts
+  as an intramuscular pH buffer, absorbing hydrogen ions generated during high-intensity
+  glycolytic exercise. Beta-alanine supplementation elevates muscle carnosine by 40-80%
+  over 4-8 weeks, consistently improving performance in exercise bouts lasting 1-4 minutes.
+  Over 40 clinical studies support its efficacy.
+
+halfLife: "~25 minutes (plasma); carnosine elevation persists for weeks after cessation"
+onset: "4-8 weeks for significant carnosine loading and performance benefit"
+duration: "Carnosine remains elevated 6-8 weeks after stopping; reloading faster on second cycle"
+routeOfAdmin:
+  - oral
+mechanismShort: "Rate-limiting carnosine precursor; muscle carnosine buffers intramuscular H+ ions during high-intensity glycolytic activity"
+
+dosing:
+  min: 2400
+  typical: 3200
+  max: 6400
+  unit: mg
+  frequency: "daily in divided doses"
+  notes: "Split into 800-1600mg doses to minimize paresthesia. Sustained-release form (CarnoSyn SR) further reduces tingling. Take consistently daily for loading."
+
+sideEffects:
+  - name: paresthesia
+    severity: mild
+    frequency: very_common
+    notes: "Harmless skin tingling/flushing beginning 15-20 min post-dose, lasting 60-90 min. Dose-dependent and benign. Use SR formulation or split doses to minimize."
+
+interactions:
+  - target: creatine-monohydrate
+    type: synergistic
+    severity: mild
+    description: "Complementary performance mechanisms: creatine supports rapid ATP resynthesis (0-10 sec efforts), beta-alanine buffers pH (60-240 sec efforts)"
+  - target: citrulline-malate
+    type: synergistic
+    severity: mild
+    description: "Citrulline improves blood flow and reduces ammonia-driven fatigue; beta-alanine buffers lactic acid; together address multiple fatigue pathways"
+
+mechanisms:
+  - pathway: carnosine_synthesis
+    description: "Oral beta-alanine is the rate-limiting substrate for muscle carnosine synthesis; elevates carnosine 40-80% over 4-8 weeks of loading"
+  - pathway: intramuscular_pH_buffering
+    description: "Carnosine (pKa 6.83) directly absorbs H+ ions in the physiological pH range generated during intense glycolytic exercise, delaying fatigue"
+  - pathway: calcium_sensitivity
+    description: "Carnosine enhances myofibrillar calcium sensitivity and sarcoplasmic reticulum calcium handling, potentially improving force production"
+
+searchTerms:
+  pubmed:
+    - "beta-alanine AND carnosine AND (performance OR exercise OR endurance) AND human"
+    - "beta-alanine AND (high-intensity OR HIIT OR sprint OR cycling) AND randomized"
+    - "beta-alanine supplementation AND meta-analysis"
+  semanticScholar:
+    - "beta-alanine carnosine muscle buffering exercise performance"
+    - "beta alanine supplementation randomized controlled trial"

@@ -1,0 +1,77 @@
+# Lion's Mane — NGF-stimulating medicinal mushroom
+slug: lions-mane
+name: Lion's Mane
+aliases:
+  - Hericium erinaceus
+  - yamabushitake
+  - monkey head mushroom
+  - hou tou gu
+  - hedgehog mushroom
+category: NOOTROPIC
+subcategory: medicinal_mushroom
+legalStatus: LEGAL
+description: |
+  Lion's Mane (Hericium erinaceus) is a medicinal mushroom that stimulates Nerve Growth
+  Factor (NGF) synthesis through hericenones (fruiting body) and erinacines (mycelium).
+  NGF promotes neuronal survival, axon regeneration, and synaptic plasticity. Clinical
+  evidence supports benefits for mild cognitive impairment, anxiety, depression, and
+  potentially neurodegeneration. Effects accumulate over weeks. Quality of extract
+  (fruiting body vs. mycelium, beta-glucan content) significantly impacts potency.
+
+halfLife: "Not well characterized; benefits accumulate over weeks via NGF upregulation"
+onset: "2-4 weeks for cognitive effects; 4-8 weeks for full benefit"
+duration: "Effects may persist weeks after cessation via sustained NGF elevation"
+routeOfAdmin:
+  - oral
+mechanismShort: "Hericenones and erinacines stimulate NGF and BDNF synthesis, promoting neuroplasticity, myelination, and neuroprotection"
+
+dosing:
+  min: 500
+  typical: 1000
+  max: 3000
+  unit: mg
+  frequency: "daily (split 2x/day)"
+  notes: "Prefer fruiting body extract with >30% beta-glucans. Dual-extract (hot water + ethanol) provides full-spectrum activity. Whole mushroom powder requires significantly higher doses."
+
+sideEffects:
+  - name: GI_discomfort
+    severity: mild
+    frequency: rare
+    notes: "Mild stomach upset in some users; take with food to resolve"
+  - name: skin_itch
+    severity: mild
+    frequency: rare
+    notes: "Rare allergic-type reaction; may indicate mushroom allergy; discontinue if persistent"
+
+interactions:
+  - target: ashwagandha
+    type: synergistic
+    severity: mild
+    description: "Ashwagandha reduces stress-induced neuronal damage (cortisol); Lion's Mane drives active NGF-mediated neuroplasticity; complementary neuroprotective stack"
+  - target: l-theanine
+    type: synergistic
+    severity: mild
+    description: "L-theanine provides acute alpha-wave focus and anxiety reduction; Lion's Mane drives long-term neuroplastic remodeling"
+  - target: alpha-gpc
+    type: synergistic
+    severity: mild
+    description: "Alpha-GPC provides immediate cholinergic substrate for memory consolidation; Lion's Mane supports long-term synaptic architecture via NGF"
+
+mechanisms:
+  - pathway: NGF_stimulation
+    description: "Hericenones (fruiting body) and erinacines (mycelium) stimulate NGF mRNA expression in hippocampus and cortex, promoting neuronal survival and outgrowth"
+  - pathway: BDNF_upregulation
+    description: "Increases brain-derived neurotrophic factor, supporting long-term potentiation, synaptic plasticity, and adult neurogenesis"
+  - pathway: myelination_support
+    description: "Promotes myelin basic protein expression; erinacines have demonstrated remyelination-supporting activity in animal models"
+  - pathway: gut_brain_axis
+    description: "Prebiotic beta-glucans modulate gut microbiome composition, which may contribute to cognitive and mood effects via vagus nerve"
+
+searchTerms:
+  pubmed:
+    - "Hericium erinaceus AND (cognitive OR memory OR NGF) AND human"
+    - "lion's mane AND (anxiety OR depression OR mild cognitive impairment)"
+    - "hericenone OR erinacine AND nerve growth factor"
+  semanticScholar:
+    - "Hericium erinaceus cognitive function NGF BDNF"
+    - "lion's mane mushroom neuroprotection neuroplasticity"
