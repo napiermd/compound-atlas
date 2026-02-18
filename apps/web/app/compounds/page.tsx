@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { CompoundCategory } from "@prisma/client";
 import { db } from "@/lib/db";
 import { CompoundFilters } from "@/components/compound/CompoundFilters";
 import type { CompoundSummary } from "@/components/compound/types";
@@ -41,7 +42,7 @@ export default async function CompoundsPage() {
   const compounds: CompoundSummary[] = rawCompounds;
 
   const categoryList = categories.map((c) => ({
-    category: c.category,
+    category: c.category as CompoundCategory,
     count: c._count._all,
   }));
 
