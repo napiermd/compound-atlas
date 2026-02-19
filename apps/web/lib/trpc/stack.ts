@@ -239,7 +239,8 @@ export const stackRouter = router({
           creatorId: userId,
           compounds: {
             create: original.compounds.map(
-              ({ id: _id, stackId: _sid, ...rest }) => rest
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              ({ id, stackId, ...rest }) => rest
             ),
           },
         },

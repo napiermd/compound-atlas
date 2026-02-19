@@ -20,12 +20,10 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
 import { CategoryBadge } from "@/components/compound/CategoryBadge";
 import { EvidenceScoreBadge } from "@/components/compound/EvidenceScoreBadge";
 import { GoalBadge } from "@/components/stack/GoalBadge";
 import { trpc } from "@/lib/trpc/client";
-import type { CompoundOption } from "@/components/stack/types";
 import type { StackGoal, CompoundCategory } from "@prisma/client";
 
 const GOAL_PRESETS = [
@@ -75,11 +73,7 @@ interface AiResult {
   safetyNotes: string[];
 }
 
-interface Props {
-  compounds: CompoundOption[];
-}
-
-export function AiStackBuilder({ compounds }: Props) {
+export function AiStackBuilder() {
   const router = useRouter();
 
   // Form state

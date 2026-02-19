@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { AiStackBuilder } from "./AiStackBuilder";
-import { db } from "@/lib/db";
 
 export const metadata: Metadata = {
   title: "AI Stack Builder — CompoundAtlas",
@@ -8,20 +7,7 @@ export const metadata: Metadata = {
     "Describe your goal and let AI suggest an evidence-based compound stack from our database.",
 };
 
-export default async function AiStackPage() {
-  // Fetch all compounds to pass to the builder for the save mutation
-  const compounds = await db.compound.findMany({
-    select: {
-      id: true,
-      slug: true,
-      name: true,
-      category: true,
-      evidenceScore: true,
-      doseUnit: true,
-    },
-    orderBy: { name: "asc" },
-  });
-
+export default function AiStackPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
       <div className="mb-8">
@@ -31,7 +17,7 @@ export default async function AiStackPage() {
           database.
         </p>
       </div>
-      <AiStackBuilder compounds={JSON.parse(JSON.stringify(compounds))} />
+      <AiStackBuilder />
     </div>
   );
 }
