@@ -1,7 +1,9 @@
-import Anthropic from "@anthropic-ai/sdk";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
+
+// Default model — override with OPENROUTER_MODEL env var
+const DEFAULT_MODEL = "moonshotai/kimi-k2";
 
 const RequestSchema = z.object({
   goal: z.string().min(1).max(1000),
@@ -17,12 +19,15 @@ export async function POST(req: Request) {
     const body = await req.json();
     const input = RequestSchema.parse(body);
 
-    if (!process.env.ANTHROPIC_API_KEY) {
+    const apiKey = process.env.OPENROUTER_API_KEY;
+    if (!apiKey) {
       return NextResponse.json(
-        { error: "AI features are not configured. Set ANTHROPIC_API_KEY." },
+        { error: "AI features are not configured. Set OPENROUTER_API_KEY." },
         { status: 503 }
       );
     }
+
+    const model = process.env.OPENROUTER_MODEL ?? DEFAULT_MODEL;
 
     // Fetch compounds from DB
     const compounds = await db.compound.findMany({
@@ -56,8 +61,6 @@ export async function POST(req: Request) {
       orderBy: { evidenceScore: "desc" },
     });
 
-    const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-
     const systemPrompt = `You are a compound research assistant for CompoundAtlas, an evidence-based stack planning platform.
 
 Your job is to suggest safe, evidence-based compound stacks based on user goals.
@@ -72,7 +75,7 @@ Rules:
 - Keep stacks focused: 3-7 compounds is ideal
 - Always include safety notes for any compounds with known risks
 
-Response format: Return ONLY valid JSON, no markdown, no explanation outside the JSON.`;
+Response format: Return ONLY valid JSON, no markdown fences, no explanation outside the JSON.`;
 
     const constraintText =
       input.constraints.length > 0
@@ -129,27 +132,45 @@ Return a JSON object with this exact structure:
   "safetyNotes": ["safety note text"]
 }`;
 
-    const response = await client.messages.create({
-      model: "claude-sonnet-4-20250514",
-      max_tokens: 2500,
-      system: systemPrompt,
-      messages: [{ role: "user", content: userPrompt }],
+    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+        "HTTP-Referer": process.env.NEXTAUTH_URL ?? "https://compound-atlas.vercel.app",
+        "X-Title": "CompoundAtlas",
+      },
+      body: JSON.stringify({
+        model,
+        max_tokens: 2500,
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userPrompt },
+        ],
+      }),
     });
 
-    const content = response.content[0];
-    if (content.type !== "text") {
-      throw new Error("Unexpected response type from AI");
+    if (!response.ok) {
+      const errText = await response.text();
+      throw new Error(`OpenRouter error ${response.status}: ${errText}`);
     }
 
-    // Extract JSON from response
-    const jsonMatch = content.text.match(/\{[\s\S]*\}/);
+    const completion = await response.json();
+    const text: string = completion.choices?.[0]?.message?.content ?? "";
+
+    if (!text) {
+      throw new Error("Empty response from AI");
+    }
+
+    // Extract JSON — strip markdown fences if model includes them
+    const jsonMatch = text.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
       throw new Error("AI did not return valid JSON");
     }
 
     const result = JSON.parse(jsonMatch[0]);
 
-    // Enrich compounds with DB data
+    // Enrich with DB compound IDs
     const enrichedCompounds = await Promise.all(
       (result.compounds ?? []).map(
         async (c: {
