@@ -16,7 +16,7 @@ const BOT_NAME = "CompoundAtlas AI";
 // Old hardcoded-seed bot — clean up its stacks if present
 const OLD_BOT_EMAIL = "atlas@compound-atlas.app";
 
-// Goals to seed (7 primary goals × 3 experience levels = 21 stacks)
+// Goals to seed (12 goals × 3 experience levels = 36 stacks)
 const SEED_GOALS: StackGoal[] = [
   StackGoal.RECOMP,
   StackGoal.BULK,
@@ -25,6 +25,11 @@ const SEED_GOALS: StackGoal[] = [
   StackGoal.SLEEP,
   StackGoal.LONGEVITY,
   StackGoal.RECOVERY,
+  StackGoal.JOINT_HEALTH,
+  StackGoal.MOOD,
+  StackGoal.LIBIDO,
+  StackGoal.GENERAL_HEALTH,
+  StackGoal.CUSTOM,
 ];
 
 const EXPERIENCE_LEVELS: ExperienceLevel[] = ["beginner", "intermediate", "advanced"];
