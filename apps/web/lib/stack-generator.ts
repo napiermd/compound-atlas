@@ -835,6 +835,9 @@ function goalLabel(goal: StackGoal, experience: ExperienceLevel): string {
     LIBIDO: "Libido",
     GENERAL_HEALTH: "General Health",
     CUSTOM: "General",
+    ATHLETIC_PERFORMANCE: "Athletic Performance",
+    HORMONE_OPTIMIZATION: "Hormone Optimization",
+    METABOLIC_HEALTH: "Metabolic Health",
   };
   return `${expLabel} ${goalLabel[goal] ?? goal} Stack`;
 }

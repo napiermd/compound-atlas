@@ -24,6 +24,12 @@ const goalStyles: Record<StackGoal, string> = {
     "bg-zinc-100 text-zinc-700 dark:bg-zinc-800/50 dark:text-zinc-300",
   CUSTOM:
     "bg-zinc-100 text-zinc-700 dark:bg-zinc-800/50 dark:text-zinc-300",
+  ATHLETIC_PERFORMANCE:
+    "bg-sky-100 text-sky-800 dark:bg-sky-900/30 dark:text-sky-300",
+  HORMONE_OPTIMIZATION:
+    "bg-violet-100 text-violet-800 dark:bg-violet-900/30 dark:text-violet-300",
+  METABOLIC_HEALTH:
+    "bg-lime-100 text-lime-800 dark:bg-lime-900/30 dark:text-lime-300",
 };
 
 interface Props {
