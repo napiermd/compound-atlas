@@ -701,7 +701,8 @@ function applyInteractionSafety(
 /** Compute composite evidence score weighted by how central each compound is to the goal */
 function computeCompositeScore(
   selected: { compound: CompoundRow; reasoning: string }[],
-  goal: StackGoal
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _goal: StackGoal
 ): number {
   if (!selected.length) return 0;
   const scored = selected.filter((s) => s.compound.evidenceScore !== null);
