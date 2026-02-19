@@ -6,6 +6,7 @@ import { db } from "./db";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(db),
+  trustHost: true,
   providers: [
     GitHub({
       clientId: process.env.GITHUB_ID ?? "",

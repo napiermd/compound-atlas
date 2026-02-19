@@ -46,13 +46,15 @@ STUDY_TYPE_WEIGHTS = {
 }
 
 # Composite score factor weights (must sum to 1.0)
+# study_count and study_quality are the primary drivers since we don't extract
+# sample_size/consistency/replication from abstracts — defaults are generous.
 FACTOR_WEIGHTS = {
-    "study_count": 0.15,
-    "study_quality": 0.30,
-    "sample_size": 0.15,
-    "consistency": 0.20,
-    "replication": 0.10,
-    "recency": 0.10,
+    "study_count": 0.35,
+    "study_quality": 0.35,
+    "sample_size": 0.10,
+    "consistency": 0.10,
+    "replication": 0.05,
+    "recency": 0.05,
 }
 
 
@@ -114,14 +116,13 @@ def compute_evidence_score(studies: list[StudyInput]) -> dict:
 def _score_study_count(studies: list[StudyInput]) -> float:
     """
     More studies = higher score, with diminishing returns.
-    0 studies = 0, 5 = ~40, 20 = ~70, 50+ = ~90, 100+ = ~95
+    0 studies = 0, 5 = ~44, 10 = ~60, 20 = ~75, 50+ = ~98, 100+ = 100
     """
     n = len(studies)
     if n == 0:
         return 0.0
-    # Logarithmic curve with ceiling
     import math
-    score = 20 * math.log(n + 1)
+    score = 25 * math.log(n + 1)
     return min(score, 100.0)
 
 
@@ -156,7 +157,7 @@ def _score_sample_size(studies: list[StudyInput]) -> float:
     """
     total = sum(s.sample_size for s in studies if s.sample_size)
     if total == 0:
-        return 10.0  # Some base score if studies exist but no sample data
+        return 45.0  # Generous default when sample data isn't extracted from abstracts
 
     import math
     # 100 participants = ~46, 1000 = ~69, 10000 = ~92
@@ -175,12 +176,12 @@ def _score_consistency(studies: list[StudyInput]) -> float:
         if s.effect_direction and s.effect_direction != "MIXED"
     ]
     if not directions:
-        return 30.0  # Neutral if no direction data
+        return 55.0  # Neutral-optimistic default when direction data isn't available
 
     from collections import Counter
     counts = Counter(directions)
     if not counts:
-        return 30.0
+        return 55.0
 
     most_common_count = counts.most_common(1)[0][1]
     consistency_ratio = most_common_count / len(directions)
@@ -206,11 +207,11 @@ def _score_replication(studies: list[StudyInput]) -> float:
 
     n_groups = len(all_institutions)
     if n_groups == 0:
-        return 20.0  # Base score
+        return 40.0  # Default when institution data isn't extracted
 
     import math
-    # 1 group = ~20, 5 = ~52, 10 = ~67, 20+ = ~80+
-    score = 15 * math.log(n_groups + 1) + 10
+    # 1 group = ~34, 5 = ~53, 10 = ~66, 20+ = ~79+
+    score = 20 * math.log(n_groups + 1) + 20
     return min(score, 100.0)
 
 
@@ -223,15 +224,15 @@ def _score_recency(studies: list[StudyInput]) -> float:
     years = [s.year for s in studies if s.year]
 
     if not years:
-        return 30.0
+        return 45.0
 
     recent_count = sum(1 for y in years if current_year - y <= 5)
-    very_recent = sum(1 for y in years if current_year - y <= 2)
+    very_recent = sum(1 for y in years if current_year - y <= 3)  # 3-year window
 
     recent_ratio = recent_count / len(years)
     very_recent_ratio = very_recent / len(years) if years else 0
 
-    score = (recent_ratio * 60) + (very_recent_ratio * 30) + 10
+    score = (recent_ratio * 50) + (very_recent_ratio * 40) + 10
     return min(score, 100.0)
 
 

@@ -304,7 +304,11 @@ def ingest_compound(
     seen_ids: set[str] = set()
 
     # ─── PubMed Search ───────────────────────────────
-    pubmed_queries = search_terms.get("pubmed", [f"{name} AND human"])
+    specific_queries = search_terms.get("pubmed", [])
+    # Always include a broad name-only query to catch studies that don't match
+    # narrow MeSH terms — deduplication by DOI/PMID prevents double-counting
+    broad_query = f"{name}"
+    pubmed_queries = specific_queries + [broad_query] if specific_queries else [f"{name} AND human", broad_query]
     min_date = None
     if since_days:
         min_date = (datetime.now() - timedelta(days=since_days)).strftime("%Y/%m/%d")
@@ -312,7 +316,7 @@ def ingest_compound(
     for query in pubmed_queries:
         console.print(f"  [dim]PubMed: {query}[/dim]")
         try:
-            articles = pubmed.search_and_fetch(query, max_results=50, min_date=min_date)
+            articles = pubmed.search_and_fetch(query, max_results=100, min_date=min_date)
             for article in articles:
                 dedup_key = article.doi or f"pmid:{article.pmid}"
                 if dedup_key not in seen_ids:
@@ -342,7 +346,18 @@ def ingest_compound(
             if since_days and since_days <= 365:
                 year_range = f"{datetime.now().year - 1}-{datetime.now().year}"
 
-            papers = s2.search(query, limit=50, year_range=year_range)
+            # Retry once on 429 rate-limit with 3s back-off
+            for attempt in range(2):
+                try:
+                    papers = s2.search(query, limit=100, year_range=year_range)
+                    break
+                except Exception as e:
+                    if attempt == 0 and "429" in str(e):
+                        console.print(f"  [yellow]S2 rate-limited, retrying in 3s…[/yellow]")
+                        time.sleep(3)
+                    else:
+                        raise
+
             for paper in papers:
                 dedup_key = paper.doi or f"s2:{paper.paper_id}"
                 if dedup_key not in seen_ids:
