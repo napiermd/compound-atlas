@@ -1,7 +1,7 @@
 /**
  * Seed auto-generated stacks using the CompoundAtlas stack generation engine.
  *
- * Generates stacks for 7 goals × 3 experience levels = 21 public stacks.
+ * Generates stacks for 15 goals × 3 experience levels = 45 public stacks.
  * Run: npm run db:seed-stacks
  */
 import { PrismaClient, StackGoal } from "@prisma/client";
@@ -16,7 +16,7 @@ const BOT_NAME = "CompoundAtlas AI";
 // Old hardcoded-seed bot — clean up its stacks if present
 const OLD_BOT_EMAIL = "atlas@compound-atlas.app";
 
-// Goals to seed (12 goals × 3 experience levels = 36 stacks)
+// Goals to seed (15 goals × 3 experience levels = 45 stacks)
 const SEED_GOALS: StackGoal[] = [
   StackGoal.RECOMP,
   StackGoal.BULK,
@@ -30,6 +30,9 @@ const SEED_GOALS: StackGoal[] = [
   StackGoal.LIBIDO,
   StackGoal.GENERAL_HEALTH,
   StackGoal.CUSTOM,
+  StackGoal.ATHLETIC_PERFORMANCE,
+  StackGoal.HORMONE_OPTIMIZATION,
+  StackGoal.METABOLIC_HEALTH,
 ];
 
 const EXPERIENCE_LEVELS: ExperienceLevel[] = ["beginner", "intermediate", "advanced"];

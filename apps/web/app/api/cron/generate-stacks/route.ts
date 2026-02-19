@@ -24,6 +24,14 @@ const GOALS: StackGoal[] = [
   StackGoal.SLEEP,
   StackGoal.LONGEVITY,
   StackGoal.RECOVERY,
+  StackGoal.JOINT_HEALTH,
+  StackGoal.MOOD,
+  StackGoal.LIBIDO,
+  StackGoal.GENERAL_HEALTH,
+  StackGoal.CUSTOM,
+  StackGoal.ATHLETIC_PERFORMANCE,
+  StackGoal.HORMONE_OPTIMIZATION,
+  StackGoal.METABOLIC_HEALTH,
 ];
 
 const EXPERIENCE_LEVELS: ExperienceLevel[] = ["beginner", "intermediate", "advanced"];

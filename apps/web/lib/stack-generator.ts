@@ -566,6 +566,115 @@ const GOAL_SLOTS: Record<string, { slots: Slot[]; durationWeeks: number }> = {
       },
     ],
   },
+
+  ATHLETIC_PERFORMANCE: {
+    durationWeeks: 8,
+    slots: [
+      {
+        role: "primary_endurance",
+        categories: ["SUPPLEMENT", "AMINO_ACID"],
+        mechanismKeywords: ["endurance", "VO2", "aerobic", "oxygen", "fatigue", "lactic acid", "beta-alanine", "citrulline", "nitric oxide"],
+        count: [1, 2, 2],
+        reasoning: "Primary endurance compound targeting aerobic capacity and fatigue resistance",
+      },
+      {
+        role: "power_base",
+        categories: ["SUPPLEMENT", "AMINO_ACID", "FAT_LOSS"],
+        mechanismKeywords: ["power", "strength", "anaerobic", "phosphocreatine", "ATP", "muscle", "cardarine", "PPAR"],
+        count: [1, 1, 2],
+        reasoning: "Power and strength compound for peak output and anaerobic performance",
+      },
+      {
+        role: "adaptogen_performance",
+        categories: ["ADAPTOGEN"],
+        mechanismKeywords: ["adaptogen", "VO2 max", "cortisol", "endurance", "exercise", "stamina", "cordyceps", "rhodiola"],
+        count: 1,
+        reasoning: "Performance adaptogen targeting exercise capacity and recovery from training stress",
+      },
+      {
+        role: "foundation",
+        categories: ["VITAMIN_MINERAL", "SUPPLEMENT"],
+        mechanismKeywords: ["electrolyte", "magnesium", "zinc", "vitamin", "recovery", "baseline", "creatine"],
+        count: [1, 1, 2],
+        reasoning: "Foundation micronutrient support for athletic baseline and recovery",
+      },
+    ],
+  },
+
+  HORMONE_OPTIMIZATION: {
+    durationWeeks: 12,
+    slots: [
+      {
+        role: "hormonal_axis",
+        categories: ["HORMONAL"],
+        mechanismKeywords: ["testosterone", "estrogen", "LH", "FSH", "HPTA", "aromatase", "enclomiphene", "anastrozole", "clomid", "SERM"],
+        count: [0, 1, 2],
+        reasoning: "Hormonal axis modulator supporting endogenous testosterone production and estrogen management",
+      },
+      {
+        role: "testosterone_support",
+        categories: ["SUPPLEMENT", "ADAPTOGEN"],
+        mechanismKeywords: ["testosterone", "libido", "androgen", "LH", "tongkat", "ashwagandha", "hormone", "boron"],
+        count: [1, 1, 2],
+        reasoning: "Natural testosterone support compound via LH signaling or androgen biosynthesis",
+      },
+      {
+        role: "mineral_base",
+        categories: ["VITAMIN_MINERAL", "SUPPLEMENT"],
+        mechanismKeywords: ["zinc", "magnesium", "boron", "testosterone", "mineral", "deficiency", "hormone"],
+        count: [2, 2, 2],
+        reasoning: "Core mineral support addressing common deficiencies that depress hormonal output",
+      },
+      {
+        role: "vitamin_hormone",
+        categories: ["VITAMIN_MINERAL"],
+        mechanismKeywords: ["vitamin D", "vitamin-d3", "hormone", "steroid", "receptor", "testosterone", "calcium"],
+        count: 1,
+        reasoning: "Vitamin D3 for hormonal receptor sensitivity and steroidogenesis support",
+      },
+    ],
+  },
+
+  METABOLIC_HEALTH: {
+    durationWeeks: 52,
+    slots: [
+      {
+        role: "glycemic",
+        categories: ["SUPPLEMENT"],
+        mechanismKeywords: ["blood sugar", "glucose", "insulin", "AMPK", "berberine", "glycemic", "HbA1c", "metformin-like"],
+        count: [1, 1, 2],
+        reasoning: "Primary glycemic regulator targeting blood glucose and insulin sensitivity",
+      },
+      {
+        role: "lipid_cardio",
+        categories: ["SUPPLEMENT", "VITAMIN_MINERAL"],
+        mechanismKeywords: ["cholesterol", "LDL", "HDL", "triglyceride", "cardiovascular", "omega-3", "lipid", "statin"],
+        count: [1, 1, 1],
+        reasoning: "Lipid and cardiovascular support compound targeting cholesterol and arterial health",
+      },
+      {
+        role: "mitochondrial_metabolic",
+        categories: ["SUPPLEMENT"],
+        mechanismKeywords: ["mitochondria", "CoQ10", "NAD+", "energy", "metabolism", "cellular", "antioxidant", "ubiquinol"],
+        count: 1,
+        reasoning: "Mitochondrial support for metabolic efficiency and cellular energy production",
+      },
+      {
+        role: "adaptogen_insulin",
+        categories: ["ADAPTOGEN", "SUPPLEMENT"],
+        mechanismKeywords: ["cortisol", "stress", "insulin resistance", "adaptogen", "glucose", "ashwagandha", "berberine", "HPA axis"],
+        count: [0, 1, 1],
+        reasoning: "Stress-cortisol modulator to reduce HPA-driven insulin resistance",
+      },
+      {
+        role: "micronutrient",
+        categories: ["VITAMIN_MINERAL"],
+        mechanismKeywords: ["magnesium", "chromium", "zinc", "vitamin D", "insulin", "metabolism", "deficiency"],
+        count: [2, 2, 2],
+        reasoning: "Metabolic micronutrients addressing deficiencies common in insulin-resistant states",
+      },
+    ],
+  },
 };
 
 // ─── HELPER FUNCTIONS ──────────────────────────────
