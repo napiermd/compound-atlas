@@ -100,7 +100,35 @@ interface Props {
   scoreBreakdown: Record<string, number> | null;
 }
 
-function FactorBar({ value }: { value: number | null }) {
+function deriveFactorScores(
+  studyCount: number,
+  metaAnalysisCount: number,
+  evidenceScore: number
+): Record<string, number> {
+  // Volume: log-scaled, mirrors scorer.py _score_study_count
+  const volumeScore = Math.min(100, Math.round(20 * Math.log10(studyCount + 1)));
+
+  // Quality: meta-analysis density as quality proxy
+  const metaRatio = studyCount > 0 ? metaAnalysisCount / studyCount : 0;
+  const qualityScore = Math.min(100, Math.round(40 + 60 * Math.sqrt(metaRatio)));
+
+  // Remaining factors: solve from composite (weights: vol 40%, qual 30%, rest 30%)
+  const knownContribution = 0.40 * volumeScore + 0.30 * qualityScore;
+  const remainingAvg = Math.max(0, Math.min(100,
+    Math.round((evidenceScore - knownContribution) / 0.30)
+  ));
+
+  return {
+    study_count: volumeScore,
+    study_quality: qualityScore,
+    sample_size: remainingAvg,
+    consistency: remainingAvg,
+    replication: remainingAvg,
+    recency: remainingAvg,
+  };
+}
+
+function FactorBar({ value, isEstimated }: { value: number | null; isEstimated?: boolean }) {
   if (value === null) {
     return (
       <div className="h-2 rounded-full bg-muted w-full overflow-hidden">
@@ -111,10 +139,10 @@ function FactorBar({ value }: { value: number | null }) {
   const pct = Math.round(value);
   const color =
     pct >= 70
-      ? "bg-green-500"
+      ? isEstimated ? "bg-green-500/60" : "bg-green-500"
       : pct >= 40
-        ? "bg-yellow-500"
-        : "bg-red-400";
+        ? isEstimated ? "bg-yellow-500/60" : "bg-yellow-500"
+        : isEstimated ? "bg-red-400/60" : "bg-red-400";
   return (
     <div className="h-2 rounded-full bg-muted w-full overflow-hidden">
       <div
@@ -141,6 +169,12 @@ export function EvidenceScoreCard({
           : evidenceScore >= 25
             ? LEVELS[2]
             : LEVELS[3];
+
+  const derivedScores =
+    !scoreBreakdown && evidenceScore != null && studyCount > 0
+      ? deriveFactorScores(studyCount, metaAnalysisCount, evidenceScore)
+      : null;
+  const isEstimated = derivedScores !== null;
 
   return (
     <Card>
@@ -198,7 +232,7 @@ export function EvidenceScoreCard({
             Scoring Factors
           </div>
           {FACTORS.map((f) => {
-            const val = scoreBreakdown?.[f.key] ?? null;
+            const val = scoreBreakdown?.[f.key] ?? derivedScores?.[f.key] ?? null;
             return (
               <TooltipProvider key={f.key} delayDuration={150}>
                 <Tooltip>
@@ -212,10 +246,14 @@ export function EvidenceScoreCard({
                           </span>
                         </span>
                         <span className="text-xs tabular-nums font-mono text-muted-foreground">
-                          {val !== null ? `${Math.round(val)}/100` : "—"}
+                          {val !== null
+                            ? isEstimated
+                              ? `~${Math.round(val)}/100`
+                              : `${Math.round(val)}/100`
+                            : "—"}
                         </span>
                       </div>
-                      <FactorBar value={val} />
+                      <FactorBar value={val} isEstimated={isEstimated} />
                     </div>
                   </TooltipTrigger>
                   <TooltipContent className="max-w-xs text-xs">
@@ -225,9 +263,9 @@ export function EvidenceScoreCard({
               </TooltipProvider>
             );
           })}
-          {!scoreBreakdown && studyCount > 0 && (
+          {isEstimated && (
             <p className="text-xs text-muted-foreground pt-1">
-              Factor breakdown will appear after next research sync.
+              Scores estimated from study counts. Exact breakdown computed after research sync.
             </p>
           )}
         </div>
