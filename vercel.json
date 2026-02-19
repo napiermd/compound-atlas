@@ -1,5 +1,11 @@
 {
   "framework": "nextjs",
   "buildCommand": "cd ../.. && npx turbo run build --filter=web",
-  "installCommand": "cd ../.. && npm install"
+  "installCommand": "cd ../.. && npm install",
+  "crons": [
+    {
+      "path": "/api/cron/generate-stacks",
+      "schedule": "0 0 * * 0"
+    }
+  ]
 }

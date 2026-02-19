@@ -29,7 +29,9 @@ class StudyInput:
 
 # ─── WEIGHTS ─────────────────────────────────────────
 
-# Study type quality weights (used in quality sub-score)
+# Study type quality weights (used in quality sub-score).
+# "OTHER" is elevated to 2.0 because Semantic Scholar papers come in unclassified —
+# they are mostly valid publications and should not be penalized like in-vitro data.
 STUDY_TYPE_WEIGHTS = {
     "META_ANALYSIS": 5.0,
     "SYSTEMATIC_REVIEW": 4.5,
@@ -39,18 +41,18 @@ STUDY_TYPE_WEIGHTS = {
     "CASE_CONTROL": 2.5,
     "CROSS_SECTIONAL": 2.0,
     "CASE_REPORT": 1.0,
-    "REVIEW": 1.5,
+    "REVIEW": 2.5,    # Narrative reviews are reasonable secondary evidence
     "ANIMAL": 1.0,
     "IN_VITRO": 0.5,
-    "OTHER": 0.5,
+    "OTHER": 2.0,     # Unclassified (mostly S2) — neutral quality, not penalized
 }
 
-# Composite score factor weights (must sum to 1.0)
-# study_count and study_quality are the primary drivers since we don't extract
+# Composite score factor weights (must sum to 1.0).
+# study_count and study_quality dominate because we don't NLP-extract
 # sample_size/consistency/replication from abstracts — defaults are generous.
 FACTOR_WEIGHTS = {
-    "study_count": 0.35,
-    "study_quality": 0.35,
+    "study_count": 0.40,
+    "study_quality": 0.30,
     "sample_size": 0.10,
     "consistency": 0.10,
     "replication": 0.05,
@@ -128,8 +130,10 @@ def _score_study_count(studies: list[StudyInput]) -> float:
 
 def _score_study_quality(studies: list[StudyInput]) -> float:
     """
-    Weighted average of study type quality scores.
+    Weighted average of study type quality scores, plus a meta-analysis bonus.
     Higher quality study types contribute more.
+    Meta-analyses get an additional bonus (up to +15) because they represent
+    the gold standard of evidence synthesis.
     """
     if not studies:
         return 0.0
@@ -138,7 +142,7 @@ def _score_study_quality(studies: list[StudyInput]) -> float:
     weighted_sum = 0.0
 
     for study in studies:
-        w = STUDY_TYPE_WEIGHTS.get(study.study_type, 0.5)
+        w = STUDY_TYPE_WEIGHTS.get(study.study_type, 2.0)
         weighted_sum += w
         total_weight += 1.0
 
@@ -146,8 +150,13 @@ def _score_study_quality(studies: list[StudyInput]) -> float:
         return 0.0
 
     avg_quality = weighted_sum / total_weight  # 0.5 to 5.0
-    # Normalize to 0-100 (5.0 max → 100)
-    return (avg_quality / 5.0) * 100.0
+    normalized = (avg_quality / 5.0) * 100.0
+
+    # Bonus for having meta-analyses (+3 per meta, max +15)
+    meta_count = sum(1 for s in studies if s.study_type == "META_ANALYSIS")
+    meta_bonus = min(15.0, meta_count * 3.0)
+
+    return min(normalized + meta_bonus, 100.0)
 
 
 def _score_sample_size(studies: list[StudyInput]) -> float:

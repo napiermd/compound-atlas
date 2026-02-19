@@ -19,7 +19,8 @@
         "GOOGLE_CLIENT_ID",
         "GOOGLE_CLIENT_SECRET",
         "OPENROUTER_API_KEY",
-        "OPENROUTER_MODEL"
+        "OPENROUTER_MODEL",
+        "CRON_SECRET"
       ]
     },
     "lint": {},
