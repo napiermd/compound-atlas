@@ -13,17 +13,21 @@ datasource db {
 // ─── AUTH ───────────────────────────────────────────
 
 model User {
-  id            String    @id @default(cuid())
+  id            String        @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?       @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
   stacks        Stack[]
   cycles        Cycle[]
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  stackUpvotes  StackUpvote[]
+  weightUnit    String?       @default("lbs")
+  tempUnit      String?       @default("F")
+  deletedAt     DateTime?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
 }
 
 model Account {
@@ -310,12 +314,24 @@ model Stack {
   forks         Stack[]         @relation("StackForks")
   compounds     StackCompound[]
   cycles        Cycle[]
+  stackUpvotes  StackUpvote[]
 
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
 
   @@index([goal])
   @@index([isPublic, upvotes])
+}
+
+model StackUpvote {
+  id        String   @id @default(cuid())
+  userId    String
+  stackId   String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  stack     Stack    @relation(fields: [stackId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, stackId])
 }
 
 model StackCompound {

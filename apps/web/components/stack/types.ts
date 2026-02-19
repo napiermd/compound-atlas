@@ -54,6 +54,7 @@ export interface StackSummary {
   evidenceScore: number | null;
   upvotes: number;
   forkCount: number;
+  forkedFromId: string | null;
   createdAt: string;
   creator: { name: string | null; image: string | null };
   compounds: Array<{
@@ -65,4 +66,5 @@ export interface StackSummary {
     };
   }>;
   _count: { cycles: number; forks: number };
+  userHasUpvoted?: boolean;
 }

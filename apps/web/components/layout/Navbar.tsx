@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FlaskConical } from "lucide-react";
+import { FlaskConical, Sparkles } from "lucide-react";
 import { auth, signOut } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -43,6 +43,13 @@ export async function Navbar() {
               </Link>
             )
           )}
+          <Link
+            href="/stacks/ai"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+          >
+            <Sparkles className="h-3.5 w-3.5" />
+            AI Builder
+          </Link>
         </nav>
 
         {/* Right side */}
@@ -51,7 +58,7 @@ export async function Navbar() {
 
           {user ? (
             <div className="flex items-center gap-1.5 ml-1">
-              <Link href="/cycles" aria-label="My cycles">
+              <Link href="/settings" aria-label="Settings">
                 <Avatar className="h-7 w-7">
                   <AvatarImage
                     src={user.image ?? undefined}

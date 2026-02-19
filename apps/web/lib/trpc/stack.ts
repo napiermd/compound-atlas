@@ -58,11 +58,12 @@ export const stackRouter = router({
 
   bySlug: publicProcedure
     .input(z.object({ slug: z.string() }))
-    .query(async ({ input }) => {
-      return db.stack.findUnique({
+    .query(async ({ input, ctx }) => {
+      const stack = await db.stack.findUnique({
         where: { slug: input.slug },
         include: {
-          creator: { select: { name: true, image: true } },
+          creator: { select: { id: true, name: true, image: true } },
+          forkedFrom: { select: { name: true, slug: true } },
           compounds: {
             include: {
               compound: {
@@ -87,6 +88,21 @@ export const stackRouter = router({
           _count: { select: { cycles: true, forks: true } },
         },
       });
+
+      if (!stack) return null;
+
+      const userHasUpvoted = ctx.session?.user?.id
+        ? !!(await db.stackUpvote.findUnique({
+            where: {
+              userId_stackId: {
+                userId: ctx.session.user.id,
+                stackId: stack.id,
+              },
+            },
+          }))
+        : false;
+
+      return { ...stack, userHasUpvoted };
     }),
 
   getInteractions: publicProcedure
@@ -162,12 +178,71 @@ export const stackRouter = router({
       });
     }),
 
+  // Toggle upvote (add or remove)
   upvote: protectedProcedure
     .input(z.object({ stackId: z.string() }))
-    .mutation(async ({ input }) => {
-      return db.stack.update({
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+      const { stackId } = input;
+
+      const existing = await db.stackUpvote.findUnique({
+        where: { userId_stackId: { userId, stackId } },
+      });
+
+      if (existing) {
+        await db.stackUpvote.delete({ where: { id: existing.id } });
+        return db.stack.update({
+          where: { id: stackId },
+          data: { upvotes: { decrement: 1 } },
+          select: { id: true, upvotes: true },
+        });
+      } else {
+        await db.stackUpvote.create({ data: { userId, stackId } });
+        return db.stack.update({
+          where: { id: stackId },
+          data: { upvotes: { increment: 1 } },
+          select: { id: true, upvotes: true },
+        });
+      }
+    }),
+
+  // Fork a stack
+  fork: protectedProcedure
+    .input(z.object({ stackId: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+
+      const original = await db.stack.findUniqueOrThrow({
         where: { id: input.stackId },
-        data: { upvotes: { increment: 1 } },
+        include: { compounds: true },
+      });
+
+      const newName = `${original.name} (Fork)`;
+      const slug = `${slugify(newName)}-${Date.now()}`;
+
+      // Increment forkCount on original
+      await db.stack.update({
+        where: { id: input.stackId },
+        data: { forkCount: { increment: 1 } },
+      });
+
+      return db.stack.create({
+        data: {
+          name: newName,
+          slug,
+          description: original.description,
+          goal: original.goal,
+          durationWeeks: original.durationWeeks,
+          isPublic: false,
+          evidenceScore: original.evidenceScore,
+          forkedFromId: input.stackId,
+          creatorId: userId,
+          compounds: {
+            create: original.compounds.map(
+              ({ id: _id, stackId: _sid, ...rest }) => rest
+            ),
+          },
+        },
       });
     }),
 });

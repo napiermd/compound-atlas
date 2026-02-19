@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { Sparkles } from "lucide-react";
 import { db } from "@/lib/db";
 import { Button } from "@/components/ui/button";
 import { StackGallery } from "@/components/stack/StackGallery";
@@ -39,9 +40,17 @@ export default async function StacksPage() {
             Community-built compound protocols
           </p>
         </div>
-        <Button asChild>
-          <Link href="/stacks/new">Build Stack</Link>
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button asChild variant="outline">
+            <Link href="/stacks/ai" className="gap-1.5">
+              <Sparkles className="h-4 w-4" />
+              AI Builder
+            </Link>
+          </Button>
+          <Button asChild>
+            <Link href="/stacks/new">Build Stack</Link>
+          </Button>
+        </div>
       </div>
 
       {stacks.length === 0 ? (

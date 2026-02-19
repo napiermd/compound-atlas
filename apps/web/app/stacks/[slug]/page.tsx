@@ -3,15 +3,14 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import {
   ChevronRight,
-  ArrowUp,
-  GitFork,
   Timer,
   FlaskConical,
   Lock,
   Globe,
+  GitFork,
 } from "lucide-react";
 import { db } from "@/lib/db";
-import { Button } from "@/components/ui/button";
+import { auth } from "@/lib/auth";
 import { Separator } from "@/components/ui/separator";
 import {
   Table,
@@ -21,10 +20,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
 import { CategoryBadge } from "@/components/compound/CategoryBadge";
 import { EvidenceScoreBadge } from "@/components/compound/EvidenceScoreBadge";
 import { GoalBadge } from "@/components/stack/GoalBadge";
 import { InteractionWarnings } from "@/components/stack/InteractionWarnings";
+import { StackActions } from "@/components/stack/StackActions";
 import type { StackInteraction } from "@/components/stack/types";
 
 interface Props {
@@ -34,41 +35,74 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const stack = await db.stack.findUnique({
     where: { slug: params.slug },
-    select: { name: true, description: true },
+    select: {
+      name: true,
+      description: true,
+      compounds: { select: { id: true } },
+    },
   });
   if (!stack) return { title: "Not Found" };
+
+  const desc =
+    stack.description?.slice(0, 160) ??
+    `${stack.compounds.length} compound stack on CompoundAtlas`;
+
   return {
     title: `${stack.name} — CompoundAtlas`,
-    description: stack.description?.slice(0, 160) ?? undefined,
+    description: desc,
+    openGraph: {
+      title: stack.name,
+      description: desc,
+      type: "website",
+      siteName: "CompoundAtlas",
+    },
+    twitter: {
+      card: "summary",
+      title: stack.name,
+      description: desc,
+    },
   };
 }
 
 export default async function StackDetailPage({ params }: Props) {
-  const stack = await db.stack.findUnique({
-    where: { slug: params.slug },
-    include: {
-      creator: { select: { name: true, image: true } },
-      compounds: {
-        include: {
-          compound: {
-            select: {
-              id: true,
-              slug: true,
-              name: true,
-              category: true,
-              legalStatus: true,
-              evidenceScore: true,
-              doseUnit: true,
+  const [stack, session] = await Promise.all([
+    db.stack.findUnique({
+      where: { slug: params.slug },
+      include: {
+        creator: { select: { id: true, name: true, image: true } },
+        forkedFrom: { select: { name: true, slug: true } },
+        compounds: {
+          include: {
+            compound: {
+              select: {
+                id: true,
+                slug: true,
+                name: true,
+                category: true,
+                legalStatus: true,
+                evidenceScore: true,
+                doseUnit: true,
+              },
             },
           },
+          orderBy: { startWeek: "asc" },
         },
-        orderBy: { startWeek: "asc" },
+        _count: { select: { cycles: true, forks: true } },
       },
-      _count: { select: { cycles: true, forks: true } },
-    },
-  });
+    }),
+    auth(),
+  ]);
 
   if (!stack) notFound();
+
+  const userId = session?.user?.id;
+
+  // Check if user has upvoted
+  const userHasUpvoted = userId
+    ? !!(await db.stackUpvote.findUnique({
+        where: { userId_stackId: { userId, stackId: stack.id } },
+      }))
+    : false;
 
   // Fetch interactions between compounds in this stack
   const compoundIds = stack.compounds.map((sc) => sc.compoundId);
@@ -92,15 +126,26 @@ export default async function StackDetailPage({ params }: Props) {
     <div className="max-w-4xl mx-auto px-4 py-8">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-1 text-sm text-muted-foreground mb-6">
-        <Link
-          href="/stacks"
-          className="hover:text-foreground transition-colors"
-        >
+        <Link href="/stacks" className="hover:text-foreground transition-colors">
           Stacks
         </Link>
         <ChevronRight className="h-3.5 w-3.5" />
         <span className="text-foreground font-medium">{stack.name}</span>
       </nav>
+
+      {/* Forked from */}
+      {stack.forkedFrom && (
+        <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-4">
+          <GitFork className="h-3.5 w-3.5" />
+          Forked from{" "}
+          <Link
+            href={`/stacks/${stack.forkedFrom.slug}`}
+            className="underline hover:text-foreground transition-colors"
+          >
+            {stack.forkedFrom.name}
+          </Link>
+        </div>
+      )}
 
       {/* Header */}
       <div className="flex items-start justify-between gap-4 mb-6">
@@ -127,17 +172,13 @@ export default async function StackDetailPage({ params }: Props) {
           </div>
         </div>
 
-        {/* Action buttons (placeholders) */}
-        <div className="flex gap-2 shrink-0">
-          <Button variant="outline" size="sm" disabled>
-            <GitFork className="h-3.5 w-3.5 mr-1.5" />
-            Fork
-          </Button>
-          <Button size="sm" disabled>
-            <FlaskConical className="h-3.5 w-3.5 mr-1.5" />
-            Start Cycle
-          </Button>
-        </div>
+        <StackActions
+          stackId={stack.id}
+          stackSlug={stack.slug}
+          upvoteCount={stack.upvotes}
+          userHasUpvoted={userHasUpvoted}
+          isLoggedIn={!!userId}
+        />
       </div>
 
       {/* Description */}
@@ -161,14 +202,18 @@ export default async function StackDetailPage({ params }: Props) {
           </span>
         )}
         <span className="flex items-center gap-1.5">
-          <ArrowUp className="h-4 w-4" />
-          {stack.upvotes} upvote{stack.upvotes !== 1 ? "s" : ""}
-        </span>
-        <span className="flex items-center gap-1.5">
           <GitFork className="h-4 w-4" />
           {stack._count.forks} fork{stack._count.forks !== 1 ? "s" : ""}
         </span>
-        <span>by {stack.creator.name ?? "anonymous"}</span>
+        <span>
+          by{" "}
+          <Link
+            href={`/users/${stack.creator.id}`}
+            className="hover:underline hover:text-foreground transition-colors"
+          >
+            {stack.creator.name ?? "anonymous"}
+          </Link>
+        </span>
       </div>
 
       {/* Compound table */}
@@ -182,9 +227,7 @@ export default async function StackDetailPage({ params }: Props) {
                 <TableHead>Compound</TableHead>
                 <TableHead className="hidden sm:table-cell">Category</TableHead>
                 <TableHead>Dose</TableHead>
-                <TableHead className="hidden md:table-cell">
-                  Frequency
-                </TableHead>
+                <TableHead className="hidden md:table-cell">Frequency</TableHead>
                 <TableHead className="hidden md:table-cell">Weeks</TableHead>
                 <TableHead className="hidden sm:table-cell">Evidence</TableHead>
               </TableRow>
@@ -261,8 +304,14 @@ export default async function StackDetailPage({ params }: Props) {
 
       {/* Meta */}
       <p className="text-xs text-muted-foreground">
-        Created by {stack.creator.name ?? "anonymous"} ·{" "}
-        {stack._count.cycles} cycle{stack._count.cycles !== 1 ? "s" : ""} run
+        Created by{" "}
+        <Link
+          href={`/users/${stack.creator.id}`}
+          className="hover:underline"
+        >
+          {stack.creator.name ?? "anonymous"}
+        </Link>{" "}
+        · {stack._count.cycles} cycle{stack._count.cycles !== 1 ? "s" : ""} run
       </p>
     </div>
   );
