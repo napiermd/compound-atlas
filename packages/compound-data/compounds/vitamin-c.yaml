@@ -1,0 +1,86 @@
+# Vitamin C — Ascorbic acid; collagen, antioxidant, immune, iron absorption
+slug: vitamin-c
+name: Vitamin C
+aliases:
+  - ascorbic acid
+  - L-ascorbic acid
+  - ascorbate
+  - sodium ascorbate
+  - liposomal vitamin C
+category: VITAMIN_MINERAL
+subcategory: water_soluble_vitamin
+legalStatus: LEGAL
+description: |
+  Vitamin C (ascorbic acid) is an essential water-soluble antioxidant and enzyme cofactor
+  with extensive clinical evidence across multiple domains. It is a mandatory cofactor for
+  hydroxylation reactions in collagen synthesis, carnitine biosynthesis, and catecholamine
+  production. As an antioxidant it regenerates vitamin E and glutathione. High-quality RCTs
+  support reduction of common cold duration (not prevention in general populations, but strong
+  prevention in athletes under heavy training), significant reduction of cortisol and
+  inflammatory markers post-exercise, and synergistic collagen synthesis when taken with
+  collagen peptides. Liposomal formulations achieve near-IV bioavailability.
+
+halfLife: "~2-3 hours (plasma); tissue stores maintain higher levels"
+onset: "Immune and acute antioxidant effects within hours; collagen synthesis effects weeks"
+duration: "Water-soluble; excreted within 24 hours; daily dosing required"
+routeOfAdmin:
+  - oral
+  - intravenous
+mechanismShort: "Collagen prolyl and lysyl hydroxylase cofactor; reduces ferric to ferrous iron for absorption; recycles oxidized glutathione and vitamin E; supports catecholamine synthesis"
+
+dosing:
+  min: 500
+  typical: 1000
+  max: 3000
+  unit: mg
+  frequency: "1-2x/day"
+  notes: "Split doses (500mg 2x/day) improves absorption vs single large dose. Take with collagen peptides for maximal collagen synthesis benefit. Liposomal form for higher bioavailability. Bowel tolerance varies 2-10g+."
+
+sideEffects:
+  - name: osmotic_diarrhea
+    severity: mild
+    frequency: common
+    notes: "Dose-dependent; reduce dose to below bowel tolerance. Split dosing or liposomal form mitigates."
+  - name: kidney_stones
+    severity: moderate
+    frequency: rare
+    notes: "High doses (>2g/day) may increase oxalate; relevant in individuals with history of calcium oxalate stones"
+  - name: GI_irritation
+    severity: mild
+    frequency: uncommon
+    notes: "Ascorbic acid is acidic; buffered or liposomal form reduces irritation"
+
+interactions:
+  - target: vitamin-d3
+    type: synergistic
+    severity: mild
+    description: "Both support immune function via independent mechanisms; comprehensive immune stack"
+  - target: zinc
+    type: synergistic
+    severity: mild
+    description: "Classic immune combination; zinc supports T-cell maturation, vitamin C supports neutrophil and lymphocyte function"
+  - target: nac
+    type: synergistic
+    severity: mild
+    description: "Vitamin C recycles oxidized glutathione (GSSG → GSH), extending NAC-driven antioxidant effect"
+
+mechanisms:
+  - pathway: collagen_hydroxylation
+    description: "Cofactor for prolyl-4-hydroxylase and lysyl hydroxylase; mandatory for collagen triple helix stabilization and cross-linking"
+  - pathway: antioxidant_recycling
+    description: "Reduces oxidized vitamin E (tocopheroxyl radical) back to active form; recycles oxidized glutathione via SVCT transporters"
+  - pathway: iron_absorption
+    description: "Reduces dietary non-heme iron (Fe3+ → Fe2+) in GI tract, dramatically increasing non-heme iron bioavailability"
+  - pathway: catecholamine_synthesis
+    description: "Cofactor for dopamine β-hydroxylase, converting dopamine to norepinephrine in adrenal medulla and noradrenergic neurons"
+  - pathway: immune_function
+    description: "Supports neutrophil chemotaxis, phagocytosis, and neutrophil extracellular trap formation; NK cell function"
+
+searchTerms:
+  pubmed:
+    - "vitamin C AND exercise AND cortisol AND randomized"
+    - "ascorbic acid AND collagen AND supplementation AND human"
+    - "vitamin C AND immune function AND athletic AND clinical"
+  semanticScholar:
+    - "vitamin C ascorbic acid collagen synthesis supplementation"
+    - "vitamin C immune function exercise recovery clinical"

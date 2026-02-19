@@ -1,0 +1,79 @@
+# Sermorelin — GHRH analog; GH stimulation, body composition, sleep
+slug: sermorelin
+name: Sermorelin
+aliases:
+  - GHRH 1-29
+  - GRF 1-29
+  - Geref
+  - sermorelin acetate
+category: GH_SECRETAGOGUE
+subcategory: GHRH_analog
+legalStatus: PRESCRIPTION
+description: |
+  Sermorelin is a synthetic analog of the first 29 amino acids of growth hormone releasing
+  hormone (GHRH 1-29). Unlike HGH, it stimulates the pituitary to produce GH in a pulsatile,
+  physiological manner rather than delivering exogenous GH. FDA-approved for pediatric GH
+  deficiency diagnosis and treatment; widely prescribed off-label by anti-aging and longevity
+  physicians. Advantages over exogenous HGH: preserves pituitary function, more physiological
+  GH pulses, lower feedback suppression, significantly lower cost. Often combined with GHRP-2
+  or ipamorelin to maximize GH pulse amplitude via dual-axis stimulation.
+
+halfLife: "~11-12 minutes (plasma)"
+onset: "GH elevation within 15-30 minutes of injection; body composition changes 3-6 months"
+duration: "Single dose GH pulse 1-2 hours; cumulative effects require months"
+routeOfAdmin:
+  - subcutaneous_injection
+mechanismShort: "GHRH receptor agonist in anterior pituitary somatotrophs; increases cAMP via Gs-coupled receptor; amplifies pulsatile GH release; preserves hypothalamic-pituitary axis"
+
+dosing:
+  min: 100
+  typical: 300
+  max: 500
+  unit: mcg
+  frequency: "daily (bedtime)"
+  notes: "Inject SC at bedtime on empty stomach (no food 2h before) to maximize natural GH pulse. Combine with GHRP-2 or ipamorelin for synergistic GH amplification. Reconstitute in bacteriostatic water. Must be kept refrigerated."
+
+sideEffects:
+  - name: flushing
+    severity: mild
+    frequency: common
+    notes: "Transient facial flushing within minutes of injection; harmless"
+  - name: injection_site_reaction
+    severity: mild
+    frequency: uncommon
+    notes: "Mild erythema; rotate injection sites"
+  - name: water_retention
+    severity: mild
+    frequency: uncommon
+    notes: "Mild edema; dose-dependent; less than exogenous HGH"
+  - name: cortisol_increase
+    severity: mild
+    frequency: uncommon
+    notes: "GH stimulates cortisol; monitor if already high-cortisol state"
+
+interactions:
+  - target: ipamorelin
+    type: synergistic
+    severity: moderate
+    description: "Classic dual-axis combination: sermorelin stimulates pituitary via GHRH receptor (Gs/cAMP), ipamorelin acts via ghrelin receptor — together produce supra-additive GH pulse vs either alone"
+  - target: mk-677
+    type: synergistic
+    severity: moderate
+    description: "Both stimulate GH; sermorelin via GHRH axis, MK-677 via ghrelin receptor (oral). Sermorelin provides natural pulse, MK-677 provides sustained 24h elevation — powerful but monitor IGF-1"
+
+mechanisms:
+  - pathway: GHRH_receptor_agonism
+    description: "Binds GHRH receptor on somatotrophs in anterior pituitary; activates Gs protein, increases cAMP, stimulates pulsatile GH release"
+  - pathway: somatotroph_sensitization
+    description: "Increases pituitary somatotroph responsiveness over time; unlike exogenous GH which suppresses axis, sermorelin can restore natural GH secretion capacity"
+  - pathway: IGF_1_elevation
+    description: "GH stimulates hepatic IGF-1 production; most anabolic and body composition effects mediated via IGF-1"
+
+searchTerms:
+  pubmed:
+    - "sermorelin AND growth hormone AND body composition AND human"
+    - "GHRH 1-29 AND pituitary AND GH secretion AND clinical"
+    - "sermorelin AND aging AND IGF-1 AND randomized"
+  semanticScholar:
+    - "sermorelin GHRH growth hormone secretagogue anti-aging"
+    - "sermorelin body composition IGF-1 clinical human"

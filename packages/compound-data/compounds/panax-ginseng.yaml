@@ -1,0 +1,85 @@
+# Panax Ginseng — Classic adaptogen; cognitive, energy, testosterone, immune
+slug: panax-ginseng
+name: Panax Ginseng
+aliases:
+  - Korean ginseng
+  - Asian ginseng
+  - red ginseng
+  - Panax ginseng C.A. Meyer
+  - ginsenosides
+category: ADAPTOGEN
+subcategory: herbal_adaptogen
+legalStatus: LEGAL
+description: |
+  Panax ginseng is one of the most studied herbal adaptogens, used in Traditional Chinese
+  Medicine for millennia. Active constituents are ginsenosides (>40 identified), which have
+  steroid-like structures and modulate a wide range of pathways. Clinical evidence supports
+  cognitive performance (working memory, attention, mental fatigue), immune modulation,
+  blood glucose control, erectile function, and modest testosterone support. Red ginseng
+  (steamed/dried root) has higher ginsenoside bioavailability and stronger evidence than
+  white ginseng. Distinct from American ginseng (Panax quinquefolius) and Siberian ginseng
+  (Eleutherococcus).
+
+halfLife: "Ginsenosides: ~4-16 hours depending on compound"
+onset: "Cognitive effects acute to 1 week; adaptogenic/hormonal effects 4-12 weeks"
+duration: "Ongoing with regular use; tolerance may develop over months"
+routeOfAdmin:
+  - oral
+mechanismShort: "Ginsenosides activate glucocorticoid receptors, modulate NO production, inhibit neuroinflammation, enhance ACh signaling, support HPG axis via LH stimulation"
+
+dosing:
+  min: 200
+  typical: 400
+  max: 1000
+  unit: mg
+  frequency: "1-2x/day"
+  notes: "Standardized extract to 5-8% ginsenosides preferred. Red ginseng > white for most outcomes. Cycle 8 weeks on, 2-4 weeks off to prevent tolerance. Take morning."
+
+sideEffects:
+  - name: insomnia
+    severity: mild
+    frequency: uncommon
+    notes: "Stimulatory at higher doses; morning dosing only"
+  - name: GI_discomfort
+    severity: mild
+    frequency: uncommon
+    notes: "Nausea, diarrhea at high doses; take with food"
+  - name: hypoglycemia_risk
+    severity: moderate
+    frequency: rare
+    notes: "Can lower blood glucose; caution with diabetic medications"
+  - name: estrogenic_effects
+    severity: mild
+    frequency: rare
+    notes: "Some ginsenosides are phytoestrogens; monitor in hormone-sensitive conditions"
+
+interactions:
+  - target: ashwagandha
+    type: synergistic
+    severity: mild
+    description: "Complementary adaptogenic profiles; ginseng more stimulating/acute, ashwagandha more sedating/chronic"
+  - target: modafinil
+    type: synergistic
+    severity: mild
+    description: "Ginseng supports neurotransmitter availability; modafinil extends wakefulness — combined cognitive enhancement"
+
+mechanisms:
+  - pathway: glucocorticoid_receptor_modulation
+    description: "Ginsenosides act as partial agonists/antagonists at glucocorticoid receptors, modulating stress response"
+  - pathway: nitric_oxide_synthase
+    description: "Rb1 and Rg1 ginsenosides upregulate eNOS, increasing NO production — vasodilatory and neuroprotective"
+  - pathway: acetylcholine_enhancement
+    description: "Inhibits acetylcholinesterase and promotes ACh release; basis for cognitive benefits"
+  - pathway: LH_stimulation
+    description: "Increases luteinizing hormone secretion from pituitary, supporting testosterone production"
+  - pathway: immune_modulation
+    description: "Activates NK cells, macrophages, and dendritic cells via toll-like receptor signaling"
+
+searchTerms:
+  pubmed:
+    - "Panax ginseng AND cognitive AND randomized controlled trial"
+    - "Korean red ginseng AND testosterone AND human"
+    - "ginsenoside AND clinical AND human AND performance"
+  semanticScholar:
+    - "Panax ginseng adaptogen cognitive performance ginsenoside"
+    - "Korean red ginseng testosterone erectile function clinical"

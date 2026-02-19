@@ -1,0 +1,70 @@
+# Urolithin A — Postbiotic; mitophagy, muscle function, longevity
+slug: urolithin-a
+name: Urolithin A
+aliases:
+  - UA
+  - 3,8-dihydroxy-6H-dibenzo[b,d]pyran-6-one
+  - Mitopure
+  - ellagitannin metabolite
+category: SUPPLEMENT
+subcategory: postbiotic
+legalStatus: LEGAL
+description: |
+  Urolithin A is a gut-derived metabolite produced from ellagitannins (found in pomegranates,
+  walnuts, and berries) by specific gut bacteria. Only ~30-40% of the population has the gut
+  microbiome capable of producing it in meaningful amounts — most people don't benefit from
+  ellagitannin-rich foods. Mitopure (pharmaceutical-grade UA) provides direct supplementation
+  bypassing gut bacteria conversion. Human RCTs show improved mitophagy biomarkers, increased
+  muscle endurance (39% better grip endurance), reduced inflammatory markers (IL-6, TNF-alpha),
+  and improved mitochondrial gene expression in elderly subjects. One of the most validated
+  postbiotics in clinical development.
+
+halfLife: "~6 hours (plasma); tissue incorporation ongoing"
+onset: "Mitophagy biomarker changes 4 weeks; muscle function improvements 4-8 weeks"
+duration: "Ongoing with daily supplementation"
+routeOfAdmin:
+  - oral
+mechanismShort: "Selective mitophagy induction via PINK1/Parkin pathway; upregulates mitochondrial biogenesis via PGC-1alpha; reduces IL-6, TNF-alpha, CRP; extends lifespan in C. elegans, rodents"
+
+dosing:
+  min: 500
+  typical: 1000
+  max: 2000
+  unit: mg
+  frequency: "daily"
+  notes: "Mitopure (Timeline Nutrition) is the clinically validated form — pharmaceutical-grade UA at verified potency. Take with or without food. 500mg shows significant effects; 1000mg for maximal benefit."
+
+sideEffects:
+  - name: GI_discomfort
+    severity: mild
+    frequency: rare
+    notes: "Generally very well tolerated across RCTs; minor GI symptoms at highest doses"
+
+interactions:
+  - target: spermidine
+    type: synergistic
+    severity: mild
+    description: "Both target mitochondrial quality: urolithin A via PINK1/Parkin mitophagy, spermidine via general autophagy induction — complementary cellular cleaning"
+  - target: nad-precursors
+    type: synergistic
+    severity: mild
+    description: "NAD+ supports mitochondrial function, urolithin A removes damaged mitochondria via mitophagy; together drive mitochondrial turnover and quality"
+
+mechanisms:
+  - pathway: mitophagy_induction
+    description: "Selectively induces PINK1/Parkin-mediated mitophagy — the cellular process that removes damaged and dysfunctional mitochondria"
+  - pathway: PGC1alpha_upregulation
+    description: "Increases PGC-1alpha expression following mitophagy completion, driving mitochondrial biogenesis to replace removed mitochondria"
+  - pathway: anti_inflammatory
+    description: "Reduces circulating IL-6, TNF-alpha, CRP; mechanism involves NF-kB suppression downstream of mitophagy improvement"
+  - pathway: lifespan_extension
+    description: "Extends lifespan in C. elegans, Drosophila, and rodents via mitophagy and autophagy pathways; translational human data still emerging"
+
+searchTerms:
+  pubmed:
+    - "urolithin A AND mitophagy AND human AND clinical"
+    - "Mitopure AND muscle AND elderly AND randomized"
+    - "urolithin A AND aging AND mitochondria AND clinical trial"
+  semanticScholar:
+    - "urolithin A postbiotic mitophagy muscle aging clinical"
+    - "Mitopure urolithin A longevity mitochondrial human"

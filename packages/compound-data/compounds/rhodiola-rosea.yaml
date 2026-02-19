@@ -1,0 +1,77 @@
+# Rhodiola Rosea — Adaptogen; fatigue, stress, and cognitive performance
+slug: rhodiola-rosea
+name: Rhodiola Rosea
+aliases:
+  - rhodiola
+  - golden root
+  - arctic root
+  - roseroot
+  - SHR-5
+category: ADAPTOGEN
+subcategory: herbal_adaptogen
+legalStatus: LEGAL
+description: |
+  Rhodiola rosea is a high-altitude adaptogenic herb with the strongest acute anti-fatigue
+  evidence of any adaptogen. Active constituents are rosavins and salidroside. Multiple RCTs
+  demonstrate improved cognitive performance under fatigue, reduced burnout symptoms, and
+  enhanced physical endurance. Unlike ashwagandha (HPA modulation, chronic), rhodiola has
+  acute stimulant-adjacent effects within hours. EMA (European Medicines Agency) has approved
+  it for stress-related fatigue. SHR-5 is the most studied standardized extract.
+
+halfLife: "~4-6 hours"
+onset: "Acute anti-fatigue effects within 30-60 minutes; adaptogenic effects 2-4 weeks"
+duration: "Acute dose 4-6 hours; chronic effects persist during use"
+routeOfAdmin:
+  - oral
+mechanismShort: "Inhibits MAO-A/B (mild); modulates stress kinases (JNK, AMPK); upregulates SDF-1/HSP70 stress proteins; increases serotonin, dopamine, norepinephrine availability"
+
+dosing:
+  min: 200
+  typical: 400
+  max: 680
+  unit: mg
+  frequency: "1-2x/day"
+  notes: "Take on empty stomach, 30 min before demanding tasks. Morning/early afternoon only — may impair sleep if taken late. Standardized to 3% rosavins + 1% salidroside. Cycle 5 days on/2 off to prevent tolerance."
+
+sideEffects:
+  - name: insomnia
+    severity: mild
+    frequency: uncommon
+    notes: "Stimulatory effect; avoid afternoon/evening dosing"
+  - name: agitation
+    severity: mild
+    frequency: uncommon
+    notes: "Especially at higher doses; reduce dose or cycle off"
+  - name: headache
+    severity: mild
+    frequency: rare
+    notes: "Usually with initial use; resolves with continued use or dose reduction"
+
+interactions:
+  - target: ashwagandha
+    type: synergistic
+    severity: mild
+    description: "Complementary mechanisms: rhodiola for acute energy/cognition, ashwagandha for chronic HPA normalization and cortisol reduction; commonly combined"
+  - target: l-tyrosine
+    type: synergistic
+    severity: mild
+    description: "Rhodiola increases catecholamine availability; tyrosine ensures precursor pool is not depleted"
+
+mechanisms:
+  - pathway: MAO_inhibition
+    description: "Salidroside mildly inhibits monoamine oxidase A and B, reducing breakdown of dopamine, serotonin, and norepinephrine"
+  - pathway: stress_kinase_modulation
+    description: "Activates heat shock proteins (HSP70) and stress-activated protein kinase JNK pathway, increasing cellular stress resistance"
+  - pathway: HPA_axis_modulation
+    description: "Modulates cortisol release and adrenal response; distinct from ashwagandha — more upstream activation vs. downstream suppression"
+  - pathway: AMPK_activation
+    description: "Activates AMPK via salidroside, supporting cellular energy sensing and mitochondrial biogenesis"
+
+searchTerms:
+  pubmed:
+    - "Rhodiola rosea AND fatigue AND randomized controlled trial"
+    - "rhodiola AND cognitive performance AND stress AND human"
+    - "salidroside AND rosavin AND adaptogen AND clinical"
+  semanticScholar:
+    - "Rhodiola rosea adaptogen fatigue stress randomized"
+    - "rhodiola cognitive burnout clinical trial"

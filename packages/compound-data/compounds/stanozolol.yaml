@@ -1,0 +1,81 @@
+# Stanozolol — Oral/injectable DHT-derived steroid; strength, dryness, SHBG reduction
+slug: stanozolol
+name: Stanozolol
+aliases:
+  - Winstrol
+  - Stromba
+  - winny
+  - Winstrol Depot (injectable)
+category: ANABOLIC
+subcategory: dht_derivative
+legalStatus: SCHEDULED
+description: |
+  Stanozolol is a dihydrotestosterone (DHT)-derived anabolic steroid available in oral
+  and injectable forms, famous for the 1988 Ben Johnson Olympic sprint doping scandal.
+  FDA-approved historically for angioedema (hereditary HAE) and anemia; approved use is
+  now limited. Its primary characteristics: strong SHBG binding displacement (raises free
+  testosterone dramatically), minimal water retention ("dry" gains), significant strength
+  relative to mass gain, and hepatotoxicity with oral use. Popular in cutting protocols for
+  definition and strength without adding water weight. Injectable form (Winstrol Depot)
+  is water-based rather than oil-based.
+
+halfLife: "Oral: ~9 hours; Injectable: ~24 hours"
+onset: "Strength improvements within 2-3 weeks; physique changes 4-6 weeks"
+duration: "Oral detectable ~3 weeks; injectable ~9 weeks in drug testing"
+routeOfAdmin:
+  - oral
+  - intramuscular_injection
+mechanismShort: "AR agonist with DHT backbone; potent SHBG competitor; displaces testosterone from SHBG increasing free T; C17-alpha alkylated (oral) for oral bioavailability causing hepatotoxicity"
+
+dosing:
+  min: 20
+  typical: 50
+  max: 100
+  unit: mg
+  frequency: "daily (oral) or every other day (injectable)"
+  notes: "Oral: 25-50mg/day. Injectable: 50mg EOD. Limit cycles to 6-8 weeks due to hepatotoxicity risk with oral form. Monitor liver enzymes (AST, ALT) weekly to biweekly during oral use. Run with testosterone base."
+
+sideEffects:
+  - name: hepatotoxicity
+    severity: severe
+    frequency: common
+    notes: "C17-alpha alkylation causes significant hepatotoxicity with oral use; liver enzyme elevation expected; use TUDCA/UDCA, limit cycle length, avoid alcohol"
+  - name: joint_dryness
+    severity: moderate
+    frequency: common
+    notes: "Reduces water in joint synovial fluid — joint pain, particularly shoulders and knees; glucosamine/chondroitin and collagen supplementation recommended"
+  - name: lipid_changes
+    severity: severe
+    frequency: common
+    notes: "Dramatic HDL reduction (worst of any AAS); cardiovascular risk monitoring essential"
+  - name: androgenic_effects
+    severity: moderate
+    frequency: common
+    notes: "Hair loss, acne; DHT-derived — affects androgen-sensitive tissues strongly"
+
+interactions:
+  - target: testosterone-enanthate
+    type: synergistic
+    severity: moderate
+    description: "Stanozolol dramatically reduces SHBG, increasing free testosterone from any testosterone base being run; always combine with testosterone"
+  - target: nac
+    type: synergistic
+    severity: moderate
+    description: "NAC provides hepatoprotection via glutathione pathway during oral stanozolol use; TUDCA adds additional liver protection"
+
+mechanisms:
+  - pathway: SHBG_displacement
+    description: "Potent SHBG competitor; binds SHBG with high affinity, displacing testosterone and increasing free testosterone fraction in blood by 20-40%"
+  - pathway: androgen_receptor_agonism
+    description: "DHT-derived AR agonist; activates AR in muscle, bone, and androgenic tissues without ability to be aromatized to estrogen"
+  - pathway: C17_alkylation_metabolism
+    description: "C17-alpha alkylation allows oral bioavailability but creates hepatotoxic metabolites via first-pass liver metabolism"
+
+searchTerms:
+  pubmed:
+    - "stanozolol AND anabolic AND strength AND human"
+    - "Winstrol AND SHBG AND testosterone AND clinical"
+    - "stanozolol AND hepatotoxicity AND liver AND AAS"
+  semanticScholar:
+    - "stanozolol anabolic steroid SHBG strength performance"
+    - "Winstrol hepatotoxicity liver anabolic steroid clinical"

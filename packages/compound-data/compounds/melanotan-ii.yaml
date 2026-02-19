@@ -1,0 +1,82 @@
+# Melanotan II — Melanocortin agonist; tanning, libido, fat loss
+slug: melanotan-ii
+name: Melanotan II
+aliases:
+  - MT-2
+  - Melanotan 2
+  - bremelanotide precursor
+  - PT-141 relative
+category: PEPTIDE
+subcategory: melanocortin_peptide
+legalStatus: RESEARCH_ONLY
+description: |
+  Melanotan II is a cyclic heptapeptide analogue of alpha-MSH (melanocyte-stimulating hormone)
+  with potent agonism at MC1R (tanning), MC3R/MC4R (libido, appetite suppression, fat loss).
+  It produces significant skin tanning without UV exposure, erection/arousal enhancement
+  (bremelanotide/PT-141 was derived from it specifically for this effect), and appetite
+  suppression. The original Melanotan I targeted only MC1R; Melanotan II is non-selective
+  and hits all melanocortin receptors — producing a broader profile with more side effects.
+  No FDA approval; RESEARCH ONLY status. Widely used in tanning and sexual enhancement
+  communities. PT-141 (bremelanotide) is FDA-approved for female sexual dysfunction and
+  derived from MT-II.
+
+halfLife: "~0.5-1 hour"
+onset: "Libido/arousal: 30-120 min; tanning: builds over multiple doses/1-2 weeks"
+duration: "Tanning effects persist for weeks post-cycle; acute libido effects 6-12 hours"
+routeOfAdmin:
+  - subcutaneous_injection
+  - intranasal
+mechanismShort: "Non-selective melanocortin receptor agonist (MC1-4R); MC1R drives melanogenesis; MC3R/MC4R drive libido, appetite suppression, and pro-erectile pathways in hypothalamus"
+
+dosing:
+  min: 0.25
+  typical: 0.5
+  max: 1
+  unit: mg
+  frequency: "daily or every other day during loading; 2-3x/week maintenance"
+  notes: "Start at 0.25mg to assess tolerance (nausea is common initially). Inject SC in evening due to flushing/nausea. Loading: daily for 1-2 weeks. Maintenance: 2-3x/week. Use UV exposure to develop tan once melanogenesis is primed."
+
+sideEffects:
+  - name: nausea
+    severity: moderate
+    frequency: common
+    notes: "Most common side effect, especially initially; fades over first few doses. Start low (0.25mg)."
+  - name: flushing
+    severity: mild
+    frequency: common
+    notes: "Facial flushing within 30-60 min of injection; usually resolves within hours"
+  - name: spontaneous_erections
+    severity: moderate
+    frequency: common
+    notes: "Involuntary erections in men, especially at higher doses; can be embarrassing; dose-manage"
+  - name: mole_changes
+    severity: moderate
+    frequency: uncommon
+    notes: "MC1R stimulation can darken existing moles or create new ones; dermatological monitoring recommended in individuals with many moles or family history of melanoma"
+  - name: appetite_suppression
+    severity: mild
+    frequency: common
+    notes: "Meaningful reduction in hunger via MC4R; can assist fat loss"
+
+interactions:
+  - target: pt-141
+    type: neutral
+    severity: moderate
+    description: "PT-141 (bremelanotide) is derived from MT-II with selectivity for MC4R; using both is redundant — choose based on goal (tanning = MT-II, pure libido = PT-141)"
+
+mechanisms:
+  - pathway: MC1R_melanogenesis
+    description: "Activates MC1R on melanocytes; increases tyrosinase activity and melanin synthesis; darkens skin without UV exposure"
+  - pathway: MC4R_libido
+    description: "Activates MC4R in paraventricular nucleus of hypothalamus; stimulates dopamine and oxytocin release; drives pro-erectile and libido pathways"
+  - pathway: MC3R_appetite
+    description: "MC3R agonism in hypothalamic arcuate nucleus reduces food intake; complementary to MC4R appetite suppression"
+
+searchTerms:
+  pubmed:
+    - "Melanotan II AND melanocortin AND sexual function AND human"
+    - "MT-2 AND tanning AND melanogenesis AND clinical"
+    - "melanocortin receptor agonist AND libido AND bremelanotide"
+  semanticScholar:
+    - "Melanotan II melanocortin peptide sexual function tanning"
+    - "MT-2 libido tanning melanogenesis clinical peptide"

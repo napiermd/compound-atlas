@@ -1,0 +1,74 @@
+# Nattokinase — Serine protease; fibrinolysis, blood viscosity, cardiovascular
+slug: nattokinase
+name: Nattokinase
+aliases:
+  - NK
+  - subtilisin NAT
+  - natto enzyme
+  - fibrinolytic enzyme
+category: SUPPLEMENT
+subcategory: enzyme_supplement
+legalStatus: LEGAL
+description: |
+  Nattokinase is a serine protease enzyme extracted from natto (fermented soybeans) with
+  direct fibrinolytic activity — it degrades fibrin clots by the same pathway as plasmin
+  but is stable orally. Multiple human RCTs demonstrate: reduced blood viscosity, improved
+  blood flow velocity, reduced clotting factors (fibrinogen, PAI-1), modest blood pressure
+  reduction, and improved cardiovascular markers. Importantly, a 2022 RCT demonstrated
+  nattokinase reduced coronary artery calcium score progression and atherosclerotic plaque
+  volume, making it a compelling supplement for cardiovascular risk reduction alongside
+  vitamin K2. Often combined with serrapeptase (another fibrinolytic enzyme).
+
+halfLife: "Active enzyme: ~8-11 hours of fibrinolytic activity"
+onset: "Fibrinolytic activity within 4-8 hours; cardiovascular marker improvements 4-12 weeks"
+duration: "Ongoing with daily dosing"
+routeOfAdmin:
+  - oral
+mechanismShort: "Direct fibrin degradation (cleaves Bβ chain); activates tissue plasminogen activator (tPA) and urokinase; degrades PAI-1; reduces blood viscosity and platelet aggregation"
+
+dosing:
+  min: 2000
+  typical: 4000
+  max: 8000
+  unit: FU
+  frequency: "1-2x/day (away from meals)"
+  notes: "Fibrinolytic Units (FU) or NSP units — not mg. 2000-4000 FU is typical. Take on empty stomach for best fibrinolytic activity. Do not combine with pharmaceutical anticoagulants without physician oversight. Discontinue before surgery."
+
+sideEffects:
+  - name: bleeding_risk
+    severity: moderate
+    frequency: uncommon
+    notes: "Fibrinolytic activity increases bleeding risk; avoid with anticoagulants (warfarin, heparin, direct oral anticoagulants)"
+  - name: GI_discomfort
+    severity: mild
+    frequency: rare
+    notes: "Occasional nausea; take on empty stomach at non-mealtime helps"
+
+interactions:
+  - target: vitamin-k2
+    type: synergistic
+    severity: moderate
+    description: "Nattokinase degrades existing fibrin and reduces clotting factors; K2 prevents new arterial calcification — complementary cardiovascular protection addressing different aspects of arterial health"
+  - target: fish-oil
+    type: synergistic
+    severity: mild
+    description: "Complementary cardiovascular support: omega-3s reduce triglycerides and platelet aggregation, nattokinase reduces fibrinogen and blood viscosity"
+
+mechanisms:
+  - pathway: fibrinolysis
+    description: "Directly cleaves fibrin Bβ chain at multiple sites; degrades cross-linked fibrin clots similarly to plasmin"
+  - pathway: tPA_activation
+    description: "Activates tissue plasminogen activator (tPA), amplifying endogenous fibrinolytic system by converting plasminogen to plasmin"
+  - pathway: PAI_1_degradation
+    description: "Degrades plasminogen activator inhibitor-1 (PAI-1), removing the primary brake on endogenous fibrinolysis"
+  - pathway: blood_viscosity
+    description: "Reduces fibrinogen (a major determinant of viscosity), reducing whole blood viscosity and improving microcirculatory flow"
+
+searchTerms:
+  pubmed:
+    - "nattokinase AND cardiovascular AND randomized controlled trial"
+    - "nattokinase AND blood pressure AND fibrinolysis AND human"
+    - "nattokinase AND coronary artery calcification AND clinical"
+  semanticScholar:
+    - "nattokinase fibrinolysis cardiovascular blood viscosity clinical"
+    - "nattokinase coronary artery calcium atherosclerosis human"

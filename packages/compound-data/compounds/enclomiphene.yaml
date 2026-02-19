@@ -1,0 +1,81 @@
+# Enclomiphene — Estrogen receptor antagonist; raises LH/FSH/T while preserving fertility
+slug: enclomiphene
+name: Enclomiphene
+aliases:
+  - enclomiphene citrate
+  - trans-clomiphene
+  - Androxal
+  - NF-919
+category: HORMONAL
+subcategory: SERM
+legalStatus: PRESCRIPTION
+description: |
+  Enclomiphene is the trans-isomer of clomiphene citrate (clomid), isolated from the
+  racemic mixture to provide the active estrogen-antagonist component without the estrogenic
+  zuclomiphene (cis-) isomer. It is a selective estrogen receptor modulator (SERM) that
+  blocks estrogen negative feedback at the hypothalamus and pituitary, resulting in increased
+  LH and FSH secretion — which stimulates the testes to produce testosterone. Unlike
+  exogenous testosterone, it maintains the entire HPG axis and preserves fertility (sperm
+  production continues). Phase III trials in secondary hypogonadism showed testosterone
+  normalization while preserving semen parameters. Often favored over TRT by younger men
+  and those planning families.
+
+halfLife: "~5-7 days"
+onset: "LH/FSH increase within days; testosterone normalization 4-8 weeks"
+duration: "Testosterone elevation maintained during use; returns toward baseline 4-8 weeks after stopping"
+routeOfAdmin:
+  - oral
+mechanismShort: "Blocks ER-alpha in hypothalamus and pituitary, reducing estrogen negative feedback; pulsatile GnRH/LH/FSH increase drives testicular testosterone production and spermatogenesis"
+
+dosing:
+  min: 12.5
+  typical: 25
+  max: 50
+  unit: mg
+  frequency: "daily"
+  notes: "12.5-25mg/day for most men. Titrate based on total testosterone, LH, FSH, and estradiol levels. Monitor every 4-6 weeks initially. No PCT needed after stopping (recovery is intrinsic to mechanism). Do not use in men with active TRT."
+
+sideEffects:
+  - name: visual_disturbances
+    severity: moderate
+    frequency: uncommon
+    notes: "Blurring, visual flashes; generally reversible but rare cases of persistent vision changes reported with clomiphene; monitor"
+  - name: mood_effects
+    severity: mild
+    frequency: uncommon
+    notes: "Mood changes (predominantly from zuclomiphene — less of an issue with pure enclomiphene vs. mixed clomid)"
+  - name: hot_flashes
+    severity: mild
+    frequency: uncommon
+    notes: "ER antagonism in thermoregulatory centers; generally mild"
+  - name: estrogen_elevation
+    severity: mild
+    frequency: uncommon
+    notes: "Testosterone increase leads to increased aromatization; monitor estradiol and use AI if needed"
+
+interactions:
+  - target: anastrozole
+    type: synergistic
+    severity: mild
+    description: "If elevated testosterone leads to excessive estrogen conversion, anastrozole manages aromatization while enclomiphene continues to drive HPG axis stimulation"
+  - target: zinc
+    type: synergistic
+    severity: mild
+    description: "Zinc supports Leydig cell steroidogenesis; complements enclomiphene's LH-driven testosterone production for maximal testicular response"
+
+mechanisms:
+  - pathway: ER_alpha_antagonism
+    description: "Competitively blocks estrogen receptor alpha in hypothalamic kisspeptin neurons and pituitary gonadotrophs, removing estrogen's negative feedback on GnRH/LH/FSH"
+  - pathway: LH_FSH_stimulation
+    description: "Removal of ER negative feedback increases pulsatile GnRH → LH and FSH secretion from anterior pituitary"
+  - pathway: testicular_steroidogenesis
+    description: "LH stimulates Leydig cell cAMP/PKA pathway, driving testosterone synthesis from cholesterol; FSH stimulates Sertoli cells, maintaining spermatogenesis"
+
+searchTerms:
+  pubmed:
+    - "enclomiphene AND testosterone AND hypogonadism AND randomized"
+    - "enclomiphene citrate AND LH FSH AND spermatogenesis AND clinical"
+    - "Androxal AND testosterone AND fertility AND Phase III"
+  semanticScholar:
+    - "enclomiphene SERM testosterone hypogonadism fertility clinical"
+    - "trans-clomiphene HPG axis testosterone LH stimulation"

@@ -1,0 +1,82 @@
+# Alpha-Lipoic Acid — Universal antioxidant; mitochondria, glucose, neuropathy
+slug: alpha-lipoic-acid
+name: Alpha-Lipoic Acid
+aliases:
+  - ALA
+  - lipoic acid
+  - thioctic acid
+  - R-ALA
+  - R-lipoic acid
+category: SUPPLEMENT
+subcategory: antioxidant
+legalStatus: LEGAL
+description: |
+  Alpha-lipoic acid (ALA) is a naturally occurring organosulfur compound that functions as
+  a cofactor for mitochondrial enzyme complexes (PDH, alpha-ketoglutarate dehydrogenase) and
+  as a potent antioxidant that recycles other antioxidants (vitamins C, E, glutathione, CoQ10).
+  FDA-approved drug in Germany for diabetic neuropathy (600mg IV or oral). Strong clinical
+  evidence for insulin sensitivity improvement, peripheral neuropathy (pain, tingling),
+  and mitochondrial function. R-ALA is the biologically active enantiomer with better
+  bioavailability than racemic ALA; Na-RALA (sodium R-lipoate) has the highest bioavailability.
+  Combined with ALCAR it is one of the most studied mitochondrial restoration combinations.
+
+halfLife: "R-ALA: ~30 minutes (plasma); mitochondrial effects persist longer"
+onset: "Glycemic effects acute (1-2 weeks); neuropathy benefits 3-6 months"
+duration: "Ongoing with daily supplementation"
+routeOfAdmin:
+  - oral
+  - intravenous
+mechanismShort: "Mitochondrial PDH/KGDH cofactor; recycles vitamins C, E, Q10, and glutathione; activates AMPK; Nrf2 induction; inhibits NF-kB; chelates heavy metals"
+
+dosing:
+  min: 300
+  typical: 600
+  max: 1800
+  unit: mg
+  frequency: "2-3x/day (racemic) or 1-2x/day (R-ALA)"
+  notes: "R-ALA: 100-300mg equivalent to 600mg racemic. Na-RALA (stabilized R-ALA) has best absorption. Take 30-60 min before meals for glycemic benefits. Stack with ALCAR for mitochondrial synergy. Avoid high-carb meals immediately after — acute hypoglycemia risk."
+
+sideEffects:
+  - name: hypoglycemia
+    severity: moderate
+    frequency: uncommon
+    notes: "Can lower blood glucose significantly — relevant in diabetics and when combined with glucose-lowering agents; monitor blood sugar"
+  - name: nausea
+    severity: mild
+    frequency: uncommon
+    notes: "Especially with large doses; take with small amount of food at non-mealtime"
+  - name: thiamine_competition
+    severity: mild
+    frequency: rare
+    notes: "Structural similarity to biotin; theoretical biotin competition at high doses — supplement biotin if using high-dose ALA long-term"
+
+interactions:
+  - target: alcar
+    type: synergistic
+    severity: moderate
+    description: "Classic mitochondrial stack: ALA restores carnitine acetyltransferase activity, ALCAR provides acetyl groups; together restore aged mitochondrial function in animal studies to near-youthful levels"
+  - target: vitamin-c
+    type: synergistic
+    severity: mild
+    description: "ALA recycles oxidized ascorbate back to active vitamin C; extends antioxidant effect"
+
+mechanisms:
+  - pathway: mitochondrial_cofactor
+    description: "Covalently bound cofactor for pyruvate dehydrogenase (PDH) and alpha-ketoglutarate dehydrogenase; essential for TCA cycle efficiency"
+  - pathway: antioxidant_recycling
+    description: "Reduced form (DHLA) recycles oxidized forms of vitamins C, E, CoQ10, and glutathione back to active antioxidant state"
+  - pathway: AMPK_activation
+    description: "Activates AMP-activated protein kinase; increases GLUT4 translocation to cell surface, improving glucose uptake independently of insulin"
+  - pathway: Nrf2_activation
+    description: "Activates Nrf2-ARE pathway, inducing endogenous antioxidant enzymes (HO-1, NQO1, GCL)"
+  - pathway: heavy_metal_chelation
+    description: "Chelates iron, copper, and other redox-active metals; reduces Fenton reaction-driven oxidative damage"
+
+searchTerms:
+  pubmed:
+    - "alpha-lipoic acid AND diabetic neuropathy AND randomized"
+    - "ALA AND insulin sensitivity AND glucose AND human"
+    - "lipoic acid AND mitochondria AND aging AND human"
+  semanticScholar:
+    - "alpha-lipoic acid neuropathy insulin sensitivity clinical"
+    - "R-lipoic acid mitochondrial function oxidative stress"

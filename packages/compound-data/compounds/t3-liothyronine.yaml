@@ -1,0 +1,83 @@
+# T3 (Liothyronine) — Active thyroid hormone; metabolic rate, fat loss, cognition
+slug: t3-liothyronine
+name: Liothyronine (T3)
+aliases:
+  - T3
+  - Cytomel
+  - triiodothyronine
+  - liothyronine sodium
+  - L-T3
+category: FAT_LOSS
+subcategory: thyroid_hormone
+legalStatus: PRESCRIPTION
+description: |
+  Liothyronine (T3) is the active form of thyroid hormone, 3-4x more potent than T4
+  (levothyroxine) and the dominant driver of metabolic rate, thermogenesis, and cellular
+  energy expenditure. In athletes and bodybuilders it is used off-label to increase metabolic
+  rate for enhanced fat loss, particularly during caloric restriction when endogenous T3
+  levels fall. Medical indications include hypothyroidism, myxedema coma, and thyroid cancer
+  suppression. The risk is significant: exogenous T3 suppresses the hypothalamic-pituitary-
+  thyroid (HPT) axis, requiring a careful taper to restore endogenous production. Requires
+  close medical supervision.
+
+halfLife: "~2.5 days (biological effect days to weeks)"
+onset: "Metabolic increase within 1-3 days; peak effects 1-2 weeks"
+duration: "HPT axis suppression persists weeks after cessation; requires taper"
+routeOfAdmin:
+  - oral
+mechanismShort: "TR-alpha and TR-beta nuclear receptor agonist → increased mitochondrial uncoupling proteins → thermogenesis; upregulates beta-adrenergic receptors; increases Na+/K+-ATPase expression"
+
+dosing:
+  min: 25
+  typical: 50
+  max: 100
+  unit: mcg
+  frequency: "2-3x/day (short half-life requires split dosing)"
+  notes: "Medical hypothyroidism: 25-75mcg/day. Off-label use: start 25mcg/day, increase by 25mcg weekly. MUST taper off (reduce by 25mcg/week) — abrupt cessation causes rebound hypothyroidism. Cycle max 6-8 weeks for performance use."
+
+sideEffects:
+  - name: HPT_axis_suppression
+    severity: severe
+    frequency: certain
+    notes: "All exogenous T3 suppresses TSH and endogenous thyroid production; requires careful taper to restore function"
+  - name: tachycardia
+    severity: moderate
+    frequency: common
+    notes: "Dose-dependent heart rate increase; monitor HR and cardiac rhythm"
+  - name: muscle_catabolism
+    severity: moderate
+    frequency: common
+    notes: "High T3 increases protein catabolism alongside fat loss; must use with adequate protein intake (2g/kg) and potentially anabolics"
+  - name: bone_density_loss
+    severity: moderate
+    frequency: uncommon
+    notes: "Chronic supraphysiological T3 accelerates bone remodeling; relevant in long-term high-dose use"
+
+interactions:
+  - target: clenbuterol
+    type: synergistic
+    severity: moderate
+    description: "T3 upregulates beta-2 adrenergic receptors, preventing clenbuterol desensitization and maintaining thermogenic response — classic synergistic cutting combination"
+  - target: testosterone-cypionate
+    type: synergistic
+    severity: moderate
+    description: "Anabolic agents offset T3-driven muscle catabolism while T3 drives fat oxidation — combined allows fat loss without muscle loss"
+
+mechanisms:
+  - pathway: nuclear_thyroid_receptor
+    description: "Activates TR-alpha and TR-beta nuclear receptors; TR-DNA complexes drive transcription of metabolic genes (UCP1, 2, 3; Na+/K+-ATPase; beta-adrenergic receptors)"
+  - pathway: thermogenesis
+    description: "Upregulates uncoupling proteins (UCPs) in mitochondria; increases metabolic rate by uncoupling ATP synthesis from oxidative phosphorylation"
+  - pathway: beta_adrenergic_upregulation
+    description: "Increases beta-adrenergic receptor expression; sensitizes tissues to catecholamines and beta-agonists like clenbuterol"
+  - pathway: HPT_axis_suppression
+    description: "Negative feedback on hypothalamus (reduced TRH) and pituitary (reduced TSH); endogenous thyroid production falls with exogenous supplementation"
+
+searchTerms:
+  pubmed:
+    - "liothyronine T3 AND metabolic rate AND human"
+    - "T3 AND fat loss AND body composition AND thyroid"
+    - "liothyronine AND hypothyroidism AND treatment AND randomized"
+  semanticScholar:
+    - "liothyronine T3 thyroid metabolic rate thermogenesis"
+    - "T3 fat loss performance body composition clinical"

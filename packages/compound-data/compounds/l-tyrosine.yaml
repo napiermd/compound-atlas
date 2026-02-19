@@ -1,0 +1,74 @@
+# L-Tyrosine — Catecholamine precursor; focus, stress resilience, cognition
+slug: l-tyrosine
+name: L-Tyrosine
+aliases:
+  - tyrosine
+  - L-Tyr
+  - NALT (N-acetyl-L-tyrosine)
+category: AMINO_ACID
+subcategory: aromatic_amino_acid
+legalStatus: LEGAL
+description: |
+  L-Tyrosine is a non-essential aromatic amino acid and the direct precursor to all
+  catecholamines (dopamine → norepinephrine → epinephrine) and thyroid hormones (T3/T4).
+  Its cognitive benefits are most pronounced under conditions of catecholamine depletion —
+  stress, sleep deprivation, cold exposure, high cognitive load, and multitasking. Military
+  research has demonstrated improved performance under adverse conditions. N-Acetyl-L-Tyrosine
+  (NALT) has better solubility but lower conversion efficiency; plain L-tyrosine is preferred
+  for most uses.
+
+halfLife: "~3 hours"
+onset: "Acute cognitive effects within 45-90 minutes; most pronounced in depleted states"
+duration: "3-5 hours"
+routeOfAdmin:
+  - oral
+mechanismShort: "Catecholamine synthesis precursor (DOPA decarboxylase pathway); thyroid hormone precursor; competes for large neutral amino acid transporter at BBB"
+
+dosing:
+  min: 500
+  typical: 2000
+  max: 4000
+  unit: mg
+  frequency: "as needed (acute)"
+  notes: "Take on empty stomach for best absorption and CNS uptake. Most effective when acutely stressed, sleep-deprived, or cognitively taxed. Not ideal as daily supplement in rested state."
+
+sideEffects:
+  - name: headache
+    severity: mild
+    frequency: uncommon
+    notes: "Usually with high doses; reduce dose"
+  - name: insomnia
+    severity: mild
+    frequency: uncommon
+    notes: "Avoid evening use; catecholamine elevation impairs sleep"
+  - name: thyroid_stimulation
+    severity: moderate
+    frequency: rare
+    notes: "Theoretical concern in hyperthyroidism; monitor if on thyroid medication"
+
+interactions:
+  - target: l-theanine
+    type: neutral
+    severity: mild
+    description: "L-theanine blunts excessive sympathetic activation; may moderate tyrosine-driven catecholamine surge — can combine but may reduce peak effect"
+  - target: modafinil
+    type: synergistic
+    severity: moderate
+    description: "Modafinil increases catecholamine release; tyrosine ensures precursor availability doesn't become rate-limiting"
+
+mechanisms:
+  - pathway: catecholamine_synthesis
+    description: "Hydroxylated to L-DOPA by tyrosine hydroxylase (rate-limiting step); L-DOPA → dopamine → norepinephrine → epinephrine"
+  - pathway: thyroid_hormone_precursor
+    description: "Iodinated tyrosine residues form T3 and T4 within thyroglobulin in thyroid follicles"
+  - pathway: melanin_synthesis
+    description: "Converted to DOPA → dopaquinone → melanin via tyrosinase pathway"
+
+searchTerms:
+  pubmed:
+    - "tyrosine AND cognitive performance AND stress AND human"
+    - "L-tyrosine AND working memory AND sleep deprivation"
+    - "tyrosine supplementation AND catecholamine AND randomized"
+  semanticScholar:
+    - "L-tyrosine cognition stress deprivation performance"
+    - "tyrosine dopamine norepinephrine supplementation"

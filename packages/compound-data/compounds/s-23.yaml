@@ -1,0 +1,74 @@
+# S-23 — Most potent SARM; near-steroid anabolic effects, male contraceptive research
+slug: s-23
+name: S-23
+aliases:
+  - S23
+  - GTx-023
+category: SARM
+subcategory: arylpropionamide_SARM
+legalStatus: RESEARCH_ONLY
+description: |
+  S-23 is an arylpropionamide SARM developed by GTx Inc. with the highest binding affinity
+  to the androgen receptor of any SARM studied. It produces near-steroid-level anabolic
+  effects (lean mass, strength, bone density) while being orally bioavailable and potentially
+  more selective than traditional anabolic steroids. Originally studied as a male hormonal
+  contraceptive — it suppresses LH and FSH enough to suppress spermatogenesis in animal
+  models. The trade-off for its potency is the highest suppression of the HPG axis among
+  SARMs, approaching or equaling testosterone's suppressive effects. Requires rigorous PCT.
+  No human clinical trials published; pharmacology data from animal studies only.
+
+halfLife: "~11-12 hours"
+onset: "Anabolic effects 2-4 weeks; full effects 6-8 weeks"
+duration: "Effects present during use; recovery requires PCT"
+routeOfAdmin:
+  - oral
+mechanismShort: "Full agonist at AR in muscle and bone; near-complete LH/FSH suppression via hypothalamic/pituitary AR activation; partial agonist in prostate; no aromatization"
+
+dosing:
+  min: 10
+  typical: 20
+  max: 30
+  unit: mg
+  frequency: "daily (split 2x/day)"
+  notes: "Advanced users only — closest SARM to traditional steroids in potency and suppression. 10-20mg/day common. Rigorous PCT mandatory. Some users report aggressive mood changes. No human trials — highest uncertainty of any SARM."
+
+sideEffects:
+  - name: HPG_suppression
+    severity: severe
+    frequency: common
+    notes: "Most suppressive SARM; approaches testosterone-level suppression; full PCT required; fertility impairment likely during use"
+  - name: aggression
+    severity: moderate
+    frequency: uncommon
+    notes: "More mood effects than other SARMs; individual variation"
+  - name: lipid_changes
+    severity: moderate
+    frequency: common
+    notes: "Significant HDL reduction; cardiovascular monitoring advised"
+
+interactions:
+  - target: rad-140
+    type: neutral
+    severity: severe
+    description: "Combining two highly suppressive SARMs multiplies suppression risk; not recommended — use one or the other"
+  - target: enclomiphene
+    type: synergistic
+    severity: moderate
+    description: "Enclomiphene can maintain LH/FSH during S-23 cycle to reduce suppression depth; requires careful monitoring"
+
+mechanisms:
+  - pathway: AR_full_agonism
+    description: "Highest AR binding affinity of any studied SARM; full agonist in muscle and bone producing maximal anabolic signaling"
+  - pathway: HPG_suppression
+    description: "AR activation in hypothalamus and pituitary strongly suppresses GnRH pulsatility and LH/FSH release; spermatogenesis suppression in animal models"
+  - pathway: prostate_partial_agonism
+    description: "Unlike testosterone, S-23 shows partial agonism in prostate in some models; theoretical reduced prostate hypertrophy risk vs testosterone"
+
+searchTerms:
+  pubmed:
+    - "S-23 AND SARM AND androgen receptor AND muscle"
+    - "S23 AND male contraceptive AND spermatogenesis AND animal"
+    - "arylpropionamide SARM AND anabolic AND selectivity"
+  semanticScholar:
+    - "S-23 SARM androgen receptor anabolic muscle bone"
+    - "selective androgen receptor modulator male contraceptive"

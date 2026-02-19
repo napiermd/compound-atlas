@@ -1,0 +1,80 @@
+# Ginkgo Biloba — Oldest living tree extract; cognitive, circulation, antioxidant
+slug: ginkgo-biloba
+name: Ginkgo Biloba
+aliases:
+  - EGb 761
+  - Tanakan
+  - ginkgo
+  - ginkgolides
+  - bilobalide
+  - maidenhair tree
+category: NOOTROPIC
+subcategory: herbal_nootropic
+legalStatus: LEGAL
+description: |
+  Ginkgo biloba is one of the most extensively studied herbs for cognitive function, with
+  a unique combination of mechanisms targeting cerebrovascular circulation, platelet-activating
+  factor (PAF) inhibition, and antioxidant activity. EGb 761 (standardized extract) is
+  the most studied formulation. Meta-analyses confirm modest but significant improvements
+  in cognitive symptoms of dementia and age-related cognitive decline. Civilian and military
+  studies show acute cognitive benefits in healthy adults. Bilobalide has neuroprotective
+  properties distinct from its vascular effects. One of the most used supplements globally,
+  with a robust safety profile.
+
+halfLife: "Ginkgolides: ~3-7 hours; bilobalide: ~3 hours"
+onset: "Cerebrovascular effects acute (1-2 hours); cognitive improvements 4-12 weeks"
+duration: "Ongoing with daily supplementation"
+routeOfAdmin:
+  - oral
+mechanismShort: "PAF (platelet-activating factor) antagonism; inhibits phosphodiesterase → increased cGMP; free radical scavenging (flavonoids); inhibits EAA receptor-mediated excitotoxicity (bilobalide)"
+
+dosing:
+  min: 120
+  typical: 240
+  max: 360
+  unit: mg
+  frequency: "2-3x/day"
+  notes: "EGb 761 standardized extract (24% flavone glycosides, 6% terpene lactones). Split dosing maintains stable levels. Take with food. Interactions with anticoagulants — see below."
+
+sideEffects:
+  - name: bleeding_risk
+    severity: moderate
+    frequency: uncommon
+    notes: "PAF antagonism reduces platelet aggregation; additive with anticoagulants and NSAIDs; discontinue before surgery"
+  - name: GI_upset
+    severity: mild
+    frequency: uncommon
+    notes: "Occasional nausea; take with food"
+  - name: headache
+    severity: mild
+    frequency: uncommon
+    notes: "Vasodilation effect; usually resolves with continued use"
+
+interactions:
+  - target: bacopa-monnieri
+    type: synergistic
+    severity: mild
+    description: "Complementary cognitive mechanisms: ginkgo improves cerebrovascular circulation, bacopa enhances cholinergic transmission and memory consolidation"
+  - target: phosphatidylserine
+    type: synergistic
+    severity: mild
+    description: "Ginkgo enhances blood flow to neurons, PS supports neuronal membrane function — additive cognitive support"
+
+mechanisms:
+  - pathway: PAF_antagonism
+    description: "Ginkgolides A and B are potent competitive antagonists of platelet-activating factor receptor; reduce platelet aggregation and neuroinflammation"
+  - pathway: PDE_inhibition
+    description: "Inhibits phosphodiesterase isoforms, increasing cGMP and cAMP; vasodilation and neuroprotective signaling"
+  - pathway: free_radical_scavenging
+    description: "Flavone glycosides (quercetin, kaempferol, isorhamnetin) scavenge ROS and RNS; particularly protective against ischemia-reperfusion injury"
+  - pathway: excitotoxicity_protection
+    description: "Bilobalide reduces NMDA and AMPA receptor-mediated excitotoxicity; neuroprotective in ischemic and neurodegenerative models"
+
+searchTerms:
+  pubmed:
+    - "Ginkgo biloba AND cognitive AND dementia AND meta-analysis"
+    - "EGb 761 AND memory AND randomized controlled trial"
+    - "ginkgo AND cerebrovascular AND blood flow AND human"
+  semanticScholar:
+    - "Ginkgo biloba EGb 761 cognitive aging dementia randomized"
+    - "ginkgo biloba neuroprotection cerebrovascular clinical"

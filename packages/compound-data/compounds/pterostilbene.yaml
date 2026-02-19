@@ -1,0 +1,74 @@
+# Pterostilbene — Resveratrol analog; superior bioavailability, cognitive, metabolic
+slug: pterostilbene
+name: Pterostilbene
+aliases:
+  - trans-pterostilbene
+  - 3,5-dimethoxy-4'-hydroxystilbene
+  - blueberry stilbene
+  - pTSB
+category: NOOTROPIC
+subcategory: polyphenol
+legalStatus: LEGAL
+description: |
+  Pterostilbene is a naturally occurring stilbene structurally similar to resveratrol but
+  with two methoxy groups replacing hydroxyls, resulting in dramatically better oral
+  bioavailability (80% vs ~1% for resveratrol) and longer half-life. It activates SIRT1
+  more potently than resveratrol and has superior CNS penetration. Found in blueberries
+  and grapes at low concentrations. Human studies show cognitive improvements in older
+  adults, improved blood pressure (-5-8 mmHg), and better glycemic control. The superior
+  pharmacokinetics make pterostilbene strictly better than resveratrol for most brain-
+  related outcomes. Often combined with resveratrol for complementary SIRT1 activation.
+
+halfLife: "~7 hours (dramatically longer than resveratrol)"
+onset: "Cognitive effects 4-8 weeks; metabolic effects 4-12 weeks"
+duration: "Ongoing with daily supplementation"
+routeOfAdmin:
+  - oral
+mechanismShort: "SIRT1 activator (more potent than resveratrol); AMPK activation; superior BBB penetration; NF-kB inhibition; PPARα activation for fat oxidation; BDNF upregulation"
+
+dosing:
+  min: 50
+  typical: 100
+  max: 250
+  unit: mg
+  frequency: "1-2x/day"
+  notes: "100mg/day covers most targets. Combine with resveratrol (250mg) for complementary sirtuin activation. Can be taken with or without food. Lower doses sufficient vs resveratrol due to much better bioavailability."
+
+sideEffects:
+  - name: LDL_elevation
+    severity: mild
+    frequency: uncommon
+    notes: "Higher doses may elevate LDL in some individuals; monitor lipids if using >250mg/day"
+  - name: anticoagulant_interaction
+    severity: mild
+    frequency: rare
+    notes: "Mild anti-platelet properties; caution with anticoagulants"
+
+interactions:
+  - target: resveratrol
+    type: synergistic
+    severity: mild
+    description: "Complementary SIRT1 activators: pterostilbene has superior brain penetration and bioavailability, resveratrol has broader tissue distribution — together provide comprehensive sirtuin activation"
+  - target: nad-precursors
+    type: synergistic
+    severity: mild
+    description: "SIRT1 activated by pterostilbene requires NAD+ as cofactor; NMN/NR ensure NAD+ availability for maximal SIRT1 activity"
+
+mechanisms:
+  - pathway: SIRT1_activation
+    description: "Direct allosteric SIRT1 activator with potency exceeding resveratrol; deacetylates PGC-1alpha, FOXO3, and p53 for longevity gene expression"
+  - pathway: BBB_penetration
+    description: "Methoxy groups dramatically increase lipophilicity and passive diffusion across blood-brain barrier; CNS levels significantly higher than resveratrol"
+  - pathway: BDNF_upregulation
+    description: "Increases hippocampal BDNF expression; linked to improved cognitive performance and neuroplasticity in animal and preliminary human studies"
+  - pathway: PPARalpha_activation
+    description: "Activates PPARα in liver, driving fatty acid oxidation gene expression and glucose metabolism improvement"
+
+searchTerms:
+  pubmed:
+    - "pterostilbene AND cognitive AND human AND randomized"
+    - "pterostilbene AND blood pressure AND clinical trial"
+    - "pterostilbene AND SIRT1 AND aging AND longevity"
+  semanticScholar:
+    - "pterostilbene cognitive function aging human clinical"
+    - "pterostilbene resveratrol comparison bioavailability SIRT1"

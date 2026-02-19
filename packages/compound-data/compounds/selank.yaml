@@ -1,0 +1,79 @@
+# Selank — Synthetic tuftsin analog; anxiety, cognition, immune modulation
+slug: selank
+name: Selank
+aliases:
+  - TP-7
+  - tuftsin analog
+  - Selank nasal spray
+category: NOOTROPIC
+subcategory: neuropeptide
+legalStatus: GRAY_MARKET
+description: |
+  Selank is a synthetic heptapeptide (Thr-Lys-Pro-Arg-Pro-Gly-Pro) analog of tuftsin developed
+  by the Institute of Molecular Genetics in Moscow. It combines anxiolytic effects without
+  sedation or dependence with immune modulation and mild cognitive enhancement. In Russian
+  clinical trials it performed comparably to benzodiazepines for generalized anxiety disorder
+  with superior cognitive profile (no impairment), no dependence, and without withdrawal.
+  Pairs naturally with Semax (stimulating/activating) as Selank provides the anxiolytic/calming
+  component. Used for generalized anxiety, PTSD, and as a cognitive enhancer under stress.
+
+halfLife: "~2-3 minutes (plasma); effects persist hours via receptor changes"
+onset: "Anxiolytic effects within 15-30 minutes intranasally"
+duration: "Acute effects 4-8 hours; anxiolytic benefits build over weeks"
+routeOfAdmin:
+  - intranasal
+  - subcutaneous_injection
+mechanismShort: "Enkephalinase inhibition increases endogenous enkephalins; GABA-A modulation without direct binding; BDNF induction; IL-6/interferon modulation; serotonin normalization"
+
+dosing:
+  min: 250
+  typical: 750
+  max: 3000
+  unit: mcg
+  frequency: "1-3x/day"
+  notes: "Intranasal administration. 0.15% concentration is common. For anxiety: 250-500mcg 2-3x/day. Cycle similarly to Semax. Can be used daily long-term with lower dependence risk than anxiolytics."
+
+sideEffects:
+  - name: fatigue
+    severity: mild
+    frequency: uncommon
+    notes: "Sedation is far less than benzos; some report mild tiredness, especially at first"
+  - name: nasal_irritation
+    severity: mild
+    frequency: common
+    notes: "Route-related; minor and transient"
+  - name: increased_appetite
+    severity: mild
+    frequency: uncommon
+    notes: "Via opioid/enkephalin pathway; monitor caloric intake"
+
+interactions:
+  - target: semax
+    type: synergistic
+    severity: mild
+    description: "Complementary pair: semax provides stimulating BDNF/dopaminergic activation, selank provides anxiolytic GABAergic/enkephalin balance — the 'accelerator and brake'"
+  - target: ashwagandha
+    type: synergistic
+    severity: mild
+    description: "Both reduce anxiety via distinct mechanisms; selank acute (enkephalin/GABA), ashwagandha chronic (HPA/cortisol) — good combination for comprehensive anxiety management"
+
+mechanisms:
+  - pathway: enkephalinase_inhibition
+    description: "Inhibits enzymes that degrade endogenous enkephalins and endorphins, increasing endogenous opioid peptide tone"
+  - pathway: GABA_modulation
+    description: "Modulates GABAergic transmission and benzodiazepine receptor without direct binding; anxiolytic without dependence liability"
+  - pathway: BDNF_induction
+    description: "Increases BDNF in hippocampus (weaker effect than semax); supports neuroplasticity and stress resilience"
+  - pathway: immune_regulation
+    description: "Derived from tuftsin (immune tetrapeptide); modulates IL-6, interferon-gamma, and macrophage activation"
+  - pathway: serotonin_normalization
+    description: "Normalizes serotonin metabolism in limbic regions; contributes to anxiolytic and mood-stabilizing effects"
+
+searchTerms:
+  pubmed:
+    - "Selank AND anxiety AND clinical AND randomized"
+    - "selank AND tuftsin AND GABA AND cognition"
+    - "TP-7 peptide AND generalized anxiety disorder"
+  semanticScholar:
+    - "selank anxiety peptide clinical trial Russia"
+    - "selank BDNF cognitive enkephalin neuropeptide"

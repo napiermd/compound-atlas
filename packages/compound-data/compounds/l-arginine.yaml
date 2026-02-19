@@ -1,0 +1,76 @@
+# L-Arginine — Semi-essential amino acid; nitric oxide precursor, cardiovascular, GH
+slug: l-arginine
+name: L-Arginine
+aliases:
+  - arginine
+  - L-Arg
+  - arginine HCl
+  - arginine AKG
+  - AAKG
+category: AMINO_ACID
+subcategory: semi_essential
+legalStatus: LEGAL
+description: |
+  L-Arginine is a semi-essential amino acid and the primary substrate for nitric oxide
+  synthase (NOS) enzymes, making it central to vascular function, blood flow, and erectile
+  health. Multiple RCTs confirm blood pressure reduction (pooled effect: -5.4/-2.7 mmHg),
+  improved endothelial function, and erectile dysfunction improvement. It also stimulates
+  GH secretion (via direct pituitary stimulation) and supports wound healing and immune
+  function. Key limitation: oral bioavailability is poor due to extensive first-pass
+  intestinal/hepatic arginase catabolism. Citrulline is a better precursor for raising
+  plasma arginine levels. At exercise doses, citrulline-malate is superior.
+
+halfLife: "~1-2 hours (plasma)"
+onset: "Blood pressure and vascular effects: 1-4 weeks; GH stimulation: acute"
+duration: "Short plasma half-life; sustained effects with consistent daily dosing"
+routeOfAdmin:
+  - oral
+  - intravenous
+mechanismShort: "Substrate for eNOS, iNOS, nNOS → NO synthesis → cGMP → vasodilation; stimulates pituitary GH release; precursor for ornithine/polyamine synthesis; urea cycle component"
+
+dosing:
+  min: 3000
+  typical: 6000
+  max: 12000
+  unit: mg
+  frequency: "2-3x/day"
+  notes: "Take on empty stomach for GH stimulation effect. For vascular/ED: 3-6g with citrulline is more effective than arginine alone. Pre-workout: citrulline-malate is preferred. Divide doses to avoid GI tolerance."
+
+sideEffects:
+  - name: GI_discomfort
+    severity: moderate
+    frequency: common
+    notes: "Most significant limitation: diarrhea and cramping at higher doses (>6g single dose); split dosing and slow titration required"
+  - name: herpes_activation
+    severity: moderate
+    frequency: rare
+    notes: "Arginine may facilitate herpes simplex replication; L-lysine competes with arginine and may offset this risk"
+
+interactions:
+  - target: citrulline-malate
+    type: synergistic
+    severity: moderate
+    description: "Citrulline converts to arginine in kidneys with much better bioavailability; combining provides both direct arginine and sustained regeneration of plasma arginine — additive NO production"
+  - target: tadalafil
+    type: synergistic
+    severity: moderate
+    description: "Arginine provides NO substrate, tadalafil prevents cGMP degradation — synergistic vascular and erectile function support via same pathway at different steps"
+
+mechanisms:
+  - pathway: nitric_oxide_synthesis
+    description: "Primary substrate for all three NOS isoforms (eNOS, nNOS, iNOS); NO production drives soluble guanylate cyclase → cGMP → vascular smooth muscle relaxation"
+  - pathway: GH_stimulation
+    description: "Intravenous and oral arginine stimulate anterior pituitary GH release via somatostatin suppression; effect is blunted with exercise-induced GH already elevated"
+  - pathway: urea_cycle
+    description: "Central urea cycle amino acid; converts ammonia to urea in liver; supports nitrogen detoxification during high protein intake"
+  - pathway: polyamine_synthesis
+    description: "Converted to ornithine (via arginase), then to polyamines (putrescine, spermidine, spermine) via ODC; important for cell proliferation and wound healing"
+
+searchTerms:
+  pubmed:
+    - "L-arginine AND blood pressure AND meta-analysis"
+    - "arginine AND erectile dysfunction AND randomized"
+    - "L-arginine AND endothelial function AND human"
+  semanticScholar:
+    - "L-arginine nitric oxide blood pressure cardiovascular clinical"
+    - "arginine erectile function endothelial human randomized"

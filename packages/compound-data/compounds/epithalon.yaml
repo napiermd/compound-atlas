@@ -1,0 +1,75 @@
+# Epithalon — Tetrapeptide; telomere elongation, pineal, longevity
+slug: epithalon
+name: Epithalon
+aliases:
+  - Epitalon
+  - epithalamin
+  - Ala-Glu-Asp-Gly
+  - tetrapeptide epithalon
+category: PEPTIDE
+subcategory: longevity_peptide
+legalStatus: GRAY_MARKET
+description: |
+  Epithalon (Ala-Glu-Asp-Gly) is a synthetic tetrapeptide developed by the St. Petersburg
+  Institute of Bioregulation and Gerontology by Prof. Vladimir Khavinson. It is derived from
+  epithalamin (pineal gland extract) and is one of the most studied bioregulatory peptides.
+  Russian longitudinal studies over 20+ years show reduced all-cause mortality (~50%), cancer
+  incidence reduction, and significant lifespan extension. Its primary mechanism involves
+  activating telomerase to elongate telomeres in somatic cells — one of very few compounds
+  with direct telomerase-activating evidence in humans. Also normalizes circadian rhythm
+  via pineal gland regulation. Widely used in longevity-focused protocols.
+
+halfLife: "~0.5-2 hours (plasma); cellular effects persist"
+onset: "Circadian/sleep effects within days; telomere effects accumulate over months-years"
+duration: "2-3 cycles/year with effects accumulating over time"
+routeOfAdmin:
+  - subcutaneous_injection
+  - intranasal
+mechanismShort: "Telomerase activation via epigenetic (DNA methylation) changes; pineal gland stimulation increasing melatonin; antioxidant enzyme induction; p53/Bcl-2 apoptosis modulation"
+
+dosing:
+  min: 5
+  typical: 10
+  max: 20
+  unit: mg
+  frequency: "daily for 10-20 day cycles, 1-3x/year"
+  notes: "Standard protocol: 5-10mg/day SC injection for 10 days, 2-3 cycles/year. Intranasal available but lower bioavailability. Reconstitute in bacteriostatic water. Store frozen."
+
+sideEffects:
+  - name: injection_site_reaction
+    severity: mild
+    frequency: uncommon
+    notes: "Mild redness; rotate sites"
+  - name: unknown_long_term
+    severity: moderate
+    frequency: unknown
+    notes: "Long-term human data exists but primarily from Russian studies; independent replication limited"
+
+interactions:
+  - target: nad-precursors
+    type: synergistic
+    severity: mild
+    description: "Both address aging hallmarks: epithalon via telomere protection, NAD+ precursors via sirtuin/PARP pathway and mitochondrial function — combined longevity protocol"
+  - target: ghk-cu
+    type: synergistic
+    severity: mild
+    description: "Classic Russian peptide longevity combination; GHK-Cu for tissue regeneration and remodeling, epithalon for telomere protection and circadian normalization"
+
+mechanisms:
+  - pathway: telomerase_activation
+    description: "Activates telomerase reverse transcriptase (TERT) via DNA methylation changes at TERT promoter; elongates shortened telomeres in somatic cells"
+  - pathway: pineal_restoration
+    description: "Stimulates pineal gland melatonin synthesis; normalizes age-related decline in melatonin production and circadian amplitude"
+  - pathway: antioxidant_enzyme_induction
+    description: "Upregulates SOD and catalase expression; reduces oxidative stress and lipid peroxidation"
+  - pathway: apoptosis_regulation
+    description: "Modulates p53 and Bcl-2 expression; promotes apoptosis in malignant cells while protecting normal cells"
+
+searchTerms:
+  pubmed:
+    - "epithalon AND telomerase AND aging AND human"
+    - "epitalon AND lifespan AND longevity AND clinical"
+    - "Khavinson AND tetrapeptide AND telomere AND clinical"
+  semanticScholar:
+    - "epithalon epitalon telomere aging longevity peptide"
+    - "pineal peptide epithalamin circadian aging Russia"

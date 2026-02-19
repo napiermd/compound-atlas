@@ -1,0 +1,76 @@
+# Andarine S4 — SARM; hardening, fat loss, strength with vision side effects
+slug: andarine-s4
+name: Andarine (S4)
+aliases:
+  - S4
+  - GTx-007
+  - andarine
+  - S-4
+category: SARM
+subcategory: arylpropionamide_SARM
+legalStatus: RESEARCH_ONLY
+description: |
+  Andarine (S4) is an arylpropionamide SARM developed by GTx Inc. for muscle wasting and
+  osteoporosis. It has strong androgenic activity in muscle and bone with the unique property
+  of producing significant fat loss alongside lean mass preservation — making it popular
+  in cutting protocols. The defining and limiting characteristic is partial agonism at
+  androgen receptors in the eye (retinal photoreceptors), causing a yellow/golden tint to
+  vision and difficulty adjusting between light/dark environments, particularly at night.
+  This side effect is dose-dependent and fully reversible. S4 has not proceeded to Phase III
+  trials; clinical development was abandoned primarily due to the vision side effect.
+
+halfLife: "~3-4 hours"
+onset: "Anabolic effects 2-4 weeks; visual disturbances within first 1-2 weeks"
+duration: "Effects and side effects present during use; vision normalizes 4-8 weeks post-cycle"
+routeOfAdmin:
+  - oral
+mechanismShort: "Full agonist at androgen receptor in muscle/bone; partial agonist at AR in prostate and eye; promotes nitrogen retention, protein synthesis; fat oxidation via beta-AR upregulation"
+
+dosing:
+  min: 25
+  typical: 50
+  max: 75
+  unit: mg
+  frequency: "daily (split 2x/day due to half-life)"
+  notes: "50mg/day is the standard dose. Split dosing due to short half-life. Cycle 6-8 weeks. Run PCT. Vision side effects are dose-dependent: 25mg has minimal vision effects, 75mg has significant. DO NOT drive at night if experiencing vision changes."
+
+sideEffects:
+  - name: visual_disturbances
+    severity: moderate
+    frequency: common
+    notes: "Yellow tint to vision; difficulty with dark adaptation; night driving impaired. Fully reversible on discontinuation. Dose-dependent."
+  - name: testosterone_suppression
+    severity: moderate
+    frequency: common
+    notes: "Moderate HPG axis suppression; PCT recommended after cycles > 4 weeks"
+  - name: lipid_alterations
+    severity: moderate
+    frequency: common
+    notes: "Reduces HDL; monitor lipid panel during cycle"
+
+interactions:
+  - target: ostarine
+    type: neutral
+    severity: moderate
+    description: "Often combined for recomposition; ostarine provides anabolic base, S4 adds fat loss and hardening. Stacking increases combined suppression risk."
+  - target: rad-140
+    type: neutral
+    severity: moderate
+    description: "Can stack for greater anabolic effect in recomp; increases suppression and side effect risk — advanced users only"
+
+mechanisms:
+  - pathway: androgen_receptor_agonism
+    description: "Full agonist at AR in muscle and bone; activates AR-dependent gene transcription for protein synthesis, nitrogen retention, and bone mineralization"
+  - pathway: retinal_AR_partial_agonism
+    description: "Partial agonist at AR in retinal photoreceptors; causes differential visual adaptation between scotopic (dark) and photopic (light) vision"
+  - pathway: fat_oxidation
+    description: "Androgenic AR activation in adipose tissue upregulates hormone-sensitive lipase and beta-oxidation enzymes; promotes fat mobilization in caloric deficit"
+
+searchTerms:
+  pubmed:
+    - "andarine S4 AND SARM AND androgen receptor AND preclinical"
+    - "GTx-007 AND muscle AND bone AND clinical"
+    - "selective androgen receptor modulator AND S4"
+  semanticScholar:
+    - "andarine S4 SARM arylpropionamide muscle bone"
+    - "S4 selective androgen receptor modulator clinical pharmacology"

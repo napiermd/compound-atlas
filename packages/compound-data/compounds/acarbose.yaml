@@ -1,0 +1,79 @@
+# Acarbose — Alpha-glucosidase inhibitor; glucose control, longevity (ITP), carb timing
+slug: acarbose
+name: Acarbose
+aliases:
+  - Precose
+  - Glucobay
+  - alpha-glucosidase inhibitor
+  - starch blocker
+category: OTHER
+subcategory: longevity_drug
+legalStatus: PRESCRIPTION
+description: |
+  Acarbose is an FDA-approved alpha-glucosidase inhibitor for type 2 diabetes that delays
+  carbohydrate digestion and blunts postprandial glucose spikes. It has become notable in
+  longevity research through the NIA Interventions Testing Program (ITP), where it extended
+  median lifespan in mice by 22% in males and 5% in females — one of the top-performing
+  compounds in the most rigorous aging intervention program in existence. The mechanism
+  is distinct from metformin: acarbose blunts glucose peaks (reducing glycemic variability
+  and AGE formation) rather than activating AMPK. It also modifies the gut microbiome to
+  favor Bacteroidetes and short-chain fatty acid producers. Often used in combination with
+  metformin in longevity protocols.
+
+halfLife: "~2 hours (very low systemic absorption; acts locally in gut)"
+onset: "Glucose blunting immediate (with meals); microbiome changes weeks; longevity effects chronic"
+duration: "Taken with each carbohydrate-containing meal for effect"
+routeOfAdmin:
+  - oral
+mechanismShort: "Competitive inhibitor of alpha-glucosidase and pancreatic alpha-amylase in small intestine; delays breakdown of complex carbs to glucose; reduces postprandial glucose spike by 30-50%; modifies gut microbiome"
+
+dosing:
+  min: 25
+  typical: 100
+  max: 300
+  unit: mg
+  frequency: "3x/day with first bite of each meal"
+  notes: "Must be taken with the first bite of food for effect. Start at 25mg 3x/day and titrate over 4-8 weeks to minimize GI side effects. Take with carbohydrate-containing meals only — no effect if no carbs."
+
+sideEffects:
+  - name: flatulence_bloating
+    severity: moderate
+    frequency: common
+    notes: "Most common side effect (50-70% of users); from undigested carbs reaching colonic bacteria. Usually improves significantly after 4-8 weeks as microbiome adapts. Start low and titrate."
+  - name: diarrhea
+    severity: moderate
+    frequency: uncommon
+    notes: "Especially early in treatment; osmotic effect of unabsorbed carbs; resolves with continued use"
+  - name: hypoglycemia_risk
+    severity: mild
+    frequency: rare
+    notes: "Alone, cannot cause hypoglycemia (requires insulin secretion). Risk if combined with sulfonylureas or insulin — treat with glucose not sucrose (which requires glucosidase)"
+
+interactions:
+  - target: metformin
+    type: synergistic
+    severity: moderate
+    description: "Complementary longevity combination: metformin activates AMPK and modifies microbiome, acarbose blunts glucose spikes and modifies microbiome differently — ITP data suggests additive benefit"
+  - target: berberine
+    type: synergistic
+    severity: mild
+    description: "Both reduce glucose absorption and improve insulin sensitivity via different mechanisms; additive glycemic control with complementary microbiome effects"
+
+mechanisms:
+  - pathway: alpha_glucosidase_inhibition
+    description: "Competitive inhibition of intestinal alpha-glucosidase brush border enzymes that cleave oligosaccharides and disaccharides; delays monosaccharide absorption"
+  - pathway: amylase_inhibition
+    description: "Inhibits pancreatic alpha-amylase, reducing starch breakdown in gut lumen; blunts both the rate and peak of glucose absorption from complex carbohydrates"
+  - pathway: microbiome_modification
+    description: "Undigested carbs reaching colon serve as prebiotic substrate; increases Bacteroidetes and short-chain fatty acid producing bacteria (Bifidobacterium, Lactobacillus)"
+  - pathway: AGE_reduction
+    description: "By reducing postprandial glucose peaks, reduces non-enzymatic glycation of proteins and AGE (advanced glycation end product) formation — key aging mechanism"
+
+searchTerms:
+  pubmed:
+    - "acarbose AND aging AND longevity AND ITP AND lifespan"
+    - "acarbose AND postprandial glucose AND randomized"
+    - "acarbose AND microbiome AND gut AND clinical"
+  semanticScholar:
+    - "acarbose aging longevity ITP lifespan extension"
+    - "acarbose glucose control glycation microbiome clinical"

@@ -1,0 +1,74 @@
+# Anastrozole — Aromatase inhibitor; estrogen management, testosterone optimization
+slug: anastrozole
+name: Anastrozole
+aliases:
+  - Arimidex
+  - AI
+  - aromatase inhibitor
+  - letrozole (related)
+category: HORMONAL
+subcategory: aromatase_inhibitor
+legalStatus: PRESCRIPTION
+description: |
+  Anastrozole is a third-generation non-steroidal aromatase inhibitor (AI) FDA-approved
+  for hormone receptor-positive breast cancer. In male performance medicine and TRT, it
+  is used to control estradiol elevation from testosterone aromatization. Excessive estrogen
+  during TRT or anabolic steroid use causes water retention, gynecomastia, mood instability,
+  and sexual dysfunction. However, estrogen is essential for men too — bone density, libido,
+  cardiovascular health, and joint function all require adequate estrogen. Anastrozole dosing
+  requires careful titration to labs; over-suppression of estrogen ("crashing estrogen") is
+  common and causes significant symptoms.
+
+halfLife: "~50 hours"
+onset: "Estradiol reduction within 24-48 hours; clinical symptom relief within 1-2 weeks"
+duration: "Ongoing aromatase inhibition during use; estrogen recovery 2-3 weeks after stopping"
+routeOfAdmin:
+  - oral
+mechanismShort: "Reversible competitive inhibitor of aromatase (CYP19A1); blocks conversion of testosterone → estradiol; reduces circulating estrogen by 70-80% in men"
+
+dosing:
+  min: 0.25
+  typical: 0.5
+  max: 1
+  unit: mg
+  frequency: "every other day to twice weekly"
+  notes: "Dose based on estradiol labs, not symptoms alone. Target estradiol: 20-30 pg/mL for most men on TRT. Common error: overdosing. Start with 0.25mg twice weekly and titrate to labs. Sensitive estradiol assay (LC-MS/MS) preferred over immunoassay."
+
+sideEffects:
+  - name: low_estrogen_symptoms
+    severity: moderate
+    frequency: common
+    notes: "Joint pain, low libido, fatigue, mood depression — all from estrogen over-suppression; reduce dose"
+  - name: bone_density_loss
+    severity: moderate
+    frequency: uncommon
+    notes: "Estrogen required for bone homeostasis in men; long-term AI use without adequate estrogen accelerates osteoporosis"
+  - name: lipid_changes
+    severity: moderate
+    frequency: common
+    notes: "Estrogen has cardioprotective effects; AI use may worsen lipid profile"
+
+interactions:
+  - target: testosterone-enanthate
+    type: synergistic
+    severity: moderate
+    description: "Essential management combination: testosterone drives aromatization, anastrozole controls estradiol elevation — fundamental TRT management tool"
+  - target: enclomiphene
+    type: synergistic
+    severity: mild
+    description: "If enclomiphene drives testosterone high enough to cause estradiol elevation, anastrozole manages aromatization"
+
+mechanisms:
+  - pathway: aromatase_inhibition
+    description: "Reversibly and competitively binds the active site of aromatase (CYP19A1), preventing binding of androstenedione and testosterone substrates; reduces estrogen synthesis by 70-80%"
+  - pathway: testosterone_preservation
+    description: "By reducing testosterone aromatization, anastrozole increases free testosterone levels — beneficial effect beyond estrogen management"
+
+searchTerms:
+  pubmed:
+    - "anastrozole AND testosterone AND hypogonadism AND estrogen"
+    - "aromatase inhibitor AND male AND TRT AND clinical"
+    - "anastrozole AND bone density AND men AND clinical trial"
+  semanticScholar:
+    - "anastrozole aromatase inhibitor male testosterone estrogen"
+    - "Arimidex TRT estrogen management clinical"

@@ -1,0 +1,85 @@
+# Metformin — AMPK activator; diabetes, longevity, TAME trial, cancer prevention
+slug: metformin
+name: Metformin
+aliases:
+  - metformin HCl
+  - Glucophage
+  - Glucophage XR
+  - biguanide
+category: OTHER
+subcategory: longevity_drug
+legalStatus: PRESCRIPTION
+description: |
+  Metformin is the world's most prescribed diabetes drug and an emerging longevity medicine.
+  The TAME trial (Targeting Aging with MEtformin, funded by NIA) is the first FDA-approved
+  clinical trial to target aging itself as a disease endpoint. Retrospective data consistently
+  shows diabetics on metformin outlive non-diabetic controls not on metformin, suggesting
+  aging-independent benefits. Mechanisms include AMPK activation (caloric restriction mimetic),
+  mTOR inhibition, NF-kB suppression, and gut microbiome reshaping. Benefits extend to cancer
+  prevention (reduces incidence by 30-40% in large observational studies), cardiovascular
+  disease, and potentially neurodegenerative diseases. Extremely well characterized safety
+  profile over 60+ years. Off-label longevity use growing rapidly.
+
+halfLife: "~6.5 hours"
+onset: "Glycemic effects 1-2 weeks; longevity-relevant effects chronic (months-years)"
+duration: "Ongoing with daily dosing"
+routeOfAdmin:
+  - oral
+mechanismShort: "AMPK activation via complex I inhibition; mTOR inhibition downstream; NF-kB suppression; GLP-1 secretion enhancement; gut microbiome modification (increases Akkermansia)"
+
+dosing:
+  min: 500
+  typical: 1000
+  max: 2000
+  unit: mg
+  frequency: "1-2x/day with meals"
+  notes: "Extended-release (Glucophage XR) has better GI tolerability. Start at 500mg with largest meal. Titrate over 2-4 weeks. Take with food always. Longevity dose: 500-1000mg/day is commonly used off-label."
+
+sideEffects:
+  - name: GI_side_effects
+    severity: moderate
+    frequency: common
+    notes: "Nausea, diarrhea, abdominal discomfort — most common reason for discontinuation. Usually resolves in 2-4 weeks. Extended-release form significantly reduces GI effects."
+  - name: B12_depletion
+    severity: moderate
+    frequency: common
+    notes: "Reduces vitamin B12 absorption by 30% long-term; supplement B12 (methylcobalamin 1000mcg/day) routinely with chronic metformin use"
+  - name: lactic_acidosis
+    severity: severe
+    frequency: rare
+    notes: "Very rare with normal kidney function (eGFR >60); contraindicated in severe renal impairment, IV contrast procedures"
+  - name: blunts_exercise_adaptation
+    severity: moderate
+    frequency: uncommon
+    notes: "Two RCTs show metformin blunts VO2max and muscle mass gains from exercise in older adults; consider cycling off during training blocks"
+
+interactions:
+  - target: rapamycin
+    type: synergistic
+    severity: moderate
+    description: "Complementary longevity combination: metformin activates AMPK (nutrient shortage signal), rapamycin inhibits mTOR (growth inhibition) — ITP mouse data shows additive lifespan extension"
+  - target: nad-precursors
+    type: synergistic
+    severity: mild
+    description: "Both support mitochondrial health and aging pathways; metformin activates AMPK/mTOR, NAD+ drives sirtuin pathway — commonly combined in longevity protocols"
+
+mechanisms:
+  - pathway: AMPK_activation
+    description: "Inhibits mitochondrial complex I, raising AMP:ATP ratio; elevated AMP activates AMPK — the master metabolic sensor mimicking caloric restriction"
+  - pathway: mTOR_inhibition
+    description: "AMPK phosphorylates and inhibits TSC1/2, reducing Rheb activation of mTORC1; downstream autophagy induction and anti-aging effects"
+  - pathway: NF_kB_suppression
+    description: "AMPK phosphorylates IKKβ, reducing NF-kB activation; reduces chronic low-grade inflammation"
+  - pathway: microbiome_modification
+    description: "Dramatically increases Akkermansia muciniphila; reduces Firmicutes/Bacteroidetes ratio; gut microbiome effects may account for significant portion of metabolic benefits"
+  - pathway: GLP1_enhancement
+    description: "Increases intestinal GLP-1 secretion; may contribute to both glycemic and longevity effects"
+
+searchTerms:
+  pubmed:
+    - "metformin AND aging AND longevity AND TAME AND clinical"
+    - "metformin AND cancer prevention AND meta-analysis"
+    - "metformin AND diabetics AND mortality AND longevity"
+  semanticScholar:
+    - "metformin AMPK aging longevity TAME trial"
+    - "metformin cancer prevention cardiovascular human clinical"

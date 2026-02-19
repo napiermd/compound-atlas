@@ -1,0 +1,81 @@
+# NAC — N-Acetyl Cysteine; master antioxidant precursor, mucolytic, detox
+slug: nac
+name: N-Acetyl Cysteine
+aliases:
+  - NAC
+  - N-acetylcysteine
+  - acetylcysteine
+  - Mucomyst
+category: SUPPLEMENT
+subcategory: antioxidant_precursor
+legalStatus: LEGAL
+description: |
+  N-Acetyl Cysteine is the acetylated form of the amino acid cysteine and the primary
+  rate-limiting precursor for glutathione synthesis. It is one of the most evidence-backed
+  compounds in medicine — FDA-approved for acetaminophen overdose and mucolytic therapy,
+  with extensive research in mental health (OCD, bipolar, addiction), PCOS, respiratory
+  disease, liver protection, and exercise recovery. The GlyNAC (glycine + NAC) combination
+  has shown reversal of multiple aging hallmarks in older adults in randomized trials.
+  The FDA briefly attempted to remove NAC from the supplement market in 2021-2022 but
+  reversed course; it remains widely available.
+
+halfLife: "~6 hours"
+onset: "Glutathione elevation within 1-2 hours; psychiatric effects weeks; longevity effects months"
+duration: "GSH elevation persists 8-12 hours after dose; chronic benefits with daily use"
+routeOfAdmin:
+  - oral
+  - intravenous
+mechanismShort: "Cysteine donor for glutathione synthesis; direct thiol antioxidant; mucolytic via disulfide bond cleavage; modulates glutamate signaling via cystine-glutamate antiporter"
+
+dosing:
+  min: 600
+  typical: 1200
+  max: 2400
+  unit: mg
+  frequency: "1-2x/day"
+  notes: "Take with food. GlyNAC protocol: combine with glycine (1.33g/kg each) for maximal GSH restoration. Split dosing improves tolerability."
+
+sideEffects:
+  - name: GI_nausea
+    severity: mild
+    frequency: common
+    notes: "Most common side effect; take with food, start low (600mg), titrate up"
+  - name: rotten_egg_odor
+    severity: mild
+    frequency: uncommon
+    notes: "Sulfur smell in urine and breath; harmless"
+  - name: bronchospasm
+    severity: moderate
+    frequency: rare
+    notes: "Rare with oral form; more relevant with inhaled formulation"
+
+interactions:
+  - target: glycine
+    type: synergistic
+    severity: moderate
+    description: "GlyNAC combination provides both rate-limiting glutathione precursors simultaneously; superior GSH restoration vs either alone"
+  - target: vitamin-c
+    type: synergistic
+    severity: mild
+    description: "Vitamin C recycles NAC-derived thiols and oxidized glutathione, extending antioxidant effect"
+
+mechanisms:
+  - pathway: glutathione_synthesis
+    description: "Primary cellular cysteine donor; cysteine is rate-limiting for γ-glutamylcysteine synthetase (GCL), the first step in GSH synthesis"
+  - pathway: direct_antioxidant
+    description: "Free thiol (-SH) group directly scavenges reactive oxygen species and reactive nitrogen species"
+  - pathway: cystine_glutamate_antiporter
+    description: "Modulates system Xc- transporter, reducing extracellular glutamate; relevant to OCD, addiction, bipolar pathophysiology"
+  - pathway: mucolytic
+    description: "Cleaves disulfide bonds in mucin glycoproteins, reducing mucus viscosity"
+  - pathway: NF_kB_inhibition
+    description: "Reduces NF-kB activation via glutathione-mediated redox signaling, lowering inflammatory cytokines"
+
+searchTerms:
+  pubmed:
+    - "N-acetylcysteine AND glutathione AND human AND randomized"
+    - "NAC AND OCD OR bipolar AND clinical trial"
+    - "GlyNAC AND aging AND randomized controlled trial"
+  semanticScholar:
+    - "N-acetylcysteine glutathione oxidative stress clinical"
+    - "GlyNAC aging hallmarks reversal human"

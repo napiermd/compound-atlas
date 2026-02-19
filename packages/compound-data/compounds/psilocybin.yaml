@@ -1,0 +1,84 @@
+# Psilocybin — Classic psychedelic; depression, neuroplasticity, microdosing
+slug: psilocybin
+name: Psilocybin
+aliases:
+  - magic mushrooms
+  - psilocin (active metabolite)
+  - 4-PO-DMT
+  - shrooms
+  - synthetic psilocybin
+category: OTHER
+subcategory: classic_psychedelic
+legalStatus: SCHEDULED
+description: |
+  Psilocybin is a naturally occurring tryptamine prodrug found in over 200 mushroom species.
+  It is dephosphorylated to psilocin in vivo, which acts as a 5-HT2A agonist. The most
+  significant development in psychiatry in decades: FDA Breakthrough Therapy designation
+  for treatment-resistant depression (2018) and major depressive disorder (2019). Phase 3
+  trials show 1-2 doses produce rapid (within weeks), sustained (6-12 months) remission of
+  treatment-resistant depression. MAPS and Compass Pathways Phase 3 trials running. Microdosing
+  (sub-perceptual doses) is a growing area with mixed clinical data but significant anecdotal
+  use in tech/performance communities. Oregon and Colorado have state-level regulated medical
+  frameworks as of 2024.
+
+halfLife: "Psilocin: ~3 hours; psychological effects 4-6 hours"
+onset: "Psychedelic effects 30-60 min; antidepressant effects within days to weeks after single session"
+duration: "Acute: 4-6 hours; therapeutic antidepressant effects: months from single dose"
+routeOfAdmin:
+  - oral
+mechanismShort: "5-HT2A full agonist in PFC, DMN, and limbic system; increases synaptic density (rapid, AMPA-mediated); Default Mode Network (DMN) disruption; neuroplasticity via BDNF and TRKB"
+
+dosing:
+  min: 1
+  typical: 25
+  max: 40
+  unit: mg
+  frequency: "single session or every 2-4 weeks (therapeutic); 0.1-0.3mg every 3 days (microdosing)"
+  notes: "Purity and dosing highly variable with natural mushrooms. Synthetic psilocybin used in trials. Full therapeutic dose: 25mg synthetic / ~3.5g dried mushrooms under professional guidance. Microdosing: 0.1-0.3mg or 0.1-0.3g mushrooms every 3rd day (Fadiman protocol)."
+
+sideEffects:
+  - name: acute_psychological_distress
+    severity: severe
+    frequency: uncommon
+    notes: "Challenging experiences ('bad trips'); risk managed by set/setting/guide; severe dysphoria possible without proper support"
+  - name: HPPD
+    severity: moderate
+    frequency: rare
+    notes: "Hallucinogen-persisting perception disorder — visual disturbances persisting after use; rare with psilocybin vs LSD"
+  - name: serotonin_syndrome_risk
+    severity: severe
+    frequency: rare
+    notes: "Risk with serotonergic medications (SSRIs, SNRIs, MAOIs, triptans); SSRIs also blunt psilocybin effect; taper SSRIs before sessions with physician guidance"
+  - name: cardiovascular
+    severity: mild
+    frequency: common
+    notes: "Transient blood pressure and heart rate elevation during session; monitor in cardiovascular disease"
+
+interactions:
+  - target: lions-mane
+    type: synergistic
+    severity: moderate
+    description: "Emerging combination called 'mushroom protocol': lion's mane + psilocybin microdose + niacin (stamets protocol); lion's mane provides NGF for neuroplasticity, niacin drives peripheral flushing as delivery mechanism"
+  - target: magnesium-glycinate
+    type: synergistic
+    severity: mild
+    description: "Magnesium glycinate reduces jaw tension/muscle tension during psychedelic experience and supports sleep integration; commonly used as adjunct"
+
+mechanisms:
+  - pathway: serotonin_5HT2A_agonism
+    description: "Psilocin is a full 5-HT2A agonist in cortical pyramidal neurons; activation in PFC, thalamus, and hippocampus produces the altered conscious experience and acute neuroplasticity signals"
+  - pathway: default_mode_network
+    description: "Disrupts Default Mode Network (DMN) coherence; reduces rumination and self-referential processing — proposed mechanism for antidepressant effects"
+  - pathway: rapid_neuroplasticity
+    description: "Single dose causes rapid AMPA-receptor upregulation and synaptic spine growth (within 24 hours in animal models); rapid, sustained antidepressant effect via structural brain changes"
+  - pathway: BDNF_TrkB
+    description: "Directly activates TrkB receptor (BDNF receptor) independently of 5-HT2A — key mechanism for neuroplasticity and antidepressant effects; discovered 2021"
+
+searchTerms:
+  pubmed:
+    - "psilocybin AND depression AND randomized controlled trial"
+    - "psilocybin AND treatment-resistant depression AND Phase 2 OR Phase 3"
+    - "psilocybin AND neuroplasticity AND BDNF AND brain"
+  semanticScholar:
+    - "psilocybin treatment-resistant depression clinical randomized"
+    - "psilocybin neuroplasticity synaptic antidepressant mechanism"

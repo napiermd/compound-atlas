@@ -1,0 +1,74 @@
+# Schisandra — Five-flavor berry adaptogen; liver, stress, endurance
+slug: schisandra
+name: Schisandra
+aliases:
+  - Schisandra chinensis
+  - wu wei zi
+  - five-flavor berry
+  - schizandra
+  - magnolia vine
+category: ADAPTOGEN
+subcategory: herbal_adaptogen
+legalStatus: LEGAL
+description: |
+  Schisandra chinensis is a traditional Chinese adaptogen known as "wu wei zi" (five-flavor berry)
+  for its taste profile spanning all five TCM flavors. Its primary active compounds are
+  schisandrins (lignans) and gomisins. Clinical evidence is strongest for liver protection
+  (hepatoprotective, CYP enzyme modulation), physical and mental endurance in athletes,
+  and adrenal stress response normalization. The adaptogenic effects are more subtle than
+  ashwagandha or rhodiola but it offers a unique combination of performance + liver health
+  that makes it valuable in any stack using hepatically-metabolized compounds.
+
+halfLife: "~4-6 hours"
+onset: "Performance effects 1-2 weeks; liver enzyme normalization 4-8 weeks"
+duration: "Ongoing with daily use"
+routeOfAdmin:
+  - oral
+mechanismShort: "Schisandrins modulate NF-kB and Nrf2 pathways; induce CYP3A4/CYP2C19; hepatoprotective via antioxidant induction; HPA axis normalization"
+
+dosing:
+  min: 500
+  typical: 1000
+  max: 3000
+  unit: mg
+  frequency: "1-2x/day"
+  notes: "Standardized extract to >9% schisandrins preferred. Take with fat for better absorption of lipophilic lignans. Useful adjunct to any liver-taxing supplement protocol."
+
+sideEffects:
+  - name: GI_upset
+    severity: mild
+    frequency: uncommon
+    notes: "Heartburn or loose stools; take with food, reduce dose"
+  - name: drug_interactions
+    severity: moderate
+    frequency: moderate
+    notes: "Strong CYP3A4 inducer — reduces levels of cyclosporine, tacrolimus, warfarin, many medications; review all concurrent drugs"
+
+interactions:
+  - target: rhodiola-rosea
+    type: synergistic
+    severity: mild
+    description: "Classic adaptogen trio with ashwagandha; schisandra adds endurance and liver support to rhodiola's anti-fatigue effects"
+  - target: nac
+    type: synergistic
+    severity: mild
+    description: "Both support hepatic antioxidant defenses; schisandra induces Nrf2 pathway, NAC provides GSH precursor"
+
+mechanisms:
+  - pathway: Nrf2_induction
+    description: "Schisandrins activate Nrf2 transcription factor, upregulating glutathione peroxidase, SOD, and other antioxidant enzymes"
+  - pathway: CYP_enzyme_modulation
+    description: "Induces and inhibits various CYP450 enzymes depending on schisandrin type and dose; significant drug interaction potential"
+  - pathway: HPA_normalization
+    description: "Reduces corticosterone response to stress; normalizes adrenal output without blocking acute stress response"
+  - pathway: hepatoprotection
+    description: "Lignans reduce hepatic lipid peroxidation, support liver regeneration, and show protective effects against hepatotoxins in clinical trials"
+
+searchTerms:
+  pubmed:
+    - "Schisandra chinensis AND liver AND hepatoprotective AND clinical"
+    - "schisandra AND exercise AND endurance AND human"
+    - "schisandrin AND adaptogen AND randomized"
+  semanticScholar:
+    - "Schisandra chinensis hepatoprotective liver clinical evidence"
+    - "schisandra adaptogen endurance stress human"

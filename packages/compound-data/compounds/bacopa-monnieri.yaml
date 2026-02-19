@@ -1,0 +1,80 @@
+# Bacopa Monnieri — Ayurvedic nootropic; memory consolidation, anxiety, neuroprotection
+slug: bacopa-monnieri
+name: Bacopa Monnieri
+aliases:
+  - brahmi
+  - water hyssop
+  - bacopa
+  - CDRI-08
+  - Synapsa
+category: NOOTROPIC
+subcategory: herbal_nootropic
+legalStatus: LEGAL
+description: |
+  Bacopa monnieri is an Ayurvedic herb with the strongest human evidence for long-term memory
+  consolidation of any supplement. Multiple meta-analyses (12+ RCTs) confirm improvements in
+  free recall, attention, and processing speed. Critically, the mechanism is slow — effects
+  require 8-12 weeks of daily use to peak, as bacosides must remodel dendritic branching
+  and acetylcholinesterase expression. CDRI-08 (standardized to 55% bacoside A and B) and
+  Synapsa are the most validated extracts. Bacopa is notable for being an anxiolytic that
+  improves cognition simultaneously — most anxiolytics impair cognition.
+
+halfLife: "~3-4 hours; bacoside tissue effects weeks"
+onset: "Initial effects 4 weeks; significant memory improvement 8-12 weeks"
+duration: "Effects peak at 12 weeks; persist during supplementation"
+routeOfAdmin:
+  - oral
+mechanismShort: "Bacosides inhibit acetylcholinesterase; induce BDNF and dendrite branching; antioxidant via SOD/CAT induction; serotonin 5-HT3 antagonism; cortisol reduction"
+
+dosing:
+  min: 300
+  typical: 450
+  max: 900
+  unit: mg
+  frequency: "daily"
+  notes: "Must be taken with fat for absorption of bacosides (fat-soluble saponins). Standardized to 40-55% bacosides. Commit to 8-12 weeks minimum. Take with largest meal."
+
+sideEffects:
+  - name: GI_upset
+    severity: mild
+    frequency: common
+    notes: "Most common — nausea, cramps, diarrhea especially on empty stomach; always take with food containing fat"
+  - name: fatigue
+    severity: mild
+    frequency: uncommon
+    notes: "Some users report fatigue, especially initially; generally resolves. Take in morning."
+  - name: vivid_dreams
+    severity: mild
+    frequency: uncommon
+    notes: "Increased dream vividness via serotonin modulation; benign, interesting"
+
+interactions:
+  - target: lions-mane
+    type: synergistic
+    severity: mild
+    description: "Complementary neuroplasticity: bacopa enhances memory consolidation and dendrite density, lion's mane drives NGF-dependent neurogenesis"
+  - target: ashwagandha
+    type: synergistic
+    severity: mild
+    description: "Complementary Ayurvedic adaptogens: ashwagandha reduces cortisol (acute), bacopa builds memory long-term; together form strong stress-cognition stack"
+
+mechanisms:
+  - pathway: acetylcholinesterase_inhibition
+    description: "Bacosides inhibit acetylcholinesterase, increasing synaptic acetylcholine availability — similar mechanism to pharmaceutical dementia drugs"
+  - pathway: BDNF_induction
+    description: "Upregulates brain-derived neurotrophic factor and promotes dendritic arborization — structural basis for memory improvement"
+  - pathway: antioxidant_enzyme_induction
+    description: "Increases superoxide dismutase (SOD), catalase (CAT), and glutathione levels in brain; reduces lipid peroxidation"
+  - pathway: serotonin_modulation
+    description: "Modulates serotonergic transmission; 5-HT3 antagonism may contribute to anxiolytic effects and reduced GI symptoms"
+  - pathway: cortisol_reduction
+    description: "Reduces corticotropin-releasing factor; lower cortisol with continued use contributes to both anxiolytic and neuroprotective effects"
+
+searchTerms:
+  pubmed:
+    - "Bacopa monnieri AND memory AND randomized controlled trial"
+    - "bacopa AND cognitive AND meta-analysis"
+    - "CDRI-08 OR Synapsa AND cognition AND human"
+  semanticScholar:
+    - "Bacopa monnieri memory consolidation randomized clinical"
+    - "bacopa cognitive enhancement systematic review meta-analysis"

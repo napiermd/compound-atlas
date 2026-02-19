@@ -1,0 +1,71 @@
+# Vitamin K2 — Calcium director; cardiovascular, bone, and metabolic health
+slug: vitamin-k2
+name: Vitamin K2
+aliases:
+  - menaquinone
+  - MK-4
+  - MK-7
+  - menaquinone-7
+  - K2
+category: VITAMIN_MINERAL
+subcategory: fat_soluble_vitamin
+legalStatus: LEGAL
+description: |
+  Vitamin K2 (menaquinone) is the tissue-directing form of vitamin K, distinct from K1 (dietary
+  clotting factor). Its primary role is activating matrix Gla protein (MGP) and osteocalcin —
+  proteins that direct calcium into bone and prevent arterial calcification. K2 deficiency
+  is common (especially with high-dose vitamin D3 supplementation) and correlates with aortic
+  and coronary artery calcification. MK-7 (fermented soy/natto) has a longer half-life and
+  higher bioactivity than MK-4. The Rotterdam Study showed 50μg MK-7/day associated with
+  57% reduction in aortic calcification progression and 52% reduction in cardiovascular death.
+  Essential companion to vitamin D3.
+
+halfLife: "MK-4: ~1-2 hours; MK-7: ~72 hours"
+onset: "Carboxylation markers improve 4-12 weeks; cardiovascular calcification is very long-term"
+duration: "Daily dosing required to maintain tissue saturation"
+routeOfAdmin:
+  - oral
+mechanismShort: "Cofactor for gamma-glutamyl carboxylase; activates MGP (prevents arterial calcification) and osteocalcin (bone mineralization, glucose metabolism)"
+
+dosing:
+  min: 100
+  typical: 200
+  max: 400
+  unit: mcg
+  frequency: "daily"
+  notes: "MK-7 preferred over MK-4 for cardiovascular protection. Take with fat-containing meal (fat-soluble vitamin). Mandatory companion to vitamin D3 supplementation to prevent soft-tissue calcification."
+
+sideEffects:
+  - name: warfarin_interaction
+    severity: severe
+    frequency: common
+    notes: "CRITICAL: K2 reverses warfarin anticoagulation — contraindicated in patients on warfarin unless dose is carefully adjusted with physician oversight"
+
+interactions:
+  - target: vitamin-d3
+    type: synergistic
+    severity: moderate
+    description: "D3 drives calcium absorption; K2 directs that calcium to bone and away from arteries — essential pairing. High-dose D3 without K2 risks soft tissue calcification."
+  - target: vitamin-c
+    type: synergistic
+    severity: mild
+    description: "Both support vascular health by different mechanisms; K2 prevents calcification, vitamin C supports collagen synthesis in vessel walls"
+
+mechanisms:
+  - pathway: MGP_carboxylation
+    description: "Activates matrix Gla protein (MGP) via gamma-carboxylation of glutamate residues; MGP is the most potent known inhibitor of vascular calcification"
+  - pathway: osteocalcin_activation
+    description: "Carboxylates osteocalcin in osteoblasts, enabling bone calcium binding; also regulates insulin sensitivity and testosterone production"
+  - pathway: vascular_calcification_prevention
+    description: "Via activated MGP, directly blocks calcium crystal deposition in arterial smooth muscle cells and valve leaflets"
+  - pathway: glucose_metabolism
+    description: "Osteocalcin (activated by K2) acts as a hormone promoting adiponectin and insulin secretion, improving metabolic health"
+
+searchTerms:
+  pubmed:
+    - "vitamin K2 AND arterial calcification AND randomized"
+    - "menaquinone AND cardiovascular AND clinical trial"
+    - "MK-7 AND bone density AND human AND randomized"
+  semanticScholar:
+    - "vitamin K2 menaquinone cardiovascular calcification clinical"
+    - "MK-7 matrix Gla protein osteocalcin supplementation"

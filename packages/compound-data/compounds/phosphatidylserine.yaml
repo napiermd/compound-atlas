@@ -1,0 +1,75 @@
+# Phosphatidylserine — Brain phospholipid; cortisol reduction, memory, ADHD, aging
+slug: phosphatidylserine
+name: Phosphatidylserine
+aliases:
+  - PS
+  - phosphatidyl serine
+  - Sharp-PS
+  - soy PS
+  - sunflower PS
+category: NOOTROPIC
+subcategory: phospholipid
+legalStatus: LEGAL
+description: |
+  Phosphatidylserine (PS) is a phospholipid that is a key structural component of neuronal
+  cell membranes, particularly concentrated in the brain. It is involved in cell signaling,
+  apoptosis regulation, and neurotransmitter release. The FDA has granted two qualified health
+  claims for PS: one for cognitive dysfunction and one for dementia. Human RCTs demonstrate
+  cortisol attenuation after acute exercise stress (100mg blunts cortisol ~30%), improved
+  memory and processing speed in elderly subjects, and benefits for ADHD symptoms in children.
+  Originally derived from bovine brain (highest efficacy but prion risk); modern forms use
+  soy or sunflower lecithin.
+
+halfLife: "~12-24 hours; incorporated into membrane for days"
+onset: "Cortisol effects acute (single dose); cognitive effects 4-8 weeks"
+duration: "Membrane incorporation provides sustained effects with regular dosing"
+routeOfAdmin:
+  - oral
+mechanismShort: "Structural membrane phospholipid; activates PKC (cell signaling); inhibits cortisol release via HPA axis; supports acetylcholine and dopamine release"
+
+dosing:
+  min: 100
+  typical: 300
+  max: 800
+  unit: mg
+  frequency: "daily (2-3 divided doses)"
+  notes: "Take with fat-containing meal. 100mg pre-workout blunts cortisol spike. 300mg/day for cognitive benefits. Soy and sunflower PS appear bioequivalent to bovine."
+
+sideEffects:
+  - name: GI_discomfort
+    severity: mild
+    frequency: rare
+    notes: "Occasional insomnia at high doses; generally excellent tolerability"
+  - name: insomnia
+    severity: mild
+    frequency: rare
+    notes: "High doses (>600mg) may cause sleep disruption in sensitive individuals"
+
+interactions:
+  - target: alpha-gpc
+    type: synergistic
+    severity: mild
+    description: "Complementary cholinergic support: PS supports membrane structure and PKC signaling, alpha-GPC provides choline for ACh synthesis"
+  - target: bacopa-monnieri
+    type: synergistic
+    severity: mild
+    description: "Both support memory and reduce cortisol; complementary mechanisms — PS works structurally and acutely, bacopa works via AChE inhibition chronically"
+
+mechanisms:
+  - pathway: neuronal_membrane_structure
+    description: "Concentrated in inner leaflet of neuronal plasma membrane; maintains membrane fluidity and protein function (receptors, ion channels, enzymes)"
+  - pathway: PKC_activation
+    description: "PS is obligatory cofactor for protein kinase C (PKC) translocation to membrane; PKC mediates learning, memory, and synaptic plasticity"
+  - pathway: HPA_attenuation
+    description: "PS inhibits ACTH and cortisol release after stress; mechanism involves suppression of hypothalamic CRH neurons"
+  - pathway: neurotransmitter_release
+    description: "Membrane PS facilitates vesicle fusion for acetylcholine and dopamine exocytosis at synaptic terminals"
+
+searchTerms:
+  pubmed:
+    - "phosphatidylserine AND cortisol AND exercise AND randomized"
+    - "phosphatidylserine AND cognitive AND elderly AND randomized"
+    - "PS AND ADHD AND children AND clinical trial"
+  semanticScholar:
+    - "phosphatidylserine cortisol stress exercise human clinical"
+    - "phosphatidylserine cognitive decline aging randomized"

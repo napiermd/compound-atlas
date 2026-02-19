@@ -1,0 +1,80 @@
+# GHRP-6 — Growth hormone releasing peptide; GH pulse, appetite, healing
+slug: ghrp-6
+name: GHRP-6
+aliases:
+  - growth hormone releasing peptide 6
+  - His-D-Trp-Ala-Trp-D-Phe-Lys-NH2
+category: GH_SECRETAGOGUE
+subcategory: GHRP
+legalStatus: RESEARCH_ONLY
+description: |
+  GHRP-6 (Growth Hormone Releasing Peptide-6) is a synthetic hexapeptide that stimulates
+  GH release via ghrelin receptor (GHSR-1a) agonism. It was among the first synthetic GH
+  secretagogues studied and provides some of the highest GH pulse amplitudes of the GHRP
+  class. GHRP-6 is distinctly appetite-stimulating (strong ghrelin effect) — this is a
+  meaningful benefit for athletes seeking mass gain but problematic for physique competitors.
+  Compared to GHRP-2 and ipamorelin, GHRP-6 stimulates more cortisol/prolactin elevation
+  but also drives the strongest GH pulse. Used in research and gray-market performance contexts.
+
+halfLife: "~15-30 minutes"
+onset: "GH pulse begins 15-30 minutes post-injection"
+duration: "GH pulse lasts 90-120 minutes; effects accumulate with regular use"
+routeOfAdmin:
+  - subcutaneous_injection
+  - intramuscular_injection
+mechanismShort: "Ghrelin receptor (GHSR-1a) agonist in pituitary and hypothalamus; amplifies GHRH-driven GH pulse; stimulates appetite via hypothalamic NPY/AgRP neurons"
+
+dosing:
+  min: 100
+  typical: 200
+  max: 300
+  unit: mcg
+  frequency: "1-3x/day (pre-workout, bedtime)"
+  notes: "Inject on empty stomach for best response (insulin blunts GH). Combine with CJC-1295 or sermorelin for synergistic effect. Strong appetite stimulation — plan caloric intake accordingly. No more than 3 injections/day."
+
+sideEffects:
+  - name: intense_hunger
+    severity: moderate
+    frequency: common
+    notes: "Strongest appetite stimulation in the GHRP class — expect significant hunger within 30 minutes of injection; plan meals accordingly"
+  - name: cortisol_elevation
+    severity: moderate
+    frequency: common
+    notes: "More cortisol/prolactin elevation than GHRP-2 or ipamorelin; relevant in cutting/stress contexts"
+  - name: water_retention
+    severity: mild
+    frequency: uncommon
+    notes: "GH-mediated fluid retention; dose-dependent"
+  - name: injection_site_reaction
+    severity: mild
+    frequency: uncommon
+    notes: "Mild and routine; rotate sites"
+
+interactions:
+  - target: cjc-1295
+    type: synergistic
+    severity: moderate
+    description: "Classic GHRH+GHRP combination: CJC-1295 provides GHRH-axis amplification, GHRP-6 provides ghrelin-axis stimulus — supra-additive GH pulse"
+  - target: sermorelin
+    type: synergistic
+    severity: moderate
+    description: "Same dual-axis synergy as with CJC-1295; sermorelin provides shorter-acting GHRH stimulus for more physiological pulse pattern"
+
+mechanisms:
+  - pathway: GHSR_agonism
+    description: "Full agonist at ghrelin receptor (GHSR-1a) in pituitary somatotrophs and hypothalamus; amplifies cAMP-driven GH synthesis and release"
+  - pathway: hypothalamic_GHRH_release
+    description: "Stimulates hypothalamic GHRH release, providing dual-axis amplification when combined with direct GHRH analogs"
+  - pathway: appetite_stimulation
+    description: "Activates hypothalamic NPY/AgRP orexigenic neurons via GHSR-1a; strong hunger signal within 30 min"
+  - pathway: GH_independent_healing
+    description: "Some evidence for GH-independent tissue healing effects via anti-inflammatory and angiogenic mechanisms"
+
+searchTerms:
+  pubmed:
+    - "GHRP-6 AND growth hormone AND human AND secretagogue"
+    - "growth hormone releasing peptide AND GH secretion AND clinical"
+    - "GHRP-6 AND IGF-1 AND body composition AND study"
+  semanticScholar:
+    - "GHRP-6 ghrelin receptor GH secretagogue clinical"
+    - "growth hormone releasing peptide 6 pituitary clinical"

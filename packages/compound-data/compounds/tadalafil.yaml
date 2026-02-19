@@ -1,0 +1,80 @@
+# Tadalafil — PDE5 inhibitor; erectile function, pulmonary HTN, prostate, cardiovascular
+slug: tadalafil
+name: Tadalafil
+aliases:
+  - Cialis
+  - Adcirca
+  - tadalafil daily
+  - PDE5 inhibitor
+category: HORMONAL
+subcategory: PDE5_inhibitor
+legalStatus: PRESCRIPTION
+description: |
+  Tadalafil is a PDE5 (phosphodiesterase type 5) inhibitor FDA-approved for erectile
+  dysfunction, benign prostatic hyperplasia (BPH), and pulmonary arterial hypertension.
+  Its 36-hour half-life distinguishes it from sildenafil (Viagra, 4-5h) — allowing the
+  "weekend pill" or daily low-dose (5mg) dosing strategies. Beyond sexual function,
+  daily tadalafil has growing evidence for: improved exercise tolerance, reduced blood
+  pressure, anti-inflammatory effects via cGMP pathway, potential neuroprotection, and
+  cardiovascular benefits. At 5mg/day it is FDA-approved for both ED and BPH, and is
+  widely used off-label as part of longevity and cardiovascular optimization protocols.
+
+halfLife: "~17.5 hours"
+onset: "Erectile effects within 1 hour; daily dosing steady-state in 5 days"
+duration: "Up to 36 hours per dose; daily dosing maintains continuous effect"
+routeOfAdmin:
+  - oral
+mechanismShort: "Selective PDE5 inhibitor; prevents cGMP degradation in vascular smooth muscle → eNOS-derived NO maintains vasodilation → sustained vasodilation in penile corpus cavernosum, pulmonary vasculature, prostate"
+
+dosing:
+  min: 2.5
+  typical: 5
+  max: 20
+  unit: mg
+  frequency: "daily (5mg) or as needed (10-20mg)"
+  notes: "Daily 5mg: for BPH, consistent ED, cardiovascular optimization. As-needed 10-20mg: 1-2 hours before activity. No food restriction (unlike sildenafil). Absolutely contraindicated with nitrates (severe hypotension)."
+
+sideEffects:
+  - name: hypotension
+    severity: severe
+    frequency: certain
+    notes: "ABSOLUTE CONTRAINDICATION with nitrates (nitroglycerin, amyl nitrate, isosorbide) — life-threatening hypotension"
+  - name: headache
+    severity: mild
+    frequency: common
+    notes: "Due to vasodilation; usually resolves with continued use"
+  - name: back_pain_myalgia
+    severity: mild
+    frequency: uncommon
+    notes: "Unique to tadalafil vs other PDE5i; PDE11 inhibition in muscle; usually mild and resolves"
+  - name: facial_flushing
+    severity: mild
+    frequency: common
+    notes: "Vasodilation effect; mild and transient"
+
+interactions:
+  - target: testosterone-enanthate
+    type: synergistic
+    severity: mild
+    description: "Testosterone restores libido and hormonal drive; tadalafil addresses vascular component — comprehensive male sexual function stack"
+  - target: l-arginine
+    type: synergistic
+    severity: mild
+    description: "L-arginine provides NO precursor (via NOS), tadalafil prevents cGMP degradation — complementary NO/cGMP pathway support for vascular and erectile function"
+
+mechanisms:
+  - pathway: PDE5_inhibition
+    description: "Selectively inhibits phosphodiesterase type 5, preventing degradation of cGMP; elevated cGMP maintains vascular smooth muscle relaxation"
+  - pathway: NO_cGMP_pathway
+    description: "Downstream of eNOS-derived NO activation of soluble guanylate cyclase; prolonged cGMP elevation drives vascular smooth muscle relaxation"
+  - pathway: anti_inflammatory
+    description: "cGMP activates PKG, which suppresses NF-kB and reduces inflammatory cytokine production; endothelial protective effects"
+
+searchTerms:
+  pubmed:
+    - "tadalafil AND erectile dysfunction AND randomized controlled trial"
+    - "tadalafil daily AND cardiovascular AND blood pressure AND human"
+    - "tadalafil AND pulmonary hypertension AND clinical"
+  semanticScholar:
+    - "tadalafil PDE5 inhibitor erectile dysfunction cardiovascular"
+    - "daily tadalafil cardiovascular endothelial function clinical"

@@ -1,0 +1,72 @@
+# Fisetin — Senolytic flavonoid; clears senescent cells, neuroprotection, longevity
+slug: fisetin
+name: Fisetin
+aliases:
+  - 3,3',4',7-tetrahydroxyflavone
+  - fisetin flavonoid
+category: SUPPLEMENT
+subcategory: senolytic
+legalStatus: LEGAL
+description: |
+  Fisetin is a flavonoid found in strawberries, apples, and persimmons that has emerged as
+  one of the most potent and bioavailable senolytic compounds — molecules that selectively
+  eliminate senescent ("zombie") cells that accumulate with aging and drive inflammation.
+  The Buck Institute and Mayo Clinic have identified fisetin as the most effective natural
+  senolytic in systematic screening, with 40-50% clearance of senescent cells in aged mice
+  resulting in significant health and lifespan improvements. Human clinical trials are active
+  (NCT04210986 in Alzheimer's, NCT04733534 in COVID Long Haulers). Additionally has strong
+  neuroprotective and memory-enhancing effects independent of senolytic activity.
+
+halfLife: "~3.5-4 hours; episodic high-dose protocol preferred"
+onset: "Senolytic effect: single 2-3 day pulse; neuroprotective effects: weeks of daily dosing"
+duration: "Senolytic pulses monthly; continuous low dosing for neuroprotection"
+routeOfAdmin:
+  - oral
+mechanismShort: "Bcl-2/Bcl-xL/Bcl-W inhibitor (senolytic) — selectively kills senescent cells dependent on these anti-apoptotic proteins; Nrf2 activation; SIRT1 activation; mTOR inhibition"
+
+dosing:
+  min: 100
+  typical: 500
+  max: 3000
+  unit: mg
+  frequency: "Senolytic: 1000-3000mg/day × 2-3 days per month; Neuroprotective: 100-500mg/day"
+  notes: "Take with fat for best absorption (lipophilic flavonoid). Piperlongumine or quercetin may enhance senolytic effect. Senolytic protocol: 20mg/kg for 2 consecutive days monthly. Standard supplement dose: 100-500mg daily."
+
+sideEffects:
+  - name: GI_discomfort
+    severity: mild
+    frequency: uncommon
+    notes: "At high senolytic doses; take with fat-containing meal"
+  - name: headache
+    severity: mild
+    frequency: rare
+    notes: "Occasional at high doses"
+
+interactions:
+  - target: quercetin
+    type: synergistic
+    severity: moderate
+    description: "Both are senolytics acting on Bcl-2 family proteins; together with dasatinib form the most studied senolytic combinations in clinical trials"
+  - target: resveratrol
+    type: synergistic
+    severity: mild
+    description: "Fisetin + resveratrol combination activates complementary longevity pathways: fisetin clears senescent cells, resveratrol activates SIRT1 anti-aging pathway"
+
+mechanisms:
+  - pathway: senolytic_bcl_inhibition
+    description: "Inhibits anti-apoptotic Bcl-2, Bcl-xL, and Bcl-W proteins that senescent cells depend on for survival; triggers selective apoptosis of senescent cells"
+  - pathway: Nrf2_activation
+    description: "Activates Nrf2-ARE pathway, inducing antioxidant and cytoprotective gene expression — protecting normal cells during senolytic activity"
+  - pathway: SIRT1_activation
+    description: "Direct SIRT1 activator via allosteric mechanism; deacetylates FOXO and PGC-1alpha for longevity gene expression"
+  - pathway: neuroplasticity
+    description: "Increases BDNF, activates ERK and PI3K/Akt pathways in neurons; neuroprotective independently of senolytic effects"
+
+searchTerms:
+  pubmed:
+    - "fisetin AND senolytic AND aging AND human"
+    - "fisetin AND cognitive AND neuroprotection AND clinical"
+    - "fisetin AND senescent cells AND clearance AND mouse"
+  semanticScholar:
+    - "fisetin senolytic senescent cells aging longevity"
+    - "fisetin neuroprotection cognitive Alzheimer clinical trial"

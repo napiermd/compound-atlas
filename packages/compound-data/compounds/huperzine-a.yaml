@@ -1,0 +1,78 @@
+# Huperzine A — Potent AChE inhibitor; memory, neuroprotection, Alzheimer's
+slug: huperzine-a
+name: Huperzine A
+aliases:
+  - HupA
+  - Hup A
+  - selagine
+  - Huperzia serrata extract
+category: NOOTROPIC
+subcategory: acetylcholinesterase_inhibitor
+legalStatus: LEGAL
+description: |
+  Huperzine A is an alkaloid derived from Huperzia serrata (Chinese club moss) and is one
+  of the most potent reversible acetylcholinesterase (AChE) inhibitors available without
+  prescription. It works by the same mechanism as pharmaceutical dementia drugs (donepezil,
+  rivastigmine) but with better CNS penetration and additional NMDA receptor antagonism.
+  Chinese clinical trials demonstrate significant benefits in Alzheimer's and vascular dementia.
+  It is popular as a study aid and nootropic for acute cognitive enhancement. Because AChE
+  inhibition provides sustained effects (long half-life of AChE inhibition), Huperzine A
+  should be cycled — continuous use leads to cholinergic downregulation.
+
+halfLife: "~10-14 hours (plasma); AChE inhibition persists 24+ hours"
+onset: "Acute cognitive effects within 30-60 minutes; therapeutic effects 4-8 weeks"
+duration: "AChE inhibition sustained; cycle 4-6 weeks on, 2 weeks off"
+routeOfAdmin:
+  - oral
+mechanismShort: "Reversible acetylcholinesterase inhibitor (IC50 ~74nM); NMDA antagonist; upregulates NGF; protects against beta-amyloid neurotoxicity"
+
+dosing:
+  min: 50
+  typical: 100
+  max: 200
+  unit: mcg
+  frequency: "1-2x/day"
+  notes: "CYCLE — do not use daily long-term. Use 4-6 weeks on, 2 weeks off. 50-100mcg for nootropic use; 200mcg for clinical/Alzheimer's context. Avoid stacking with other AChE inhibitors. Take with food."
+
+sideEffects:
+  - name: cholinergic_excess
+    severity: moderate
+    frequency: uncommon
+    notes: "Nausea, muscle cramps, bradycardia, excessive sweating — signs of acetylcholine excess; reduce dose or discontinue"
+  - name: vivid_dreams
+    severity: mild
+    frequency: common
+    notes: "Increased REM activity; take in morning to minimize sleep disruption"
+  - name: bradycardia
+    severity: moderate
+    frequency: rare
+    notes: "Cholinergic cardiac effect; caution with pre-existing bradycardia or AV block"
+
+interactions:
+  - target: alpha-gpc
+    type: caution
+    severity: moderate
+    description: "Both increase synaptic acetylcholine (alpha-GPC via synthesis, HupA via reduced degradation); combining can cause cholinergic excess — use lower doses or stagger"
+  - target: bacopa-monnieri
+    type: caution
+    severity: mild
+    description: "Bacopa also inhibits AChE (weaker); additive effect — reduce HupA dose when combining"
+
+mechanisms:
+  - pathway: AChE_inhibition
+    description: "Reversibly binds acetylcholinesterase active site with high potency (Ki ~40nM), preventing acetylcholine hydrolysis and extending synaptic ACh action"
+  - pathway: NMDA_antagonism
+    description: "Non-competitive NMDA receptor antagonist; reduces glutamate excitotoxicity in neurodegeneration"
+  - pathway: NGF_upregulation
+    description: "Increases nerve growth factor secretion and TrkA receptor expression, supporting neuronal survival and plasticity"
+  - pathway: amyloid_protection
+    description: "Reduces beta-amyloid-induced apoptosis and oxidative stress; protective against AD-like pathology in animal models"
+
+searchTerms:
+  pubmed:
+    - "huperzine A AND Alzheimer AND randomized"
+    - "huperzine AND cognitive AND memory AND human"
+    - "Huperzia serrata AND acetylcholinesterase AND clinical"
+  semanticScholar:
+    - "huperzine A AChE inhibitor cognitive memory clinical"
+    - "huperzine Alzheimer disease dementia randomized trial"

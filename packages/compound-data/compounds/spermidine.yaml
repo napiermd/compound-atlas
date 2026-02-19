@@ -1,0 +1,69 @@
+# Spermidine — Polyamine; autophagy induction, longevity, cardiovascular, cognition
+slug: spermidine
+name: Spermidine
+aliases:
+  - spermidine trihydrochloride
+  - wheat germ spermidine
+  - Primeadine
+category: SUPPLEMENT
+subcategory: polyamine
+legalStatus: LEGAL
+description: |
+  Spermidine is a naturally occurring polyamine found in all living cells, with highest
+  dietary concentrations in wheat germ, aged cheese, mushrooms, and soy products.
+  Endogenous spermidine levels decline sharply with age. Its primary mechanism of longevity
+  benefit is autophagy induction — the cellular "self-cleaning" process that removes
+  damaged proteins and organelles. Human observational data links higher dietary spermidine
+  to reduced all-cause mortality. A clinical trial in older adults showed improved cognitive
+  performance. Cardiovascular RCTs show blood pressure reduction and improved heart function.
+  One of the most compelling longevity compounds based on mechanism + emerging human data.
+
+halfLife: "~30 minutes (plasma); incorporated into polyamine pool"
+onset: "Autophagy induction within hours; cognitive and cardiovascular effects weeks to months"
+duration: "Ongoing with daily supplementation; polyamine pool maintained"
+routeOfAdmin:
+  - oral
+mechanismShort: "Inhibits EP300 acetyltransferase → Nrf2 and LC3 deacetylation → autophagy induction; eIF5A hypusination for translation of specific proteins; anti-inflammatory via NF-kB suppression"
+
+dosing:
+  min: 1
+  typical: 3
+  max: 6
+  unit: mg
+  frequency: "daily"
+  notes: "Wheat germ extract is the most bioavailable dietary source (Primeadine). Start low — gut bacteria shifts can cause temporary bloating. Take with or without food."
+
+sideEffects:
+  - name: GI_adjustment
+    severity: mild
+    frequency: uncommon
+    notes: "Temporary bloating as gut microbiome adjusts to increased polyamine substrate; resolves 1-2 weeks"
+
+interactions:
+  - target: quercetin
+    type: synergistic
+    severity: mild
+    description: "Both induce autophagy via different mechanisms; quercetin via AMPK, spermidine via EP300 inhibition — complementary for maximizing cellular autophagy"
+  - target: nad-precursors
+    type: synergistic
+    severity: mild
+    description: "Polyamine synthesis requires NAD+ (via SIRT1/PARP modulation); together with NMN/NR they address multiple aging hallmarks simultaneously"
+
+mechanisms:
+  - pathway: autophagy_induction
+    description: "Inhibits EP300 acetyltransferase, leading to deacetylation of Atg proteins (LC3, Atg7) and Nrf2 — directly activating the autophagy cascade without caloric restriction"
+  - pathway: eIF5A_hypusination
+    description: "Required substrate for hypusination of eIF5A translation factor; eIF5A(hypusine) translates specific mRNAs critical for mitochondrial function and immune responses"
+  - pathway: anti_inflammatory
+    description: "Suppresses NF-kB signaling and inflammatory cytokine production; reduces NLRP3 inflammasome activation"
+  - pathway: mitochondrial_biogenesis
+    description: "Drives mitophagy (selective mitochondrial autophagy) removing damaged mitochondria, then upregulates TFAM for new mitochondrial DNA synthesis"
+
+searchTerms:
+  pubmed:
+    - "spermidine AND longevity AND aging AND human"
+    - "spermidine AND autophagy AND cognitive AND clinical"
+    - "dietary spermidine AND mortality AND cardiovascular"
+  semanticScholar:
+    - "spermidine autophagy aging longevity polyamine clinical"
+    - "spermidine cardiovascular cognitive aging human evidence"

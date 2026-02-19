@@ -1,0 +1,73 @@
+# Boswellia — Frankincense resin; 5-LOX inhibitor, joint, gut, neuroinflammation
+slug: boswellia
+name: Boswellia
+aliases:
+  - Boswellia serrata
+  - frankincense
+  - Indian frankincense
+  - AKBA
+  - 5-Loxin
+  - Aflapin
+category: SUPPLEMENT
+subcategory: herbal_anti_inflammatory
+legalStatus: LEGAL
+description: |
+  Boswellia serrata is a tree resin with the most potent natural 5-lipoxygenase (5-LOX)
+  inhibitor identified — AKBA (acetyl-11-keto-β-boswellic acid). 5-LOX inhibition reduces
+  leukotriene synthesis, addressing a pro-inflammatory pathway that NSAIDs don't target.
+  Multiple RCTs show significant osteoarthritis pain reduction comparable to celecoxib,
+  with faster onset (1 week vs 8 weeks for celecoxib in one head-to-head trial). Also
+  has evidence for IBD (Crohn's, ulcerative colitis), asthma, and neuroinflammation.
+  Aflapin and 5-Loxin are bioavailability-enhanced extracts with better AKBA delivery.
+
+halfLife: "~6-12 hours"
+onset: "Acute anti-inflammatory effects 1-2 weeks; joint pain reduction 4-8 weeks"
+duration: "Ongoing with daily supplementation"
+routeOfAdmin:
+  - oral
+mechanismShort: "AKBA directly inhibits 5-lipoxygenase (5-LOX), preventing leukotriene B4/C4/D4 synthesis; reduces inflammatory infiltrate without COX inhibition; MMP inhibition in cartilage"
+
+dosing:
+  min: 100
+  typical: 300
+  max: 400
+  unit: mg
+  frequency: "1-2x/day with meals"
+  notes: "Standardized to minimum 30% AKBA preferred (5-Loxin or Aflapin). Take with fatty meal — boswellic acids are lipophilic. Aflapin (100mg) may be as effective as standard extract (300mg) due to superior bioavailability."
+
+sideEffects:
+  - name: GI_discomfort
+    severity: mild
+    frequency: uncommon
+    notes: "Occasional nausea and acid reflux; take with food"
+  - name: drug_interactions
+    severity: moderate
+    frequency: rare
+    notes: "Mild P-glycoprotein and CYP inhibition; potential interaction with some medications"
+
+interactions:
+  - target: curcumin
+    type: synergistic
+    severity: moderate
+    description: "Classic anti-inflammatory synergy: curcumin inhibits COX-2 and NF-kB, boswellia inhibits 5-LOX — covers complementary inflammatory pathways for comprehensive joint and systemic inflammation control"
+  - target: fish-oil
+    type: synergistic
+    severity: mild
+    description: "Omega-3s reduce eicosanoid precursor availability; boswellia inhibits 5-LOX; together broadly suppress leukotriene-mediated inflammation"
+
+mechanisms:
+  - pathway: five_LOX_inhibition
+    description: "AKBA directly binds and inhibits 5-lipoxygenase (5-LOX), preventing arachidonic acid conversion to 5-HPETE and subsequent leukotriene synthesis"
+  - pathway: MMP_inhibition
+    description: "Reduces matrix metalloproteinase (MMP-3, MMP-7) expression in chondrocytes, protecting cartilage from enzymatic degradation in OA"
+  - pathway: inflammatory_infiltrate
+    description: "Reduces neutrophil and macrophage infiltration into inflamed tissues by reducing chemotactic leukotriene B4 production"
+
+searchTerms:
+  pubmed:
+    - "Boswellia serrata AND osteoarthritis AND randomized controlled trial"
+    - "AKBA AND 5-lipoxygenase AND anti-inflammatory AND human"
+    - "boswellia AND joint AND pain AND clinical trial"
+  semanticScholar:
+    - "Boswellia serrata AKBA 5-LOX joint pain clinical randomized"
+    - "frankincense boswellic acid anti-inflammatory osteoarthritis"

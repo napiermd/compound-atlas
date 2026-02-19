@@ -1,0 +1,74 @@
+# Maca — Andean root; libido, fertility, energy, hormonal balance
+slug: maca
+name: Maca
+aliases:
+  - Lepidium meyenii
+  - Peruvian ginseng
+  - maca root
+  - maca powder
+category: ADAPTOGEN
+subcategory: herbal_adaptogen
+legalStatus: LEGAL
+description: |
+  Maca is a Peruvian cruciferous root vegetable (Lepidium meyenii) grown at high altitude in
+  the Andes. The most replicated evidence is for libido enhancement (multiple RCTs, both sexes),
+  SSRI-induced sexual dysfunction reversal (notable given the population using SSRIs), and
+  semen quality improvement. Evidence for testosterone increase is mixed — most well-controlled
+  trials find no direct androgen elevation despite strong libido effects, suggesting an
+  independent mechanism. Three color variants (yellow, red, black) have distinct phytochemical
+  profiles with yellow being most common and black showing strongest nootropic effects in
+  animal studies.
+
+halfLife: "Glucosinolates and macamides: poorly characterized"
+onset: "Libido effects: 4-8 weeks; energy effects may be acute to 1 week"
+duration: "Ongoing with consistent use"
+routeOfAdmin:
+  - oral
+mechanismShort: "Macamides inhibit fatty acid amide hydrolase (FAAH), elevating endocannabinoids; glucosinolates converted to isothiocyanates; monoamine modulation"
+
+dosing:
+  min: 1500
+  typical: 3000
+  max: 5000
+  unit: mg
+  frequency: "daily"
+  notes: "Gelatinized form better absorbed than raw. Yellow for general use; black for cognition; red for prostate/bone. Take with food."
+
+sideEffects:
+  - name: GI_discomfort
+    severity: mild
+    frequency: uncommon
+    notes: "Raw maca more likely to cause bloating; gelatinized form reduces this significantly"
+  - name: thyroid_concern
+    severity: mild
+    frequency: rare
+    notes: "Contains glucosinolates which are goitrogens; theoretical concern at very high doses; cooking/gelatinization reduces this"
+
+interactions:
+  - target: ashwagandha
+    type: synergistic
+    severity: mild
+    description: "Complementary libido and stress-resilience combination; ashwagandha reduces cortisol-mediated testosterone suppression while maca independently drives libido"
+  - target: tongkat-ali
+    type: synergistic
+    severity: mild
+    description: "Common libido and male performance stack; tongkat-ali has stronger testosterone evidence, maca has stronger libido-specific evidence"
+
+mechanisms:
+  - pathway: FAAH_inhibition
+    description: "Macamides (unique benzylamine-fatty acid conjugates) inhibit fatty acid amide hydrolase, elevating anandamide and other endocannabinoids"
+  - pathway: monoamine_modulation
+    description: "Supports dopamine and serotonin balance in hypothalamic areas regulating libido and mood"
+  - pathway: glucosinolate_metabolism
+    description: "Benzyl glucosinolates converted to benzyl isothiocyanate; antiproliferative effects; hormonal modulation via aromatase inhibition"
+  - pathway: energy_metabolism
+    description: "Adaptogenic support for adrenal function; high mineral content (iron, zinc, iodine) supports thyroid and adrenal glands"
+
+searchTerms:
+  pubmed:
+    - "maca AND libido AND randomized controlled trial"
+    - "Lepidium meyenii AND sexual dysfunction AND human"
+    - "maca AND SSRI AND sexual function AND clinical"
+  semanticScholar:
+    - "maca Lepidium meyenii libido sexual function randomized"
+    - "maca fertility testosterone hormonal human study"

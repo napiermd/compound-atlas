@@ -1,0 +1,73 @@
+# Magnesium L-Threonate — Brain-penetrant magnesium; synaptic density, cognition, sleep
+slug: magnesium-threonate
+name: Magnesium L-Threonate
+aliases:
+  - Magtein
+  - magnesium threonate
+  - L-threonic acid magnesium
+  - MgT
+category: VITAMIN_MINERAL
+subcategory: magnesium_form
+legalStatus: LEGAL
+description: |
+  Magnesium L-Threonate is a novel form of magnesium developed at MIT specifically for its
+  ability to cross the blood-brain barrier and increase brain magnesium levels — something
+  other forms (glycinate, citrate, oxide) do poorly. Animal studies showed significant
+  improvements in synaptic density, LTP (long-term potentiation), working memory, and
+  cognitive aging reversal. Human RCTs in older adults with cognitive impairment showed
+  significant improvements in executive function and attention. Distinct from magnesium
+  glycinate: MgT for brain, glycinate for sleep/anxiety/muscle. Often combined.
+
+halfLife: "~2 hours (plasma); brain elevation persists 12-24 hours"
+onset: "Subjective sleep improvement: 1-2 weeks; cognitive effects: 4-8 weeks"
+duration: "Ongoing with consistent dosing"
+routeOfAdmin:
+  - oral
+mechanismShort: "Uniquely elevates cerebrospinal fluid and synaptic magnesium; increases synaptic density via NMDA receptor modulation; activates PKA/PKC signaling for synaptic plasticity"
+
+dosing:
+  min: 1000
+  typical: 2000
+  max: 2000
+  unit: mg
+  frequency: "daily"
+  notes: "Magtein brand is the studied form. 2g Magtein = ~144mg elemental magnesium. Take before bed. Combine with magnesium glycinate for broader coverage (sleep/anxiety + brain)."
+
+sideEffects:
+  - name: loose_stools
+    severity: mild
+    frequency: rare
+    notes: "Less laxative effect than oxide or citrate; well tolerated"
+  - name: drowsiness
+    severity: mild
+    frequency: uncommon
+    notes: "Beneficial for bedtime use; avoid if taken during day for cognitive work"
+
+interactions:
+  - target: magnesium-glycinate
+    type: neutral
+    severity: mild
+    description: "Can combine: glycinate for sleep/anxiety/muscle (higher elemental Mg), threonate for brain/cognition — complementary not redundant"
+  - target: lions-mane
+    type: synergistic
+    severity: mild
+    description: "Additive neuroplasticity support: MgT increases synaptic density, lion's mane drives NGF-mediated neurogenesis"
+
+mechanisms:
+  - pathway: BBB_penetration
+    description: "L-threonate carrier uniquely facilitates transport of magnesium across blood-brain barrier via active transport mechanisms"
+  - pathway: synaptic_density
+    description: "Elevated synaptic Mg2+ increases synaptic vesicle number and NMDA receptor density at dendritic spines"
+  - pathway: NMDA_modulation
+    description: "Mg2+ blocks NMDA receptor channel in voltage-dependent manner, preventing excitotoxicity while enabling activity-dependent plasticity (LTP)"
+  - pathway: PKA_PKC_signaling
+    description: "Activates protein kinase A and C, required for synaptic plasticity, memory consolidation, and CREB transcription factor activation"
+
+searchTerms:
+  pubmed:
+    - "magnesium threonate AND cognitive AND human AND randomized"
+    - "Magtein AND brain magnesium AND memory"
+    - "magnesium L-threonate AND aging AND clinical trial"
+  semanticScholar:
+    - "magnesium threonate brain penetration synaptic density cognition"
+    - "MgT cognitive aging reversal human randomized"

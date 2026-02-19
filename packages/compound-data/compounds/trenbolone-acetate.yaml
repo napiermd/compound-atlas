@@ -1,0 +1,91 @@
+# Trenbolone Acetate — Highly potent 19-nor anabolic; significant risk profile
+slug: trenbolone-acetate
+name: Trenbolone Acetate
+aliases:
+  - tren ace
+  - tren A
+  - Finajet
+  - Finaplix
+  - trenbolone
+category: ANABOLIC
+subcategory: 19nor_steroid
+legalStatus: SCHEDULED
+description: |
+  Trenbolone Acetate is a veterinary-grade 19-nortestosterone derivative approved for cattle
+  muscle growth (Finaplix-H implants). It is considered the most powerful anabolic steroid
+  used by bodybuilders. With an anabolic:androgenic ratio of ~500:500 vs testosterone's
+  100:100, it produces dramatic lean mass and strength gains with potent fat loss simultaneously —
+  the only compound that achieves true recomposition at high doses. It does not aromatize to
+  estrogen but binds progesterone receptors. Its side effect profile is among the harshest
+  of any AAS: cardiovascular, neurological, androgenic, and mental health effects.
+  NOT for beginners. Scheduled III controlled substance in the US; no human medical use.
+
+halfLife: "~3 days (acetate ester)"
+onset: "Strength and vascularity improvements 1-2 weeks; muscle growth 4-6 weeks"
+duration: "Rapid clearance with acetate ester; detectable on drug test for months"
+routeOfAdmin:
+  - intramuscular_injection
+mechanismShort: "Highly potent AR agonist (5x testosterone affinity); direct IGF-1 upregulation; glucocorticoid receptor competition; does not aromatize; progestogenic activity"
+
+dosing:
+  min: 150
+  typical: 300
+  max: 600
+  unit: mg
+  frequency: "every other day (EOD) due to short half-life"
+  notes: "Advanced users only. Start at 150-200mg/week to assess individual response before increasing. EOD injections for stable blood levels. No AI needed (non-aromatizing) but may need prolactin control. Stack with testosterone base."
+
+sideEffects:
+  - name: cardiovascular
+    severity: severe
+    frequency: common
+    notes: "Most significant concern: LVH, reduced cardiac output, severe HDL reduction, hypertension; cardiac monitoring essential"
+  - name: androgenic
+    severity: severe
+    frequency: common
+    notes: "Severe acne, hair loss, aggression ('tren rage'), libido dysregulation; extremely harsh androgenic side effects"
+  - name: tren_cough
+    severity: moderate
+    frequency: uncommon
+    notes: "Immediate post-injection bronchospasm from oil entering vascular bed; usually resolves seconds to minutes"
+  - name: night_sweats
+    severity: moderate
+    frequency: common
+    notes: "Profuse night sweating; nearly universal at effective doses"
+  - name: insomnia
+    severity: moderate
+    frequency: common
+    notes: "Stimulant-adjacent CNS effects; sleep quality typically impaired"
+  - name: mental_health
+    severity: severe
+    frequency: uncommon
+    notes: "Anxiety, paranoia, depression; neurosteroid effects on CNS; psychiatric history is relative contraindication"
+
+interactions:
+  - target: testosterone-cypionate
+    type: synergistic
+    severity: moderate
+    description: "Testosterone base is essential when using tren to maintain libido and prevent progesterone-related sexual dysfunction; always use tren with testosterone"
+  - target: anastrozole
+    type: neutral
+    severity: mild
+    description: "Tren doesn't aromatize; AI not needed for tren itself, but needed if stacking with aromatizing compounds"
+
+mechanisms:
+  - pathway: androgen_receptor_high_affinity
+    description: "Binds AR with 5x higher affinity than testosterone and does not undergo 5α-reduction; cannot be aromatized; potent AR activation in all tissues"
+  - pathway: IGF_1_upregulation
+    description: "Directly stimulates IGF-1 mRNA expression in muscle independent of GH; potent muscle hypertrophy signal"
+  - pathway: glucocorticoid_competition
+    description: "High glucocorticoid receptor affinity; strongly anti-catabolic — preserves and builds muscle even in caloric deficits"
+  - pathway: progestogenic_activity
+    description: "Binds progesterone receptor; may contribute to libido, mood, and sexual side effects when testosterone is not included"
+
+searchTerms:
+  pubmed:
+    - "trenbolone AND anabolic AND androgen AND cardiovascular"
+    - "19-nortestosterone derivative AND muscle AND strength"
+    - "trenbolone AND cardiac AND hypertrophy AND animal"
+  semanticScholar:
+    - "trenbolone anabolic steroid cardiovascular androgenic effects"
+    - "19-nor androgen receptor anabolic activity body composition"

@@ -1,0 +1,75 @@
+# Thymosin Alpha-1 — Immune modulating peptide; cancer, infections, immune optimization
+slug: thymosin-alpha-1
+name: Thymosin Alpha-1
+aliases:
+  - Tα1
+  - TA-1
+  - Zadaxin
+  - thymalfasin
+  - thymosin alpha 1
+category: PEPTIDE
+subcategory: immune_peptide
+legalStatus: PRESCRIPTION
+description: |
+  Thymosin Alpha-1 (Tα1) is a naturally occurring 28-amino acid peptide derived from thymosin
+  fraction 5 of the thymus gland. It is FDA-approved in the US as an orphan drug and approved
+  in 35+ countries (as Zadaxin) for chronic hepatitis B and C, cancer immunotherapy adjunct,
+  DiGeorge syndrome, and severe sepsis. It is a potent thymic hormone that matures naive
+  T-cells, enhances NK cell activity, and restores immune competence in immunocompromised
+  states. Growing use in biohacking/longevity communities for immune optimization, chronic
+  infections, and post-viral syndromes (Long COVID). Extraordinarily safe profile across
+  decades of clinical use.
+
+halfLife: "~2 hours"
+onset: "Immunological effects within days to weeks; clinical outcomes 4-12 weeks"
+duration: "Ongoing with continued dosing; effects sustained during treatment"
+routeOfAdmin:
+  - subcutaneous_injection
+mechanismShort: "TLR2/9 agonism activates dendritic cells; T-cell differentiation (Th1 skew) via IL-12/IFN-γ; NK cell maturation; upregulates MHC class I expression on tumor cells"
+
+dosing:
+  min: 0.8
+  typical: 1.6
+  max: 3.2
+  unit: mg
+  frequency: "2x/week to daily depending on indication"
+  notes: "Standard Zadaxin dosing: 1.6mg SC 2x/week. Intensive protocol: 1.6mg daily for acute infections. Reconstitute in provided diluent. Keep refrigerated."
+
+sideEffects:
+  - name: injection_site_reaction
+    severity: mild
+    frequency: uncommon
+    notes: "Mild erythema; well tolerated overall"
+  - name: flu_like_symptoms
+    severity: mild
+    frequency: rare
+    notes: "Occasional with initial dosing due to immune activation; transient"
+
+interactions:
+  - target: bpc-157
+    type: synergistic
+    severity: mild
+    description: "TB-500 + BPC-157 + TA-1 is a comprehensive recovery/immune triple; TA-1 restores immune competence while peptides drive tissue healing"
+  - target: tb-500
+    type: synergistic
+    severity: mild
+    description: "Both extensively used in injury/recovery protocols; TB-500 drives tissue regeneration, TA-1 ensures immune optimization during healing"
+
+mechanisms:
+  - pathway: TLR_agonism
+    description: "Activates Toll-like receptors 2 and 9 on dendritic cells and macrophages, initiating innate immune response and antigen presentation"
+  - pathway: T_cell_differentiation
+    description: "Promotes Th1 differentiation over Th2; increases IL-12 and IFN-γ production; shifts immune balance toward cell-mediated anti-tumor and anti-viral immunity"
+  - pathway: NK_cell_maturation
+    description: "Enhances NK cell cytotoxicity and proliferation; important for tumor surveillance and viral clearance"
+  - pathway: MHC_upregulation
+    description: "Increases MHC class I expression on tumor cells, making them visible to cytotoxic T lymphocytes"
+
+searchTerms:
+  pubmed:
+    - "thymosin alpha-1 AND immune AND clinical AND randomized"
+    - "Zadaxin AND hepatitis AND cancer AND clinical trial"
+    - "thymalfasin AND immune modulation AND human"
+  semanticScholar:
+    - "thymosin alpha-1 immune modulation cancer hepatitis clinical"
+    - "Zadaxin thymalfasin immunotherapy clinical evidence"

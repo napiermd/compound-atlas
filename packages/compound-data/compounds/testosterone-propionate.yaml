@@ -1,0 +1,75 @@
+# Testosterone Propionate — Short-acting testosterone ester; rapid onset, fine-tuning
+slug: testosterone-propionate
+name: Testosterone Propionate
+aliases:
+  - test prop
+  - prop
+  - T-Propionate
+  - TP
+category: ANABOLIC
+subcategory: testosterone_ester
+legalStatus: PRESCRIPTION
+description: |
+  Testosterone Propionate is a short-acting esterified testosterone with a half-life of
+  2-3 days, requiring injections every other day (EOD) or every 3 days for stable blood
+  levels. It is the fastest-acting injectable testosterone ester and provides rapid response
+  to dose adjustments — useful for dialing in TRT, pre-competition body composition, or
+  minimizing post-cycle recovery time. The frequent injection schedule is its primary
+  limitation vs. longer esters. More popular in competitive bodybuilding where fast
+  control of hormone levels is needed. FDA-approved for male hypogonadism and delayed
+  puberty.
+
+halfLife: "~2-3 days"
+onset: "Testosterone elevation within 24-48 hours; anabolic effects 2-4 weeks"
+duration: "Levels fall significantly within 3-4 days without re-injection"
+routeOfAdmin:
+  - intramuscular_injection
+  - subcutaneous_injection
+mechanismShort: "Esterified testosterone cleaved by esterases → free testosterone; identical mechanism to other testosterone esters; ester length determines release rate and half-life only"
+
+dosing:
+  min: 50
+  typical: 100
+  max: 150
+  unit: mg
+  frequency: "every other day (EOD)"
+  notes: "EOD injections required for stable levels. 100mg EOD = ~350mg/week effective testosterone exposure. TRT: 50-100mg EOD. Performance: 100-150mg EOD. Monitor same markers as test enanthate. More injection site irritation than long-acting esters."
+
+sideEffects:
+  - name: injection_site_irritation
+    severity: mild
+    frequency: common
+    notes: "Propionate ester causes more injection site discomfort than longer esters; rotate sites, use larger gauge needle, inject slowly"
+  - name: injection_frequency
+    severity: moderate
+    frequency: certain
+    notes: "EOD injections required — significant lifestyle burden vs. weekly enanthate"
+  - name: estrogen_elevation
+    severity: moderate
+    frequency: common
+    notes: "Aromatizes to estradiol; AI management same as other testosterone forms"
+
+interactions:
+  - target: anastrozole
+    type: synergistic
+    severity: moderate
+    description: "AI management essential with any aromatizing testosterone; frequency of AI dosing can match injection schedule for propionate"
+  - target: trenbolone-acetate
+    type: synergistic
+    severity: moderate
+    description: "Both short-acting esters pair well — both EOD for matching pharmacokinetics; testosterone base required with trenbolone"
+
+mechanisms:
+  - pathway: testosterone_release
+    description: "Ester bond hydrolyzed by tissue/blood esterases; releases free testosterone at rate determined by ester length; propionate = shortest common ester = fastest release"
+  - pathway: androgen_receptor_agonism
+    description: "Identical to all testosterone forms after ester cleavage; AR agonism drives anabolic and androgenic effects"
+
+searchTerms:
+  pubmed:
+    - "testosterone propionate AND hypogonadism AND TRT"
+    - "testosterone ester AND pharmacokinetics AND injection"
+    - "short-acting testosterone AND body composition AND clinical"
+  semanticScholar:
+    - "testosterone propionate pharmacokinetics body composition"
+    - "testosterone ester injectable anabolic comparison"

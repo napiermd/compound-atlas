@@ -1,0 +1,76 @@
+# Cordyceps — Medicinal mushroom; VO2max, ATP, mitochondria, testosterone
+slug: cordyceps
+name: Cordyceps
+aliases:
+  - Cordyceps sinensis
+  - Cordyceps militaris
+  - caterpillar fungus
+  - CS-4
+  - cordycepin
+category: ADAPTOGEN
+subcategory: medicinal_mushroom
+legalStatus: LEGAL
+description: |
+  Cordyceps is a genus of parasitic fungi historically used in Tibetan and Chinese medicine
+  for fatigue, endurance, and libido. Cordyceps militaris is the commercially cultivated
+  species with the highest cordycepin content. Evidence supports increased VO2max and
+  aerobic capacity, improved oxygen utilization, ATP production enhancement, testosterone
+  support, and anti-fatigue effects. CS-4 (fermented mycelium) is the form used in most
+  clinical trials. More recent data points to adenosine receptor modulation and mitochondrial
+  biogenesis as primary mechanisms.
+
+halfLife: "Cordycepin: ~1-2 hours"
+onset: "Performance effects 1-4 weeks with consistent dosing"
+duration: "Ongoing with daily supplementation"
+routeOfAdmin:
+  - oral
+mechanismShort: "Cordycepin (adenosine analog) modulates adenosine receptors; adenosine 5'-monophosphate increases ATP availability; AMPK activation drives mitochondrial biogenesis"
+
+dosing:
+  min: 1000
+  typical: 3000
+  max: 6000
+  unit: mg
+  frequency: "daily"
+  notes: "CS-4 or Cordyceps militaris standardized extract. Quality varies widely — choose brands with verified cordycepin content. Stack with other performance supplements."
+
+sideEffects:
+  - name: GI_discomfort
+    severity: mild
+    frequency: uncommon
+    notes: "Mild nausea at high doses; take with food"
+  - name: autoimmune_caution
+    severity: moderate
+    frequency: rare
+    notes: "Immune-modulating properties; theoretical caution with autoimmune conditions or immunosuppressants"
+
+interactions:
+  - target: creatine-monohydrate
+    type: synergistic
+    severity: mild
+    description: "Complementary ATP support: creatine restores phosphocreatine, cordyceps enhances mitochondrial ATP production"
+  - target: coq10
+    type: synergistic
+    severity: mild
+    description: "Both support mitochondrial electron transport chain efficiency; CoQ10 works at complex I/III, cordyceps upregulates mitochondrial biogenesis"
+
+mechanisms:
+  - pathway: adenosine_receptor_modulation
+    description: "Cordycepin (3'-deoxyadenosine) acts as adenosine analog at A1/A2 receptors, modulating energy sensing and vasodilation"
+  - pathway: ATP_enhancement
+    description: "Increases cellular ATP production by enhancing AMP/ADP to ATP conversion and upregulating adenosine 5'-monophosphate levels"
+  - pathway: AMPK_activation
+    description: "Activates AMP-activated protein kinase, driving mitochondrial biogenesis and fatty acid oxidation"
+  - pathway: testosterone_support
+    description: "Stimulates steroidogenesis in Leydig cells via cAMP-PKA pathway; increases testosterone in animal and preliminary human studies"
+  - pathway: oxygen_utilization
+    description: "Improves erythropoietin signaling and oxygen delivery to working muscle; increases lactate threshold"
+
+searchTerms:
+  pubmed:
+    - "Cordyceps AND VO2max AND aerobic capacity AND human"
+    - "cordyceps militaris AND exercise performance AND randomized"
+    - "cordycepin AND mitochondria AND ATP AND clinical"
+  semanticScholar:
+    - "Cordyceps sinensis militaris endurance performance clinical"
+    - "cordyceps mushroom testosterone fatigue human study"

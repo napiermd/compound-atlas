@@ -1,0 +1,79 @@
+# Quercetin — Flavonoid; senolytic, anti-inflammatory, antiviral, AMPK
+slug: quercetin
+name: Quercetin
+aliases:
+  - quercetin dihydrate
+  - quercetin phytosome
+  - EMIQ (enzymatically modified isoquercitrin)
+  - quercetin with bromelain
+category: SUPPLEMENT
+subcategory: flavonoid
+legalStatus: LEGAL
+description: |
+  Quercetin is a flavonoid polyphenol found in onions, capers, apples, and berries that has
+  become central to longevity research as one of the most evidence-backed senolytics —
+  compounds that selectively eliminate senescent ("zombie") cells. The Mayo Clinic/Scripps
+  dasatinib + quercetin (D+Q) protocol is the gold standard senolytic combination, now in
+  multiple human clinical trials. Quercetin also has strong antiviral evidence (zinc ionophore,
+  inhibits viral replication), anti-inflammatory properties, cardiovascular protection, and
+  AMPK activation. Bioavailability is improved by quercetin phytosome (Quercefit) or EMIQ.
+
+halfLife: "~11-28 hours depending on form"
+onset: "Anti-inflammatory effects: days; senolytic protocol: cyclical (see dosing)"
+duration: "Ongoing anti-inflammatory/antioxidant; senolytic effects from intermittent protocols"
+routeOfAdmin:
+  - oral
+mechanismShort: "Bcl-2/Bcl-xL inhibitor (senolytic); AMPK activator; SIRT1 activator; zinc ionophore; NF-kB inhibitor; 5-lipoxygenase and COX inhibitor; mast cell stabilizer"
+
+dosing:
+  min: 500
+  typical: 1000
+  max: 2000
+  unit: mg
+  frequency: "daily for inflammation; intermittent (3 days on/4 weeks off) for senolytic protocol"
+  notes: "Senolytic dosing (D+Q protocol): 1000mg/day × 3 consecutive days, repeat monthly. Daily use for anti-inflammatory/antiviral: 500-1000mg with food. Quercefit phytosome has 20x better bioavailability than standard quercetin. Combine with zinc as ionophore for antiviral protocols."
+
+sideEffects:
+  - name: headache
+    severity: mild
+    frequency: uncommon
+    notes: "At higher doses; reduce or take with food"
+  - name: GI_discomfort
+    severity: mild
+    frequency: uncommon
+    notes: "Occasional nausea at high doses; take with food"
+  - name: kidney_concern
+    severity: mild
+    frequency: rare
+    notes: "Theoretical renal toxicity at very high doses (>3g/day); established doses are well tolerated"
+
+interactions:
+  - target: resveratrol
+    type: synergistic
+    severity: moderate
+    description: "Synergistic senolytic combination: quercetin + dasatinib (or resveratrol) is the most studied senolytic protocol; complementary Bcl-2 inhibition pathways"
+  - target: zinc
+    type: synergistic
+    severity: moderate
+    description: "Zinc ionophore activity: quercetin transports zinc into cells where zinc inhibits RNA-dependent RNA polymerase — potent antiviral combination"
+
+mechanisms:
+  - pathway: senolytic_bcl2_inhibition
+    description: "Inhibits anti-apoptotic Bcl-2 and Bcl-xL proteins that senescent cells depend on for survival; selectively triggers apoptosis in senescent but not normal cells"
+  - pathway: zinc_ionophore
+    description: "Facilitates cellular zinc uptake by acting as a zinc ionophore; intracellular zinc inhibits viral RNA-dependent RNA polymerase"
+  - pathway: AMPK_activation
+    description: "Activates AMPK via CaMKK2; drives autophagy and mitophagy — removes damaged cellular components"
+  - pathway: NF_kB_inhibition
+    description: "Blocks IkB kinase (IKK) and NF-kB nuclear translocation; reduces TNF-alpha, IL-1beta, IL-6"
+  - pathway: mast_cell_stabilization
+    description: "Inhibits mast cell degranulation and histamine release; anti-allergy mechanism"
+
+searchTerms:
+  pubmed:
+    - "quercetin AND senolytic AND clinical AND human"
+    - "quercetin AND anti-inflammatory AND randomized"
+    - "dasatinib quercetin AND aging AND senescent cells"
+  semanticScholar:
+    - "quercetin senolytic senescent cells aging clinical"
+    - "quercetin inflammation zinc ionophore antiviral"

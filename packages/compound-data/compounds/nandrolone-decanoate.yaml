@@ -1,0 +1,84 @@
+# Nandrolone Decanoate — 19-nor anabolic; joint support, mass gain, therapeutic uses
+slug: nandrolone-decanoate
+name: Nandrolone Decanoate
+aliases:
+  - Deca-Durabolin
+  - Deca
+  - nandrolone
+  - 19-nortestosterone decanoate
+  - NPP (nandrolone phenylpropionate - shorter ester)
+category: ANABOLIC
+subcategory: 19nor_steroid
+legalStatus: PRESCRIPTION
+description: |
+  Nandrolone Decanoate (Deca-Durabolin) is one of the most widely prescribed anabolic
+  steroids medically, FDA-approved for anemia (increases EPO and erythropoiesis), breast
+  cancer, and osteoporosis. It is a 19-nortestosterone derivative with a favorable side
+  effect profile compared to testosterone in several respects — lower DHT conversion (converts
+  to weak dihydronandrolone), lower androgenic side effects, less hair loss. However, it
+  has significant progestogenic activity and causes "Deca dick" (erectile dysfunction) via
+  dopaminergic suppression if not combined with adequate testosterone. Famous for joint
+  lubrication effects (increased synovial fluid and collagen synthesis). Long half-life
+  (6-12 days) requires patience with dosing.
+
+halfLife: "~6-12 days"
+onset: "Joint relief 2-4 weeks; anabolic effects 4-8 weeks; full effects 12+ weeks"
+duration: "Very long-acting; detectable on drug tests up to 18+ months"
+routeOfAdmin:
+  - intramuscular_injection
+mechanismShort: "AR agonist with lower DHT conversion; progestogen receptor agonism; increases collagen synthesis (II and III); stimulates EPO; IGF-1 upregulation; glucocorticoid antagonism"
+
+dosing:
+  min: 200
+  typical: 400
+  max: 600
+  unit: mg
+  frequency: "weekly or twice weekly"
+  notes: "MUST run with testosterone base (1:2 or 1:1 test:deca ratio minimum) to prevent libido/erectile dysfunction. 300-400mg/week is a common therapeutic/performance dose. Allow 12+ weeks for full benefit. Prolactin management (cabergoline) may be needed."
+
+sideEffects:
+  - name: erectile_dysfunction
+    severity: severe
+    frequency: common
+    notes: "'Deca dick' — progestogenic suppression of dopamine reduces libido/erectile function when not paired with adequate testosterone; always use testosterone base"
+  - name: HPG_suppression
+    severity: severe
+    frequency: certain
+    notes: "Very long half-life means HPG suppression persists for months post-cycle; recovery takes longer than testosterone; PCT timing must account for this"
+  - name: prolactin_elevation
+    severity: moderate
+    frequency: uncommon
+    notes: "Progestogenic nandrolone can elevate prolactin; cabergoline 0.25-0.5mg twice weekly if needed"
+  - name: cardiovascular
+    severity: moderate
+    frequency: common
+    notes: "HDL reduction, LVH; lower risk than trenbolone but significant with chronic use"
+
+interactions:
+  - target: testosterone-enanthate
+    type: synergistic
+    severity: moderate
+    description: "Mandatory combination: testosterone provides dopaminergic support for libido/erections while nandrolone provides anabolic and joint benefits — classic mass-building combination"
+  - target: bpc-157
+    type: synergistic
+    severity: mild
+    description: "Both support connective tissue; deca increases collagen synthesis systemically, BPC-157 accelerates local tendon/ligament repair — injury prevention and recovery stack"
+
+mechanisms:
+  - pathway: androgen_receptor_agonism
+    description: "Binds AR with moderate affinity; 5α-reductase converts nandrolone to dihydronandrolone (weak AR agonist, unlike potent DHT from testosterone) — lower androgenic side effects"
+  - pathway: collagen_synthesis
+    description: "Increases type I, II, and III collagen synthesis in tendons, ligaments, and cartilage; mechanism for joint lubrication and pain reduction"
+  - pathway: erythropoiesis
+    description: "Stimulates EPO production in kidneys and direct bone marrow effects; increases red blood cell production — basis for anemia indication"
+  - pathway: progestogenic_activity
+    description: "Binds progesterone receptor with moderate affinity; contributes to libido suppression, potential prolactin elevation"
+
+searchTerms:
+  pubmed:
+    - "nandrolone decanoate AND anemia AND erythropoiesis AND clinical"
+    - "nandrolone AND osteoporosis AND muscle AND clinical trial"
+    - "Deca-Durabolin AND muscle mass AND randomized"
+  semanticScholar:
+    - "nandrolone decanoate anabolic clinical therapeutic muscle"
+    - "nandrolone collagen joint connective tissue clinical"

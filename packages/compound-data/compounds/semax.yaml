@@ -1,0 +1,82 @@
+# Semax — Synthetic ACTH analog peptide; BDNF, focus, neuroprotection
+slug: semax
+name: Semax
+aliases:
+  - MEHFPGP
+  - Pro-Gly-Pro
+  - Semax nasal spray
+category: NOOTROPIC
+subcategory: neuropeptide
+legalStatus: GRAY_MARKET
+description: |
+  Semax is a synthetic heptapeptide (Met-Glu-His-Phe-Pro-Gly-Pro) derived from the ACTH
+  4-10 sequence, developed by the Russian Institute of Molecular Genetics. It is used clinically
+  in Russia and Ukraine for stroke recovery, ADHD, optic nerve damage, and cognitive enhancement.
+  It dramatically increases BDNF in the hippocampus and prefrontal cortex within minutes,
+  produces strong anti-anxiety effects, and improves attention and working memory. Administered
+  intranasally for rapid CNS delivery bypassing the BBB. One of the most well-regarded
+  cognitive peptides in advanced nootropic circles. No FDA approval; gray market in most
+  Western countries.
+
+halfLife: "~15-30 minutes (plasma); CNS effects 12-24 hours"
+onset: "Acute focus and mood effects within 15-30 minutes of intranasal application"
+duration: "Cognitive effects 6-12 hours; neuroplastic effects accumulate with chronic use"
+routeOfAdmin:
+  - intranasal
+  - subcutaneous_injection
+mechanismShort: "BDNF/CNTF upregulation in hippocampus; D-Asp-HFP sequence binds melanocortin MC4R; modulates dopaminergic and serotonergic systems; anti-inflammatory via IL-6 reduction"
+
+dosing:
+  min: 200
+  typical: 600
+  max: 1800
+  unit: mcg
+  frequency: "1-3x/day"
+  notes: "Intranasal: 2-3 drops per nostril per dose (varies by concentration). Common concentrations: 0.1% (1mg/mL). Cycle: 2 weeks on/1 week off. Subcutaneous injection possible for higher bioavailability."
+
+sideEffects:
+  - name: anxiety
+    severity: mild
+    frequency: uncommon
+    notes: "Paradoxical anxiety at high doses; reduce dose or add anxiolytic"
+  - name: headache
+    severity: mild
+    frequency: uncommon
+    notes: "Usually with higher doses; resolves with dose reduction"
+  - name: appetite_suppression
+    severity: mild
+    frequency: uncommon
+    notes: "Via melanocortin pathway; generally minor"
+  - name: nasal_irritation
+    severity: mild
+    frequency: common
+    notes: "Intranasal route; minor irritation or burning in some users"
+
+interactions:
+  - target: selank
+    type: synergistic
+    severity: mild
+    description: "Classic Russian peptide combination: semax for BDNF and cognitive activation, selank for anxiolytic and immune modulation — complementary effects"
+  - target: lions-mane
+    type: synergistic
+    severity: mild
+    description: "Both drive BDNF/NGF neurotrophin upregulation; semax immediate-acting, lion's mane chronic NGF synthesis"
+
+mechanisms:
+  - pathway: BDNF_upregulation
+    description: "Rapidly and substantially increases BDNF expression in hippocampus and prefrontal cortex within 30 minutes; primary mechanism for cognitive and antidepressant effects"
+  - pathway: melanocortin_receptor
+    description: "ACTH-derived sequence activates MC4 receptors in hypothalamus, modulating energy, mood, and learning consolidation"
+  - pathway: dopamine_modulation
+    description: "Enhances dopaminergic transmission in mesolimbic and mesocortical pathways, contributing to focus, motivation, and reward"
+  - pathway: anti_inflammatory
+    description: "Reduces TNF-alpha, IL-6, and NF-kB activation in brain; neuroprotective in ischemic injury models"
+
+searchTerms:
+  pubmed:
+    - "Semax AND BDNF AND cognitive AND brain"
+    - "semax AND stroke AND recovery AND clinical"
+    - "ACTH 4-10 analog AND cognition AND neuroprotection"
+  semanticScholar:
+    - "semax ACTH neuropeptide BDNF cognitive enhancement"
+    - "semax peptide neuroprotection stroke clinical Russia"

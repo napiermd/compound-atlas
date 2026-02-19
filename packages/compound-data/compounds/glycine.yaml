@@ -1,0 +1,67 @@
+# Glycine — Simplest amino acid; sleep, collagen, and metabolic roles
+slug: glycine
+name: Glycine
+aliases:
+  - aminoacetic acid
+  - glycocoll
+category: AMINO_ACID
+subcategory: nonessential_amino_acid
+legalStatus: LEGAL
+description: |
+  Glycine is the simplest amino acid and the most abundant in the human body by molar weight.
+  It is a major inhibitory neurotransmitter in the spinal cord and brainstem, a key component
+  of collagen (33% of collagen residues), a precursor to glutathione, and a co-agonist at
+  NMDA receptors. Multiple RCTs confirm 3g before bed improves sleep quality, reduces
+  time to sleep onset, and decreases daytime sleepiness. It is also central to the "methyl
+  sink" theory of aging and has significant longevity implications in the glycine-NAC (GlyNAC)
+  combination.
+
+halfLife: "~0.5-1 hour (plasma)"
+onset: "Sleep effects acute (30-60 min pre-bed); metabolic effects weeks"
+duration: "Short plasma half-life; tissue incorporation ongoing"
+routeOfAdmin:
+  - oral
+mechanismShort: "Inhibitory glycine receptor agonist; NMDA co-agonist; collagen precursor; glutathione precursor via GCL; reduces core body temperature"
+
+dosing:
+  min: 1000
+  typical: 3000
+  max: 10000
+  unit: mg
+  frequency: "daily"
+  notes: "3g before bed for sleep. Can be mixed in water — mildly sweet taste. GlyNAC protocol uses 1.33g/kg combined with NAC."
+
+sideEffects:
+  - name: GI_discomfort
+    severity: mild
+    frequency: rare
+    notes: "Very high doses may cause loose stools; generally excellent tolerability"
+
+interactions:
+  - target: nac
+    type: synergistic
+    severity: moderate
+    description: "GlyNAC combination directly raises glutathione by providing both rate-limiting precursors; shown to reverse multiple aging hallmarks in human RCT"
+  - target: magnesium-glycinate
+    type: synergistic
+    severity: mild
+    description: "Both support sleep via GABA/glycine inhibitory pathways; complementary timing"
+
+mechanisms:
+  - pathway: glycine_receptor_agonism
+    description: "Inhibitory neurotransmitter at GlyR Cl- channels in spinal cord and brainstem; promotes muscle relaxation and reduces core body temperature for sleep onset"
+  - pathway: NMDA_co_agonism
+    description: "Co-agonist at NMDA receptor glycine site; modulates glutamate signaling and synaptic plasticity"
+  - pathway: glutathione_synthesis
+    description: "Precursor for glutathione (γ-Glu-Cys-Gly); combined with cysteine donors raises GSH levels"
+  - pathway: collagen_synthesis
+    description: "Mandatory structural component of collagen triple helix; rate-limiting for collagen production in dietary restriction states"
+
+searchTerms:
+  pubmed:
+    - "glycine supplementation AND sleep AND randomized"
+    - "GlyNAC AND aging AND human"
+    - "glycine AND collagen AND supplementation"
+  semanticScholar:
+    - "glycine sleep quality randomized controlled trial"
+    - "GlyNAC glutathione aging reversal"

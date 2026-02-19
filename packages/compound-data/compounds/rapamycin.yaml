@@ -1,0 +1,83 @@
+# Rapamycin — mTOR inhibitor; most evidence-backed longevity drug
+slug: rapamycin
+name: Rapamycin
+aliases:
+  - sirolimus
+  - Rapamune
+  - everolimus (analog)
+  - rapalog
+category: OTHER
+subcategory: longevity_drug
+legalStatus: PRESCRIPTION
+description: |
+  Rapamycin (sirolimus) is an FDA-approved immunosuppressant that is also the most
+  evidence-backed longevity drug in existence. It is the only drug proven to extend lifespan
+  in already-aged mammals — starting at 20 months (equivalent to ~60 human years), mice
+  receiving rapamycin showed 9-14% increased maximum lifespan. The mechanism is mTORC1
+  inhibition, which mimics dietary restriction. Weekly or biweekly low-dose protocols are
+  being studied and used off-label by longevity physicians (Dr. Peter Attia, PEARL trial)
+  to avoid the immunosuppressive dose side effects. The PEARL trial is the first placebo-
+  controlled longevity trial in healthy humans. Age-related conditions showing benefit include
+  declining vaccine immune response reversal, cardiac aging, and physical function.
+
+halfLife: "~62 hours"
+onset: "mTOR inhibition within hours; longevity-related effects chronic (months-years)"
+duration: "Once-weekly dosing maintains intermittent mTOR inhibition"
+routeOfAdmin:
+  - oral
+mechanismShort: "FKBP12 binding → mTORC1 inhibition → reduced protein synthesis, increased autophagy, reduced senescence-associated secretory phenotype (SASP), improved lysosomal function"
+
+dosing:
+  min: 1
+  typical: 5
+  max: 10
+  unit: mg
+  frequency: "once weekly or every 2 weeks (off-label longevity protocol)"
+  notes: "REQUIRES physician oversight. Standard longevity protocol: 5-6mg once weekly. Do NOT use immunosuppressive daily dosing (2-5mg/day) for longevity — different risk/benefit. Monitor CBC, lipids, blood glucose. Grapefruit juice increases levels 3-fold."
+
+sideEffects:
+  - name: immunosuppression
+    severity: severe
+    frequency: dose_dependent
+    notes: "Daily high-dose: clinically meaningful immunosuppression. Once-weekly 5mg: minimal immunosuppression in longevity protocol. Monitor for infections."
+  - name: mucositis
+    severity: moderate
+    frequency: uncommon
+    notes: "Mouth sores, especially at immunosuppressive doses; rare at longevity doses"
+  - name: dyslipidemia
+    severity: moderate
+    frequency: common
+    notes: "Elevates triglycerides and LDL; monitor lipids every 3-6 months; statin may be needed"
+  - name: impaired_wound_healing
+    severity: moderate
+    frequency: uncommon
+    notes: "Pause rapamycin 2 weeks before and after surgery"
+
+interactions:
+  - target: metformin
+    type: synergistic
+    severity: moderate
+    description: "Synergistic longevity combination: rapamycin inhibits mTORC1, metformin activates AMPK — complementary nutrient-sensing pathway inhibition. ITP study showed additive lifespan extension."
+  - target: nad-precursors
+    type: synergistic
+    severity: mild
+    description: "Both address aging: rapamycin via mTOR/autophagy, NAD+ precursors via sirtuin/PARP. Commonly combined in advanced longevity protocols."
+
+mechanisms:
+  - pathway: mTORC1_inhibition
+    description: "Forms rapamycin-FKBP12 complex that directly inhibits mTORC1 kinase; reduces ribosomal S6 kinase and 4E-BP1 phosphorylation, suppressing protein synthesis and cell growth"
+  - pathway: autophagy_induction
+    description: "mTORC1 inhibition relieves suppression of ULK1, activating autophagosome formation; one of the most potent autophagy inducers available"
+  - pathway: SASP_reduction
+    description: "Reduces senescence-associated secretory phenotype by suppressing NF-kB downstream of mTOR; reduces inflammatory cytokine production by senescent cells"
+  - pathway: immune_rejuvenation
+    description: "Low-dose rapamycin paradoxically improves aged immune function (reverses immunosenescence) at doses below immunosuppressive threshold"
+
+searchTerms:
+  pubmed:
+    - "rapamycin AND lifespan AND aging AND mammal"
+    - "sirolimus AND longevity AND human AND clinical"
+    - "PEARL trial AND rapamycin AND healthy aging"
+  semanticScholar:
+    - "rapamycin mTOR longevity lifespan aging mammal"
+    - "sirolimus low dose aging human clinical longevity"

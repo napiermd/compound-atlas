@@ -1,0 +1,74 @@
+# L-Glutamine — Most abundant amino acid; gut, immune, and recovery roles
+slug: l-glutamine
+name: L-Glutamine
+aliases:
+  - glutamine
+  - Gln
+  - L-Gln
+category: AMINO_ACID
+subcategory: conditionally_essential
+legalStatus: LEGAL
+description: |
+  L-Glutamine is the most abundant free amino acid in human plasma and muscle. It is
+  conditionally essential — endogenous synthesis is adequate at rest but demand exceeds
+  production during illness, trauma, heavy exercise, or gut compromise. It is the primary
+  fuel source for rapidly dividing intestinal enterocytes and immune cells. Clinical evidence
+  supports its role in gut barrier integrity, reducing intestinal permeability, supporting
+  immune function post-surgery and during critical illness, and reducing muscle soreness
+  after eccentric exercise. Increasingly used for gut healing protocols.
+
+halfLife: "~1 hour (plasma)"
+onset: "Gut barrier effects: days; muscle recovery effects: acute to 1 week"
+duration: "Systemic levels normalize within hours; tissue effects require consistent dosing"
+routeOfAdmin:
+  - oral
+mechanismShort: "Primary fuel for enterocytes and lymphocytes; precursor for glutathione; maintains tight junction integrity; nitrogen transporter"
+
+dosing:
+  min: 5000
+  typical: 10000
+  max: 30000
+  unit: mg
+  frequency: "1-3x/day"
+  notes: "5g post-workout for recovery. 10-20g/day for gut healing protocols. Higher doses (30g) in clinical/surgical settings under supervision."
+
+sideEffects:
+  - name: GI_discomfort
+    severity: mild
+    frequency: uncommon
+    notes: "Occasional bloating at higher doses; take with adequate water"
+  - name: theoretical_glutamate_excess
+    severity: mild
+    frequency: rare
+    notes: "Theoretical concern in neurological conditions; generally safe in healthy individuals"
+
+interactions:
+  - target: creatine-monohydrate
+    type: synergistic
+    severity: mild
+    description: "Complementary recovery stack; creatine restores ATP, glutamine restores muscle nitrogen balance"
+  - target: glycine
+    type: synergistic
+    severity: mild
+    description: "Both support gut barrier; glutamine provides energy to enterocytes, glycine is structural collagen component"
+
+mechanisms:
+  - pathway: enterocyte_fuel
+    description: "Primary oxidative fuel for intestinal mucosal cells; deficiency leads to villous atrophy and increased gut permeability"
+  - pathway: tight_junction_integrity
+    description: "Supports expression of tight junction proteins (occludin, claudins) in intestinal epithelium"
+  - pathway: immune_fuel
+    description: "Rapidly dividing lymphocytes and macrophages oxidize glutamine at high rates; critical for immune responses"
+  - pathway: glutathione_precursor
+    description: "Provides glutamate moiety for glutathione synthesis; supports antioxidant capacity"
+  - pathway: nitrogen_transport
+    description: "Primary inter-organ nitrogen carrier; buffers ammonia via glutamine synthetase"
+
+searchTerms:
+  pubmed:
+    - "glutamine AND gut permeability AND randomized"
+    - "L-glutamine AND intestinal barrier AND human"
+    - "glutamine AND exercise recovery AND muscle"
+  semanticScholar:
+    - "glutamine gut barrier integrity enterocyte"
+    - "L-glutamine muscle recovery exercise"

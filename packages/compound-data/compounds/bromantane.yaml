@@ -1,0 +1,77 @@
+# Bromantane — Actoprotector; energy, heat stress, dopamine synthesis, non-stimulant
+slug: bromantane
+name: Bromantane
+aliases:
+  - Ladasten
+  - bromantan
+  - N-(2-bromophenyl)adamantan-2-amine
+category: NOOTROPIC
+subcategory: actoprotector
+legalStatus: GRAY_MARKET
+description: |
+  Bromantane is a Soviet-era actoprotector drug developed in the late 1980s for military
+  use under extreme heat and physical stress conditions. Unlike classical stimulants, it
+  works by upregulating the dopamine synthesis enzyme (aromatic amino acid decarboxylase)
+  rather than releasing or blocking reuptake of dopamine. This mechanism makes it non-addictive
+  and less prone to tolerance. It also has unique immunostimulant properties. WADA banned
+  it in 1996 after several positive tests. Russian clinical trials show it reduces fatigue,
+  improves physical performance in heat, and reduces anxiety without sedation.
+  It has a dedicated following in advanced nootropic communities for its clean energy profile.
+
+halfLife: "~11 hours"
+onset: "Acute energy and mood effects within 1-2 hours; performance effects 1-2 weeks"
+duration: "Single dose effects ~12-16 hours; tolerance development slow"
+routeOfAdmin:
+  - oral
+mechanismShort: "Upregulates AADC (dopa decarboxylase) gene expression; increases dopamine and serotonin synthesis capacity; non-releasing, non-reuptake mechanism; heat shock protein induction"
+
+dosing:
+  min: 25
+  typical: 50
+  max: 100
+  unit: mg
+  frequency: "1x/day (morning)"
+  notes: "Start at 25mg. Effects are dose-dependent. Morning use only due to activating effects. Cycle 5 days on/2 off or take breaks after 4-6 weeks to prevent tolerance."
+
+sideEffects:
+  - name: insomnia
+    severity: moderate
+    frequency: common
+    notes: "Strong activating effect; strict morning dosing required"
+  - name: anxiety
+    severity: mild
+    frequency: uncommon
+    notes: "At higher doses; reduce dose"
+  - name: WADA_banned
+    severity: severe
+    frequency: certain
+    notes: "BANNED by WADA — tested athletes must not use; all competitive sport is contraindicated"
+
+interactions:
+  - target: l-tyrosine
+    type: synergistic
+    severity: mild
+    description: "Tyrosine provides dopamine precursor, bromantane increases the conversion enzyme — complementary for sustained dopaminergic support"
+  - target: selank
+    type: synergistic
+    severity: mild
+    description: "Bromantane for energy and dopaminergic drive, selank for anxiolytic balance; Russian nootropic combination"
+
+mechanisms:
+  - pathway: AADC_upregulation
+    description: "Upregulates aromatic amino acid decarboxylase (DOPA decarboxylase) gene expression, increasing rate of L-DOPA→dopamine and 5-HTP→serotonin conversion"
+  - pathway: heat_shock_protein_induction
+    description: "Induces HSP70 expression, increasing cellular stress resistance to heat and physical exertion"
+  - pathway: dopamine_synthesis
+    description: "Net effect is increased dopamine synthesis capacity without direct release or reuptake inhibition — less addiction liability than traditional stimulants"
+  - pathway: immunostimulation
+    description: "Activates innate immune function; increases phagocytic activity of macrophages and NK cell activity"
+
+searchTerms:
+  pubmed:
+    - "bromantane AND dopamine AND synthesis AND performance"
+    - "Ladasten AND actoprotector AND fatigue AND clinical"
+    - "bromantan AND WADA AND doping AND sport"
+  semanticScholar:
+    - "bromantane actoprotector dopamine synthesis AADC performance"
+    - "Ladasten fatigue cognitive performance Russian military"

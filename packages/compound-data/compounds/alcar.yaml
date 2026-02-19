@@ -1,0 +1,77 @@
+# ALCAR — Acetyl-L-Carnitine; crosses BBB, mitochondrial and cognitive effects
+slug: alcar
+name: Acetyl-L-Carnitine
+aliases:
+  - ALCAR
+  - acetylcarnitine
+  - ALC
+  - acetyl carnitine
+category: AMINO_ACID
+subcategory: carnitine_derivative
+legalStatus: LEGAL
+description: |
+  Acetyl-L-Carnitine (ALCAR) is the acetylated form of L-carnitine that crosses the
+  blood-brain barrier. In the brain it donates its acetyl group for acetylcholine synthesis
+  and supports mitochondrial function. It has strong evidence for reversing age-related
+  cognitive decline, reducing neuropathic pain, supporting mitochondrial biogenesis, and
+  improving fatigue in chronic fatigue syndrome. Combined with alpha-lipoic acid it restores
+  mitochondrial function in aged animals comparably to young controls. Unlike plain L-carnitine,
+  ALCAR has direct nootropic and neuroprotective properties.
+
+halfLife: "~4-5 hours"
+onset: "Acute cognitive/energy effects within 1-2 hours; neuroprotective effects weeks to months"
+duration: "Ongoing with daily dosing"
+routeOfAdmin:
+  - oral
+mechanismShort: "Acetyl donor for acetylcholine synthesis; mitochondrial membrane repair; NGF signaling; carnitine palmitoyltransferase support for beta-oxidation"
+
+dosing:
+  min: 500
+  typical: 1500
+  max: 3000
+  unit: mg
+  frequency: "1-2x/day"
+  notes: "Take on empty stomach for better absorption. Morning dosing preferred due to stimulatory effects. Stack with alpha-lipoic acid for synergistic mitochondrial effects."
+
+sideEffects:
+  - name: insomnia
+    severity: mild
+    frequency: uncommon
+    notes: "Avoid late afternoon/evening dosing; stimulatory effect interferes with sleep"
+  - name: fishy_odor
+    severity: mild
+    frequency: uncommon
+    notes: "Gut bacteria convert some carnitine to TMAO; less pronounced with ALCAR than L-carnitine"
+  - name: agitation
+    severity: mild
+    frequency: rare
+    notes: "Rare at high doses; reduce dose if restlessness occurs"
+
+interactions:
+  - target: alpha-lipoic-acid
+    type: synergistic
+    severity: moderate
+    description: "Classic mitochondrial stack; ALA restores carnitine acetyltransferase activity, ALCAR provides acetyl groups; together restore aged mitochondria to youthful function in animal studies"
+  - target: alpha-gpc
+    type: synergistic
+    severity: mild
+    description: "Complementary choline support; ALCAR donates acetyl groups, Alpha-GPC provides choline for ACh synthesis"
+
+mechanisms:
+  - pathway: acetylcholine_synthesis
+    description: "Donates acetyl group to choline via choline acetyltransferase, directly supporting ACh synthesis"
+  - pathway: mitochondrial_membrane_repair
+    description: "Restores cardiolipin composition in inner mitochondrial membrane, critical for electron transport chain efficiency"
+  - pathway: NGF_signaling
+    description: "Upregulates nerve growth factor receptor expression; supports neuronal survival and axonal regeneration"
+  - pathway: beta_oxidation
+    description: "Transfers long-chain fatty acids across mitochondrial membrane as carnitine esters for beta-oxidation"
+
+searchTerms:
+  pubmed:
+    - "acetyl-L-carnitine AND cognitive AND aging AND randomized"
+    - "ALCAR AND neuropathy AND pain AND clinical trial"
+    - "acetylcarnitine AND mitochondria AND human"
+  semanticScholar:
+    - "acetyl-L-carnitine cognitive decline aging neuroprotection"
+    - "ALCAR alpha-lipoic acid mitochondrial function"

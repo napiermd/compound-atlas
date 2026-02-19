@@ -1,0 +1,72 @@
+# Boron — Trace mineral; testosterone, vitamin D activation, bone, cognition
+slug: boron
+name: Boron
+aliases:
+  - boron citrate
+  - calcium fructoborate
+  - boron glycinate
+  - FruiteX-B
+category: VITAMIN_MINERAL
+subcategory: trace_mineral
+legalStatus: LEGAL
+description: |
+  Boron is an essential trace mineral with emerging evidence for testosterone optimization,
+  vitamin D activation, and bone health. A landmark study showed 10mg/day boron for 1 week
+  increased free testosterone by 29%, reduced sex hormone binding globulin (SHBG) by 9%,
+  and reduced estradiol by 39%. It also dramatically increases the conversion of 25(OH)D to
+  active 1,25(OH)2D vitamin D. Most diets provide 1-3mg/day, with deficiency common in areas
+  with boron-poor soil. Calcium fructoborate (FruiteX-B) is the best-studied food-form.
+
+halfLife: "~21 hours"
+onset: "Hormonal effects within 1 week; bone effects months"
+duration: "Ongoing with daily dosing"
+routeOfAdmin:
+  - oral
+mechanismShort: "Inhibits SHBG production in liver; activates CYP27B1 for vitamin D conversion; modulates sex steroid binding; supports bone calcium retention"
+
+dosing:
+  min: 3
+  typical: 10
+  max: 20
+  unit: mg
+  frequency: "daily"
+  notes: "Food-form boron (calcium fructoborate) has better evidence. 10mg is the dose used in most hormonal studies. Take with food. Upper tolerable limit is 20mg/day."
+
+sideEffects:
+  - name: hormonal_effects
+    severity: mild
+    frequency: uncommon
+    notes: "Significant SHBG reduction and estradiol changes — monitor hormones if on TRT or any HRT"
+  - name: GI_discomfort
+    severity: mild
+    frequency: rare
+    notes: "Generally well tolerated at recommended doses"
+
+interactions:
+  - target: vitamin-d3
+    type: synergistic
+    severity: moderate
+    description: "Boron activates CYP27B1 to convert 25(OH)D to active 1,25(OH)2D; significantly amplifies vitamin D supplementation benefit"
+  - target: zinc
+    type: synergistic
+    severity: mild
+    description: "Both reduce SHBG and support testosterone production via complementary mechanisms; combine for comprehensive hormonal support"
+
+mechanisms:
+  - pathway: SHBG_reduction
+    description: "Inhibits SHBG synthesis in hepatocytes, increasing free (bioavailable) testosterone and estradiol fraction"
+  - pathway: vitamin_D_activation
+    description: "Activates 1-alpha-hydroxylase (CYP27B1), converting 25(OH)D to active 1,25(OH)2D3 (calcitriol)"
+  - pathway: steroid_hormone_binding
+    description: "Boron forms reversible complexes with hydroxyl groups on steroid hormones, modulating receptor binding and bioavailability"
+  - pathway: bone_mineralization
+    description: "Required for proper calcium and magnesium utilization; supports osteoblast activity and collagen cross-linking"
+
+searchTerms:
+  pubmed:
+    - "boron AND testosterone AND SHBG AND human"
+    - "boron supplementation AND vitamin D AND clinical"
+    - "dietary boron AND bone AND mineral AND human"
+  semanticScholar:
+    - "boron trace mineral testosterone SHBG free testosterone"
+    - "boron vitamin D activation bone mineral density"

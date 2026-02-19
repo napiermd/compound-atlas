@@ -1,0 +1,88 @@
+# Testosterone Enanthate — Long-acting injectable testosterone ester
+slug: testosterone-enanthate
+name: Testosterone Enanthate
+aliases:
+  - Test E
+  - T-enanthate
+  - Delatestryl
+  - TE
+category: ANABOLIC
+subcategory: testosterone_ester
+legalStatus: PRESCRIPTION
+description: |
+  Testosterone Enanthate is the most widely used long-acting esterified testosterone.
+  FDA-approved for male hypogonadism and delayed puberty. The enanthate ester provides
+  a 7-10 day half-life, allowing once or twice-weekly injections for stable blood levels.
+  Testosterone is the reference anabolic androgenic steroid from which all others are
+  compared. It provides dose-dependent increases in lean mass, strength, bone density, red
+  blood cell production, and sexual function. At TRT doses (100-200mg/week), side effects
+  are minimal with proper monitoring. At supraphysiological doses used in bodybuilding
+  contexts, significant cardiovascular and hormonal risks emerge. Requires AI (aromatase
+  inhibitor) and PCT management in non-TRT protocols.
+
+halfLife: "~7-10 days (ester cleavage rate)"
+onset: "Hormonal changes within 1-2 weeks; anabolic effects peak 4-8 weeks"
+duration: "Levels stabilize with consistent weekly dosing; effects persist during protocol"
+routeOfAdmin:
+  - intramuscular_injection
+  - subcutaneous_injection
+mechanismShort: "Binds androgen receptor; drives muscle protein synthesis via mTOR/PI3K/Akt; inhibits glucocorticoid receptors; erythropoietin stimulation; aromatizes to estradiol"
+
+dosing:
+  min: 100
+  typical: 200
+  max: 500
+  unit: mg
+  frequency: "weekly or twice weekly"
+  notes: "TRT: 100-200mg/week. Performance: 200-500mg/week. Inject into glute, quad, or delt IM, or subcutaneous. Split into 2 injections/week for more stable levels. Monitor hematocrit, PSA, estradiol, lipids every 3-6 months."
+
+sideEffects:
+  - name: estrogen_elevation
+    severity: moderate
+    frequency: common
+    notes: "Aromatization to estradiol causes water retention, gynecomastia, mood effects; manage with AI (anastrozole, exemestane) at appropriate doses"
+  - name: HPG_suppression
+    severity: severe
+    frequency: certain
+    notes: "Complete suppression of endogenous testosterone; fertility requires HCG or FSH supplementation; recovery requires PCT after non-TRT use"
+  - name: erythrocytosis
+    severity: moderate
+    frequency: common
+    notes: "Elevated hematocrit (>52%) increases thrombosis risk; monitor and donate blood or dose-reduce if needed"
+  - name: lipid_changes
+    severity: moderate
+    frequency: common
+    notes: "Reduces HDL, may increase LDL; cardiovascular risk monitoring essential"
+  - name: acne
+    severity: mild
+    frequency: common
+    notes: "DHT-mediated sebaceous gland stimulation; topical retinoids and antibiotics manage"
+
+interactions:
+  - target: anastrozole
+    type: synergistic
+    severity: moderate
+    description: "Anastrozole inhibits aromatase, preventing testosterone-to-estradiol conversion; essential management tool at supraphysiological doses"
+  - target: hgh
+    type: synergistic
+    severity: moderate
+    description: "Classic anabolic combination: testosterone drives nitrogen retention and AR-mediated muscle growth, HGH drives IGF-1-mediated fat loss and connective tissue synthesis"
+
+mechanisms:
+  - pathway: androgen_receptor
+    description: "Testosterone and DHT (5α-reduced metabolite) activate AR; AR translocates to nucleus, binds androgen response elements, drives anabolic gene transcription"
+  - pathway: mTOR_activation
+    description: "Testosterone activates PI3K/Akt/mTOR via non-genomic mechanism; mTOR drives protein synthesis and muscle hypertrophy"
+  - pathway: glucocorticoid_antagonism
+    description: "Competes with cortisol at glucocorticoid receptor; anti-catabolic effect preserving muscle in high-stress or caloric deficit states"
+  - pathway: erythropoiesis
+    description: "Stimulates EPO production in kidneys; increases red blood cell mass and oxygen carrying capacity"
+
+searchTerms:
+  pubmed:
+    - "testosterone enanthate AND muscle AND strength AND randomized"
+    - "testosterone replacement AND hypogonadism AND body composition"
+    - "testosterone AND TRT AND cardiovascular AND safety"
+  semanticScholar:
+    - "testosterone enanthate anabolic muscle strength clinical"
+    - "testosterone replacement therapy hypogonadism body composition"

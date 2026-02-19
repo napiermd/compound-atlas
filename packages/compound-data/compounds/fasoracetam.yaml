@@ -1,0 +1,73 @@
+# Fasoracetam — Novel racetam; mGluR upregulation, ADHD, cognition, anti-anxiety
+slug: fasoracetam
+name: Fasoracetam
+aliases:
+  - NS-105
+  - LAM-105
+  - NFC-1
+  - fasoracetam
+category: NOOTROPIC
+subcategory: racetam
+legalStatus: GRAY_MARKET
+description: |
+  Fasoracetam is a novel racetam that reached Phase III trials (NFC-1) for ADHD in adolescents
+  with glutamatergic gene variants — making it unique as the only racetam with substantial
+  Phase III clinical data. Its mechanism differs from older racetams: it upregulates and
+  restores mGluR (metabotropic glutamate receptor) density that has been downregulated by
+  excessive stimulant use or glutamatergic dysfunction. This makes it particularly useful
+  for preventing or reversing tolerance to ADHD medications and racetam tolerance. Also
+  acts on GABA-B receptors (anxiolytic). More potent per milligram than piracetam.
+  No approved medical use in US; available as research chemical.
+
+halfLife: "~1-2 hours"
+onset: "Acute anti-anxiety effects within 30-60 min; mGluR restoration days to weeks"
+duration: "mGluR upregulation builds with consistent use; effects present during supplementation"
+routeOfAdmin:
+  - oral
+  - sublingual
+mechanismShort: "Upregulates mGluR2/3 (Group II metabotropic glutamate receptors); GABA-B receptor agonism (anxiolytic); choline uptake facilitation; reverses mGluR downregulation from stimulant use"
+
+dosing:
+  min: 15
+  typical: 30
+  max: 100
+  unit: mg
+  frequency: "1-3x/day"
+  notes: "Highly potent — much smaller doses than other racetams. Start at 15mg. Sublingual has faster onset. Take with choline source (alpha-GPC). Useful as tolerance-reversal agent cycled with other racetams or stimulants."
+
+sideEffects:
+  - name: fatigue
+    severity: mild
+    frequency: uncommon
+    notes: "GABA-B agonism may cause sedation in some; take in morning or afternoon"
+  - name: headache
+    severity: mild
+    frequency: uncommon
+    notes: "Choline demand; always stack with alpha-GPC or CDP-choline"
+
+interactions:
+  - target: alpha-gpc
+    type: synergistic
+    severity: moderate
+    description: "All racetams increase acetylcholine demand; alpha-GPC is the essential choline source for fasoracetam — always combine"
+  - target: modafinil
+    type: synergistic
+    severity: mild
+    description: "Fasoracetam may help maintain or restore dopaminergic/glutamatergic sensitivity blunted by chronic modafinil use; useful combination for tolerance management"
+
+mechanisms:
+  - pathway: mGluR_upregulation
+    description: "Upregulates Group II (mGluR2/3) metabotropic glutamate receptor expression; restores glutamatergic sensitivity and reduces excess glutamatergic drive"
+  - pathway: GABA_B_agonism
+    description: "Acts as GABA-B receptor agonist in cortex and limbic system; produces anxiolytic effects without direct GABA-A benzodiazepine mechanism"
+  - pathway: choline_uptake
+    description: "Facilitates high-affinity choline uptake in hippocampus; increases acetylcholine synthesis rate"
+
+searchTerms:
+  pubmed:
+    - "fasoracetam AND ADHD AND mGluR AND NFC-1 AND clinical"
+    - "NS-105 AND cognitive AND randomized AND glutamate"
+    - "fasoracetam AND metabotropic glutamate receptor AND brain"
+  semanticScholar:
+    - "fasoracetam ADHD mGluR racetam clinical trial NFC-1"
+    - "fasoracetam glutamatergic GABA cognitive anxiety"

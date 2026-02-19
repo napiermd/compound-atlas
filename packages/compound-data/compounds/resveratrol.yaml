@@ -1,0 +1,80 @@
+# Resveratrol — Polyphenol; SIRT1, mitophagy, cardiovascular, glucose
+slug: resveratrol
+name: Resveratrol
+aliases:
+  - trans-resveratrol
+  - 3,5,4'-trihydroxystilbene
+  - pterostilbene precursor
+  - Longevinex
+  - Transmax
+category: SUPPLEMENT
+subcategory: polyphenol
+legalStatus: LEGAL
+description: |
+  Resveratrol is a stilbenoid polyphenol found in grape skins, Japanese knotweed (highest
+  concentration), and berries. It was catapulted to prominence by David Sinclair's work on
+  SIRT1 activation as a potential caloric restriction mimetic. Trans-resveratrol is the active
+  form. Bioavailability is notoriously poor with standard oral dosing (~1%) but is dramatically
+  improved with food (particularly fat), micronized formulations, or combination with piperine.
+  Human RCT data shows benefits for cardiovascular markers, insulin sensitivity, and cognitive
+  function in older adults. Most potent when dosed with a meal high in fat.
+
+halfLife: "~1-3 hours (trans-resveratrol); sulfate/glucuronide conjugates persist longer"
+onset: "Acute metabolic effects 1-2 hours; cardiovascular/longevity effects weeks to months"
+duration: "Short half-life requires twice-daily dosing or sustained-release form"
+routeOfAdmin:
+  - oral
+mechanismShort: "SIRT1 deacetylase activation (caloric restriction mimetic); AMPK activation; NF-kB inhibition; eNOS upregulation; autophagy induction; aromatase inhibition"
+
+dosing:
+  min: 250
+  typical: 500
+  max: 2000
+  unit: mg
+  frequency: "1-2x/day with meals"
+  notes: "Take with high-fat meal for 5-10x improved absorption. Micronized or liposomal formulations preferred. Combine with quercetin for synergistic senolytic protocol. Avoid with anticoagulants (mild anti-platelet effect)."
+
+sideEffects:
+  - name: GI_discomfort
+    severity: mild
+    frequency: uncommon
+    notes: "Nausea and loose stools at higher doses; take with food"
+  - name: estrogenic_effects
+    severity: mild
+    frequency: rare
+    notes: "Weak phytoestrogen at high doses; generally neutral in most users"
+  - name: anticoagulant_interaction
+    severity: moderate
+    frequency: rare
+    notes: "Mild platelet inhibition; caution with warfarin or other anticoagulants"
+
+interactions:
+  - target: quercetin
+    type: synergistic
+    severity: moderate
+    description: "Synergistic senolytic combination: quercetin + resveratrol removes senescent cells via complementary apoptotic pathways; extensively studied in longevity research"
+  - target: nad-precursors
+    type: synergistic
+    severity: mild
+    description: "SIRT1 (activated by resveratrol) requires NAD+ as cofactor; boosting NAD+ via NMN/NR amplifies resveratrol's SIRT1-activating effects"
+
+mechanisms:
+  - pathway: SIRT1_activation
+    description: "Direct and indirect SIRT1 deacetylase activation; deacetylates PGC-1alpha, FOXO, and p53 — mediating mitochondrial biogenesis, stress resistance, and apoptosis regulation"
+  - pathway: AMPK_activation
+    description: "Activates AMPK via LKB1/CaMKK2; drives autophagy, mitochondrial biogenesis, and glucose uptake"
+  - pathway: NF_kB_inhibition
+    description: "Suppresses NF-kB nuclear translocation and target gene expression, reducing inflammatory cytokines"
+  - pathway: eNOS_upregulation
+    description: "Increases endothelial NO synthase expression and activity; cardiovascular protective via improved vascular tone"
+  - pathway: aromatase_inhibition
+    description: "Weak aromatase (CYP19A1) inhibitor; may contribute to testosterone-to-estrogen ratio modulation"
+
+searchTerms:
+  pubmed:
+    - "resveratrol AND cardiovascular AND randomized controlled trial"
+    - "trans-resveratrol AND insulin AND glucose AND human"
+    - "resveratrol AND cognitive AND aging AND clinical"
+  semanticScholar:
+    - "resveratrol SIRT1 polyphenol clinical human randomized"
+    - "resveratrol longevity metabolic aging cardiovascular"

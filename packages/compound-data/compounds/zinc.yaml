@@ -1,0 +1,80 @@
+# Zinc — Essential mineral; testosterone, immunity, wound healing, cognition
+slug: zinc
+name: Zinc
+aliases:
+  - zinc bisglycinate
+  - zinc picolinate
+  - zinc citrate
+  - ZMA (with magnesium and B6)
+  - zinc gluconate
+category: VITAMIN_MINERAL
+subcategory: essential_mineral
+legalStatus: LEGAL
+description: |
+  Zinc is an essential trace mineral involved in over 300 enzymatic reactions and critical
+  to immune function, testosterone production, wound healing, DNA synthesis, and cognitive
+  function. It is one of the most common micronutrient deficiencies globally, particularly
+  in men with poor dietary variety, heavy athletes who lose zinc in sweat, and vegetarians.
+  Even mild zinc deficiency significantly reduces testosterone levels — supplementation
+  in deficient men can increase testosterone 40-100%. Forms vary in bioavailability:
+  bisglycinate and picolinate > citrate > gluconate > oxide.
+
+halfLife: "Plasma zinc: ~2-3 hours; tissue zinc: weeks to months"
+onset: "Immune effects days; testosterone recovery 4-12 weeks in deficient individuals"
+duration: "Ongoing with daily supplementation"
+routeOfAdmin:
+  - oral
+mechanismShort: "Cofactor for >300 enzymes; 5α-reductase and aromatase inhibition; androgen receptor signaling; thymulin production for T-cell maturation"
+
+dosing:
+  min: 15
+  typical: 30
+  max: 50
+  unit: mg
+  frequency: "daily"
+  notes: "Take on empty stomach or with small meal (not with high-phytate foods like whole grains/legumes which block absorption). Picolinate or bisglycinate preferred. Do not exceed 40mg elemental zinc long-term — competes with copper absorption."
+
+sideEffects:
+  - name: nausea
+    severity: mild
+    frequency: common
+    notes: "Most common side effect; take with small amount of food or use lower-irritation form (bisglycinate)"
+  - name: copper_depletion
+    severity: moderate
+    frequency: uncommon
+    notes: "High-dose zinc (>40mg/day) chronically depletes copper; supplement with 1-2mg copper if taking >30mg zinc daily"
+  - name: GI_irritation
+    severity: mild
+    frequency: uncommon
+    notes: "Particularly with zinc sulfate; switch to chelated form"
+
+interactions:
+  - target: magnesium-glycinate
+    type: synergistic
+    severity: mild
+    description: "ZMA (zinc + magnesium + B6) is a classic combination for testosterone support and sleep quality; take together at night"
+  - target: vitamin-d3
+    type: synergistic
+    severity: mild
+    description: "Both required for testosterone synthesis and immune function; zinc deficiency impairs vitamin D receptor signaling"
+
+mechanisms:
+  - pathway: testosterone_synthesis
+    description: "Required for LH receptor signaling and Leydig cell steroidogenesis; inhibits aromatase, reducing testosterone-to-estrogen conversion"
+  - pathway: immune_function
+    description: "Required for thymulin (thymic hormone for T-cell maturation); zinc-finger proteins regulate immune gene transcription"
+  - pathway: antioxidant
+    description: "Component of Cu/Zn-superoxide dismutase (SOD1); protects against oxidative stress"
+  - pathway: protein_synthesis
+    description: "Required for ribosomal RNA polymerase activity; essential for all protein synthesis"
+  - pathway: wound_healing
+    description: "Rate-limiting cofactor for collagen synthesis and keratinocyte proliferation during wound repair"
+
+searchTerms:
+  pubmed:
+    - "zinc supplementation AND testosterone AND deficiency AND human"
+    - "zinc AND immune function AND randomized"
+    - "zinc AND male fertility AND sperm AND clinical"
+  semanticScholar:
+    - "zinc deficiency testosterone male supplementation clinical"
+    - "zinc immunity wound healing randomized controlled trial"

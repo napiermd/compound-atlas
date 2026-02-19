@@ -1,0 +1,86 @@
+# Clenbuterol — Beta-2 agonist; fat loss, anti-catabolic, thermogenic
+slug: clenbuterol
+name: Clenbuterol
+aliases:
+  - clen
+  - Ventipulmin
+  - Spiropent
+  - clenbuterol hydrochloride
+category: FAT_LOSS
+subcategory: beta_agonist
+legalStatus: BANNED
+description: |
+  Clenbuterol is a long-acting beta-2 adrenergic agonist originally developed for asthma
+  treatment (approved in some countries for horses/livestock; not FDA-approved for human use).
+  It is widely used in bodybuilding and weight loss communities for its thermogenic and
+  anti-catabolic effects. Mechanism: beta-2 receptor activation increases cAMP, activating
+  hormone-sensitive lipase in adipocytes and increasing metabolic rate by 5-10%. Also
+  reduces skeletal muscle proteolysis. WADA prohibits it; contaminated meat has caused
+  multiple positive doping tests. Side effect profile is significant and dose-dependent.
+  Despite widespread use, no human RCTs specifically for fat loss exist.
+
+halfLife: "~35-40 hours"
+onset: "Thermogenic effect within hours; body temperature elevation measurable within 1 hour"
+duration: "Half-life ~36 hours; effects cumulative over use period"
+routeOfAdmin:
+  - oral
+mechanismShort: "Beta-2 adrenergic receptor agonist; increases cAMP via Gs → activates PKA → phosphorylates HSL (hormone-sensitive lipase) → lipolysis; thermogenic via uncoupled mitochondrial respiration"
+
+dosing:
+  min: 20
+  typical: 80
+  max: 160
+  unit: mcg
+  frequency: "daily (in cycles of 2 weeks on/2 weeks off)"
+  notes: "Start at 20mcg, increase by 20mcg/day until desired response or side effects. 2-week on/off cycles to prevent beta-2 receptor desensitization. Taper off at end of cycle. Supplement taurine (3-5g/day) to prevent muscle cramps."
+
+sideEffects:
+  - name: tachycardia
+    severity: moderate
+    frequency: common
+    notes: "Heart rate increase of 20-40 BPM common; beta-1 spillover at higher doses; contraindicated in arrhythmias"
+  - name: muscle_cramps
+    severity: moderate
+    frequency: common
+    notes: "Taurine depletion causes severe cramping; taurine 3-5g/day is mandatory supplementation"
+  - name: tremors
+    severity: moderate
+    frequency: common
+    notes: "Dose-dependent hand tremors; usually improve with continued use or dose reduction"
+  - name: hypokalemia
+    severity: moderate
+    frequency: uncommon
+    notes: "Beta-2 agonism drives K+ into cells; supplement potassium, monitor ECG in high-dose use"
+  - name: cardiac_hypertrophy
+    severity: severe
+    frequency: uncommon
+    notes: "Chronic high-dose use associated with pathological cardiac hypertrophy; cardiac monitoring recommended"
+
+interactions:
+  - target: t3-liothyronine
+    type: synergistic
+    severity: moderate
+    description: "Classic cutting stack: T3 upregulates beta-2 receptors (preventing clenbuterol desensitization) while increasing metabolic rate via thyroid axis — potently synergistic for fat loss"
+  - target: taurine
+    type: synergistic
+    severity: moderate
+    description: "Mandatory pairing: clenbuterol depletes taurine causing severe cramps; taurine supplementation is protective rather than synergistic"
+
+mechanisms:
+  - pathway: beta2_adrenergic_agonism
+    description: "Full beta-2 agonist; activates Gs-cAMP-PKA cascade in adipocytes, phosphorylating and activating hormone-sensitive lipase for triglyceride hydrolysis"
+  - pathway: thermogenesis
+    description: "Increases mitochondrial uncoupling in brown/beige adipose tissue via UCP1 and uncoupled electron transport; raises resting metabolic rate 5-10%"
+  - pathway: anti_catabolism
+    description: "Activates mTOR/PI3K/Akt in muscle via IGF-1R transactivation; reduces ubiquitin-proteasome-mediated muscle protein degradation"
+  - pathway: beta1_spillover
+    description: "At higher doses activates cardiac beta-1 receptors causing tachycardia, increased cardiac output — the primary dose-limiting side effect"
+
+searchTerms:
+  pubmed:
+    - "clenbuterol AND fat loss AND muscle AND human"
+    - "clenbuterol AND beta-2 agonist AND thermogenic"
+    - "clenbuterol AND cardiac AND side effects AND human"
+  semanticScholar:
+    - "clenbuterol beta-2 agonist fat loss thermogenic body composition"
+    - "clenbuterol cardiac effects safety clinical"

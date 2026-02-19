@@ -1,0 +1,73 @@
+# AOD-9604 — HGH fragment; fat loss without GH-axis effects
+slug: aod-9604
+name: AOD-9604
+aliases:
+  - HGH fragment 176-191
+  - Advanced Obesity Drug 9604
+  - tyr-hGH fragment
+category: PEPTIDE
+subcategory: fat_loss_peptide
+legalStatus: RESEARCH_ONLY
+description: |
+  AOD-9604 is a modified fragment of human growth hormone (amino acids 176-191 with added
+  tyrosine at N-terminus) that retains the lipolytic (fat-burning) properties of HGH while
+  lacking the metabolic and anabolic effects (no IGF-1 elevation, no insulin resistance, no
+  glucose dysregulation). Originally developed by Monash University as an anti-obesity drug;
+  Phase III clinical trials completed in 2007 showed modest fat loss benefit and exceptional
+  safety. The FDA granted it GRAS (Generally Recognized as Safe) status. Currently research
+  use only; Phase II/III trials showed ~14% fat mass reduction in obese subjects over 24 weeks
+  vs placebo. Popular in gray market as a "clean" fat loss peptide that doesn't affect the
+  GH axis.
+
+halfLife: "~30 minutes"
+onset: "Fat mobilization effects within 15-30 minutes; body composition changes weeks to months"
+duration: "Lipolytic effect lasts 1-2 hours; cumulative with consistent use"
+routeOfAdmin:
+  - subcutaneous_injection
+  - intranasal
+mechanismShort: "Beta-3 adrenergic receptor agonism increases lipolysis in adipocytes; mimics GH lipolytic domain without activating somatotropic axis; may inhibit lipogenesis"
+
+dosing:
+  min: 250
+  typical: 300
+  max: 600
+  unit: mcg
+  frequency: "1x/day (morning, fasted)"
+  notes: "Inject fasted for maximum lipolytic effect. No food 1-2h before and after injection. No carbohydrate pre-injection (insulin inhibits effect). Common protocol: 300mcg/day × 5 days/week."
+
+sideEffects:
+  - name: injection_site_reaction
+    severity: mild
+    frequency: uncommon
+    notes: "Mild and routine"
+  - name: nausea
+    severity: mild
+    frequency: rare
+    notes: "Occasional with intranasal route; rare with SC"
+
+interactions:
+  - target: cjc-1295
+    type: neutral
+    severity: mild
+    description: "Can combine; AOD-9604 targets fat loss independently of GH axis, CJC-1295 drives anabolic GH effects — distinct but compatible in body recomposition protocols"
+  - target: semaglutide
+    type: synergistic
+    severity: mild
+    description: "Complementary fat loss mechanisms: GLP-1 reduces caloric intake and glucagon, AOD-9604 increases fat mobilization — may be additive"
+
+mechanisms:
+  - pathway: beta3_adrenergic_agonism
+    description: "Activates beta-3 adrenergic receptors on adipocytes, stimulating hormone-sensitive lipase and fat mobilization (lipolysis)"
+  - pathway: lipogenesis_inhibition
+    description: "Inhibits de novo lipogenesis in adipose tissue independent of adrenergic receptor activation"
+  - pathway: non_somatotropic
+    description: "Specifically does NOT bind IGF-1 receptor or activate somatotropic axis; no glucose regulation effects — safety profile distinct from full HGH"
+
+searchTerms:
+  pubmed:
+    - "AOD-9604 AND obesity AND fat loss AND clinical"
+    - "HGH fragment 176-191 AND lipolysis AND human"
+    - "AOD 9604 AND body composition AND randomized"
+  semanticScholar:
+    - "AOD-9604 HGH fragment lipolysis obesity clinical trial"
+    - "growth hormone fragment fat loss adipose clinical"

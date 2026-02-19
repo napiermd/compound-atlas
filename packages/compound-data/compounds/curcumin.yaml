@@ -1,0 +1,81 @@
+# Curcumin — Polyphenol; anti-inflammatory, joint, cognitive, NF-kB
+slug: curcumin
+name: Curcumin
+aliases:
+  - turmeric extract
+  - diferuloylmethane
+  - BCM-95
+  - Meriva
+  - Longvida
+  - theracurmin
+  - CurcuWIN
+category: SUPPLEMENT
+subcategory: polyphenol
+legalStatus: LEGAL
+description: |
+  Curcumin is the primary bioactive polyphenol in turmeric (Curcuma longa) with extensive
+  preclinical evidence but historically disappointing clinical results due to poor bioavailability
+  (~1% of standard curcumin is absorbed). Bioavailability-enhanced forms (BCM-95, Meriva,
+  Longvida, theracurmin) overcome this and show strong clinical evidence for: osteoarthritis
+  pain reduction (comparable to ibuprofen), reduced systemic inflammation (CRP, IL-6, TNF),
+  cognitive function in mild cognitive impairment, and depression adjunct therapy. Multiple
+  mechanisms converge on NF-kB inhibition. Use standardized, enhanced-bioavailability forms
+  exclusively — plain curcumin powder is largely ineffective.
+
+halfLife: "Variable: standard <1 hour; enhanced forms 6-12 hours"
+onset: "Joint pain relief 4-8 weeks; inflammatory marker reductions 6-12 weeks"
+duration: "Ongoing with daily supplementation"
+routeOfAdmin:
+  - oral
+mechanismShort: "IKKβ inhibition → NF-kB nuclear translocation block; COX-2 and 5-LOX inhibition; Nrf2 activation; AMPK activation; reduces TNF-alpha, IL-1beta, IL-6"
+
+dosing:
+  min: 500
+  typical: 1000
+  max: 3000
+  unit: mg
+  frequency: "1-2x/day with meals"
+  notes: "Use enhanced bioavailability form (Meriva, BCM-95, Longvida, Theracurmin). Standard curcumin powder without piperine or phospholipid complex is largely useless. Take with food containing fat. Combine with black pepper/piperine (200mg quercetin, BioPerine) if using standard extract."
+
+sideEffects:
+  - name: GI_discomfort
+    severity: mild
+    frequency: uncommon
+    notes: "Nausea at high doses; take with food"
+  - name: iron_absorption
+    severity: mild
+    frequency: uncommon
+    notes: "Curcumin chelates iron; separate timing from iron supplements or iron-rich meals"
+  - name: anticoagulant_interaction
+    severity: moderate
+    frequency: rare
+    notes: "Mild anti-platelet effect; caution with anticoagulants"
+
+interactions:
+  - target: boswellia
+    type: synergistic
+    severity: moderate
+    description: "Classic joint health combination: curcumin inhibits COX-2 and NF-kB, boswellia inhibits 5-LOX — complementary anti-inflammatory pathways for osteoarthritis"
+  - target: fish-oil
+    type: synergistic
+    severity: mild
+    description: "Complementary anti-inflammatory: omega-3s reduce arachidonic acid cascade, curcumin inhibits COX/LOX enzymes — combined reduce inflammatory eicosanoids"
+
+mechanisms:
+  - pathway: NF_kB_inhibition
+    description: "Inhibits IKKβ kinase, preventing IkBα phosphorylation and degradation; blocks NF-kB nuclear translocation and inflammatory gene transcription"
+  - pathway: COX_LOX_inhibition
+    description: "Inhibits cyclooxygenase-2 (COX-2) and 5-lipoxygenase (5-LOX), reducing prostaglandin E2 and leukotriene B4 synthesis"
+  - pathway: Nrf2_activation
+    description: "Activates Nrf2-ARE pathway, inducing HO-1, NQO1, and glutathione synthesis enzymes"
+  - pathway: AMPK_activation
+    description: "Activates AMPK and its downstream effects on autophagy, mitochondrial biogenesis, and metabolic regulation"
+
+searchTerms:
+  pubmed:
+    - "curcumin AND osteoarthritis AND randomized controlled trial"
+    - "curcumin bioavailability AND inflammatory AND human"
+    - "curcumin AND cognitive AND aging AND clinical"
+  semanticScholar:
+    - "curcumin anti-inflammatory joint pain randomized clinical"
+    - "bioavailable curcumin cognitive function aging human"

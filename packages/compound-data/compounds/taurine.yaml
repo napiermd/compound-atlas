@@ -1,0 +1,68 @@
+# Taurine — Conditionally essential amino acid with broad cardio and neuro roles
+slug: taurine
+name: Taurine
+aliases:
+  - 2-aminoethanesulfonic acid
+  - tau
+category: AMINO_ACID
+subcategory: sulfur_amino_acid
+legalStatus: LEGAL
+description: |
+  Taurine is a sulfur-containing amino acid abundant in heart, skeletal muscle, retina, and brain.
+  It is conditionally essential — synthesized endogenously but dietary intake meaningfully
+  raises tissue levels. Evidence supports cardiovascular protection (reduces blood pressure,
+  oxidative stress), endurance performance, electrolyte balance, and mitochondrial function.
+  A 2023 Cell paper identified taurine decline as a hallmark of aging and showed
+  supplementation extended lifespan in mice and improved health markers in primates.
+
+halfLife: "~1.5 hours (plasma); tissue half-life days to weeks"
+onset: "Acute hemodynamic effects within 1-2 hours; performance effects 1-2 weeks"
+duration: "Tissue stores maintained with daily dosing"
+routeOfAdmin:
+  - oral
+mechanismShort: "Osmoregulation, membrane stabilization, mitochondrial quality control, GABA-A modulation, antioxidant via bile salt conjugation"
+
+dosing:
+  min: 500
+  typical: 2000
+  max: 6000
+  unit: mg
+  frequency: "1-3x/day"
+  notes: "Broadly safe. Pre-workout timing for performance. Evening for sleep/anxiety benefits. Up to 10g/day used in heart failure trials."
+
+sideEffects:
+  - name: GI_discomfort
+    severity: mild
+    frequency: rare
+    notes: "Only at very high doses (>10g); generally extremely well tolerated"
+
+interactions:
+  - target: magnesium-glycinate
+    type: synergistic
+    severity: mild
+    description: "Additive GABAergic and membrane-stabilizing effects; both reduce CNS excitability"
+  - target: creatine-monohydrate
+    type: synergistic
+    severity: mild
+    description: "Complementary endurance and strength effects; taurine reduces oxidative stress from training"
+
+mechanisms:
+  - pathway: osmoregulation
+    description: "Acts as organic osmolyte, regulating cell volume and protecting against osmotic stress"
+  - pathway: mitochondrial_quality
+    description: "Required for mitochondrial tRNA modification (taurine-modified uridine); deficiency impairs oxidative phosphorylation"
+  - pathway: GABA_modulation
+    description: "Acts as GABA-A and glycine receptor agonist, producing mild anxiolytic and neuroprotective effects"
+  - pathway: antioxidant
+    description: "Conjugates with hypochlorous acid (HOCl) to form taurine chloramine, limiting oxidative damage"
+  - pathway: calcium_handling
+    description: "Modulates intracellular calcium; cardioprotective via reduced Ca2+ overload"
+
+searchTerms:
+  pubmed:
+    - "taurine AND cardiovascular AND randomized controlled trial"
+    - "taurine AND exercise performance AND human"
+    - "taurine AND aging AND longevity"
+  semanticScholar:
+    - "taurine supplementation cardiovascular oxidative stress"
+    - "taurine mitochondria aging longevity"

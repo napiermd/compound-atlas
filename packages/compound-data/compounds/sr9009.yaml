@@ -1,0 +1,74 @@
+# SR9009 — Rev-Erb agonist; circadian, fat loss, endurance, metabolic
+slug: sr9009
+name: SR9009
+aliases:
+  - stenabolic
+  - SR 9009
+  - Rev-Erbα agonist
+category: SARM
+subcategory: rev_erb_agonist
+legalStatus: RESEARCH_ONLY
+description: |
+  SR9009 (Stenabolic) is a synthetic Rev-Erbα/β agonist developed by the Scripps Research
+  Institute. Despite being commonly grouped with SARMs, it has no androgenic mechanism —
+  Rev-Erb is a circadian clock nuclear receptor that regulates metabolic gene expression.
+  Animal data shows dramatic improvements in endurance (50% increase in running capacity),
+  fat mass reduction (60% reduction in diet-induced obesity), and glucose metabolism. The
+  primary clinical limitation is bioavailability — oral bioavailability is extremely poor
+  (~2%), and injectable forms are used in research contexts. SR9011 has better bioavailability.
+  No human RCTs exist. The circadian and metabolic effects are genuinely interesting.
+
+halfLife: "~4-5 hours"
+onset: "Circadian effects within days; metabolic effects 1-2 weeks"
+duration: "Short acting; multiple daily doses needed for sustained Rev-Erb agonism"
+routeOfAdmin:
+  - oral
+  - subcutaneous_injection
+mechanismShort: "Rev-Erbα/β nuclear receptor agonist; represses BMAL1/CLOCK circadian transcription; upregulates mitochondrial biogenesis and fatty acid oxidation genes; suppresses gluconeogenesis"
+
+dosing:
+  min: 10
+  typical: 20
+  max: 40
+  unit: mg
+  frequency: "3-4x/day (short half-life; pre-workout timing popular)"
+  notes: "Oral bioavailability very poor (~2-5%). Injectable SR9009 has much better bioavailability but gray market. Split into 3-4 doses throughout day to maintain Rev-Erb agonism. Take 1-2h before training for performance effect."
+
+sideEffects:
+  - name: insomnia
+    severity: mild
+    frequency: uncommon
+    notes: "Rev-Erb modulation may affect sleep architecture; avoid late evening dosing"
+  - name: unknown_safety
+    severity: moderate
+    frequency: unknown
+    notes: "No human clinical data; all safety assumptions derived from animal models"
+
+interactions:
+  - target: cardarine
+    type: synergistic
+    severity: moderate
+    description: "Both enhance fat oxidation and endurance through complementary mechanisms: GW501516 activates PPARδ (downstream metabolic gene activation), SR9009 activates Rev-Erb (circadian metabolic regulation)"
+  - target: creatine-monohydrate
+    type: synergistic
+    severity: mild
+    description: "Creatine supports high-intensity ATP demand, SR9009 enhances mitochondrial capacity and endurance — complementary performance support"
+
+mechanisms:
+  - pathway: Rev_Erb_agonism
+    description: "Activates Rev-Erbα and Rev-Erbβ nuclear receptors, which are core circadian clock components and metabolic regulators"
+  - pathway: mitochondrial_biogenesis
+    description: "Rev-Erb activation drives PGC-1alpha and downstream mitochondrial biogenesis; increases mitochondrial number and oxidative capacity"
+  - pathway: fatty_acid_oxidation
+    description: "Upregulates genes for beta-oxidation (CPT1, ACOX); increases fat utilization as fuel during exercise and rest"
+  - pathway: circadian_regulation
+    description: "Represses BMAL1/CLOCK activity in circadian oscillator; may shift metabolic rhythms toward a more active/catabolic state"
+
+searchTerms:
+  pubmed:
+    - "SR9009 AND Rev-Erb AND metabolism AND exercise"
+    - "stenabolic AND endurance AND fat loss AND Rev-Erb"
+    - "Rev-Erbalpha agonist AND circadian AND metabolic"
+  semanticScholar:
+    - "SR9009 stenabolic Rev-Erb agonist circadian metabolic"
+    - "Rev-Erb nuclear receptor agonist endurance fat oxidation"

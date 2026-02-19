@@ -1,0 +1,75 @@
+# Polygala Tenuifolia — Chinese herb; neurogenesis, BDNF, cognitive, anti-anxiety
+slug: polygala-tenuifolia
+name: Polygala Tenuifolia
+aliases:
+  - yuan zhi
+  - thin-leaf milkwort
+  - polygala root
+  - onjisaponin
+  - BT-11
+category: NOOTROPIC
+subcategory: herbal_nootropic
+legalStatus: LEGAL
+description: |
+  Polygala tenuifolia (yuan zhi) is a traditional Chinese medicine herb increasingly studied
+  for its potent neurological effects. It is one of the few herbal compounds with direct
+  evidence for promoting neurogenesis — generating new neurons — specifically in the hippocampus.
+  Active compounds include onjisaponins, tenuifolin, and senegenin. Human studies and
+  multiple animal studies show enhanced memory consolidation, reduced anxiety, and strong
+  BDNF upregulation. BT-11 (a standardized fraction) significantly improved memory and
+  overall cognitive function in a 12-week human RCT. It also potentiates the cognitive
+  effects of other nootropics, particularly when stacked with lion's mane.
+
+halfLife: "~4-6 hours"
+onset: "Acute anxiolytic effects within hours; cognitive improvements 4-12 weeks"
+duration: "Neurogenic effects accumulate with daily use; benefits persist during supplementation"
+routeOfAdmin:
+  - oral
+mechanismShort: "BDNF induction via TrkB receptor; hippocampal neurogenesis promotion; AChE inhibition; sigma-1 receptor modulation; cAMP/CREB pathway activation"
+
+dosing:
+  min: 100
+  typical: 300
+  max: 600
+  unit: mg
+  frequency: "1-2x/day"
+  notes: "Standardized extract preferred (30-50% senegenin or onjisaponins). Take with food — saponins may cause GI discomfort on empty stomach. Stack with lion's mane for synergistic neurogenic effect."
+
+sideEffects:
+  - name: GI_upset
+    severity: mild
+    frequency: common
+    notes: "Saponins are gastric irritants; always take with food to minimize nausea"
+  - name: headache
+    severity: mild
+    frequency: rare
+    notes: "At higher doses; reduce dose"
+
+interactions:
+  - target: lions-mane
+    type: synergistic
+    severity: moderate
+    description: "Potent neurogenic combination: lion's mane drives NGF synthesis, polygala drives BDNF and hippocampal neurogenesis — complementary neurotrophin support"
+  - target: bacopa-monnieri
+    type: synergistic
+    severity: mild
+    description: "Both enhance memory via cholinergic mechanisms; bacopa via AChE inhibition, polygala via cholinergic sensitization — additive memory consolidation support"
+
+mechanisms:
+  - pathway: BDNF_upregulation
+    description: "Tenuifolin and onjisaponins increase BDNF expression in hippocampus and prefrontal cortex via CREB activation; drives neuroplasticity and memory formation"
+  - pathway: neurogenesis
+    description: "Promotes adult neurogenesis in dentate gyrus of hippocampus; increases neural progenitor cell proliferation and differentiation"
+  - pathway: AChE_inhibition
+    description: "Onjisaponins inhibit acetylcholinesterase, increasing synaptic acetylcholine — cholinergic basis for memory enhancement"
+  - pathway: sigma1_receptor
+    description: "Senegenin acts at sigma-1 receptors; modulates ER stress response and neuronal calcium signaling"
+
+searchTerms:
+  pubmed:
+    - "Polygala tenuifolia AND cognitive AND human AND randomized"
+    - "yuan zhi AND BDNF AND neurogenesis AND brain"
+    - "BT-11 AND memory AND clinical trial AND human"
+  semanticScholar:
+    - "Polygala tenuifolia cognitive memory BDNF neurogenesis"
+    - "yuan zhi nootropic clinical human evidence brain"

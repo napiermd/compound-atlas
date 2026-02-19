@@ -1,0 +1,80 @@
+# Ephedrine — Sympathomimetic; fat loss, bronchodilation, energy
+slug: ephedrine
+name: Ephedrine
+aliases:
+  - ephedrine HCl
+  - ephedra alkaloid
+  - Ma Huang (plant source)
+  - ECA stack (with caffeine and aspirin)
+category: FAT_LOSS
+subcategory: sympathomimetic
+legalStatus: PRESCRIPTION
+description: |
+  Ephedrine is a sympathomimetic alkaloid originally from the Chinese herb Ma Huang
+  (Ephedra sinica), FDA-approved for nasal congestion and bronchospasm. It was widely
+  used in weight loss supplements until the FDA banned ephedra dietary supplements in 2004
+  following cardiovascular adverse events. Pharmaceutical-grade ephedrine HCl remains
+  prescription-available. The ECA stack (ephedrine + caffeine + aspirin) was one of the
+  most studied fat loss combinations, with multiple RCTs showing 2-3x greater weight loss
+  than placebo. Mechanism: releases norepinephrine/epinephrine and acts as alpha/beta
+  adrenergic agonist and mild MAOI. Significant side effect and cardiovascular risk profile.
+
+halfLife: "~3-6 hours"
+onset: "Thermogenic effects within 30-60 minutes"
+duration: "Active effects 4-6 hours; tolerance develops within 1-2 weeks without cycling"
+routeOfAdmin:
+  - oral
+mechanismShort: "Indirect sympathomimetic (releases NE/E from presynaptic terminals); direct alpha and beta adrenergic agonism; mild MAO inhibition; increases thermogenesis, lipolysis, bronchodilation"
+
+dosing:
+  min: 20
+  typical: 25
+  max: 75
+  unit: mg
+  frequency: "3x/day (standard ECA cycle)"
+  notes: "ECA protocol: 25mg ephedrine + 200mg caffeine + 81mg aspirin, 3x/day. Cycle 2-3 weeks on/1 week off. NEVER exceed 75mg/day total. Avoid if any cardiac history, hypertension, anxiety disorders, or thyroid disease."
+
+sideEffects:
+  - name: cardiovascular
+    severity: severe
+    frequency: common
+    notes: "Tachycardia, hypertension, palpitations — most significant risk; contraindicated in any cardiovascular disease"
+  - name: insomnia
+    severity: moderate
+    frequency: common
+    notes: "Strong CNS stimulant; strict morning/early afternoon dosing"
+  - name: anxiety
+    severity: moderate
+    frequency: common
+    notes: "Sympathomimetic anxiety and jitteriness common; dose-reduce or avoid if anxiety-prone"
+  - name: tolerance
+    severity: moderate
+    frequency: common
+    notes: "Rapid receptor desensitization; cycle 2 weeks on/1 week off"
+
+interactions:
+  - target: clenbuterol
+    type: caution
+    severity: severe
+    description: "Both are sympathomimetics with cardiovascular risk — combining significantly amplifies cardiac risk (tachycardia, arrhythmia, hypertension); do not combine"
+  - target: t3-liothyronine
+    type: synergistic
+    severity: moderate
+    description: "T3 upregulates beta-adrenergic receptors, preventing ephedrine desensitization; classic synergistic thermogenic combination with significant risk profile"
+
+mechanisms:
+  - pathway: catecholamine_release
+    description: "Enters presynaptic terminals via monoamine transporters; displaces NE from vesicles into synapse; increases norepinephrine and dopamine availability"
+  - pathway: adrenergic_agonism
+    description: "Direct alpha-1, alpha-2, beta-1, and beta-2 adrenergic receptor agonism; vasopressor + bronchodilator + thermogenic effects"
+  - pathway: thermogenesis
+    description: "Beta-3 and beta-2 adrenergic activation in brown/beige adipose tissue drives UCP1 expression and uncoupled thermogenesis"
+
+searchTerms:
+  pubmed:
+    - "ephedrine AND weight loss AND ECA AND randomized"
+    - "ephedrine AND fat loss AND caffeine AND clinical trial"
+    - "ephedrine AND thermogenesis AND sympathomimetic AND human"
+  semanticScholar:
+    - "ephedrine ECA stack fat loss thermogenesis clinical"
+    - "ephedrine caffeine aspirin weight loss randomized"
