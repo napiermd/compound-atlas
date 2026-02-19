@@ -153,7 +153,12 @@ export default async function StackDetailPage({ params }: Props) {
             <h1 className="text-3xl font-bold tracking-tight leading-tight">
               {stack.name}
             </h1>
-            <EvidenceScoreBadge score={stack.evidenceScore} size="lg" />
+            <div className="flex flex-col items-start gap-0.5">
+              <EvidenceScoreBadge score={stack.evidenceScore} size="lg" />
+              <span className="text-[10px] text-muted-foreground leading-tight">
+                mean of {stack.compounds.length} compound score{stack.compounds.length !== 1 ? "s" : ""}
+              </span>
+            </div>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
             <GoalBadge goal={stack.goal} size="md" />

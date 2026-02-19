@@ -252,12 +252,15 @@ def update_compound_scores(
 
     cur = conn.cursor()
     try:
+        import json as _json
+        score_breakdown_json = _json.dumps(score_result.get("factors", {}))
         cur.execute(
             """
             UPDATE "Compound"
             SET "evidenceScore"     = %s,
                 "studyCount"        = %s,
                 "metaAnalysisCount" = %s,
+                "scoreBreakdown"    = %s::jsonb,
                 "lastResearchSync"  = %s,
                 "updatedAt"         = %s
             WHERE id = %s
@@ -266,6 +269,7 @@ def update_compound_scores(
                 evidence_score,
                 study_count,
                 meta_count,
+                score_breakdown_json,
                 datetime.utcnow(),
                 datetime.utcnow(),
                 compound_id,

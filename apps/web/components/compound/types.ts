@@ -64,6 +64,7 @@ export interface CompoundDetail extends CompoundSummary {
   routeOfAdmin: string[];
   doseMin: number | null;
   doseMax: number | null;
+  scoreBreakdown: Record<string, number> | null;
   sideEffects: SideEffectData[];
   interactions: InteractionData[];
   mechanisms: MechanismData[];

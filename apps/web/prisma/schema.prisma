@@ -119,10 +119,11 @@ model Compound {
   clinicalPhase   String?          // "Phase I", "Phase II", "Phase III", "Approved", "Preclinical", "No formal trials"
 
   // Scores (computed by pipeline)
-  evidenceScore   Float?           // 0-100
+  evidenceScore   Float?           // 0-100 composite
   safetyScore     Float?           // 0-100
   studyCount      Int              @default(0)
   metaAnalysisCount Int            @default(0)
+  scoreBreakdown  Json?            // {study_count, study_quality, sample_size, consistency, replication, recency} each 0-100
   lastResearchSync DateTime?
 
   // Relations

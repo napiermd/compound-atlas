@@ -13,6 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { DosingCard } from "./DosingCard";
+import { EvidenceScoreCard } from "./EvidenceScoreCard";
 import { MechanismsList } from "./MechanismsList";
 import { SideEffectsTable } from "./SideEffectsTable";
 import { InteractionsTable } from "./InteractionsTable";
@@ -183,6 +184,14 @@ export function CompoundDetailTabs({ compound: c }: Props) {
             </CardContent>
           </Card>
         </div>
+
+        {/* Evidence score breakdown */}
+        <EvidenceScoreCard
+          evidenceScore={c.evidenceScore}
+          studyCount={c.studyCount}
+          metaAnalysisCount={c.metaAnalysisCount}
+          scoreBreakdown={c.scoreBreakdown}
+        />
 
         {/* Radar chart */}
         <Card>
