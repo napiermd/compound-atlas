@@ -100,13 +100,7 @@ interface Props {
   scoreBreakdown: Record<string, number> | null;
 }
 
-function FactorBar({
-  value,
-  weight,
-}: {
-  value: number | null;
-  weight: number;
-}) {
+function FactorBar({ value }: { value: number | null }) {
   if (value === null) {
     return (
       <div className="h-2 rounded-full bg-muted w-full overflow-hidden">
@@ -221,7 +215,7 @@ export function EvidenceScoreCard({
                           {val !== null ? `${Math.round(val)}/100` : "—"}
                         </span>
                       </div>
-                      <FactorBar value={val} weight={f.weight} />
+                      <FactorBar value={val} />
                     </div>
                   </TooltipTrigger>
                   <TooltipContent className="max-w-xs text-xs">
