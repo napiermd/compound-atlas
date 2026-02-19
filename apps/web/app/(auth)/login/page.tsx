@@ -1,5 +1,6 @@
 import { signIn } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Card,
   CardContent,
@@ -7,11 +8,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { FlaskConical, Github } from "lucide-react";
+import { FlaskConical, Github, Mail } from "lucide-react";
 import Link from "next/link";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "Sign in" };
+export const metadata: Metadata = { title: "Sign in — CompoundAtlas" };
 
 export default function LoginPage() {
   return (
@@ -26,7 +27,40 @@ export default function LoginPage() {
             Track cycles and build stacks with your account
           </CardDescription>
         </CardHeader>
-        <CardContent className="flex flex-col gap-3">
+        <CardContent className="flex flex-col gap-4">
+          {/* Email magic link */}
+          <form
+            action={async (formData: FormData) => {
+              "use server";
+              await signIn("resend", formData);
+            }}
+            className="flex flex-col gap-2"
+          >
+            <input type="hidden" name="redirectTo" value="/compounds" />
+            <Input
+              name="email"
+              type="email"
+              placeholder="you@example.com"
+              required
+              autoComplete="email"
+              className="w-full"
+            />
+            <Button type="submit" className="w-full gap-2">
+              <Mail className="h-4 w-4" />
+              Continue with Email
+            </Button>
+          </form>
+
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">or</span>
+            </div>
+          </div>
+
+          {/* GitHub OAuth */}
           <form
             action={async () => {
               "use server";
@@ -38,7 +72,8 @@ export default function LoginPage() {
               Continue with GitHub
             </Button>
           </form>
-          <p className="text-xs text-center text-muted-foreground mt-2">
+
+          <p className="text-xs text-center text-muted-foreground">
             Compounds and stacks are public.{" "}
             <Link href="/compounds" className="underline">
               Browse without signing in.
