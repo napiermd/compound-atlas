@@ -15,7 +15,7 @@ export function Footer() {
           </Link>
 
           <nav className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground">
-            <Link href="#" className="hover:text-foreground transition-colors">
+            <Link href="https://github.com/napiermd/compound-atlas" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
               GitHub
             </Link>
             <Link href="#" className="hover:text-foreground transition-colors">

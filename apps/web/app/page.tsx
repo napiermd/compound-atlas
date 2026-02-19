@@ -141,7 +141,7 @@ export default async function HomePage() {
               </Link>
             </Button>
             <Button variant="outline" size="lg" className="gap-2" asChild>
-              <Link href="#">
+              <Link href="https://github.com/napiermd/compound-atlas" target="_blank" rel="noopener noreferrer">
                 <Github className="h-4 w-4" />
                 View on GitHub
               </Link>
@@ -269,7 +269,7 @@ export default async function HomePage() {
               variant="outline"
               className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10"
             >
-              <Link href="#">Contribute on GitHub</Link>
+              <Link href="https://github.com/napiermd/compound-atlas" target="_blank" rel="noopener noreferrer">Contribute on GitHub</Link>
             </Button>
           </div>
         </div>
