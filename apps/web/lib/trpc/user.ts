@@ -13,6 +13,10 @@ export const userRouter = router({
         image: true,
         weightUnit: true,
         tempUnit: true,
+        sex: true,
+        weightLbs: true,
+        heightFt: true,
+        heightIn: true,
         createdAt: true,
         _count: { select: { stacks: true, cycles: true } },
       },
@@ -24,13 +28,25 @@ export const userRouter = router({
       z.object({
         weightUnit: z.enum(["lbs", "kg"]).optional(),
         tempUnit: z.enum(["F", "C"]).optional(),
+        sex: z.enum(["MALE", "FEMALE"]).nullish(),
+        weightLbs: z.number().positive().max(700).nullish(),
+        heightFt: z.number().int().min(3).max(8).nullish(),
+        heightIn: z.number().int().min(0).max(11).nullish(),
       })
     )
     .mutation(async ({ ctx, input }) => {
       return db.user.update({
         where: { id: ctx.session.user.id },
         data: input,
-        select: { id: true, weightUnit: true, tempUnit: true },
+        select: {
+          id: true,
+          weightUnit: true,
+          tempUnit: true,
+          sex: true,
+          weightLbs: true,
+          heightFt: true,
+          heightIn: true,
+        },
       });
     }),
 

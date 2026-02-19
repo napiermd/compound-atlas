@@ -12,10 +12,15 @@ datasource db {
 
 // ─── AUTH ───────────────────────────────────────────
 
+enum BiologicalSex {
+  MALE
+  FEMALE
+}
+
 model User {
-  id            String        @id @default(cuid())
+  id            String         @id @default(cuid())
   name          String?
-  email         String?       @unique
+  email         String?        @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
@@ -23,11 +28,15 @@ model User {
   stacks        Stack[]
   cycles        Cycle[]
   stackUpvotes  StackUpvote[]
-  weightUnit    String?       @default("lbs")
-  tempUnit      String?       @default("F")
+  weightUnit    String?        @default("lbs")
+  tempUnit      String?        @default("F")
+  sex           BiologicalSex?
+  weightLbs     Float?
+  heightFt      Int?
+  heightIn      Int?
   deletedAt     DateTime?
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
 }
 
 model Account {

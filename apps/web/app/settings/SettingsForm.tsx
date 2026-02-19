@@ -7,8 +7,10 @@ import { signOut } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { trpc } from "@/lib/trpc/client";
+import { calcLBM, type Sex } from "@/lib/dose-utils";
 
 interface UserData {
   id: string;
@@ -17,6 +19,10 @@ interface UserData {
   image: string | null;
   weightUnit: string | null;
   tempUnit: string | null;
+  sex: "MALE" | "FEMALE" | null;
+  weightLbs: number | null;
+  heightFt: number | null;
+  heightIn: number | null;
   createdAt: string;
   _count: { stacks: number; cycles: number };
 }
@@ -25,6 +31,17 @@ export function SettingsForm({ user }: { user: UserData }) {
   const router = useRouter();
   const [weightUnit, setWeightUnit] = useState(user.weightUnit ?? "lbs");
   const [tempUnit, setTempUnit] = useState(user.tempUnit ?? "F");
+  const [sex, setSex] = useState<"MALE" | "FEMALE" | null>(user.sex ?? null);
+  const [weightLbs, setWeightLbs] = useState(
+    user.weightLbs != null ? String(user.weightLbs) : "",
+  );
+  const [heightFt, setHeightFt] = useState(
+    user.heightFt != null ? String(user.heightFt) : "",
+  );
+  const [heightIn, setHeightIn] = useState(
+    user.heightIn != null ? String(user.heightIn) : "",
+  );
+  const [bioSaved, setBioSaved] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState(false);
 
   const updatePrefs = trpc.user.updatePreferences.useMutation({
@@ -48,6 +65,41 @@ export function SettingsForm({ user }: { user: UserData }) {
     setTempUnit(next);
     updatePrefs.mutate({ tempUnit: next as "F" | "C" });
   }
+
+  function handleBioSave() {
+    const ft = parseInt(heightFt, 10);
+    const inches = parseInt(heightIn, 10);
+    const lbs = parseFloat(weightLbs);
+    updatePrefs.mutate(
+      {
+        sex: sex ?? undefined,
+        weightLbs: isNaN(lbs) ? undefined : lbs,
+        heightFt: isNaN(ft) ? undefined : ft,
+        heightIn: isNaN(inches) ? undefined : inches,
+      },
+      { onSuccess: () => { setBioSaved(true); setTimeout(() => setBioSaved(false), 3000); router.refresh(); } },
+    );
+  }
+
+  const bioComplete =
+    sex != null &&
+    weightLbs !== "" &&
+    heightFt !== "" &&
+    heightIn !== "" &&
+    !isNaN(parseFloat(weightLbs)) &&
+    !isNaN(parseInt(heightFt, 10)) &&
+    !isNaN(parseInt(heightIn, 10));
+
+  const lbmDisplay = bioComplete
+    ? Math.round(
+        calcLBM(
+          sex as Sex,
+          parseFloat(weightLbs),
+          parseInt(heightFt, 10),
+          parseInt(heightIn, 10),
+        ),
+      )
+    : null;
 
   return (
     <div className="space-y-6">
@@ -128,6 +180,103 @@ export function SettingsForm({ user }: { user: UserData }) {
               °{tempUnit}
             </Button>
           </div>
+        </CardContent>
+      </Card>
+
+      {/* Body Composition */}
+      <Card>
+        <CardHeader className="pb-3">
+          <CardTitle className="text-base">Body Composition</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <p className="text-xs text-muted-foreground">
+            Used to personalize dosing estimates. Never shared.
+          </p>
+
+          {/* Sex */}
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium">Biological Sex</p>
+            </div>
+            <div className="flex gap-2">
+              <Button
+                variant={sex === "MALE" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setSex("MALE")}
+                className="w-20"
+              >
+                Male
+              </Button>
+              <Button
+                variant={sex === "FEMALE" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setSex("FEMALE")}
+                className="w-20"
+              >
+                Female
+              </Button>
+            </div>
+          </div>
+
+          {/* Weight */}
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <p className="text-sm font-medium">Weight</p>
+              <p className="text-xs text-muted-foreground">pounds</p>
+            </div>
+            <Input
+              type="number"
+              placeholder="e.g. 175"
+              value={weightLbs}
+              onChange={(e) => setWeightLbs(e.target.value)}
+              className="w-28 text-right"
+              min={50}
+              max={700}
+            />
+          </div>
+
+          {/* Height */}
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <p className="text-sm font-medium">Height</p>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Input
+                type="number"
+                placeholder="5"
+                value={heightFt}
+                onChange={(e) => setHeightFt(e.target.value)}
+                className="w-16 text-right"
+                min={3}
+                max={8}
+              />
+              <span className="text-sm text-muted-foreground">ft</span>
+              <Input
+                type="number"
+                placeholder="10"
+                value={heightIn}
+                onChange={(e) => setHeightIn(e.target.value)}
+                className="w-16 text-right"
+                min={0}
+                max={11}
+              />
+              <span className="text-sm text-muted-foreground">in</span>
+            </div>
+          </div>
+
+          {lbmDisplay != null && (
+            <p className="text-xs text-muted-foreground">
+              Estimated LBM: <span className="font-semibold text-foreground">{lbmDisplay} kg</span>
+            </p>
+          )}
+
+          <Button
+            size="sm"
+            onClick={handleBioSave}
+            disabled={updatePrefs.isPending}
+          >
+            {bioSaved ? "Saved" : updatePrefs.isPending ? "Saving..." : "Save"}
+          </Button>
         </CardContent>
       </Card>
 
