@@ -38,16 +38,6 @@ export default function LoginPage() {
               Continue with GitHub
             </Button>
           </form>
-          <form
-            action={async () => {
-              "use server";
-              await signIn("google", { redirectTo: "/compounds" });
-            }}
-          >
-            <Button type="submit" variant="outline" className="w-full">
-              Continue with Google
-            </Button>
-          </form>
           <p className="text-xs text-center text-muted-foreground mt-2">
             Compounds and stacks are public.{" "}
             <Link href="/compounds" className="underline">
