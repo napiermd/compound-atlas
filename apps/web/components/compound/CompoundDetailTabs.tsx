@@ -18,9 +18,11 @@ import { MechanismsList } from "./MechanismsList";
 import { SideEffectsTable } from "./SideEffectsTable";
 import { InteractionsTable } from "./InteractionsTable";
 import type { CompoundDetail } from "./types";
+import type { UserBiometrics } from "@/lib/dose-utils";
 
 interface Props {
   compound: CompoundDetail;
+  biometrics?: UserBiometrics | null;
 }
 
 function StudyBadge({ level }: { level: string }) {
@@ -39,7 +41,7 @@ function StudyBadge({ level }: { level: string }) {
   );
 }
 
-export function CompoundDetailTabs({ compound: c }: Props) {
+export function CompoundDetailTabs({ compound: c, biometrics }: Props) {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
@@ -112,7 +114,7 @@ export function CompoundDetailTabs({ compound: c }: Props) {
       {/* ── Overview ── */}
       <TabsContent value="overview" className="mt-4 space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <DosingCard compound={c} />
+          <DosingCard compound={c} biometrics={biometrics} />
 
           {/* Pharmacology card */}
           <Card>

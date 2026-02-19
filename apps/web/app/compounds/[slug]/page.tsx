@@ -3,6 +3,8 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { ChevronRight } from "lucide-react";
 import { db } from "@/lib/db";
+import { auth } from "@/lib/auth";
+import { buildBiometrics } from "@/lib/dose-utils";
 import { CategoryBadge } from "@/components/compound/CategoryBadge";
 import { EvidenceScoreBadge } from "@/components/compound/EvidenceScoreBadge";
 import { CompoundDetailTabs } from "@/components/compound/CompoundDetailTabs";
@@ -27,6 +29,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function CompoundDetailPage({ params }: Props) {
+  // Optional biometric fetch — won't throw if unauthenticated
+  const session = await auth().catch(() => null);
+  let biometrics = null;
+  if (session?.user?.id) {
+    const u = await db.user.findUnique({
+      where: { id: session.user.id },
+      select: { sex: true, weightLbs: true, heightFt: true, heightIn: true },
+    });
+    if (u?.sex && u.weightLbs && u.heightFt != null && u.heightIn != null) {
+      biometrics = buildBiometrics(u.sex, u.weightLbs, u.heightFt, u.heightIn);
+    }
+  }
+
   const raw = await db.compound.findUnique({
     where: { slug: params.slug },
     include: {
@@ -142,7 +157,7 @@ export default async function CompoundDetailPage({ params }: Props) {
       )}
 
       {/* Tabbed detail */}
-      <CompoundDetailTabs compound={compound} />
+      <CompoundDetailTabs compound={compound} biometrics={biometrics} />
     </div>
   );
 }

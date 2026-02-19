@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
+import { buildBiometrics, scaleDose } from "@/lib/dose-utils";
 import { Separator } from "@/components/ui/separator";
 import {
   Table,
@@ -95,6 +96,18 @@ export default async function StackDetailPage({ params }: Props) {
   if (!stack) notFound();
 
   const userId = session?.user?.id;
+
+  // Optional biometrics for personalized doses
+  let biometrics = null;
+  if (userId) {
+    const u = await db.user.findUnique({
+      where: { id: userId },
+      select: { sex: true, weightLbs: true, heightFt: true, heightIn: true },
+    });
+    if (u?.sex && u.weightLbs && u.heightFt != null && u.heightIn != null) {
+      biometrics = buildBiometrics(u.sex, u.weightLbs, u.heightFt, u.heightIn);
+    }
+  }
 
   // Check if user has upvoted
   const userHasUpvoted = userId
@@ -260,9 +273,20 @@ export default async function StackDetailPage({ params }: Props) {
                   </TableCell>
                   <TableCell className="text-sm tabular-nums">
                     {sc.dose != null && sc.unit ? (
-                      <>
-                        {sc.dose} {sc.unit}
-                      </>
+                      biometrics ? (
+                        <div>
+                          <span className="font-medium">
+                            {scaleDose(sc.dose, null, null, biometrics.lbm, biometrics.sex)} {sc.unit}
+                          </span>
+                          <div className="text-xs text-muted-foreground">
+                            Stack: {sc.dose} {sc.unit}
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          {sc.dose} {sc.unit}
+                        </>
+                      )
                     ) : (
                       <span className="text-muted-foreground">—</span>
                     )}
