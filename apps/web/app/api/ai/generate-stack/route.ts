@@ -13,12 +13,17 @@ const CONSTRAINT_LABELS: Record<string, string> = {
   "no-prescription": "No prescription compounds",
   "no-gray-market": "No gray market compounds",
   "no-sarms": "No SARMs",
+  "otc-only": "OTC compounds only",
   "budget-friendly": "Budget-friendly preference",
   "minimal-sides": "Minimal side effects",
 };
 
 function normalizeConstraint(raw: string): string {
   return raw.trim().toLowerCase().replace(/_/g, "-");
+}
+
+function hasConstraint(constraints: Set<string>, name: string): boolean {
+  return constraints.has(name) || constraints.has(name.replace(/-/g, "_"));
 }
 
 async function callOpenRouter({
@@ -123,6 +128,7 @@ export async function POST(req: Request) {
     const normalizedConstraints = Array.from(
       new Set(input.constraints.map(normalizeConstraint))
     );
+    const constraintSet = new Set(normalizedConstraints);
     const minEvidence = input.experience === "beginner" ? 45 : input.experience === "intermediate" ? 35 : 25;
     const minSafety = input.experience === "beginner" ? 65 : input.experience === "intermediate" ? 55 : 45;
 
@@ -158,44 +164,68 @@ export async function POST(req: Request) {
       orderBy: { evidenceScore: "desc" },
     });
 
-    let promptCompounds = compounds.filter(
-      (c) =>
-        (c.evidenceScore ?? 0) >= minEvidence &&
-        (c.safetyScore ?? 0) >= minSafety
-    );
+    const applyPromptFilters = (
+      source: typeof compounds,
+      options: { minEvidence?: number; minSafety?: number }
+    ) => {
+      let next = source;
 
-    if (normalizedConstraints.includes("no-prescription")) {
-      promptCompounds = promptCompounds.filter((c) =>
-        c.legalStatus !== "PRESCRIPTION" && c.legalStatus !== "SCHEDULED"
-      );
-    }
-    if (normalizedConstraints.includes("no-gray-market")) {
-      promptCompounds = promptCompounds.filter((c) => c.legalStatus !== "GRAY_MARKET");
-    }
-    if (normalizedConstraints.includes("no-sarms")) {
-      promptCompounds = promptCompounds.filter((c) => c.category !== "SARM");
-    }
-    if (normalizedConstraints.includes("minimal-sides")) {
-      promptCompounds = promptCompounds.filter((c) => {
-        if ((c.safetyScore ?? 0) < 60) return false;
-        return !c.sideEffects.some((fx) =>
-          (fx.severity ?? "").toLowerCase().includes("severe")
+      if (options.minEvidence != null) {
+        next = next.filter((c) => (c.evidenceScore ?? 0) >= options.minEvidence!);
+      }
+      if (options.minSafety != null) {
+        next = next.filter((c) => (c.safetyScore ?? 0) >= options.minSafety!);
+      }
+
+      if (hasConstraint(constraintSet, "otc-only")) {
+        next = next.filter((c) => c.legalStatus === "LEGAL");
+      } else if (hasConstraint(constraintSet, "no-prescription")) {
+        next = next.filter(
+          (c) => c.legalStatus !== "PRESCRIPTION" && c.legalStatus !== "SCHEDULED"
         );
-      });
-    }
-    if (normalizedConstraints.includes("budget-friendly")) {
-      promptCompounds = promptCompounds.filter(
-        (c) =>
-          !["PEPTIDE", "GH_SECRETAGOGUE", "HORMONAL", "ANABOLIC", "SARM"].includes(
-            c.category
-          )
-      );
-    }
+      }
+
+      if (hasConstraint(constraintSet, "no-gray-market")) {
+        next = next.filter((c) => c.legalStatus !== "GRAY_MARKET");
+      }
+      if (hasConstraint(constraintSet, "no-sarms")) {
+        next = next.filter((c) => c.category !== "SARM");
+      }
+      if (hasConstraint(constraintSet, "minimal-sides")) {
+        next = next.filter((c) => {
+          if ((c.safetyScore ?? 0) < 60) return false;
+          return !c.sideEffects.some((fx) => {
+            const severity = (fx.severity ?? "").toLowerCase();
+            return severity.includes("severe") || severity.includes("high");
+          });
+        });
+      }
+      if (hasConstraint(constraintSet, "budget-friendly")) {
+        next = next.filter(
+          (c) =>
+            !["PEPTIDE", "GH_SECRETAGOGUE", "HORMONAL", "ANABOLIC", "SARM"].includes(
+              c.category
+            )
+        );
+      }
+
+      return next;
+    };
+
+    let promptCompounds = applyPromptFilters(compounds, {
+      minEvidence,
+      minSafety,
+    });
 
     if (promptCompounds.length < 40) {
-      promptCompounds = compounds
-        .filter((c) => (c.evidenceScore ?? 0) >= 20)
-        .slice(0, 120);
+      // Relax score floors, but always preserve user constraints.
+      promptCompounds = applyPromptFilters(compounds, {
+        minEvidence: 20,
+      }).slice(0, 120);
+    }
+
+    if (promptCompounds.length < 20) {
+      promptCompounds = applyPromptFilters(compounds, {}).slice(0, 120);
     }
 
     const systemPrompt = `You are a compound research assistant for CompoundAtlas, an evidence-based stack planning platform.

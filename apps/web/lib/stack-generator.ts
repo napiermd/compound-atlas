@@ -737,7 +737,7 @@ function keywordRelevance(c: CompoundRow, keywords: string[]): number {
 function severeSideEffectCount(c: CompoundRow): number {
   return c.sideEffects.filter((fx) => {
     const sev = (fx.severity ?? "").toLowerCase();
-    return sev.includes("severe");
+    return sev.includes("severe") || sev.includes("high");
   }).length;
 }
 
@@ -941,10 +941,13 @@ export async function generateStack(
   let allowedLegal: LegalStatus[] = [...LEGAL_BY_EXPERIENCE[experience]];
 
   // 3. Apply constraint overrides
+  if (hasConstraint(constraintSet, "otc-only")) {
+    allowedLegal = ["LEGAL"];
+  }
   if (hasConstraint(constraintSet, "no-gray-market")) {
     allowedLegal = allowedLegal.filter((l) => l !== "GRAY_MARKET");
   }
-  if (hasConstraint(constraintSet, "no-prescription") || hasConstraint(constraintSet, "otc-only")) {
+  if (hasConstraint(constraintSet, "no-prescription")) {
     allowedLegal = allowedLegal.filter((l) => l !== "PRESCRIPTION" && l !== "SCHEDULED");
   }
 
