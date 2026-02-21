@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { ANABOLIC_DEPENDENT_GOALS } from "@/lib/stack-generator";
 
 const DEFAULT_FREE_MODELS = [
   process.env.OPENROUTER_MODEL,
@@ -166,7 +167,7 @@ export async function POST(req: Request) {
 
     const applyPromptFilters = (
       source: typeof compounds,
-      options: { minEvidence?: number; minSafety?: number }
+      options: { minEvidence?: number; minSafety?: number; goal?: string }
     ) => {
       let next = source;
 
@@ -201,12 +202,14 @@ export async function POST(req: Request) {
         });
       }
       if (hasConstraint(constraintSet, "budget-friendly")) {
-        next = next.filter(
-          (c) =>
-            !["PEPTIDE", "GH_SECRETAGOGUE", "HORMONAL", "ANABOLIC", "SARM"].includes(
-              c.category
-            )
-        );
+        const isAnabolicGoal = options.goal
+          ? ANABOLIC_DEPENDENT_GOALS.has(options.goal as never)
+          : false;
+        // For anabolic-dependent goals, keep ANABOLIC + HORMONAL but still exclude other expensive categories
+        const excludedCategories = isAnabolicGoal
+          ? ["PEPTIDE", "GH_SECRETAGOGUE", "SARM"]
+          : ["PEPTIDE", "GH_SECRETAGOGUE", "HORMONAL", "ANABOLIC", "SARM"];
+        next = next.filter((c) => !excludedCategories.includes(c.category));
       }
 
       return next;
@@ -215,17 +218,19 @@ export async function POST(req: Request) {
     let promptCompounds = applyPromptFilters(compounds, {
       minEvidence,
       minSafety,
+      goal: input.goalPreset,
     });
 
     if (promptCompounds.length < 40) {
       // Relax score floors, but always preserve user constraints.
       promptCompounds = applyPromptFilters(compounds, {
         minEvidence: 20,
+        goal: input.goalPreset,
       }).slice(0, 120);
     }
 
     if (promptCompounds.length < 20) {
-      promptCompounds = applyPromptFilters(compounds, {}).slice(0, 120);
+      promptCompounds = applyPromptFilters(compounds, { goal: input.goalPreset }).slice(0, 120);
     }
 
     const systemPrompt = `You are a compound research assistant for CompoundAtlas, an evidence-based stack planning platform.
@@ -243,6 +248,9 @@ Rules:
 - Keep stacks focused: 3-7 compounds is ideal
 - Always include safety notes for any compounds with known risks
 - If user biometrics are provided, adjust dose ranges conservatively
+- For BULK, CUT, or RECOMP goals at intermediate or advanced level: a testosterone base is REQUIRED
+- For HORMONE_OPTIMIZATION at intermediate or advanced level: at least one HORMONAL compound is required
+- For LIBIDO at intermediate or advanced level: at least one hormonal or peptide compound is required
 
 Response format: Return ONLY valid JSON, no markdown fences, no explanation outside the JSON.`;
 

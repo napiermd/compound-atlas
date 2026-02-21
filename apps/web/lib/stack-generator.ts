@@ -108,6 +108,11 @@ const BUDGET_FRIENDLY_CATEGORIES: CompoundCategory[] = [
   "FAT_LOSS",
 ];
 
+/** Goals that fundamentally require anabolic/hormonal compounds at intermediate+ levels */
+export const ANABOLIC_DEPENDENT_GOALS: Set<StackGoal> = new Set([
+  "BULK", "CUT", "RECOMP", "LIBIDO", "HORMONE_OPTIMIZATION",
+] as StackGoal[]);
+
 const EVIDENCE_FLOOR: Record<ExperienceLevel, number> = {
   beginner: 45,
   intermediate: 35,
@@ -932,6 +937,41 @@ function buildDescription(
   );
 }
 
+/** Validate that a generated stack contains the expected compound types for its goal */
+function validateStackForGoal(
+  goal: StackGoal,
+  experience: ExperienceLevel,
+  selected: { compound: CompoundRow; reasoning: string }[]
+): string[] {
+  // Beginners are supplement-only by design — skip validation
+  if (experience === "beginner") return [];
+
+  const warnings: string[] = [];
+  const categories = new Set(selected.map((s) => s.compound.category));
+
+  if (goal === "BULK" || goal === "CUT" || goal === "RECOMP") {
+    if (!categories.has("ANABOLIC") && !categories.has("HORMONAL")) {
+      warnings.push(
+        `${goal} stack for ${experience} has no ANABOLIC or HORMONAL compound — constraints may be too restrictive.`
+      );
+    }
+  } else if (goal === "HORMONE_OPTIMIZATION") {
+    if (!categories.has("HORMONAL")) {
+      warnings.push(
+        `HORMONE_OPTIMIZATION stack for ${experience} has no HORMONAL compound — constraints may be too restrictive.`
+      );
+    }
+  } else if (goal === "LIBIDO") {
+    if (!categories.has("HORMONAL") && !categories.has("ANABOLIC") && !categories.has("PEPTIDE")) {
+      warnings.push(
+        `LIBIDO stack for ${experience} has no HORMONAL, ANABOLIC, or PEPTIDE compound — constraints may be too restrictive.`
+      );
+    }
+  }
+
+  return warnings;
+}
+
 // ─── MAIN EXPORT ───────────────────────────────────
 
 export async function generateStack(
@@ -1097,6 +1137,15 @@ export async function generateStack(
   }
   if (safe.some((s) => s.compound.legalStatus === "PRESCRIPTION")) {
     warnings.push("Some compounds require a prescription. Do not use without medical supervision.");
+  }
+
+  // Validate that anabolic-dependent goals have the expected compound types
+  const goalWarnings = validateStackForGoal(goal, experience, safe);
+  if (goalWarnings.length > 0) {
+    warnings.push(...goalWarnings);
+    for (const w of goalWarnings) {
+      console.warn(`[stack-generator] ${w}`);
+    }
   }
 
   return {

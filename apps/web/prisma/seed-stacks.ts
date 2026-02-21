@@ -5,7 +5,7 @@
  * Run: npm run db:seed-stacks
  */
 import { PrismaClient, StackGoal } from "@prisma/client";
-import { generateStack } from "../lib/stack-generator";
+import { generateStack, ANABOLIC_DEPENDENT_GOALS } from "../lib/stack-generator";
 import type { ExperienceLevel } from "../lib/stack-generator";
 
 const db = new PrismaClient();
@@ -37,31 +37,46 @@ const SEED_GOALS: StackGoal[] = [
 
 const EXPERIENCE_LEVELS: ExperienceLevel[] = ["beginner", "intermediate", "advanced"];
 
-const SEED_VARIANTS: Array<{
+type VariantDef = {
   key: string;
   label: string;
   constraints: string[];
   maxCompounds: number;
-}> = [
-  {
-    key: "core",
-    label: "Core",
-    constraints: ["high-evidence"],
-    maxCompounds: 6,
-  },
-  {
-    key: "conservative",
-    label: "Conservative",
-    constraints: [
-      "high-evidence",
-      "minimal-sides",
-      "budget-friendly",
-      "otc-only",
-      "no-sarms",
-    ],
-    maxCompounds: 6,
-  },
-];
+};
+
+const CORE_VARIANT: VariantDef = {
+  key: "core",
+  label: "Core",
+  constraints: ["high-evidence"],
+  maxCompounds: 6,
+};
+
+const CONSERVATIVE_VARIANT: VariantDef = {
+  key: "conservative",
+  label: "Conservative",
+  constraints: [
+    "high-evidence",
+    "minimal-sides",
+    "budget-friendly",
+    "otc-only",
+    "no-sarms",
+  ],
+  maxCompounds: 6,
+};
+
+const LOW_SIDE_VARIANT: VariantDef = {
+  key: "low-side",
+  label: "Low-Side",
+  constraints: ["high-evidence", "no-sarms", "no-gray-market"],
+  maxCompounds: 6,
+};
+
+function variantsForGoal(goal: StackGoal): VariantDef[] {
+  if (ANABOLIC_DEPENDENT_GOALS.has(goal)) {
+    return [CORE_VARIANT, LOW_SIDE_VARIANT];
+  }
+  return [CORE_VARIANT, CONSERVATIVE_VARIANT];
+}
 
 function slugify(text: string): string {
   return text
@@ -113,7 +128,7 @@ async function main() {
   for (let goalIndex = 0; goalIndex < SEED_GOALS.length; goalIndex++) {
     const goal = SEED_GOALS[goalIndex];
     for (const experience of EXPERIENCE_LEVELS) {
-      for (const variant of SEED_VARIANTS) {
+      for (const variant of variantsForGoal(goal)) {
         try {
           const generated = await generateStack(
             {
