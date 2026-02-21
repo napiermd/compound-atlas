@@ -8,7 +8,7 @@ import {
   PolarAngleAxis,
   ResponsiveContainer,
 } from "recharts";
-import { BookOpen, Clock, Route, FlaskConical } from "lucide-react";
+import { AlertTriangle, BookOpen, Clock, Route, FlaskConical } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -19,6 +19,7 @@ import { SideEffectsTable } from "./SideEffectsTable";
 import { InteractionsTable } from "./InteractionsTable";
 import type { CompoundDetail } from "./types";
 import type { UserBiometrics } from "@/lib/dose-utils";
+import { formatCategory } from "@/lib/utils";
 
 interface Props {
   compound: CompoundDetail;
@@ -39,6 +40,31 @@ function StudyBadge({ level }: { level: string }) {
       Level {level}
     </span>
   );
+}
+
+function evidenceNarrative(score: number | null, studyCount: number): string {
+  if (score == null) {
+    return "Evidence scoring has not been fully computed yet, so interpret this profile as preliminary.";
+  }
+  if (score >= 75) {
+    return `Evidence is strong (${Math.round(score)}/100) with a relatively mature body of research (${studyCount} indexed studies).`;
+  }
+  if (score >= 50) {
+    return `Evidence is moderate (${Math.round(score)}/100): promising signal from ${studyCount} indexed studies, but context and population still matter.`;
+  }
+  if (score >= 25) {
+    return `Evidence is early (${Math.round(score)}/100): there are positive signals, but the ${studyCount}-study base is still thin.`;
+  }
+  return `Evidence is very limited (${Math.round(score)}/100), so this should be treated as exploratory only.`;
+}
+
+function safetyNarrative(score: number | null): string {
+  if (score == null) {
+    return "Safety scoring is incomplete. Start conservatively and monitor carefully.";
+  }
+  if (score >= 70) return "Overall safety profile appears relatively favorable in available data.";
+  if (score >= 45) return "Safety profile is mixed. Risk management and monitoring matter.";
+  return "Safety profile is concerning. This likely requires tighter clinical oversight.";
 }
 
 export function CompoundDetailTabs({ compound: c, biometrics }: Props) {
@@ -74,6 +100,24 @@ export function CompoundDetailTabs({ compound: c, biometrics }: Props) {
       fullMark: 100,
     },
   ];
+  const severeEffects = c.sideEffects.filter((se) => {
+    const severity = (se.severity ?? "").toLowerCase();
+    return severity.includes("severe") || severity.includes("high");
+  });
+  const contraindications = c.interactions.filter(
+    (ix) => ix.interactionType === "contraindicated"
+  );
+  const topStudies = c.studies
+    .slice()
+    .sort((a, b) => {
+      const levelRank = (level: string | null) =>
+        level === "A" ? 4 : level === "B" ? 3 : level === "C" ? 2 : 1;
+      return (
+        levelRank(b.study.evidenceLevel) - levelRank(a.study.evidenceLevel) ||
+        (b.study.year ?? 0) - (a.study.year ?? 0)
+      );
+    })
+    .slice(0, 3);
 
   return (
     <Tabs defaultValue="overview">
@@ -194,6 +238,88 @@ export function CompoundDetailTabs({ compound: c, biometrics }: Props) {
           metaAnalysisCount={c.metaAnalysisCount}
           scoreBreakdown={c.scoreBreakdown}
         />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-semibold">
+                Plain-English Snapshot
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2.5 text-sm">
+              <p className="text-muted-foreground leading-relaxed">
+                <span className="font-medium text-foreground">{c.name}</span> is
+                currently categorized as a{" "}
+                <span className="font-medium text-foreground">
+                  {formatCategory(c.category).toLowerCase()}
+                </span>{" "}
+                compound.
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                {evidenceNarrative(c.evidenceScore, c.studyCount)}
+              </p>
+              <p className="text-muted-foreground leading-relaxed">
+                {safetyNarrative(c.safetyScore)}
+              </p>
+              {c.mechanismShort && (
+                <div className="rounded-md border bg-muted/30 p-2.5">
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground mb-1">
+                    Core mechanism
+                  </p>
+                  <p className="text-xs leading-relaxed">{c.mechanismShort}</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-semibold">
+                Practical Context
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm">
+              <div className="space-y-1">
+                <p className="text-xs uppercase tracking-wide text-muted-foreground">
+                  Strongest current signals
+                </p>
+                {topStudies.length > 0 ? (
+                  <ul className="space-y-1.5">
+                    {topStudies.map(({ study }) => (
+                      <li key={study.id} className="text-xs text-muted-foreground leading-relaxed">
+                        <span className="font-medium text-foreground">
+                          {study.evidenceLevel ? `Level ${study.evidenceLevel}` : "Study"}:
+                        </span>{" "}
+                        {study.tldr ?? study.title}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-xs text-muted-foreground">
+                    No indexed study summaries yet.
+                  </p>
+                )}
+              </div>
+
+              {(severeEffects.length > 0 || contraindications.length > 0) && (
+                <div className="rounded-md border border-orange-500/30 bg-orange-500/5 p-2.5">
+                  <p className="text-xs font-medium flex items-center gap-1 text-orange-700 dark:text-orange-300">
+                    <AlertTriangle className="h-3.5 w-3.5" />
+                    Elevated caution signals
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    {severeEffects.length > 0
+                      ? `${severeEffects.length} severe/high side effect flag${severeEffects.length === 1 ? "" : "s"}`
+                      : "No severe side-effect flags"}
+                    {contraindications.length > 0
+                      ? ` · ${contraindications.length} contraindicated interaction${contraindications.length === 1 ? "" : "s"}`
+                      : ""}
+                  </p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
 
         {/* Radar chart */}
         <Card>

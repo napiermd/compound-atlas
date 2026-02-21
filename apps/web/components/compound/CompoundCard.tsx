@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { FlaskConical } from "lucide-react";
+import { ArrowRight, FlaskConical, Shield } from "lucide-react";
 import {
   Card,
   CardContent,
   CardHeader,
 } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { CategoryBadge } from "./CategoryBadge";
 import { EvidenceScoreBadge } from "./EvidenceScoreBadge";
 import type { CompoundSummary } from "./types";
@@ -14,20 +15,41 @@ interface Props {
 }
 
 export function CompoundCard({ compound: c }: Props) {
+  const evidenceTier =
+    c.evidenceScore == null
+      ? "No score yet"
+      : c.evidenceScore >= 75
+        ? "Strong evidence"
+        : c.evidenceScore >= 50
+          ? "Moderate evidence"
+          : c.evidenceScore >= 25
+            ? "Early evidence"
+            : "Preliminary";
+
+  const safetyTier =
+    c.safetyScore == null
+      ? "Safety unknown"
+      : c.safetyScore >= 70
+        ? "Lower risk profile"
+        : c.safetyScore >= 45
+          ? "Monitor side effects"
+          : "Higher risk profile";
+
   return (
     <Link href={`/compounds/${c.slug}`} className="group block h-full">
-      <Card className="h-full transition-all duration-150 group-hover:border-zinc-400 dark:group-hover:border-zinc-500 group-hover:shadow-md">
+      <Card className="h-full overflow-hidden border-border/70 transition-all duration-200 group-hover:border-primary/40 group-hover:shadow-lg group-hover:shadow-primary/5">
+        <div className="h-1 bg-gradient-to-r from-primary/80 via-primary/30 to-transparent" />
         <CardHeader className="pb-2 pt-4 px-4">
-          <div className="flex items-start justify-between gap-2">
+          <div className="flex items-start justify-between gap-3">
             <h3 className="font-semibold text-sm leading-snug line-clamp-2 group-hover:text-foreground">
               {c.name}
             </h3>
             <EvidenceScoreBadge score={c.evidenceScore} className="shrink-0 mt-0.5" />
           </div>
-          <div className="flex flex-wrap gap-1 mt-1.5">
+          <div className="flex flex-wrap gap-1.5 mt-1.5">
             <CategoryBadge category={c.category} />
             {c.legalStatus !== "LEGAL" && (
-              <span className="inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700">
+              <Badge variant="outline" className="text-[10px] font-medium">
                 {c.legalStatus === "PRESCRIPTION"
                   ? "Rx"
                   : c.legalStatus === "GRAY_MARKET"
@@ -35,29 +57,54 @@ export function CompoundCard({ compound: c }: Props) {
                     : c.legalStatus === "SCHEDULED"
                       ? "Scheduled"
                       : c.legalStatus === "RESEARCH_ONLY"
-                        ? "Research Only"
-                        : c.legalStatus}
-              </span>
+                      ? "Research Only"
+                      : c.legalStatus}
+              </Badge>
             )}
           </div>
         </CardHeader>
-        <CardContent className="px-4 pb-4 space-y-2">
-          {c.mechanismShort && (
-            <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
-              {c.mechanismShort}
-            </p>
-          )}
-          <div className="flex items-center justify-between text-xs text-muted-foreground pt-1 border-t border-dashed">
+        <CardContent className="px-4 pb-4 space-y-3">
+          <p className="text-xs text-muted-foreground line-clamp-3 leading-relaxed min-h-[3.15rem]">
+            {c.mechanismShort || "Mechanism summary coming soon from research sync."}
+          </p>
+
+          <div className="grid grid-cols-2 gap-2 text-xs">
+            <div className="rounded-md border bg-muted/30 px-2 py-1.5">
+              <p className="text-[10px] uppercase tracking-wide text-muted-foreground">
+                Evidence
+              </p>
+              <p className="font-medium text-foreground">{evidenceTier}</p>
+            </div>
+            <div className="rounded-md border bg-muted/30 px-2 py-1.5">
+              <p className="text-[10px] uppercase tracking-wide text-muted-foreground">
+                Safety
+              </p>
+              <p className="font-medium text-foreground">{safetyTier}</p>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between text-xs text-muted-foreground border-t border-dashed pt-2">
             <span className="flex items-center gap-1">
               <FlaskConical className="h-3 w-3" />
               {c.studyCount > 0 ? `${c.studyCount} studies` : "No studies yet"}
             </span>
-            {c.doseTypical && c.doseUnit && (
-              <span className="tabular-nums font-mono">
-                {c.doseTypical}
-                {c.doseUnit}
-              </span>
-            )}
+            <span className="flex items-center gap-1">
+              <Shield className="h-3 w-3" />
+              {c.safetyScore != null ? `${Math.round(c.safetyScore)}/100` : "n/a"}
+            </span>
+          </div>
+
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-muted-foreground flex items-center gap-1">
+              <FlaskConical className="h-3 w-3" />
+              {c.doseTypical && c.doseUnit
+                ? `${c.doseTypical}${c.doseUnit}${c.doseFrequency ? ` · ${c.doseFrequency}` : ""}`
+                : "Dose data limited"}
+            </span>
+            <span className="inline-flex items-center gap-1 text-foreground group-hover:text-primary transition-colors">
+              View
+              <ArrowRight className="h-3 w-3" />
+            </span>
           </div>
         </CardContent>
       </Card>

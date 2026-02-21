@@ -70,6 +70,17 @@ function slugify(text: string): string {
     .replace(/^-|-$/g, "");
 }
 
+function selectionOffsetFor(
+  goalIndex: number,
+  experience: ExperienceLevel,
+  variantKey: string
+): number {
+  const expOffset =
+    experience === "beginner" ? 0 : experience === "intermediate" ? 1 : 2;
+  const variantOffset = variantKey === "core" ? 0 : 3;
+  return (goalIndex % 4) + expOffset + variantOffset;
+}
+
 async function main() {
   console.log("CompoundAtlas AI Stack Seeder\n");
 
@@ -99,7 +110,8 @@ async function main() {
   let created = 0;
   let failed = 0;
 
-  for (const goal of SEED_GOALS) {
+  for (let goalIndex = 0; goalIndex < SEED_GOALS.length; goalIndex++) {
+    const goal = SEED_GOALS[goalIndex];
     for (const experience of EXPERIENCE_LEVELS) {
       for (const variant of SEED_VARIANTS) {
         try {
@@ -109,6 +121,11 @@ async function main() {
               experience,
               constraints: variant.constraints,
               maxCompounds: variant.maxCompounds,
+              selectionOffset: selectionOffsetFor(
+                goalIndex,
+                experience,
+                variant.key
+              ),
             },
             db
           );

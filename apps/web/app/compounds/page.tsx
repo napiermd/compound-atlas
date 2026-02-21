@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
+import type { StudyType } from "@prisma/client";
 import { db } from "@/lib/db";
 import { CompoundFilters } from "@/components/compound/CompoundFilters";
 import type { CompoundSummary } from "@/components/compound/types";
+import {
+  HotCompoundsSection,
+  type MomentumCompound,
+} from "@/components/compound/HotCompoundsSection";
 import type { CategoryCount } from "@/components/compound/CompoundFilters";
 
 export const metadata: Metadata = {
@@ -10,8 +15,23 @@ export const metadata: Metadata = {
     "Evidence-based database of supplements, nootropics, peptides, and more.",
 };
 
+export const revalidate = 60 * 60 * 24 * 7;
+
+const RECENT_WINDOW_DAYS = 365;
+const HIGH_TIER_STUDY_TYPES: StudyType[] = [
+  "META_ANALYSIS",
+  "SYSTEMATIC_REVIEW",
+  "RCT",
+];
+
 export default async function CompoundsPage() {
-  const [rawCompounds, categories] = await Promise.all([
+  const now = new Date();
+  const recentWindowStart = new Date(
+    now.getTime() - RECENT_WINDOW_DAYS * 24 * 60 * 60 * 1000
+  );
+  const recentYearFloor = now.getUTCFullYear() - 1;
+
+  const [rawCompounds, categories, recentStudies] = await Promise.all([
     db.compound.findMany({
       select: {
         id: true,
@@ -29,6 +49,9 @@ export default async function CompoundsPage() {
         doseTypical: true,
         doseUnit: true,
         doseFrequency: true,
+        clinicalPhase: true,
+        createdAt: true,
+        lastResearchSync: true,
       },
       orderBy: [{ studyCount: "desc" }, { name: "asc" }],
     }),
@@ -36,6 +59,27 @@ export default async function CompoundsPage() {
       by: ["category"],
       _count: { _all: true },
       orderBy: { _count: { category: "desc" } },
+    }),
+    db.study.findMany({
+      where: {
+        OR: [
+          { publicationDate: { gte: recentWindowStart } },
+          { year: { gte: recentYearFloor } },
+        ],
+      },
+      select: {
+        id: true,
+        studyType: true,
+        year: true,
+        publicationDate: true,
+        compounds: {
+          select: {
+            compoundId: true,
+          },
+        },
+      },
+      take: 700,
+      orderBy: [{ publicationDate: "desc" }, { year: "desc" }],
     }),
   ]);
 
@@ -46,6 +90,84 @@ export default async function CompoundsPage() {
     count: c._count._all,
   }));
 
+  const momentumByCompound = new Map<
+    string,
+    { mentions: number; highTier: number; latestYear: number | null }
+  >();
+
+  for (const study of recentStudies) {
+    const isHighTier = HIGH_TIER_STUDY_TYPES.includes(study.studyType);
+    const latestYear =
+      study.year ?? study.publicationDate?.getUTCFullYear() ?? null;
+
+    for (const rel of study.compounds) {
+      const current = momentumByCompound.get(rel.compoundId) ?? {
+        mentions: 0,
+        highTier: 0,
+        latestYear: null,
+      };
+      momentumByCompound.set(rel.compoundId, {
+        mentions: current.mentions + 1,
+        highTier: current.highTier + (isHighTier ? 1 : 0),
+        latestYear:
+          latestYear != null
+            ? current.latestYear == null
+              ? latestYear
+              : Math.max(current.latestYear, latestYear)
+            : current.latestYear,
+      });
+    }
+  }
+
+  const momentumCandidates: MomentumCompound[] = compounds
+    .map((c) => {
+      const momentum = momentumByCompound.get(c.id);
+      const mentions = momentum?.mentions ?? 0;
+      const highTier = momentum?.highTier ?? 0;
+      const latestYear = momentum?.latestYear ?? null;
+      const evidence = c.evidenceScore ?? 35;
+      const safety = c.safetyScore ?? 55;
+      const trendScore =
+        mentions * 3 +
+        highTier * 5 +
+        Math.min(c.studyCount, 120) * 0.15 +
+        evidence * 0.25 +
+        safety * 0.15;
+      return {
+        ...c,
+        recentMentions: mentions,
+        recentHighQuality: highTier,
+        latestStudyYear: latestYear,
+        trendScore: Math.round(trendScore * 10) / 10,
+      };
+    })
+    .filter((c) => c.recentMentions > 0);
+
+  const hotCompounds = [...momentumCandidates]
+    .sort((a, b) => b.trendScore - a.trendScore)
+    .slice(0, 6);
+
+  const emergingCompounds = [...momentumCandidates]
+    .filter((c) => c.studyCount <= 35)
+    .sort((a, b) => {
+      if (b.recentHighQuality !== a.recentHighQuality) {
+        return b.recentHighQuality - a.recentHighQuality;
+      }
+      if (b.recentMentions !== a.recentMentions) {
+        return b.recentMentions - a.recentMentions;
+      }
+      return (b.evidenceScore ?? 0) - (a.evidenceScore ?? 0);
+    })
+    .slice(0, 6);
+
+  const refreshedLabel = `Updated weekly · window ${recentWindowStart.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  })}–${now.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  })}`;
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <div className="mb-6">
@@ -55,6 +177,12 @@ export default async function CompoundsPage() {
           {rawCompounds.length !== 1 ? "s" : ""}
         </p>
       </div>
+
+      <HotCompoundsSection
+        hotCompounds={hotCompounds}
+        emergingCompounds={emergingCompounds}
+        refreshedLabel={refreshedLabel}
+      />
 
       <CompoundFilters compounds={compounds} categories={categoryList} />
     </div>

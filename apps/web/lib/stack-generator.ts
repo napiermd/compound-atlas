@@ -16,6 +16,7 @@ export interface GeneratorInput {
   experience: ExperienceLevel;
   constraints: string[];   // "no-gray-market" | "no-prescription" | "no-sarms" | "beginner-safe"
   maxCompounds: number;    // Typically 5-8
+  selectionOffset?: number; // Optional deterministic diversity offset for seeded variants
 }
 
 export interface GeneratedCompound {
@@ -770,7 +771,7 @@ function pickFromSlot(
   slot: Slot,
   experience: ExperienceLevel,
   exclude: Set<string>,
-  options?: { budgetFriendly?: boolean }
+  options?: { budgetFriendly?: boolean; selectionOffset?: number }
 ): { compound: CompoundRow; reasoning: string }[] {
   const n = resolveCount(slot.count, experience);
   if (n === 0) return [];
@@ -783,7 +784,18 @@ function pickFromSlot(
   );
 
   const sorted = sortedCandidates(candidates, slot.mechanismKeywords ?? [], options);
-  const picked = sorted.slice(0, n);
+  if (sorted.length === 0) return [];
+
+  // Diversify within the top candidate pool so seeded variants/experience tiers
+  // do not collapse to identical stacks.
+  const poolSize = Math.min(sorted.length, Math.max(n + 1, 6));
+  const startMax = Math.max(0, poolSize - n);
+  const start =
+    startMax > 0
+      ? (options?.selectionOffset ?? 0) % (startMax + 1)
+      : 0;
+
+  const picked = sorted.slice(start, start + n);
 
   return picked.map((c) => ({ compound: c, reasoning: slot.reasoning }));
 }
@@ -892,15 +904,25 @@ function buildDescription(
   goal: StackGoal,
   experience: ExperienceLevel,
   selected: { compound: CompoundRow; reasoning: string }[],
-  compositeScore: number
+  compositeScore: number,
+  constraints: Set<string>
 ): string {
   const date = new Date().toISOString().split("T")[0];
   const names = selected.map((s) => s.compound.name).join(", ");
-  const expDesc = {
+  let expDesc = {
     beginner: "Designed for beginners using legal, OTC compounds only.",
     intermediate: "Intermediate protocol including select prescription and research compounds.",
     advanced: "Advanced protocol for experienced users with access to the full compound spectrum.",
   }[experience];
+
+  if (hasConstraint(constraints, "otc-only")) {
+    expDesc = "Conservative OTC-only protocol prioritizing legal, higher-confidence compounds.";
+  } else if (hasConstraint(constraints, "minimal-sides")) {
+    expDesc = "Conservative protocol prioritizing compounds with lower side-effect flags.";
+  } else if (hasConstraint(constraints, "high-evidence")) {
+    expDesc = "Evidence-prioritized protocol focused on stronger-researched compounds for this goal.";
+  }
+
   return (
     `Auto-generated based on evidence scores as of ${date}. ` +
     `Compounds selected by evidence ranking with interaction safety checks. ` +
@@ -916,7 +938,7 @@ export async function generateStack(
   input: GeneratorInput,
   client: PrismaClient
 ): Promise<GeneratedStack> {
-  const { goal, experience, constraints, maxCompounds } = input;
+  const { goal, experience, constraints, maxCompounds, selectionOffset = 0 } = input;
   const constraintSet = new Set(constraints.map(normalizeConstraint));
 
   // 1. Fetch all compounds with relations
@@ -992,16 +1014,19 @@ export async function generateStack(
   const excluded = new Set<string>();
   const rawSelected: { compound: CompoundRow; reasoning: string }[] = [];
   const preferBudget = hasConstraint(constraintSet, "budget-friendly");
+  let slotOffset = Math.max(0, selectionOffset);
 
   for (const slot of slots) {
     const picks = pickFromSlot(filtered, slot, experience, excluded, {
       budgetFriendly: preferBudget,
+      selectionOffset: slotOffset,
     });
     for (const pick of picks) {
       rawSelected.push(pick);
       excluded.add(pick.compound.id);
       if (rawSelected.length >= maxCompounds) break;
     }
+    slotOffset += 1;
     if (rawSelected.length >= maxCompounds) break;
   }
 
@@ -1009,7 +1034,14 @@ export async function generateStack(
   const minCompoundsTarget = Math.min(3, maxCompounds);
   if (rawSelected.length < minCompoundsTarget) {
     const fallback = sortedCandidates(filtered, [], { budgetFriendly: preferBudget });
-    for (const c of fallback) {
+    const fallbackWindow = Math.min(fallback.length, 6);
+    const fallbackOffset =
+      fallbackWindow > 0 ? selectionOffset % fallbackWindow : 0;
+    const rotatedFallback = [
+      ...fallback.slice(fallbackOffset),
+      ...fallback.slice(0, fallbackOffset),
+    ];
+    for (const c of rotatedFallback) {
       if (excluded.has(c.id)) continue;
       rawSelected.push({
         compound: c,
@@ -1049,7 +1081,13 @@ export async function generateStack(
 
   const compositeScore = computeCompositeScore(safe, goal);
   const name = goalLabel(goal, experience);
-  const description = buildDescription(goal, experience, safe, compositeScore);
+  const description = buildDescription(
+    goal,
+    experience,
+    safe,
+    compositeScore,
+    constraintSet
+  );
 
   const warnings: string[] = [];
   if (experience !== "beginner" && safe.some((s) => s.compound.legalStatus === "GRAY_MARKET")) {

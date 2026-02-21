@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Clock3, ShieldCheck, Stethoscope, Waves } from "lucide-react";
 import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { buildBiometrics } from "@/lib/dose-utils";
@@ -14,6 +14,21 @@ import type { CompoundDetail } from "@/components/compound/types";
 
 interface Props {
   params: { slug: string };
+}
+
+function evidenceReadout(score: number | null): string {
+  if (score == null) return "No score yet";
+  if (score >= 75) return "Strong evidence";
+  if (score >= 50) return "Moderate evidence";
+  if (score >= 25) return "Emerging evidence";
+  return "Early-stage evidence";
+}
+
+function safetyReadout(score: number | null): string {
+  if (score == null) return "Unknown safety profile";
+  if (score >= 70) return "Relatively favorable";
+  if (score >= 45) return "Mixed risk profile";
+  return "Higher side-effect risk";
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -80,6 +95,13 @@ export default async function CompoundDetailPage({ params }: Props) {
   const compound: CompoundDetail = JSON.parse(JSON.stringify(raw));
 
   const displayAliases = compound.aliases.slice(0, 3);
+  const refreshedText = compound.lastResearchSync
+    ? new Date(compound.lastResearchSync).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })
+    : "Not synced yet";
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
@@ -152,9 +174,45 @@ export default async function CompoundDetailPage({ params }: Props) {
           <p className="text-muted-foreground leading-relaxed text-sm whitespace-pre-line mb-6">
             {compound.description}
           </p>
-          <Separator className="mb-6" />
         </>
       )}
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+        <div className="rounded-lg border bg-card px-3 py-3">
+          <p className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1 flex items-center gap-1">
+            <Waves className="h-3.5 w-3.5" />
+            Evidence
+          </p>
+          <p className="text-sm font-semibold">
+            {evidenceReadout(compound.evidenceScore)}
+          </p>
+        </div>
+        <div className="rounded-lg border bg-card px-3 py-3">
+          <p className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1 flex items-center gap-1">
+            <ShieldCheck className="h-3.5 w-3.5" />
+            Safety
+          </p>
+          <p className="text-sm font-semibold">{safetyReadout(compound.safetyScore)}</p>
+        </div>
+        <div className="rounded-lg border bg-card px-3 py-3">
+          <p className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1 flex items-center gap-1">
+            <Stethoscope className="h-3.5 w-3.5" />
+            Clinical Status
+          </p>
+          <p className="text-sm font-semibold">
+            {compound.clinicalPhase ?? "No formal phase listed"}
+          </p>
+        </div>
+        <div className="rounded-lg border bg-card px-3 py-3">
+          <p className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1 flex items-center gap-1">
+            <Clock3 className="h-3.5 w-3.5" />
+            Research Sync
+          </p>
+          <p className="text-sm font-semibold">{refreshedText}</p>
+        </div>
+      </div>
+
+      <Separator className="mb-6" />
 
       {/* Tabbed detail */}
       <CompoundDetailTabs compound={compound} biometrics={biometrics} />

@@ -16,6 +16,9 @@ export interface CompoundSummary {
   doseTypical: number | null;
   doseUnit: string | null;
   doseFrequency: string | null;
+  clinicalPhase: string | null;
+  createdAt: Date | string;
+  lastResearchSync: Date | string | null;
 }
 
 export interface SideEffectData {

@@ -69,6 +69,17 @@ function slugify(text: string): string {
     .replace(/^-|-$/g, "");
 }
 
+function selectionOffsetFor(
+  goalIndex: number,
+  experience: ExperienceLevel,
+  variantKey: string
+): number {
+  const expOffset =
+    experience === "beginner" ? 0 : experience === "intermediate" ? 1 : 2;
+  const variantOffset = variantKey === "core" ? 0 : 3;
+  return (goalIndex % 4) + expOffset + variantOffset;
+}
+
 export async function POST(req: Request) {
   // ── Auth: verify CRON_SECRET ──────────────────────────────────────────
   const secret = process.env.CRON_SECRET;
@@ -99,7 +110,8 @@ export async function POST(req: Request) {
   let created = 0;
   let failed = 0;
 
-  for (const goal of GOALS) {
+  for (let goalIndex = 0; goalIndex < GOALS.length; goalIndex++) {
+    const goal = GOALS[goalIndex];
     for (const experience of EXPERIENCE_LEVELS) {
       for (const variant of STACK_VARIANTS) {
         try {
@@ -109,6 +121,11 @@ export async function POST(req: Request) {
               experience,
               constraints: variant.constraints,
               maxCompounds: variant.maxCompounds,
+              selectionOffset: selectionOffsetFor(
+                goalIndex,
+                experience,
+                variant.key
+              ),
             },
             db
           );
