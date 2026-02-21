@@ -35,6 +35,7 @@ from rich.table import Table
 from .pubmed import PubMedClient, classify_study_type
 from .semantic_scholar import SemanticScholarClient
 from .scorer import compute_evidence_score, StudyInput
+from .clinical_trials import ClinicalTrialsClient, phase_rank
 
 load_dotenv()
 console = Console()
@@ -561,6 +562,153 @@ def main(
             str(s["db_inserted"]),
             str(s["db_updated"]),
             status,
+        )
+
+    console.print(table)
+
+
+@app.command("update-phases")
+def update_phases(
+    compound: Optional[str] = typer.Option(None, help="Single compound slug to process"),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Show what would be updated without writing"),
+    delay: float = typer.Option(0.5, "--delay", help="Seconds to sleep between compounds"),
+):
+    """Update clinical trial phases from ClinicalTrials.gov."""
+    console.print("[bold]ClinicalTrials.gov Phase Updater[/bold]")
+    if dry_run:
+        console.print("[yellow bold]DRY RUN — no changes will be written[/yellow bold]")
+    console.print()
+
+    compounds = load_compound_configs()
+    if not compounds:
+        console.print("[red]No compound configs found[/red]")
+        raise typer.Exit(1)
+
+    if compound:
+        compounds = [c for c in compounds if c["slug"] == compound]
+        if not compounds:
+            console.print(f"[red]Compound '{compound}' not found in seed data[/red]")
+            raise typer.Exit(1)
+
+    console.print(f"Checking [bold]{len(compounds)}[/bold] compound(s)")
+
+    # Verify DB is reachable
+    conn = None
+    try:
+        conn = get_db_connection()
+        console.print("[green]PostgreSQL reachable[/green]")
+    except Exception as e:
+        console.print(f"[red]DB connection failed: {e}[/red]")
+        if not dry_run:
+            raise typer.Exit(1)
+        console.print("[yellow]Continuing dry run without DB access[/yellow]")
+
+    ct_client = ClinicalTrialsClient()
+    results = []
+
+    try:
+        for i, comp in enumerate(compounds):
+            slug = comp["slug"]
+            name = comp["name"]
+            search_names = [name] + comp.get("aliases", [])
+
+            # Get current phase from DB
+            current_phase = None
+            if conn:
+                cur = conn.cursor()
+                cur.execute('SELECT "clinicalPhase" FROM "Compound" WHERE slug = %s', [slug])
+                row = cur.fetchone()
+                cur.close()
+                if row:
+                    current_phase = row[0]
+
+            console.print(f"\n[bold blue]{name}[/bold blue] (current: {current_phase or 'None'})")
+
+            # Search ClinicalTrials.gov with compound name and aliases
+            best_phase = None
+            best_trial_title = None
+            for search_name in search_names:
+                try:
+                    trials = ct_client.search(search_name)
+                    for trial in trials:
+                        if trial.highest_phase and (
+                            best_phase is None
+                            or phase_rank(trial.highest_phase) > phase_rank(best_phase)
+                        ):
+                            best_phase = trial.highest_phase
+                            best_trial_title = trial.title
+                except Exception as e:
+                    console.print(f"  [red]Error searching '{search_name}': {e}[/red]")
+
+            if best_phase:
+                console.print(f"  Found: {best_phase} — {best_trial_title}")
+            else:
+                console.print("  [dim]No active trials found[/dim]")
+
+            # Only upgrade phases, never downgrade
+            should_update = False
+            if best_phase and (
+                current_phase is None
+                or phase_rank(best_phase) > phase_rank(current_phase)
+            ):
+                should_update = True
+
+            action = "no change"
+            if should_update:
+                if dry_run:
+                    action = f"would update {current_phase} -> {best_phase}"
+                    console.print(f"  [yellow][DRY RUN] {action}[/yellow]")
+                elif conn:
+                    cur = conn.cursor()
+                    try:
+                        cur.execute(
+                            '''UPDATE "Compound" SET "clinicalPhase" = %s, "updatedAt" = %s WHERE slug = %s''',
+                            [best_phase, datetime.utcnow(), slug],
+                        )
+                        conn.commit()
+                        action = f"updated {current_phase} -> {best_phase}"
+                        console.print(f"  [green]{action}[/green]")
+                    except Exception as e:
+                        conn.rollback()
+                        action = f"error: {e}"
+                        console.print(f"  [red]{action}[/red]")
+                    finally:
+                        cur.close()
+
+            results.append({
+                "name": name,
+                "current": current_phase or "None",
+                "found": best_phase or "None",
+                "action": action,
+            })
+
+            if delay > 0 and i < len(compounds) - 1:
+                time.sleep(delay)
+    finally:
+        ct_client.close()
+        if conn:
+            conn.close()
+
+    # Summary table
+    console.print("\n")
+    title = "Phase Update Summary" + (" (DRY RUN)" if dry_run else "")
+    table = Table(title=title)
+    table.add_column("Compound", style="bold")
+    table.add_column("Current Phase")
+    table.add_column("CT.gov Phase")
+    table.add_column("Action")
+
+    for r in results:
+        action_style = (
+            "green" if "updated" in r["action"]
+            else "yellow" if "would" in r["action"]
+            else "dim"
+        )
+        table.add_row(
+            r["name"],
+            r["current"],
+            r["found"],
+            f"[{action_style}]{r['action']}[/{action_style}]",
         )
 
     console.print(table)

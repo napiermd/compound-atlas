@@ -3,16 +3,32 @@
 import Link from "next/link";
 import { GitFork, Timer, RefreshCw } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { EvidenceScoreBadge } from "@/components/compound/EvidenceScoreBadge";
 import { GoalBadge } from "./GoalBadge";
 import { UpvoteButton } from "./UpvoteButton";
 import type { StackSummary } from "./types";
+
+function parseExperience(name: string): string | null {
+  if (name.startsWith("Beginner")) return "Beginner";
+  if (name.startsWith("Intermediate")) return "Intermediate";
+  if (name.startsWith("Advanced")) return "Advanced";
+  return null;
+}
+
+function parseVariant(name: string): string | null {
+  const match = name.match(/\s—\s(.+)$/);
+  return match?.[1] ?? null;
+}
 
 interface Props {
   stack: StackSummary;
 }
 
 export function StackCard({ stack }: Props) {
+  const experience = parseExperience(stack.name);
+  const variant = parseVariant(stack.name);
+
   return (
     <div className="group h-full">
       <Card className="h-full transition-all duration-150 group-hover:border-zinc-400 dark:group-hover:border-zinc-500 group-hover:shadow-md">
@@ -27,7 +43,19 @@ export function StackCard({ stack }: Props) {
                 className="shrink-0 mt-0.5"
               />
             </div>
-            <GoalBadge goal={stack.goal} className="w-fit" />
+            <div className="flex items-center gap-1 flex-wrap">
+              <GoalBadge goal={stack.goal} className="w-fit" />
+              {experience && (
+                <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 font-normal">
+                  {experience}
+                </Badge>
+              )}
+              {variant && (
+                <Badge variant="secondary" className="text-[10px] px-1.5 py-0 h-4 font-normal">
+                  {variant}
+                </Badge>
+              )}
+            </div>
             {stack.description && (
               <p className="text-xs text-muted-foreground line-clamp-2 mt-1 leading-relaxed">
                 {stack.description}

@@ -7,6 +7,7 @@ import {
   HotCompoundsSection,
   type MomentumCompound,
 } from "@/components/compound/HotCompoundsSection";
+import { PipelineSection } from "@/components/compound/PipelineSection";
 import type { CategoryCount } from "@/components/compound/CompoundFilters";
 
 export const metadata: Metadata = {
@@ -168,6 +169,19 @@ export default async function CompoundsPage() {
     day: "numeric",
   })}`;
 
+  // Group compounds by clinical phase for pipeline view
+  const phaseGroups: Record<string, CompoundSummary[]> = {};
+  for (const c of compounds) {
+    const phase = c.clinicalPhase;
+    if (!phase || phase === "No formal trials") continue;
+    if (!phaseGroups[phase]) phaseGroups[phase] = [];
+    phaseGroups[phase].push(c);
+  }
+  // Sort each group by evidence score descending
+  for (const group of Object.values(phaseGroups)) {
+    group.sort((a, b) => (b.evidenceScore ?? 0) - (a.evidenceScore ?? 0));
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <div className="mb-6">
@@ -183,6 +197,8 @@ export default async function CompoundsPage() {
         emergingCompounds={emergingCompounds}
         refreshedLabel={refreshedLabel}
       />
+
+      <PipelineSection phaseGroups={phaseGroups} />
 
       <CompoundFilters compounds={compounds} categories={categoryList} />
     </div>

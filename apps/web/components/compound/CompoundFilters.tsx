@@ -36,6 +36,14 @@ const LEGAL_STATUS_OPTIONS: { value: LegalStatus; label: string }[] = [
   { value: "RESEARCH_ONLY", label: "Research Only" },
 ];
 
+const PHASE_OPTIONS = [
+  { value: "Preclinical", label: "Preclinical" },
+  { value: "Phase I", label: "Phase I" },
+  { value: "Phase II", label: "Phase II" },
+  { value: "Phase III", label: "Phase III" },
+  { value: "Approved", label: "Approved" },
+];
+
 type SortKey = "evidenceScore" | "name" | "studyCount";
 
 export function CompoundFilters({ compounds, categories }: Props) {
@@ -46,6 +54,9 @@ export function CompoundFilters({ compounds, categories }: Props) {
   const [selectedLegal, setSelectedLegal] = useState<Set<LegalStatus>>(
     new Set()
   );
+  const [selectedPhases, setSelectedPhases] = useState<Set<string>>(
+    new Set()
+  );
   const [sortBy, setSortBy] = useState<SortKey>("evidenceScore");
   const [showFilters, setShowFilters] = useState(false);
 
@@ -53,6 +64,16 @@ export function CompoundFilters({ compounds, categories }: Props) {
     () => new Set(compounds.map((c) => c.legalStatus)),
     [compounds]
   );
+
+  const phasesInData = useMemo(() => {
+    const phases = new Set<string>();
+    for (const c of compounds) {
+      if (c.clinicalPhase && c.clinicalPhase !== "No formal trials") {
+        phases.add(c.clinicalPhase);
+      }
+    }
+    return phases;
+  }, [compounds]);
 
   const filtered = useMemo(() => {
     let result = compounds;
@@ -75,6 +96,12 @@ export function CompoundFilters({ compounds, categories }: Props) {
       result = result.filter((c) => selectedLegal.has(c.legalStatus));
     }
 
+    if (selectedPhases.size > 0) {
+      result = result.filter(
+        (c) => c.clinicalPhase != null && selectedPhases.has(c.clinicalPhase)
+      );
+    }
+
     return [...result].sort((a, b) => {
       if (sortBy === "name") {
         return a.name.localeCompare(b.name);
@@ -88,9 +115,10 @@ export function CompoundFilters({ compounds, categories }: Props) {
       if (b.evidenceScore === null) return -1;
       return b.evidenceScore - a.evidenceScore;
     });
-  }, [compounds, search, selectedCategories, selectedLegal, sortBy]);
+  }, [compounds, search, selectedCategories, selectedLegal, selectedPhases, sortBy]);
 
-  const activeFilterCount = selectedCategories.size + selectedLegal.size;
+  const activeFilterCount =
+    selectedCategories.size + selectedLegal.size + selectedPhases.size;
 
   function toggleCategory(cat: CompoundCategory) {
     setSelectedCategories((prev) => {
@@ -110,9 +138,19 @@ export function CompoundFilters({ compounds, categories }: Props) {
     });
   }
 
+  function togglePhase(phase: string) {
+    setSelectedPhases((prev) => {
+      const next = new Set(prev);
+      if (next.has(phase)) next.delete(phase);
+      else next.add(phase);
+      return next;
+    });
+  }
+
   function clearAll() {
     setSelectedCategories(new Set());
     setSelectedLegal(new Set());
+    setSelectedPhases(new Set());
     setSearch("");
   }
 
@@ -170,7 +208,7 @@ export function CompoundFilters({ compounds, categories }: Props) {
 
       {/* Filter panel */}
       {showFilters && (
-        <div className="rounded-lg border bg-card p-4 grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className="rounded-lg border bg-card p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Category */}
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-3">
@@ -224,8 +262,36 @@ export function CompoundFilters({ compounds, categories }: Props) {
             </div>
           </div>
 
+          {/* Clinical Phase */}
+          {phasesInData.size > 0 && (
+            <div>
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-3">
+                Clinical Phase
+              </h3>
+              <div className="space-y-2">
+                {PHASE_OPTIONS.filter((opt) =>
+                  phasesInData.has(opt.value)
+                ).map(({ value, label }) => (
+                  <div key={value} className="flex items-center gap-2">
+                    <Checkbox
+                      id={`phase-${value}`}
+                      checked={selectedPhases.has(value)}
+                      onCheckedChange={() => togglePhase(value)}
+                    />
+                    <Label
+                      htmlFor={`phase-${value}`}
+                      className="cursor-pointer text-sm font-normal"
+                    >
+                      {label}
+                    </Label>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {activeFilterCount > 0 && (
-            <div className="sm:col-span-2 pt-2 border-t">
+            <div className="sm:col-span-2 lg:col-span-3 pt-2 border-t">
               <Button
                 variant="ghost"
                 size="sm"
