@@ -1,7 +1,7 @@
 /**
  * Seed auto-generated stacks using the CompoundAtlas stack generation engine.
  *
- * Generates stacks for 15 goals × 3 experience levels = 45 public stacks.
+ * Generates stacks for 15 goals × 3 experience levels × 2 variants = 90 public stacks.
  * Run: npm run db:seed-stacks
  */
 import { PrismaClient, StackGoal } from "@prisma/client";
@@ -36,6 +36,32 @@ const SEED_GOALS: StackGoal[] = [
 ];
 
 const EXPERIENCE_LEVELS: ExperienceLevel[] = ["beginner", "intermediate", "advanced"];
+
+const SEED_VARIANTS: Array<{
+  key: string;
+  label: string;
+  constraints: string[];
+  maxCompounds: number;
+}> = [
+  {
+    key: "core",
+    label: "Core",
+    constraints: ["high-evidence"],
+    maxCompounds: 6,
+  },
+  {
+    key: "conservative",
+    label: "Conservative",
+    constraints: [
+      "high-evidence",
+      "minimal-sides",
+      "budget-friendly",
+      "otc-only",
+      "no-sarms",
+    ],
+    maxCompounds: 6,
+  },
+];
 
 function slugify(text: string): string {
   return text
@@ -75,56 +101,68 @@ async function main() {
 
   for (const goal of SEED_GOALS) {
     for (const experience of EXPERIENCE_LEVELS) {
-      try {
-        const generated = await generateStack(
-          { goal, experience, constraints: [], maxCompounds: 6 },
-          db
-        );
-
-        if (generated.compounds.length === 0) {
-          console.log(`  ⚠ ${goal}/${experience}: no compounds selected — skipping`);
-          failed++;
-          continue;
-        }
-
-        const slug = `${slugify(generated.name)}-${Date.now()}`;
-
-        await db.stack.create({
-          data: {
-            name: generated.name,
-            slug,
-            description: generated.description,
-            goal,
-            durationWeeks: generated.durationWeeks,
-            isPublic: true,
-            evidenceScore: generated.compositeScore,
-            creatorId: botUser.id,
-            compounds: {
-              create: generated.compounds.map((c) => ({
-                compoundId: c.compoundId,
-                dose: c.dose,
-                unit: c.unit,
-                frequency: c.frequency,
-                startWeek: c.startWeek,
-                notes: c.reasoning,
-              })),
+      for (const variant of SEED_VARIANTS) {
+        try {
+          const generated = await generateStack(
+            {
+              goal,
+              experience,
+              constraints: variant.constraints,
+              maxCompounds: variant.maxCompounds,
             },
-          },
-        });
+            db
+          );
 
-        const compoundNames = generated.compounds.map((c) => c.name).join(", ");
-        console.log(`  ✓ ${generated.name}`);
-        console.log(`    Score: ${generated.compositeScore} | ${generated.compounds.length} compounds`);
-        console.log(`    ${compoundNames}`);
-        if (generated.warnings.length) {
-          console.log(`    ⚠ ${generated.warnings[0]}`);
+          if (generated.compounds.length === 0) {
+            console.log(
+              `  ⚠ ${goal}/${experience}/${variant.key}: no compounds selected — skipping`
+            );
+            failed++;
+            continue;
+          }
+
+          const name = `${generated.name} — ${variant.label}`;
+          const slug = `${slugify(name)}-${Date.now()}`;
+
+          await db.stack.create({
+            data: {
+              name,
+              slug,
+              description: generated.description,
+              goal,
+              durationWeeks: generated.durationWeeks,
+              isPublic: true,
+              evidenceScore: generated.compositeScore,
+              creatorId: botUser.id,
+              compounds: {
+                create: generated.compounds.map((c) => ({
+                  compoundId: c.compoundId,
+                  dose: c.dose,
+                  unit: c.unit,
+                  frequency: c.frequency,
+                  startWeek: c.startWeek,
+                  notes: c.reasoning,
+                })),
+              },
+            },
+          });
+
+          const compoundNames = generated.compounds.map((c) => c.name).join(", ");
+          console.log(`  ✓ ${name}`);
+          console.log(
+            `    Score: ${generated.compositeScore} | ${generated.compounds.length} compounds`
+          );
+          console.log(`    ${compoundNames}`);
+          if (generated.warnings.length) {
+            console.log(`    ⚠ ${generated.warnings[0]}`);
+          }
+          console.log();
+
+          created++;
+        } catch (err) {
+          console.error(`  ✗ ${goal}/${experience}/${variant.key}: ${err}`);
+          failed++;
         }
-        console.log();
-
-        created++;
-      } catch (err) {
-        console.error(`  ✗ ${goal}/${experience}: ${err}`);
-        failed++;
       }
     }
   }

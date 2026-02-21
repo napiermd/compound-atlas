@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Sparkles } from "lucide-react";
+import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Button } from "@/components/ui/button";
 import { StackGallery } from "@/components/stack/StackGallery";
@@ -12,6 +13,9 @@ export const metadata: Metadata = {
 };
 
 export default async function StacksPage() {
+  const session = await auth();
+  const aiHref = session?.user?.id ? "/stacks/ai" : "/login";
+
   const raw = await db.stack.findMany({
     where: { isPublic: true },
     orderBy: { createdAt: "desc" },
@@ -42,9 +46,9 @@ export default async function StacksPage() {
         </div>
         <div className="flex items-center gap-2">
           <Button asChild variant="outline">
-            <Link href="/stacks/ai" className="gap-1.5">
+            <Link href={aiHref} className="gap-1.5">
               <Sparkles className="h-4 w-4" />
-              AI Builder
+              {session?.user?.id ? "AI Builder" : "Sign in for AI"}
             </Link>
           </Button>
           <Button asChild>

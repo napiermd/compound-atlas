@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { CategoryBadge } from "@/components/compound/CategoryBadge";
@@ -44,6 +45,14 @@ const CONSTRAINTS = [
 ];
 
 type Experience = "beginner" | "intermediate" | "advanced";
+type BiologicalSex = "MALE" | "FEMALE";
+
+interface AiProfile {
+  sex: BiologicalSex | null;
+  weightLbs: number | null;
+  heightFt: number | null;
+  heightIn: number | null;
+}
 
 interface AiCompound {
   slug: string;
@@ -73,7 +82,7 @@ interface AiResult {
   safetyNotes: string[];
 }
 
-export function AiStackBuilder() {
+export function AiStackBuilder({ profile }: { profile: AiProfile | null }) {
   const router = useRouter();
 
   // Form state
@@ -82,6 +91,18 @@ export function AiStackBuilder() {
   const [experience, setExperience] = useState<Experience>("intermediate");
   const [constraints, setConstraints] = useState<string[]>([]);
   const [currentCompounds, setCurrentCompounds] = useState("");
+  const [sex, setSex] = useState<BiologicalSex | "">(
+    profile?.sex ?? "",
+  );
+  const [weightLbs, setWeightLbs] = useState(
+    profile?.weightLbs != null ? String(profile.weightLbs) : "",
+  );
+  const [heightFt, setHeightFt] = useState(
+    profile?.heightFt != null ? String(profile.heightFt) : "",
+  );
+  const [heightIn, setHeightIn] = useState(
+    profile?.heightIn != null ? String(profile.heightIn) : "",
+  );
 
   // Result state
   const [result, setResult] = useState<AiResult | null>(null);
@@ -106,6 +127,15 @@ export function AiStackBuilder() {
     setResult(null);
 
     try {
+      const parsedWeightLbs = parseFloat(weightLbs);
+      const parsedHeightFt = parseInt(heightFt, 10);
+      const parsedHeightIn = parseInt(heightIn, 10);
+      const hasBiometrics =
+        sex !== "" ||
+        !isNaN(parsedWeightLbs) ||
+        !isNaN(parsedHeightFt) ||
+        !isNaN(parsedHeightIn);
+
       const res = await fetch("/api/ai/generate-stack", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -115,6 +145,14 @@ export function AiStackBuilder() {
           experience,
           constraints,
           currentCompounds: currentCompounds.trim(),
+          biometrics: hasBiometrics
+            ? {
+                sex: sex || undefined,
+                weightLbs: isNaN(parsedWeightLbs) ? undefined : parsedWeightLbs,
+                heightFt: isNaN(parsedHeightFt) ? undefined : parsedHeightFt,
+                heightIn: isNaN(parsedHeightIn) ? undefined : parsedHeightIn,
+              }
+            : undefined,
         }),
       });
 
@@ -250,6 +288,81 @@ export function AiStackBuilder() {
                   </label>
                 </div>
               ))}
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label className="text-xs text-muted-foreground">
+              Body details (optional, improves dosing picks)
+            </Label>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="space-y-1.5">
+                <Label className="text-xs text-muted-foreground">Biological sex</Label>
+                <div className="flex gap-2">
+                  <Button
+                    type="button"
+                    variant={sex === "MALE" ? "default" : "outline"}
+                    size="sm"
+                    className="flex-1"
+                    onClick={() => setSex("MALE")}
+                  >
+                    Male
+                  </Button>
+                  <Button
+                    type="button"
+                    variant={sex === "FEMALE" ? "default" : "outline"}
+                    size="sm"
+                    className="flex-1"
+                    onClick={() => setSex("FEMALE")}
+                  >
+                    Female
+                  </Button>
+                </div>
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="weight" className="text-xs text-muted-foreground">
+                  Weight (lbs)
+                </Label>
+                <Input
+                  id="weight"
+                  type="number"
+                  min={50}
+                  max={700}
+                  value={weightLbs}
+                  onChange={(e) => setWeightLbs(e.target.value)}
+                  placeholder="e.g. 175"
+                />
+              </div>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="space-y-1.5">
+                <Label htmlFor="height-ft" className="text-xs text-muted-foreground">
+                  Height (ft)
+                </Label>
+                <Input
+                  id="height-ft"
+                  type="number"
+                  min={3}
+                  max={8}
+                  value={heightFt}
+                  onChange={(e) => setHeightFt(e.target.value)}
+                  placeholder="e.g. 5"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="height-in" className="text-xs text-muted-foreground">
+                  Height (in)
+                </Label>
+                <Input
+                  id="height-in"
+                  type="number"
+                  min={0}
+                  max={11}
+                  value={heightIn}
+                  onChange={(e) => setHeightIn(e.target.value)}
+                  placeholder="e.g. 10"
+                />
+              </div>
             </div>
           </div>
 

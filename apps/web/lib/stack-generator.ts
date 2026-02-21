@@ -98,6 +98,27 @@ const BEGINNER_SAFE_CATEGORIES: CompoundCategory[] = [
   "NOOTROPIC",
 ];
 
+const BUDGET_FRIENDLY_CATEGORIES: CompoundCategory[] = [
+  "SUPPLEMENT",
+  "VITAMIN_MINERAL",
+  "AMINO_ACID",
+  "ADAPTOGEN",
+  "NOOTROPIC",
+  "FAT_LOSS",
+];
+
+const EVIDENCE_FLOOR: Record<ExperienceLevel, number> = {
+  beginner: 45,
+  intermediate: 35,
+  advanced: 25,
+};
+
+const SAFETY_FLOOR: Record<ExperienceLevel, number> = {
+  beginner: 65,
+  intermediate: 55,
+  advanced: 45,
+};
+
 // ─── GOAL SLOT DEFINITIONS ─────────────────────────
 
 const GOAL_SLOTS: Record<string, { slots: Slot[]; durationWeeks: number }> = {
@@ -683,6 +704,14 @@ function expIndex(exp: ExperienceLevel): number {
   return EXPERIENCE_ORDER.indexOf(exp);
 }
 
+function normalizeConstraint(raw: string): string {
+  return raw.trim().toLowerCase().replace(/_/g, "-");
+}
+
+function hasConstraint(constraints: Set<string>, name: string): boolean {
+  return constraints.has(name) || constraints.has(name.replace(/-/g, "_"));
+}
+
 function meetsMinExperience(minExp: ExperienceLevel | undefined, exp: ExperienceLevel): boolean {
   if (!minExp) return true;
   return expIndex(exp) >= expIndex(minExp);
@@ -705,17 +734,33 @@ function keywordRelevance(c: CompoundRow, keywords: string[]): number {
   return keywords.reduce((score, kw) => score + (text.includes(kw.toLowerCase()) ? 1 : 0), 0);
 }
 
-/** Sort compounds: first by keyword relevance (desc), then by evidenceScore (desc, nulls last) */
+function severeSideEffectCount(c: CompoundRow): number {
+  return c.sideEffects.filter((fx) => {
+    const sev = (fx.severity ?? "").toLowerCase();
+    return sev.includes("severe");
+  }).length;
+}
+
+/** Sort compounds by relevance, evidence, and safety with risk/cost penalties. */
 function sortedCandidates(
   compounds: CompoundRow[],
-  keywords: string[] = []
+  keywords: string[] = [],
+  options?: { budgetFriendly?: boolean }
 ): CompoundRow[] {
   return [...compounds].sort((a, b) => {
-    const kwDiff = keywordRelevance(b, keywords) - keywordRelevance(a, keywords);
-    if (kwDiff !== 0) return kwDiff;
-    const aScore = a.evidenceScore ?? -1;
-    const bScore = b.evidenceScore ?? -1;
-    return bScore - aScore;
+    const score = (c: CompoundRow): number => {
+      const kw = keywordRelevance(c, keywords);
+      const evidence = c.evidenceScore ?? 0;
+      const safety = c.safetyScore ?? 50;
+      const severeFx = severeSideEffectCount(c);
+      const legalPenalty = c.legalStatus === "LEGAL" ? 0 : c.legalStatus === "PRESCRIPTION" ? 4 : 7;
+      const budgetPenalty =
+        options?.budgetFriendly && !BUDGET_FRIENDLY_CATEGORIES.includes(c.category)
+          ? 15
+          : 0;
+      return kw * 18 + evidence * 1.1 + safety * 0.9 - severeFx * 20 - legalPenalty - budgetPenalty;
+    };
+    return score(b) - score(a);
   });
 }
 
@@ -724,7 +769,8 @@ function pickFromSlot(
   allCompounds: CompoundRow[],
   slot: Slot,
   experience: ExperienceLevel,
-  exclude: Set<string>
+  exclude: Set<string>,
+  options?: { budgetFriendly?: boolean }
 ): { compound: CompoundRow; reasoning: string }[] {
   const n = resolveCount(slot.count, experience);
   if (n === 0) return [];
@@ -736,7 +782,7 @@ function pickFromSlot(
       !exclude.has(c.id)
   );
 
-  const sorted = sortedCandidates(candidates, slot.mechanismKeywords ?? []);
+  const sorted = sortedCandidates(candidates, slot.mechanismKeywords ?? [], options);
   const picked = sorted.slice(0, n);
 
   return picked.map((c) => ({ compound: c, reasoning: slot.reasoning }));
@@ -871,6 +917,7 @@ export async function generateStack(
   client: PrismaClient
 ): Promise<GeneratedStack> {
   const { goal, experience, constraints, maxCompounds } = input;
+  const constraintSet = new Set(constraints.map(normalizeConstraint));
 
   // 1. Fetch all compounds with relations
   const allCompounds = (await client.compound.findMany({
@@ -894,27 +941,40 @@ export async function generateStack(
   let allowedLegal: LegalStatus[] = [...LEGAL_BY_EXPERIENCE[experience]];
 
   // 3. Apply constraint overrides
-  if (constraints.includes("no-gray-market")) {
+  if (hasConstraint(constraintSet, "no-gray-market")) {
     allowedLegal = allowedLegal.filter((l) => l !== "GRAY_MARKET");
   }
-  if (constraints.includes("no-prescription")) {
+  if (hasConstraint(constraintSet, "no-prescription") || hasConstraint(constraintSet, "otc-only")) {
     allowedLegal = allowedLegal.filter((l) => l !== "PRESCRIPTION" && l !== "SCHEDULED");
   }
 
   let filtered = allCompounds.filter((c) => allowedLegal.includes(c.legalStatus as LegalStatus));
 
   // Additional category restrictions
-  if (constraints.includes("no-sarms")) {
+  if (hasConstraint(constraintSet, "no-sarms")) {
     filtered = filtered.filter((c) => c.category !== "SARM");
   }
-  if (constraints.includes("beginner-safe")) {
+  if (hasConstraint(constraintSet, "beginner-safe")) {
     filtered = filtered.filter((c) =>
       BEGINNER_SAFE_CATEGORIES.includes(c.category) && c.legalStatus === "LEGAL"
     );
   }
+  if (hasConstraint(constraintSet, "budget-friendly")) {
+    filtered = filtered.filter((c) => BUDGET_FRIENDLY_CATEGORIES.includes(c.category));
+  }
+  if (hasConstraint(constraintSet, "high-evidence")) {
+    filtered = filtered.filter((c) => (c.evidenceScore ?? 0) >= EVIDENCE_FLOOR[experience]);
+  }
+  if (hasConstraint(constraintSet, "minimal-sides")) {
+    filtered = filtered.filter(
+      (c) =>
+        (c.safetyScore == null || c.safetyScore >= SAFETY_FLOOR[experience]) &&
+        severeSideEffectCount(c) === 0
+    );
+  }
   // For beginners (no explicit constraint needed — already handled by allowedLegal),
   // also restrict to safe categories unless they explicitly passed advanced goals
-  if (experience === "beginner" && !constraints.includes("beginner-safe")) {
+  if (experience === "beginner" && !hasConstraint(constraintSet, "beginner-safe")) {
     filtered = filtered.filter((c) => BEGINNER_SAFE_CATEGORIES.includes(c.category));
   }
 
@@ -928,15 +988,34 @@ export async function generateStack(
   // 6. Select compounds slot by slot, tracking excluded IDs
   const excluded = new Set<string>();
   const rawSelected: { compound: CompoundRow; reasoning: string }[] = [];
+  const preferBudget = hasConstraint(constraintSet, "budget-friendly");
 
   for (const slot of slots) {
-    const picks = pickFromSlot(filtered, slot, experience, excluded);
+    const picks = pickFromSlot(filtered, slot, experience, excluded, {
+      budgetFriendly: preferBudget,
+    });
     for (const pick of picks) {
       rawSelected.push(pick);
       excluded.add(pick.compound.id);
       if (rawSelected.length >= maxCompounds) break;
     }
     if (rawSelected.length >= maxCompounds) break;
+  }
+
+  // Backfill if slots did not find enough compounds after constraints/filtering.
+  const minCompoundsTarget = Math.min(3, maxCompounds);
+  if (rawSelected.length < minCompoundsTarget) {
+    const fallback = sortedCandidates(filtered, [], { budgetFriendly: preferBudget });
+    for (const c of fallback) {
+      if (excluded.has(c.id)) continue;
+      rawSelected.push({
+        compound: c,
+        reasoning: "Evidence-backed fallback added to complete a viable stack.",
+      });
+      excluded.add(c.id);
+      if (rawSelected.length >= minCompoundsTarget) break;
+      if (rawSelected.length >= maxCompounds) break;
+    }
   }
 
   // 7. Apply interaction safety checks

@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
+import { db } from "@/lib/db";
 import { AiStackBuilder } from "./AiStackBuilder";
 
 export const metadata: Metadata = {
@@ -7,7 +10,20 @@ export const metadata: Metadata = {
     "Describe your goal and let AI suggest an evidence-based compound stack from our database.",
 };
 
-export default function AiStackPage() {
+export default async function AiStackPage() {
+  const session = await auth();
+  if (!session?.user?.id) redirect("/login");
+
+  const profile = await db.user.findUnique({
+    where: { id: session.user.id },
+    select: {
+      sex: true,
+      weightLbs: true,
+      heightFt: true,
+      heightIn: true,
+    },
+  });
+
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
       <div className="mb-8">
@@ -17,7 +33,7 @@ export default function AiStackPage() {
           database.
         </p>
       </div>
-      <AiStackBuilder />
+      <AiStackBuilder profile={profile} />
     </div>
   );
 }

@@ -36,6 +36,32 @@ const GOALS: StackGoal[] = [
 
 const EXPERIENCE_LEVELS: ExperienceLevel[] = ["beginner", "intermediate", "advanced"];
 
+const STACK_VARIANTS: Array<{
+  key: string;
+  label: string;
+  constraints: string[];
+  maxCompounds: number;
+}> = [
+  {
+    key: "core",
+    label: "Core",
+    constraints: ["high-evidence"],
+    maxCompounds: 6,
+  },
+  {
+    key: "conservative",
+    label: "Conservative",
+    constraints: [
+      "high-evidence",
+      "minimal-sides",
+      "budget-friendly",
+      "otc-only",
+      "no-sarms",
+    ],
+    maxCompounds: 6,
+  },
+];
+
 function slugify(text: string): string {
   return text
     .toLowerCase()
@@ -62,99 +88,147 @@ export async function POST(req: Request) {
     create: { email: BOT_EMAIL, name: BOT_NAME },
   });
 
-  const results: { goal: string; experience: string; status: string; compounds: number }[] = [];
+  const results: {
+    goal: string;
+    experience: string;
+    variant: string;
+    status: string;
+    compounds: number;
+  }[] = [];
   let updated = 0;
   let created = 0;
   let failed = 0;
 
   for (const goal of GOALS) {
     for (const experience of EXPERIENCE_LEVELS) {
-      try {
-        const generated = await generateStack(
-          { goal, experience, constraints: [], maxCompounds: 6 },
-          db
-        );
-
-        if (generated.compounds.length === 0) {
-          results.push({ goal, experience, status: "skipped (no compounds)", compounds: 0 });
-          continue;
-        }
-
-        // Look up existing stack by name + creator
-        const existingStack = await db.stack.findFirst({
-          where: {
-            creatorId: botUser.id,
-            goal,
-            name: generated.name,
-          },
-          select: { id: true, evidenceScore: true },
-        });
-
-        const scoreChanged =
-          !existingStack ||
-          Math.abs((existingStack.evidenceScore ?? 0) - generated.compositeScore) > 0.5;
-
-        if (existingStack && !scoreChanged) {
-          // Score hasn't moved meaningfully — skip update
-          results.push({ goal, experience, status: "unchanged", compounds: generated.compounds.length });
-          continue;
-        }
-
-        if (existingStack) {
-          // Update existing stack
-          await db.stackCompound.deleteMany({ where: { stackId: existingStack.id } });
-          await db.stack.update({
-            where: { id: existingStack.id },
-            data: {
-              description: generated.description,
-              durationWeeks: generated.durationWeeks,
-              evidenceScore: generated.compositeScore,
-              compounds: {
-                create: generated.compounds.map((c) => ({
-                  compoundId: c.compoundId,
-                  dose: c.dose,
-                  unit: c.unit,
-                  frequency: c.frequency,
-                  startWeek: c.startWeek,
-                  notes: c.reasoning,
-                })),
-              },
-            },
-          });
-          results.push({ goal, experience, status: "updated", compounds: generated.compounds.length });
-          updated++;
-        } else {
-          // Create new stack
-          const slug = `${slugify(generated.name)}-${Date.now()}`;
-          await db.stack.create({
-            data: {
-              name: generated.name,
-              slug,
-              description: generated.description,
+      for (const variant of STACK_VARIANTS) {
+        try {
+          const generated = await generateStack(
+            {
               goal,
-              durationWeeks: generated.durationWeeks,
-              isPublic: true,
-              evidenceScore: generated.compositeScore,
-              creatorId: botUser.id,
-              compounds: {
-                create: generated.compounds.map((c) => ({
-                  compoundId: c.compoundId,
-                  dose: c.dose,
-                  unit: c.unit,
-                  frequency: c.frequency,
-                  startWeek: c.startWeek,
-                  notes: c.reasoning,
-                })),
-              },
+              experience,
+              constraints: variant.constraints,
+              maxCompounds: variant.maxCompounds,
             },
+            db
+          );
+
+          if (generated.compounds.length === 0) {
+            results.push({
+              goal,
+              experience,
+              variant: variant.key,
+              status: "skipped (no compounds)",
+              compounds: 0,
+            });
+            continue;
+          }
+
+          const stackName = `${generated.name} — ${variant.label}`;
+
+          // Look up existing stack by name + creator
+          const existingStack = await db.stack.findFirst({
+            where: {
+              creatorId: botUser.id,
+              goal,
+              name: stackName,
+            },
+            select: { id: true, evidenceScore: true },
           });
-          results.push({ goal, experience, status: "created", compounds: generated.compounds.length });
-          created++;
+
+          const scoreChanged =
+            !existingStack ||
+            Math.abs((existingStack.evidenceScore ?? 0) - generated.compositeScore) > 0.5;
+
+          if (existingStack && !scoreChanged) {
+            // Score hasn't moved meaningfully — skip update
+            results.push({
+              goal,
+              experience,
+              variant: variant.key,
+              status: "unchanged",
+              compounds: generated.compounds.length,
+            });
+            continue;
+          }
+
+          if (existingStack) {
+            // Update existing stack
+            await db.stackCompound.deleteMany({ where: { stackId: existingStack.id } });
+            await db.stack.update({
+              where: { id: existingStack.id },
+              data: {
+                description: generated.description,
+                durationWeeks: generated.durationWeeks,
+                evidenceScore: generated.compositeScore,
+                compounds: {
+                  create: generated.compounds.map((c) => ({
+                    compoundId: c.compoundId,
+                    dose: c.dose,
+                    unit: c.unit,
+                    frequency: c.frequency,
+                    startWeek: c.startWeek,
+                    notes: c.reasoning,
+                  })),
+                },
+              },
+            });
+            results.push({
+              goal,
+              experience,
+              variant: variant.key,
+              status: "updated",
+              compounds: generated.compounds.length,
+            });
+            updated++;
+          } else {
+            // Create new stack
+            const slug = `${slugify(stackName)}-${Date.now()}`;
+            await db.stack.create({
+              data: {
+                name: stackName,
+                slug,
+                description: generated.description,
+                goal,
+                durationWeeks: generated.durationWeeks,
+                isPublic: true,
+                evidenceScore: generated.compositeScore,
+                creatorId: botUser.id,
+                compounds: {
+                  create: generated.compounds.map((c) => ({
+                    compoundId: c.compoundId,
+                    dose: c.dose,
+                    unit: c.unit,
+                    frequency: c.frequency,
+                    startWeek: c.startWeek,
+                    notes: c.reasoning,
+                  })),
+                },
+              },
+            });
+            results.push({
+              goal,
+              experience,
+              variant: variant.key,
+              status: "created",
+              compounds: generated.compounds.length,
+            });
+            created++;
+          }
+        } catch (err) {
+          console.error(
+            `generate-stacks cron error [${goal}/${experience}/${variant.key}]:`,
+            err
+          );
+          results.push({
+            goal,
+            experience,
+            variant: variant.key,
+            status: `error: ${err instanceof Error ? err.message : String(err)}`,
+            compounds: 0,
+          });
+          failed++;
         }
-      } catch (err) {
-        console.error(`generate-stacks cron error [${goal}/${experience}]:`, err);
-        results.push({ goal, experience, status: `error: ${err instanceof Error ? err.message : String(err)}`, compounds: 0 });
-        failed++;
       }
     }
   }
