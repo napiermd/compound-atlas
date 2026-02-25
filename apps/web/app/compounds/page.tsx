@@ -8,6 +8,7 @@ import {
   type MomentumCompound,
 } from "@/components/compound/HotCompoundsSection";
 import { PipelineSection } from "@/components/compound/PipelineSection";
+import { SectionNav } from "@/components/layout/SectionNav";
 import type { CategoryCount } from "@/components/compound/CompoundFilters";
 
 export const metadata: Metadata = {
@@ -184,6 +185,8 @@ export default async function CompoundsPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
+      <SectionNav current="/compounds" />
+
       <div className="mb-6">
         <h1 className="text-3xl font-bold tracking-tight">Compounds</h1>
         <p className="text-muted-foreground mt-1 text-sm">
