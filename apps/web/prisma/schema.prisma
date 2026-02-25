@@ -126,6 +126,12 @@ model Compound {
 
   // Clinical development status
   clinicalPhase   String?          // "Phase I", "Phase II", "Phase III", "Approved", "Preclinical", "No formal trials"
+  evidenceLevel   EvidenceLevel?   // Optional manual summary grade for compound-level confidence
+
+  // Safety/legal context for detail pages
+  safetyCaveats   String[]         @default([])
+  legalCaveats    String[]         @default([])
+  literatureLinks Json?            // [{title,url,source,year,kind}]
 
   // Scores (computed by pipeline)
   evidenceScore   Float?           // 0-100 composite

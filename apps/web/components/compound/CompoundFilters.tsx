@@ -45,6 +45,7 @@ const PHASE_OPTIONS = [
 ];
 
 type SortKey = "evidenceScore" | "name" | "studyCount";
+type FocusArea = "all" | "peptides" | "igf";
 
 export function CompoundFilters({ compounds, categories }: Props) {
   const [search, setSearch] = useState("");
@@ -58,6 +59,7 @@ export function CompoundFilters({ compounds, categories }: Props) {
     new Set()
   );
   const [sortBy, setSortBy] = useState<SortKey>("evidenceScore");
+  const [focusArea, setFocusArea] = useState<FocusArea>("all");
   const [showFilters, setShowFilters] = useState(false);
 
   const legalStatusesInData = useMemo(
@@ -102,6 +104,19 @@ export function CompoundFilters({ compounds, categories }: Props) {
       );
     }
 
+    if (focusArea === "peptides") {
+      result = result.filter(
+        (c) => c.category === "PEPTIDE" || c.category === "GH_SECRETAGOGUE"
+      );
+    }
+
+    if (focusArea === "igf") {
+      result = result.filter((c) => {
+        const bucket = `${c.name} ${c.subcategory ?? ""} ${c.aliases.join(" ")} ${c.mechanismShort ?? ""}`.toLowerCase();
+        return bucket.includes("igf") || bucket.includes("insulin-like growth factor");
+      });
+    }
+
     return [...result].sort((a, b) => {
       if (sortBy === "name") {
         return a.name.localeCompare(b.name);
@@ -115,10 +130,35 @@ export function CompoundFilters({ compounds, categories }: Props) {
       if (b.evidenceScore === null) return -1;
       return b.evidenceScore - a.evidenceScore;
     });
-  }, [compounds, search, selectedCategories, selectedLegal, selectedPhases, sortBy]);
+  }, [
+    compounds,
+    search,
+    selectedCategories,
+    selectedLegal,
+    selectedPhases,
+    focusArea,
+    sortBy,
+  ]);
 
   const activeFilterCount =
-    selectedCategories.size + selectedLegal.size + selectedPhases.size;
+    selectedCategories.size +
+    selectedLegal.size +
+    selectedPhases.size +
+    (focusArea === "all" ? 0 : 1);
+
+  const sortedCategories = useMemo(() => {
+    const priority: Partial<Record<CompoundCategory, number>> = {
+      PEPTIDE: 0,
+      GH_SECRETAGOGUE: 1,
+    };
+
+    return [...categories].sort((a, b) => {
+      const pa = priority[a.category] ?? 99;
+      const pb = priority[b.category] ?? 99;
+      if (pa !== pb) return pa - pb;
+      return b.count - a.count;
+    });
+  }, [categories]);
 
   function toggleCategory(cat: CompoundCategory) {
     setSelectedCategories((prev) => {
@@ -151,6 +191,7 @@ export function CompoundFilters({ compounds, categories }: Props) {
     setSelectedCategories(new Set());
     setSelectedLegal(new Set());
     setSelectedPhases(new Set());
+    setFocusArea("all");
     setSearch("");
   }
 
@@ -206,6 +247,33 @@ export function CompoundFilters({ compounds, categories }: Props) {
         </Button>
       </div>
 
+      <div className="flex flex-wrap gap-2">
+        <Button
+          size="sm"
+          variant={focusArea === "all" ? "default" : "outline"}
+          onClick={() => setFocusArea("all")}
+          className="h-8"
+        >
+          All compounds
+        </Button>
+        <Button
+          size="sm"
+          variant={focusArea === "peptides" ? "default" : "outline"}
+          onClick={() => setFocusArea("peptides")}
+          className="h-8"
+        >
+          Peptides & GH axis
+        </Button>
+        <Button
+          size="sm"
+          variant={focusArea === "igf" ? "default" : "outline"}
+          onClick={() => setFocusArea("igf")}
+          className="h-8"
+        >
+          IGF-focused
+        </Button>
+      </div>
+
       {/* Filter panel */}
       {showFilters && (
         <div className="rounded-lg border bg-card p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -215,7 +283,7 @@ export function CompoundFilters({ compounds, categories }: Props) {
               Category
             </h3>
             <div className="space-y-2">
-              {categories.map(({ category, count }) => (
+              {sortedCategories.map(({ category, count }) => (
                 <div key={category} className="flex items-center gap-2">
                   <Checkbox
                     id={`cat-${category}`}
