@@ -95,13 +95,22 @@ export default async function CompoundDetailPage({ params }: Props) {
   const compound: CompoundDetail = JSON.parse(JSON.stringify(raw));
 
   const displayAliases = compound.aliases.slice(0, 3);
-  const refreshedText = compound.lastResearchSync
-    ? new Date(compound.lastResearchSync).toLocaleDateString("en-US", {
+  const literatureSync = compound.lastLiteratureSync ?? compound.lastResearchSync;
+  const refreshedText = literatureSync
+    ? new Date(literatureSync).toLocaleDateString("en-US", {
         month: "short",
         day: "numeric",
         year: "numeric",
       })
     : "Not synced yet";
+
+  const reviewedText = compound.lastReviewedAt
+    ? new Date(compound.lastReviewedAt).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })
+    : "Not reviewed";
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
@@ -147,6 +156,9 @@ export default async function CompoundDetailPage({ params }: Props) {
               {compound.studyCount} stud{compound.studyCount === 1 ? "y" : "ies"}
             </Badge>
           )}
+          {compound.isStale && (
+            <Badge variant="destructive" className="text-xs">Stale literature</Badge>
+          )}
         </div>
 
         {displayAliases.length > 0 && (
@@ -177,7 +189,7 @@ export default async function CompoundDetailPage({ params }: Props) {
         </>
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 mb-6">
         <div className="rounded-lg border bg-card px-3 py-3">
           <p className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1 flex items-center gap-1">
             <Waves className="h-3.5 w-3.5" />
@@ -206,9 +218,16 @@ export default async function CompoundDetailPage({ params }: Props) {
         <div className="rounded-lg border bg-card px-3 py-3">
           <p className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1 flex items-center gap-1">
             <Clock3 className="h-3.5 w-3.5" />
-            Research Sync
+            Literature Sync
           </p>
           <p className="text-sm font-semibold">{refreshedText}</p>
+        </div>
+        <div className="rounded-lg border bg-card px-3 py-3">
+          <p className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1 flex items-center gap-1">
+            <Clock3 className="h-3.5 w-3.5" />
+            Last Reviewed
+          </p>
+          <p className="text-sm font-semibold">{reviewedText}</p>
         </div>
       </div>
 

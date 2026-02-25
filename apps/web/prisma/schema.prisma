@@ -132,8 +132,11 @@ model Compound {
   safetyScore     Float?           // 0-100
   studyCount      Int              @default(0)
   metaAnalysisCount Int            @default(0)
-  scoreBreakdown  Json?            // {study_count, study_quality, sample_size, consistency, replication, recency} each 0-100
-  lastResearchSync DateTime?
+  scoreBreakdown   Json?            // {study_count, study_quality, sample_size, consistency, replication, recency} each 0-100
+  lastResearchSync DateTime?        // legacy sync field
+  lastLiteratureSync DateTime?      // canonical literature synchronization timestamp
+  lastReviewedAt   DateTime?        // last manual/automated review timestamp
+  isStale          Boolean          @default(false)
 
   // Relations
   studies         CompoundStudy[]

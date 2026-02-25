@@ -48,6 +48,11 @@ export function CompoundCard({ compound: c }: Props) {
           </div>
           <div className="flex flex-wrap gap-1.5 mt-1.5">
             <CategoryBadge category={c.category} />
+            {c.isStale && (
+              <Badge variant="destructive" className="text-[10px] font-medium">
+                Stale
+              </Badge>
+            )}
             {c.legalStatus !== "LEGAL" && (
               <Badge variant="outline" className="text-[10px] font-medium">
                 {c.legalStatus === "PRESCRIPTION"

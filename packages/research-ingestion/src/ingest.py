@@ -34,7 +34,8 @@ from rich.table import Table
 
 from .pubmed import PubMedClient, classify_study_type
 from .semantic_scholar import SemanticScholarClient
-from .scorer import compute_evidence_score, StudyInput
+from .openalex import OpenAlexClient
+from .scorer import compute_evidence_score, compute_stale_status, StudyInput
 from .clinical_trials import ClinicalTrialsClient, phase_rank
 
 load_dotenv()
@@ -42,6 +43,7 @@ console = Console()
 app = typer.Typer()
 
 COMPOUND_DATA_DIR = Path(__file__).parent.parent.parent / "compound-data" / "compounds"
+DEFAULT_STALE_DAYS = int(os.environ.get("COMPOUND_STALE_DAYS", "45"))
 
 # Map study type to per-study evidence level
 STUDY_TYPE_TO_EVIDENCE_LEVEL = {
@@ -58,6 +60,40 @@ STUDY_TYPE_TO_EVIDENCE_LEVEL = {
     "IN_VITRO": "D",
     "OTHER": "D",
 }
+
+
+def _title_key(title: str) -> str:
+    return " ".join((title or "").lower().split())[:220]
+
+
+def _study_dedup_key(study: dict) -> str:
+    doi = (study.get("doi") or "").lower().strip()
+    pmid = (study.get("pmid") or "").strip()
+    s2_id = (study.get("s2_id") or "").strip()
+    oa_id = (study.get("openalex_id") or "").strip()
+    if doi:
+        return f"doi:{doi}"
+    if pmid:
+        return f"pmid:{pmid}"
+    if s2_id:
+        return f"s2:{s2_id}"
+    if oa_id:
+        return f"oa:{oa_id}"
+    return f"title:{_title_key(study.get('title') or '')}:year:{study.get('year') or 'na'}"
+
+
+def build_source_freshness(source_status: dict[str, dict]) -> dict[str, float]:
+    freshness: dict[str, float] = {}
+    for source, status in source_status.items():
+        if not status.get("queried"):
+            freshness[source] = 35.0
+        elif status.get("error"):
+            freshness[source] = 25.0
+        elif status.get("results", 0) > 0:
+            freshness[source] = 100.0
+        else:
+            freshness[source] = 70.0
+    return freshness
 
 
 def get_db_connection():
@@ -224,6 +260,7 @@ def update_compound_scores(
     score_result: dict,
     dry_run: bool,
     conn,
+    stale_after_days: int = DEFAULT_STALE_DAYS,
 ) -> Optional[str]:
     """
     Update compound evidence scores and sync timestamp.
@@ -255,15 +292,20 @@ def update_compound_scores(
     try:
         import json as _json
         score_breakdown_json = _json.dumps(score_result.get("factors", {}))
+        now = datetime.utcnow()
+        is_stale = compute_stale_status(now, stale_after_days, now=now)
         cur.execute(
             """
             UPDATE "Compound"
-            SET "evidenceScore"     = %s,
-                "studyCount"        = %s,
-                "metaAnalysisCount" = %s,
-                "scoreBreakdown"    = %s::jsonb,
-                "lastResearchSync"  = %s,
-                "updatedAt"         = %s
+            SET "evidenceScore"      = %s,
+                "studyCount"         = %s,
+                "metaAnalysisCount"  = %s,
+                "scoreBreakdown"     = %s::jsonb,
+                "lastResearchSync"   = %s,
+                "lastLiteratureSync" = %s,
+                "lastReviewedAt"     = %s,
+                "isStale"            = %s,
+                "updatedAt"          = %s
             WHERE id = %s
             """,
             [
@@ -271,8 +313,11 @@ def update_compound_scores(
                 study_count,
                 meta_count,
                 score_breakdown_json,
-                datetime.utcnow(),
-                datetime.utcnow(),
+                now,
+                now,
+                now,
+                is_stale,
+                now,
                 compound_id,
             ],
         )
@@ -291,6 +336,7 @@ def ingest_compound(
     compound: dict,
     pubmed: PubMedClient,
     s2: SemanticScholarClient,
+    oa: OpenAlexClient,
     since_days: Optional[int] = None,
     dry_run: bool = False,
 ) -> dict:
@@ -307,6 +353,11 @@ def ingest_compound(
 
     all_studies = []
     seen_ids: set[str] = set()
+    source_status = {
+        "pubmed": {"queried": False, "results": 0, "error": False},
+        "semantic_scholar": {"queried": False, "results": 0, "error": False},
+        "openalex": {"queried": False, "results": 0, "error": False},
+    }
 
     # ─── PubMed Search ───────────────────────────────
     specific_queries = search_terms.get("pubmed", [])
@@ -320,25 +371,28 @@ def ingest_compound(
 
     for query in pubmed_queries:
         console.print(f"  [dim]PubMed: {query}[/dim]")
+        source_status["pubmed"]["queried"] = True
         try:
             articles = pubmed.search_and_fetch(query, max_results=100, min_date=min_date)
             for article in articles:
-                dedup_key = article.doi or f"pmid:{article.pmid}"
+                candidate = {
+                    "source": "pubmed",
+                    "pmid": article.pmid,
+                    "doi": article.doi,
+                    "title": article.title,
+                    "abstract": article.abstract,
+                    "authors": article.authors,
+                    "journal": article.journal,
+                    "year": article.year,
+                    "study_type": classify_study_type(article),
+                }
+                dedup_key = _study_dedup_key(candidate)
                 if dedup_key not in seen_ids:
                     seen_ids.add(dedup_key)
-                    study_type = classify_study_type(article)
-                    all_studies.append({
-                        "source": "pubmed",
-                        "pmid": article.pmid,
-                        "doi": article.doi,
-                        "title": article.title,
-                        "abstract": article.abstract,
-                        "authors": article.authors,
-                        "journal": article.journal,
-                        "year": article.year,
-                        "study_type": study_type,
-                    })
+                    source_status["pubmed"]["results"] += 1
+                    all_studies.append(candidate)
         except Exception as e:
+            source_status["pubmed"]["error"] = True
             console.print(f"  [red]PubMed error: {e}[/red]")
 
     # ─── Semantic Scholar Search ─────────────────────
@@ -346,12 +400,12 @@ def ingest_compound(
 
     for query in s2_queries:
         console.print(f"  [dim]S2: {query}[/dim]")
+        source_status["semantic_scholar"]["queried"] = True
         try:
             year_range = None
             if since_days and since_days <= 365:
                 year_range = f"{datetime.now().year - 1}-{datetime.now().year}"
 
-            # Retry once on 429 rate-limit with 3s back-off
             for attempt in range(2):
                 try:
                     papers = s2.search(query, limit=100, year_range=year_range)
@@ -364,28 +418,66 @@ def ingest_compound(
                         raise
 
             for paper in papers:
-                dedup_key = paper.doi or f"s2:{paper.paper_id}"
+                candidate = {
+                    "source": "semantic_scholar",
+                    "s2_id": paper.paper_id,
+                    "doi": paper.doi,
+                    "pmid": paper.external_ids.get("PubMed"),
+                    "title": paper.title,
+                    "abstract": paper.abstract,
+                    "authors": paper.authors,
+                    "journal": paper.venue,
+                    "year": paper.year,
+                    "is_open_access": paper.is_open_access,
+                    "open_access_url": paper.open_access_url,
+                    "tldr": paper.tldr,
+                    "study_type": "OTHER",
+                }
+                dedup_key = _study_dedup_key(candidate)
                 if dedup_key not in seen_ids:
                     seen_ids.add(dedup_key)
-                    all_studies.append({
-                        "source": "semantic_scholar",
-                        "s2_id": paper.paper_id,
-                        "doi": paper.doi,
-                        "pmid": paper.external_ids.get("PubMed"),
-                        "title": paper.title,
-                        "abstract": paper.abstract,
-                        "authors": paper.authors,
-                        "journal": paper.venue,
-                        "year": paper.year,
-                        "is_open_access": paper.is_open_access,
-                        "open_access_url": paper.open_access_url,
-                        "tldr": paper.tldr,
-                        "study_type": "OTHER",
-                    })
+                    source_status["semantic_scholar"]["results"] += 1
+                    all_studies.append(candidate)
         except Exception as e:
+            source_status["semantic_scholar"]["error"] = True
             console.print(f"  [red]S2 error: {e}[/red]")
 
+    # ─── OpenAlex Search (enrichment + freshness parity) ─────────────
+    oa_queries = search_terms.get("openAlex", [name])
+    for query in oa_queries:
+        console.print(f"  [dim]OpenAlex: {query}[/dim]")
+        source_status["openalex"]["queried"] = True
+        try:
+            from_year = None
+            if since_days:
+                from_year = (datetime.now() - timedelta(days=since_days)).year
+            works = oa.search(query, limit=100, from_year=from_year)
+            for work in works:
+                candidate = {
+                    "source": "openalex",
+                    "openalex_id": work.openalex_id,
+                    "doi": work.doi,
+                    "pmid": work.pmid,
+                    "title": work.title,
+                    "abstract": work.abstract,
+                    "authors": work.authors,
+                    "journal": work.venue,
+                    "year": work.year,
+                    "is_open_access": work.is_open_access,
+                    "open_access_url": work.open_access_url,
+                    "study_type": "OTHER",
+                }
+                dedup_key = _study_dedup_key(candidate)
+                if dedup_key not in seen_ids:
+                    seen_ids.add(dedup_key)
+                    source_status["openalex"]["results"] += 1
+                    all_studies.append(candidate)
+        except Exception as e:
+            source_status["openalex"]["error"] = True
+            console.print(f"  [red]OpenAlex error: {e}[/red]")
+
     # ─── Compute Evidence Score ──────────────────────
+    source_freshness = build_source_freshness(source_status)
     study_inputs = [
         StudyInput(
             study_type=s.get("study_type", "OTHER"),
@@ -397,7 +489,7 @@ def ingest_compound(
         )
         for s in all_studies
     ]
-    score_result = compute_evidence_score(study_inputs)
+    score_result = compute_evidence_score(study_inputs, source_freshness=source_freshness)
 
     console.print(
         f"  [green]✓ {score_result['study_count']} studies | "
@@ -430,6 +522,7 @@ def ingest_compound(
         "total_studies": score_result["study_count"],
         "pubmed_studies": sum(1 for s in all_studies if s["source"] == "pubmed"),
         "s2_studies": sum(1 for s in all_studies if s["source"] == "semantic_scholar"),
+        "openalex_studies": sum(1 for s in all_studies if s["source"] == "openalex"),
         "evidence_score": score_result["composite"],
         "evidence_level": score_result["evidence_level"],
         "meta_analyses": score_result["meta_analysis_count"],
@@ -495,13 +588,14 @@ def main(
     # Initialize API clients
     pubmed = PubMedClient()
     s2 = SemanticScholarClient()
+    oa = OpenAlexClient(email=os.environ.get("NCBI_EMAIL"))
 
     summaries = []
     try:
         for i, comp in enumerate(compounds):
             try:
                 # Each compound gets its own fresh connection during the write phase
-                summary = ingest_compound(comp, pubmed, s2, since_days, dry_run)
+                summary = ingest_compound(comp, pubmed, s2, oa, since_days, dry_run)
                 summaries.append(summary)
             except Exception as e:
                 console.print(f"\n[red]✗ Failed: {comp['slug']} — {e}[/red]")
@@ -524,6 +618,7 @@ def main(
     finally:
         pubmed.close()
         s2.close()
+        oa.close()
 
     # ─── Summary Table ────────────────────────────────
     console.print("\n")
@@ -533,6 +628,7 @@ def main(
     table.add_column("Studies", justify="right")
     table.add_column("PubMed", justify="right")
     table.add_column("S2", justify="right")
+    table.add_column("OpenAlex", justify="right")
     table.add_column("Score", justify="right")
     table.add_column("Level", justify="center")
     table.add_column("New", justify="right")
@@ -557,6 +653,7 @@ def main(
             str(s["total_studies"]),
             str(s["pubmed_studies"]),
             str(s["s2_studies"]),
+            str(s.get("openalex_studies", 0)),
             f"[{score_style}]{s['evidence_score']}[/{score_style}]",
             s["evidence_level"],
             str(s["db_inserted"]),
@@ -712,6 +809,87 @@ def update_phases(
         )
 
     console.print(table)
+
+
+@app.command("mark-stale")
+def mark_stale(
+    stale_days: int = typer.Option(DEFAULT_STALE_DAYS, "--stale-days", help="Mark compounds stale when no sync >= this many days"),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Preview changes only"),
+):
+    """Mark stale compounds based on lastLiteratureSync/lastResearchSync age."""
+    conn = get_db_connection()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    try:
+        cur.execute(
+            '''
+            SELECT id, slug,
+                   COALESCE("lastLiteratureSync", "lastResearchSync") AS last_sync
+            FROM "Compound"
+            ORDER BY slug ASC
+            '''
+        )
+        rows = cur.fetchall()
+        now = datetime.utcnow()
+        to_stale = []
+        for row in rows:
+            stale = compute_stale_status(row["last_sync"], stale_days, now=now)
+            if stale:
+                to_stale.append(row)
+            if not dry_run:
+                cur.execute(
+                    'UPDATE "Compound" SET "isStale"=%s, "updatedAt"=%s WHERE id=%s',
+                    [stale, now, row["id"]],
+                )
+        if not dry_run:
+            conn.commit()
+        console.print(f"[green]Marked stale: {len(to_stale)} / {len(rows)} compounds (threshold={stale_days}d)[/green]")
+    finally:
+        cur.close()
+        conn.close()
+
+
+@app.command("dedupe-studies")
+def dedupe_studies(
+    dry_run: bool = typer.Option(False, "--dry-run", help="Preview dedupe actions"),
+):
+    """Deduplicate studies by DOI/PMID/title-year and preserve links."""
+    conn = get_db_connection()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    try:
+        cur.execute('SELECT id, doi, pmid, title, year FROM "Study" ORDER BY "createdAt" ASC')
+        rows = cur.fetchall()
+        seen = {}
+        merge_pairs: list[tuple[str, str]] = []
+        for r in rows:
+            key = (r["doi"] or "").lower().strip() or (r["pmid"] or "").strip() or f"{_title_key(r['title'] or '')}:{r['year'] or 'na'}"
+            if key in seen:
+                merge_pairs.append((r["id"], seen[key]))
+            else:
+                seen[key] = r["id"]
+
+        for duplicate_id, canonical_id in merge_pairs:
+            if dry_run:
+                continue
+            cur.execute('SELECT "compoundId" FROM "CompoundStudy" WHERE "studyId"=%s', [duplicate_id])
+            links = cur.fetchall()
+            for link in links:
+                cur.execute(
+                    '''
+                    INSERT INTO "CompoundStudy" (id, "compoundId", "studyId")
+                    VALUES (%s, %s, %s)
+                    ON CONFLICT ("compoundId", "studyId") DO NOTHING
+                    ''',
+                    [str(uuid.uuid4()), link["compoundId"], canonical_id],
+                )
+            cur.execute('DELETE FROM "CompoundStudy" WHERE "studyId" = %s', [duplicate_id])
+            cur.execute('DELETE FROM "Study" WHERE id = %s', [duplicate_id])
+
+        if not dry_run:
+            conn.commit()
+        console.print(f"[green]Deduped {len(merge_pairs)} duplicate studies[/green]")
+    finally:
+        cur.close()
+        conn.close()
 
 
 if __name__ == "__main__":

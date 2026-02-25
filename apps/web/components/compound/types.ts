@@ -19,6 +19,9 @@ export interface CompoundSummary {
   clinicalPhase: string | null;
   createdAt: Date | string;
   lastResearchSync: Date | string | null;
+  lastLiteratureSync: Date | string | null;
+  lastReviewedAt: Date | string | null;
+  isStale: boolean;
 }
 
 export interface SideEffectData {

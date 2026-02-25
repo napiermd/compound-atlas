@@ -1,0 +1,30 @@
+name: Literature Sync
+
+on:
+  schedule:
+    - cron: "0 9 * * *" # daily
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        working-directory: packages/research-ingestion
+        run: |
+          pip install -r requirements.txt
+      - name: Run incremental sync + dedupe + stale marking
+        working-directory: packages/research-ingestion
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          NCBI_API_KEY: ${{ secrets.NCBI_API_KEY }}
+          NCBI_EMAIL: ${{ secrets.NCBI_EMAIL }}
+          SEMANTIC_SCHOLAR_API_KEY: ${{ secrets.SEMANTIC_SCHOLAR_API_KEY }}
+          COMPOUND_STALE_DAYS: ${{ vars.COMPOUND_STALE_DAYS }}
+        run: |
+          chmod +x scripts/literature_sync.sh
+          ./scripts/literature_sync.sh 7d

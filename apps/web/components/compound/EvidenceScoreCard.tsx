@@ -14,7 +14,7 @@ const FACTORS = [
   {
     key: "study_count",
     label: "Volume",
-    weight: 0.40,
+    weight: 0.36,
     description:
       "Number of studies indexed from PubMed and Semantic Scholar. " +
       "Uses a logarithmic curve — going from 0→5 studies matters more than 50→55.",
@@ -54,11 +54,11 @@ const FACTORS = [
   },
   {
     key: "recency",
-    label: "Recency",
-    weight: 0.05,
+    label: "Recency + Source Freshness",
+    weight: 0.09,
     description:
-      "Proportion of studies published in the last 3–5 years. " +
-      "Active research areas score higher.",
+      "Blends publication recency (2/5/8-year windows) with source freshness checks " +
+      "across PubMed, Semantic Scholar, and OpenAlex.",
   },
 ] as const;
 
@@ -112,10 +112,10 @@ function deriveFactorScores(
   const metaRatio = studyCount > 0 ? metaAnalysisCount / studyCount : 0;
   const qualityScore = Math.min(100, Math.round(40 + 60 * Math.sqrt(metaRatio)));
 
-  // Remaining factors: solve from composite (weights: vol 40%, qual 30%, rest 30%)
-  const knownContribution = 0.40 * volumeScore + 0.30 * qualityScore;
+  // Remaining factors: solve from composite (weights: vol 36%, qual 30%, rest 34%)
+  const knownContribution = 0.36 * volumeScore + 0.30 * qualityScore;
   const remainingAvg = Math.max(0, Math.min(100,
-    Math.round((evidenceScore - knownContribution) / 0.30)
+    Math.round((evidenceScore - knownContribution) / 0.34)
   ));
 
   return {
@@ -187,7 +187,7 @@ export function EvidenceScoreCard({
                 <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
               </TooltipTrigger>
               <TooltipContent className="max-w-xs text-xs">
-                Composite 0–100 score computed from PubMed and Semantic Scholar data.
+                Composite 0–100 score computed from PubMed, Semantic Scholar, and OpenAlex data.
                 Inspired by the GRADE framework and Oxford Centre for Evidence-Based Medicine levels.
               </TooltipContent>
             </Tooltip>

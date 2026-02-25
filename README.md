@@ -389,6 +389,13 @@ python -m src.ingest --full
 
 # Incremental update (for cron)
 python -m src.ingest --incremental --since 7d
+
+# Dedupe + stale safeguards
+python -m src.ingest dedupe-studies
+python -m src.ingest mark-stale --stale-days 45
+
+# All-in-one periodic runner
+./scripts/literature_sync.sh 7d
 ```
 
 ---

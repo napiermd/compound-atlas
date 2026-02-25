@@ -34,7 +34,7 @@ export default async function ResearchPage({
       <div className="mb-8">
         <h1 className="text-3xl font-bold tracking-tight">Research</h1>
         <p className="text-muted-foreground mt-1">
-          {total} studies indexed from PubMed and Semantic Scholar
+          {total} studies indexed from PubMed, Semantic Scholar, and OpenAlex
         </p>
       </div>
 
