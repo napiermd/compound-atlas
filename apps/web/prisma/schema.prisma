@@ -318,6 +318,10 @@ model Stack {
   durationWeeks Int?
   isPublic      Boolean         @default(false)
   evidenceScore Float?          // Computed aggregate
+  folder        String?
+  tags          String[]        @default([])
+  riskFlags     String[]        @default([])
+  orderIndex    Int             @default(0)
   upvotes       Int             @default(0)
   forkCount     Int             @default(0)
   forkedFromId  String?
@@ -334,6 +338,7 @@ model Stack {
 
   @@index([goal])
   @@index([isPublic, upvotes])
+  @@index([creatorId, orderIndex])
 }
 
 model StackUpvote {
