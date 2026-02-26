@@ -30,7 +30,23 @@ function formatStudyType(type: StudyType) {
   return type.replace(/_/g, " ");
 }
 
-type StudyListItem = Awaited<ReturnType<typeof db.study.findMany>>[number];
+type StudyListItem = {
+  id: string;
+  title: string;
+  studyType: StudyType;
+  evidenceLevel: EvidenceLevel | null;
+  year: number | null;
+  publicationDate: Date | null;
+  sampleSize: number | null;
+  journal: string | null;
+  pmid: string | null;
+  fullTextUrl: string | null;
+  tldr: string | null;
+  compounds: Array<{
+    id: string;
+    compound: { name: string; slug: string };
+  }>;
+};
 
 export default async function ResearchPage({
   searchParams,
