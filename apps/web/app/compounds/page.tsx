@@ -44,7 +44,7 @@ type RawCompoundRow = {
   doseUnit: string | null;
   doseFrequency: string | null;
   clinicalPhase: string | null;
-  evidenceLevel: "A" | "B" | "C" | "D" | null;
+  evidenceLevel?: "A" | "B" | "C" | "D" | null;
   createdAt: Date | string;
   safetyCaveats?: string[];
   legalCaveats?: string[];
@@ -155,7 +155,6 @@ export default async function CompoundsPage() {
           doseUnit: true,
           doseFrequency: true,
           clinicalPhase: true,
-          evidenceLevel: true,
           createdAt: true,
         },
         orderBy: [{ studyCount: "desc" }, { name: "asc" }],
@@ -191,6 +190,7 @@ export default async function CompoundsPage() {
 
   const compounds: CompoundSummary[] = rawCompounds.map((c) => ({
     ...c,
+    evidenceLevel: c.evidenceLevel ?? null,
     safetyCaveats: Array.isArray(c.safetyCaveats) ? c.safetyCaveats : [],
     legalCaveats: Array.isArray(c.legalCaveats) ? c.legalCaveats : [],
     literatureLinks: c.literatureLinks ?? null,
