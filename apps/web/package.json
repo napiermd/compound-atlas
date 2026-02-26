@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
-    "test": "tsx --test lib/*.test.ts"
+    "test": "tsx --test lib/*.test.ts",
+    "smoke:routes": "node scripts/smoke-routes.mjs"
   },
   "prisma": {
     "seed": "npx tsx prisma/seed.ts"
