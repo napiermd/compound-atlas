@@ -47,9 +47,8 @@ export default async function ResearchPage({
 
   const query = searchParams.q?.trim() ?? "";
 
-  const where = {
+  const baseWhere = {
     ...(selectedType && { studyType: selectedType }),
-    ...(selectedLevel && { evidenceLevel: selectedLevel }),
     ...(query && {
       OR: [
         { title: { contains: query, mode: "insensitive" as const } },
@@ -70,21 +69,64 @@ export default async function ResearchPage({
     }),
   };
 
-  const [studies, total, filteredCount] = await Promise.all([
-    db.study.findMany({
-      where,
-      orderBy: [{ publicationDate: "desc" }, { year: "desc" }],
-      take: 60,
-      include: {
-        compounds: {
-          include: { compound: { select: { name: true, slug: true } } },
-          take: 5,
+  type StudyRow = {
+    id: string;
+    title: string;
+    studyType: StudyType;
+    evidenceLevel: EvidenceLevel | null;
+    year: number | null;
+    publicationDate: Date | null;
+    sampleSize: number | null;
+    journal: string | null;
+    pmid: string | null;
+    fullTextUrl: string | null;
+    tldr: string | null;
+    compounds: Array<{ id: string; compound: { name: string; slug: string } }>;
+  };
+
+  let studies: StudyRow[] = [];
+  let total = 0;
+  let filteredCount = 0;
+
+  try {
+    const where = {
+      ...baseWhere,
+      ...(selectedLevel && { evidenceLevel: selectedLevel }),
+    };
+
+    [studies, total, filteredCount] = await Promise.all([
+      db.study.findMany({
+        where,
+        orderBy: [{ publicationDate: "desc" }, { year: "desc" }],
+        take: 60,
+        include: {
+          compounds: {
+            include: { compound: { select: { name: true, slug: true } } },
+            take: 5,
+          },
         },
-      },
-    }),
-    db.study.count(),
-    db.study.count({ where }),
-  ]);
+      }),
+      db.study.count(),
+      db.study.count({ where }),
+    ]);
+  } catch {
+    // Fallback for DBs missing newer evidence-level column.
+    [studies, total, filteredCount] = await Promise.all([
+      db.study.findMany({
+        where: baseWhere,
+        orderBy: [{ publicationDate: "desc" }, { year: "desc" }],
+        take: 60,
+        include: {
+          compounds: {
+            include: { compound: { select: { name: true, slug: true } } },
+            take: 5,
+          },
+        },
+      }),
+      db.study.count(),
+      db.study.count({ where: baseWhere }),
+    ]);
+  }
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
