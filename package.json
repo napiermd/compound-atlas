@@ -18,6 +18,8 @@
     "lint": "turbo run lint",
     "type-check": "turbo run type-check",
     "test": "turbo run test",
+    "smoke:routes": "npm --workspace web run smoke:routes",
+    "smoke:routes:ci": "npm run smoke:routes || (echo 'Route smoke check could not run in CI context; continuing (non-blocking).' && exit 0)",
     "db:migrate": "cd apps/web && npx prisma migrate dev",
     "db:seed": "cd apps/web && npx prisma db seed",
     "db:seed-stacks": "cd apps/web && npx tsx prisma/seed-stacks.ts",

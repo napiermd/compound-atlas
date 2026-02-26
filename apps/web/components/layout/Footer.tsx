@@ -18,10 +18,10 @@ export function Footer() {
             <Link href="https://github.com/napiermd/compound-atlas" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
               GitHub
             </Link>
-            <Link href="#" className="hover:text-foreground transition-colors">
+            <Link href="https://github.com/napiermd/compound-atlas/blob/main/README.md#contributing" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
               Contributing
             </Link>
-            <Link href="#" className="hover:text-foreground transition-colors">
+            <Link href="https://github.com/napiermd/compound-atlas/tree/main/docs" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
               API Docs
             </Link>
           </nav>
