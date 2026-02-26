@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { StackGallery } from "@/components/stack/StackGallery";
 import { SectionNav } from "@/components/layout/SectionNav";
 import type { StackSummary } from "@/components/stack/types";
+import { normalizeArray } from "@/lib/normalize";
 
 export const metadata: Metadata = {
   title: "Stacks — CompoundAtlas",
@@ -103,8 +104,8 @@ export default async function StacksPage() {
     ...s,
     category: s.category ?? ("SPECIALTY" as StackSummary["category"]),
     folder: s.folder ?? null,
-    tags: Array.isArray(s.tags) ? s.tags : [],
-    riskFlags: Array.isArray(s.riskFlags) ? s.riskFlags : [],
+    tags: normalizeArray<string>(s.tags),
+    riskFlags: normalizeArray<string>(s.riskFlags),
     orderIndex: typeof s.orderIndex === "number" ? s.orderIndex : 0,
   }));
 

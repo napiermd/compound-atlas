@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CompoundCard } from "@/components/compound/CompoundCard";
 import { db } from "@/lib/db";
+import { normalizeArray } from "@/lib/normalize";
 import type { CompoundSummary } from "@/components/compound/types";
 
 const FEATURES = [
@@ -75,34 +76,70 @@ const SCORING_FACTORS = [
 ];
 
 export default async function HomePage() {
-  const [compoundCount, studyCount, topCompoundsRaw] = await Promise.all([
-    db.compound.count(),
-    db.study.count(),
-    db.compound.findMany({
-      where: { evidenceScore: { not: null } },
-      orderBy: { evidenceScore: "desc" },
-      take: 6,
-      select: {
-        id: true,
-        slug: true,
-        name: true,
-        aliases: true,
-        category: true,
-        subcategory: true,
-        legalStatus: true,
-        mechanismShort: true,
-        evidenceScore: true,
-        safetyScore: true,
-        studyCount: true,
-        metaAnalysisCount: true,
-        doseTypical: true,
-        doseUnit: true,
-        doseFrequency: true,
-      },
-    }),
-  ]);
+  let compoundCount = 0;
+  let studyCount = 0;
+  let topCompoundsRaw: unknown[] = [];
 
-  const topCompounds = topCompoundsRaw as CompoundSummary[];
+  try {
+    [compoundCount, studyCount, topCompoundsRaw] = await Promise.all([
+      db.compound.count(),
+      db.study.count(),
+      db.compound.findMany({
+        where: { evidenceScore: { not: null } },
+        orderBy: { evidenceScore: "desc" },
+        take: 6,
+        select: {
+          id: true,
+          slug: true,
+          name: true,
+          aliases: true,
+          category: true,
+          subcategory: true,
+          legalStatus: true,
+          mechanismShort: true,
+          evidenceScore: true,
+          safetyScore: true,
+          studyCount: true,
+          metaAnalysisCount: true,
+          doseTypical: true,
+          doseUnit: true,
+          doseFrequency: true,
+        },
+      }),
+    ]);
+  } catch {
+    // Backward-compatible fallback for environments that have not run
+    // all compound/study schema migrations yet.
+    [compoundCount, studyCount, topCompoundsRaw] = await Promise.all([
+      db.compound.count().catch(() => 0),
+      db.study.count().catch(() => 0),
+      db.compound
+        .findMany({
+          where: { evidenceScore: { not: null } },
+          orderBy: { evidenceScore: "desc" },
+          take: 6,
+          select: {
+            id: true,
+            slug: true,
+            name: true,
+            aliases: true,
+            category: true,
+            subcategory: true,
+            legalStatus: true,
+            mechanismShort: true,
+            evidenceScore: true,
+            safetyScore: true,
+            studyCount: true,
+            metaAnalysisCount: true,
+            doseTypical: true,
+            doseUnit: true,
+          },
+        })
+        .catch(() => []),
+    ]);
+  }
+
+  const topCompounds = normalizeArray<CompoundSummary>(topCompoundsRaw);
 
   return (
     <div className="flex flex-col">
