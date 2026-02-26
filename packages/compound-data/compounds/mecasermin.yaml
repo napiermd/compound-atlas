@@ -1,0 +1,96 @@
+# Mecasermin — recombinant human IGF-1 (Increlex)
+slug: mecasermin
+name: Mecasermin
+aliases:
+  - Increlex
+  - recombinant human IGF-1
+  - rhIGF-1
+category: PEPTIDE
+subcategory: IGF_therapy
+legalStatus: PRESCRIPTION
+clinicalPhase: "Approved"
+evidenceLevel: B
+description: |
+  Mecasermin is recombinant human insulin-like growth factor-1 (IGF-1), FDA-approved for
+  severe primary IGF-1 deficiency in pediatric patients with growth failure. It bypasses
+  growth hormone receptor defects and directly activates IGF-1 signaling. Outside approved
+  indications, unsupervised use is high risk due to hypoglycemia and potential proliferative
+  signaling concerns.
+
+halfLife: "~6 hours (free); prolonged when bound to IGFBPs"
+onset: "Weeks to months for linear growth effects"
+duration: "Requires chronic twice-daily administration"
+routeOfAdmin:
+  - subcutaneous
+mechanismShort: "Exogenous IGF-1 replacement activating IGF1R/PI3K-AKT-MAPK signaling to restore growth and anabolic signaling"
+
+dosing:
+  min: 0.04
+  typical: 0.08
+  max: 0.12
+  unit: mg/kg
+  frequency: "Twice daily with meals/snack"
+  notes: "Label-based pediatric titration. Dose should be given shortly before/after food to reduce severe hypoglycemia risk."
+
+safetyCaveats:
+  - "Hypoglycemia can be severe; dose with carbohydrate intake and clinical supervision."
+  - "Monitor for tonsillar/adenoidal hypertrophy, intracranial hypertension, and slipped capital femoral epiphysis in children."
+  - "Use caution in patients with active or suspected neoplasia due to growth-factor signaling."
+legalCaveats:
+  - "Prescription biologic with narrow approved indication (severe primary IGF-1 deficiency)."
+  - "Non-prescribed performance/anti-aging use may violate local law, sport rules, and medical standards."
+
+literature:
+  - title: "Mecasermin for primary insulin-like growth factor-1 deficiency"
+    source: "N Engl J Med"
+    year: 2005
+    kind: "clinical"
+    url: "https://pubmed.ncbi.nlm.nih.gov/15716340/"
+  - title: "Increlex prescribing information"
+    source: "FDA"
+    year: 2023
+    kind: "label"
+    url: "https://www.accessdata.fda.gov/drugsatfda_docs/label/"
+
+sideEffects:
+  - name: hypoglycemia
+    severity: severe
+    frequency: common
+    notes: "Most clinically important adverse event; risk highest when dosed fasting"
+  - name: headache
+    severity: mild
+    frequency: common
+    notes: "Can occur during initiation/titration"
+  - name: injection_site_reaction
+    severity: mild
+    frequency: common
+    notes: "Rotate injection sites"
+  - name: intracranial_hypertension
+    severity: moderate
+    frequency: uncommon
+    notes: "Papilledema/headache/vomiting require urgent evaluation"
+
+interactions:
+  - target: hgh
+    type: caution
+    severity: moderate
+    description: "Combined GH and IGF-1 therapy can increase edema, arthralgia, and insulin-resistance risk; specialist oversight required"
+  - target: mk-677
+    type: caution
+    severity: moderate
+    description: "Potential additive GH/IGF axis stimulation with uncertain safety in off-label populations"
+
+mechanisms:
+  - pathway: IGF1R_agonism
+    description: "Activates IGF-1 receptor tyrosine kinase signaling in growth plate and peripheral tissues"
+  - pathway: PI3K_AKT_mTOR
+    description: "Promotes anabolic signaling, glucose utilization changes, and tissue growth responses"
+  - pathway: endocrine_replacement
+    description: "Replaces deficient circulating IGF-1 when endogenous GH signaling is ineffective"
+
+searchTerms:
+  pubmed:
+    - "mecasermin severe primary IGF-1 deficiency"
+    - "recombinant IGF-1 pediatric growth failure"
+  semanticScholar:
+    - "mecasermin Increlex efficacy safety"

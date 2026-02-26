@@ -17,6 +17,10 @@ export interface CompoundSummary {
   doseUnit: string | null;
   doseFrequency: string | null;
   clinicalPhase: string | null;
+  evidenceLevel: "A" | "B" | "C" | "D" | null;
+  safetyCaveats: string[];
+  legalCaveats: string[];
+  literatureLinks: unknown | null;
   createdAt: Date | string;
   lastResearchSync: Date | string | null;
 }
