@@ -103,7 +103,11 @@ export default async function CompoundDetailPage({ params }: Props) {
   // Strip Date objects before passing to client component
   const compound: CompoundDetail = JSON.parse(JSON.stringify(raw));
 
-  const displayAliases = compound.aliases.slice(0, 3);
+  const aliases = Array.isArray(compound.aliases) ? compound.aliases : [];
+  const safetyCaveats = Array.isArray(compound.safetyCaveats) ? compound.safetyCaveats : [];
+  const legalCaveats = Array.isArray(compound.legalCaveats) ? compound.legalCaveats : [];
+
+  const displayAliases = aliases.slice(0, 3);
   const literatureLinks = Array.isArray(compound.literatureLinks)
     ? (compound.literatureLinks as Array<{
         title?: string;
@@ -191,9 +195,9 @@ export default async function CompoundDetailPage({ params }: Props) {
                 {a}
               </span>
             ))}
-            {compound.aliases.length > 3 && (
+            {aliases.length > 3 && (
               <span className="text-xs text-muted-foreground px-2 py-0.5">
-                +{compound.aliases.length - 3} more
+                +{aliases.length - 3} more
               </span>
             )}
           </div>
@@ -209,7 +213,7 @@ export default async function CompoundDetailPage({ params }: Props) {
         </>
       )}
 
-      {(compound.legalCaveats.length > 0 || compound.safetyCaveats.length > 0) && (
+      {(legalCaveats.length > 0 || safetyCaveats.length > 0) && (
         <div className="mb-6 rounded-lg border border-red-500/40 bg-red-500/10 p-4">
           <p className="text-sm font-semibold flex items-center gap-2 text-red-700 dark:text-red-300">
             <AlertTriangle className="h-4 w-4" />
@@ -219,21 +223,21 @@ export default async function CompoundDetailPage({ params }: Props) {
             Educational database only — not medical or legal advice.
           </p>
           <div className="grid gap-3 mt-3 sm:grid-cols-2">
-            {compound.safetyCaveats.length > 0 && (
+            {safetyCaveats.length > 0 && (
               <div>
                 <p className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1">Safety</p>
                 <ul className="list-disc pl-4 space-y-1 text-xs text-muted-foreground">
-                  {compound.safetyCaveats.map((item) => (
+                  {safetyCaveats.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
               </div>
             )}
-            {compound.legalCaveats.length > 0 && (
+            {legalCaveats.length > 0 && (
               <div>
                 <p className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1">Legal / compliance</p>
                 <ul className="list-disc pl-4 space-y-1 text-xs text-muted-foreground">
-                  {compound.legalCaveats.map((item) => (
+                  {legalCaveats.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
