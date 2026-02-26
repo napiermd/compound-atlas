@@ -1,10 +1,10 @@
-import NextAuth from "next-auth";
+import NextAuth, { type NextAuthConfig } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import GitHub from "next-auth/providers/github";
 import Resend from "next-auth/providers/resend";
 import { db } from "./db";
 
-const providers: Parameters<typeof NextAuth>[0]["providers"] = [];
+const providers: NextAuthConfig["providers"] = [];
 
 if (process.env.GITHUB_ID && process.env.GITHUB_SECRET) {
   providers.push(
