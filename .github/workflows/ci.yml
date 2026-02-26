@@ -49,6 +49,39 @@ jobs:
       - run: npx prisma migrate deploy --schema apps/web/prisma/schema.prisma
       - run: npx turbo run test
 
+  link-smoke-nonblocking:
+    runs-on: ubuntu-latest
+    needs: lint-and-typecheck
+    continue-on-error: true
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: atlas
+          POSTGRES_PASSWORD: atlas_test
+          POSTGRES_DB: compoundatlas_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U atlas"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgresql://atlas:atlas_test@localhost:5432/compoundatlas_test
+      AUTH_SECRET: ci-link-smoke-secret
+      NEXTAUTH_SECRET: ci-link-smoke-secret
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npx prisma generate --schema apps/web/prisma/schema.prisma
+      - run: npx prisma migrate deploy --schema apps/web/prisma/schema.prisma
+      - run: npm run smoke:links:ci
+
   test-python:
     runs-on: ubuntu-latest
     needs: lint-and-typecheck
