@@ -66,37 +66,87 @@ export default async function CompoundDetailPage({ params }: Props) {
     }
   }
 
-  const raw = await db.compound.findUnique({
-    where: { slug: params.slug },
-    include: {
-      sideEffects: { orderBy: { severity: "asc" } },
-      mechanisms: true,
-      interactions: {
-        include: {
-          target: { select: { name: true, slug: true, category: true } },
-        },
-      },
-      studies: {
-        include: {
-          study: {
-            select: {
-              id: true,
-              pmid: true,
-              title: true,
-              studyType: true,
-              evidenceLevel: true,
-              year: true,
-              sampleSize: true,
-              fullTextUrl: true,
-              tldr: true,
-            },
+  let raw: any = null;
+  try {
+    raw = await db.compound.findUnique({
+      where: { slug: params.slug },
+      include: {
+        sideEffects: { orderBy: { severity: "asc" } },
+        mechanisms: true,
+        interactions: {
+          include: {
+            target: { select: { name: true, slug: true, category: true } },
           },
         },
-        take: 10,
-        orderBy: { study: { year: "desc" } },
+        studies: {
+          include: {
+            study: {
+              select: {
+                id: true,
+                pmid: true,
+                title: true,
+                studyType: true,
+                evidenceLevel: true,
+                year: true,
+                sampleSize: true,
+                fullTextUrl: true,
+                tldr: true,
+              },
+            },
+          },
+          take: 10,
+          orderBy: { study: { year: "desc" } },
+        },
       },
-    },
-  });
+    });
+  } catch (e) {
+    // Backward-compat fallback for deployments where newest Prisma migrations
+    // have not been applied yet. Avoid hard-crashing compound pages.
+    raw = await db.compound.findUnique({
+      where: { slug: params.slug },
+      select: {
+        id: true,
+        slug: true,
+        name: true,
+        aliases: true,
+        category: true,
+        description: true,
+        legalStatus: true,
+        evidenceScore: true,
+        safetyScore: true,
+        studyCount: true,
+        clinicalPhase: true,
+        sideEffects: {
+          orderBy: { severity: "asc" },
+        },
+        mechanisms: true,
+        interactions: {
+          include: {
+            target: { select: { name: true, slug: true, category: true } },
+          },
+        },
+        studies: {
+          include: {
+            study: {
+              select: {
+                id: true,
+                pmid: true,
+                title: true,
+                studyType: true,
+                evidenceLevel: true,
+                year: true,
+                sampleSize: true,
+                fullTextUrl: true,
+                tldr: true,
+              },
+            },
+          },
+          take: 10,
+          orderBy: { study: { year: "desc" } },
+        },
+      },
+    } as any);
+  }
 
   if (!raw) notFound();
 
