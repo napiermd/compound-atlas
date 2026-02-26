@@ -17,6 +17,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npx prisma generate --schema apps/web/prisma/schema.prisma
+      - run: npm run check:placeholder-hrefs
       - run: npx turbo run lint type-check
 
   test-web:
