@@ -11,6 +11,7 @@ import { CompoundDetailTabs } from "@/components/compound/CompoundDetailTabs";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import type { CompoundDetail } from "@/components/compound/types";
+import { getStaleThresholdDays, isCompoundStale } from "@/lib/compound-freshness";
 
 interface Props {
   params: { slug: string };
@@ -102,6 +103,15 @@ export default async function CompoundDetailPage({ params }: Props) {
         year: "numeric",
       })
     : "Not synced yet";
+  const reviewedText = compound.lastReviewedAt
+    ? new Date(compound.lastReviewedAt).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })
+    : "Not reviewed yet";
+  const staleThresholdDays = getStaleThresholdDays();
+  const isStale = isCompoundStale(compound.lastResearchSync);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
@@ -177,7 +187,7 @@ export default async function CompoundDetailPage({ params }: Props) {
         </>
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 mb-6">
         <div className="rounded-lg border bg-card px-3 py-3">
           <p className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1 flex items-center gap-1">
             <Waves className="h-3.5 w-3.5" />
@@ -206,11 +216,23 @@ export default async function CompoundDetailPage({ params }: Props) {
         <div className="rounded-lg border bg-card px-3 py-3">
           <p className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1 flex items-center gap-1">
             <Clock3 className="h-3.5 w-3.5" />
-            Research Sync
+            Last Sync
           </p>
           <p className="text-sm font-semibold">{refreshedText}</p>
         </div>
+        <div className="rounded-lg border bg-card px-3 py-3">
+          <p className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1">
+            Last Reviewed
+          </p>
+          <p className="text-sm font-semibold">{reviewedText}</p>
+        </div>
       </div>
+
+      {isStale && (
+        <div className="mb-6 rounded-md border border-amber-500/40 bg-amber-500/10 p-3 text-sm text-amber-900 dark:text-amber-200">
+          Evidence data is stale: this compound has not been synced in the last {staleThresholdDays} days.
+        </div>
+      )}
 
       <Separator className="mb-6" />
 

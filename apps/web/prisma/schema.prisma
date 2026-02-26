@@ -133,7 +133,8 @@ model Compound {
   studyCount      Int              @default(0)
   metaAnalysisCount Int            @default(0)
   scoreBreakdown  Json?            // {study_count, study_quality, sample_size, consistency, replication, recency} each 0-100
-  lastResearchSync DateTime?
+  lastResearchSync DateTime?       // Most recent ingestion/sync timestamp
+  lastReviewedAt   DateTime?       // Last human or pipeline review of evidence freshness
 
   // Relations
   studies         CompoundStudy[]
@@ -309,6 +310,15 @@ enum StackGoal {
   METABOLIC_HEALTH
 }
 
+enum StackCategory {
+  PERFORMANCE
+  COGNITION
+  RECOVERY
+  HEALTH
+  LONGEVITY
+  SPECIALTY
+}
+
 model Stack {
   id            String          @id @default(cuid())
   name          String
@@ -318,6 +328,7 @@ model Stack {
   durationWeeks Int?
   isPublic      Boolean         @default(false)
   evidenceScore Float?          // Computed aggregate
+  category      StackCategory   @default(SPECIALTY)
   folder        String?
   tags          String[]        @default([])
   riskFlags     String[]        @default([])

@@ -9,6 +9,7 @@ import {
 } from "@/components/compound/HotCompoundsSection";
 import { PipelineSection } from "@/components/compound/PipelineSection";
 import type { CategoryCount } from "@/components/compound/CompoundFilters";
+import { isCompoundStale } from "@/lib/compound-freshness";
 
 export const metadata: Metadata = {
   title: "Compounds — CompoundAtlas",
@@ -53,6 +54,7 @@ export default async function CompoundsPage() {
         clinicalPhase: true,
         createdAt: true,
         lastResearchSync: true,
+        lastReviewedAt: true,
       },
       orderBy: [{ studyCount: "desc" }, { name: "asc" }],
     }),
@@ -84,7 +86,10 @@ export default async function CompoundsPage() {
     }),
   ]);
 
-  const compounds: CompoundSummary[] = rawCompounds;
+  const compounds: CompoundSummary[] = rawCompounds.map((c) => ({
+    ...c,
+    isStale: isCompoundStale(c.lastResearchSync),
+  }));
 
   const categoryList: CategoryCount[] = categories.map((c) => ({
     category: c.category as CategoryCount["category"],
