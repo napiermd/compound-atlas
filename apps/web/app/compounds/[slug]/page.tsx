@@ -20,6 +20,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import type { CompoundDetail } from "@/components/compound/types";
 import { getStaleThresholdDays, isCompoundStale } from "@/lib/compound-freshness";
+import { normalizeArray } from "@/lib/normalize";
 
 interface Props {
   params: { slug: string };
@@ -153,20 +154,18 @@ export default async function CompoundDetailPage({ params }: Props) {
   // Strip Date objects before passing to client component
   const compound: CompoundDetail = JSON.parse(JSON.stringify(raw));
 
-  const aliases = Array.isArray(compound.aliases) ? compound.aliases : [];
-  const safetyCaveats = Array.isArray(compound.safetyCaveats) ? compound.safetyCaveats : [];
-  const legalCaveats = Array.isArray(compound.legalCaveats) ? compound.legalCaveats : [];
+  const aliases = normalizeArray<string>(compound.aliases);
+  const safetyCaveats = normalizeArray<string>(compound.safetyCaveats);
+  const legalCaveats = normalizeArray<string>(compound.legalCaveats);
 
   const displayAliases = aliases.slice(0, 3);
-  const literatureLinks = Array.isArray(compound.literatureLinks)
-    ? (compound.literatureLinks as Array<{
-        title?: string;
-        url?: string;
-        source?: string;
-        year?: number;
-        kind?: string;
-      }>).filter((item) => !!item?.title && !!item?.url)
-    : [];
+  const literatureLinks = normalizeArray<{
+    title?: string;
+    url?: string;
+    source?: string;
+    year?: number;
+    kind?: string;
+  }>(compound.literatureLinks).filter((item) => !!item?.title && !!item?.url);
   const refreshedText = compound.lastResearchSync
     ? new Date(compound.lastResearchSync).toLocaleDateString("en-US", {
         month: "short",

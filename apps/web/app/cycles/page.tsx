@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { CycleCard } from "@/components/cycle/CycleCard";
 import { SectionNav } from "@/components/layout/SectionNav";
 import type { CycleSummary } from "@/components/cycle/types";
+import { normalizeArray } from "@/lib/normalize";
 
 export const metadata: Metadata = {
   title: "My Cycles — CompoundAtlas",
@@ -16,34 +17,56 @@ export default async function CyclesPage() {
   const session = await auth();
   if (!session?.user?.id) redirect("/login");
 
-  const raw = await db.cycle.findMany({
-    where: { userId: session.user.id },
-    orderBy: { createdAt: "desc" },
-    include: {
-      stack: { select: { name: true, slug: true } },
-      _count: { select: { entries: true } },
-      entries: {
-        orderBy: { date: "desc" },
-        take: 1,
-        select: { date: true },
+  let raw = [];
+  try {
+    raw = await db.cycle.findMany({
+      where: { userId: session.user.id },
+      orderBy: { createdAt: "desc" },
+      include: {
+        stack: { select: { name: true, slug: true } },
+        _count: { select: { entries: true } },
+        entries: {
+          orderBy: { date: "desc" },
+          take: 1,
+          select: { date: true },
+        },
       },
-    },
-  });
+    });
+  } catch {
+    // Backward-compatible fallback for environments with partial cycle schema.
+    raw = await db.cycle
+      .findMany({
+        where: { userId: session.user.id },
+        orderBy: { createdAt: "desc" },
+        include: {
+          stack: { select: { name: true, slug: true } },
+          entries: {
+            orderBy: { date: "desc" },
+            take: 1,
+            select: { date: true },
+          },
+        },
+      })
+      .catch(() => []);
+  }
 
   // Serialize dates; JSON round-trip converts Date → ISO string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const serialized: any[] = JSON.parse(JSON.stringify(raw));
 
-  const cycles: CycleSummary[] = serialized.map((c) => ({
-    id: c.id,
-    name: c.name,
-    status: c.status as CycleSummary["status"],
-    startDate: c.startDate ?? null,
-    endDate: c.endDate ?? null,
-    stack: c.stack ?? null,
-    _count: c._count,
-    lastEntryDate: c.entries[0]?.date ?? null,
-  }));
+  const cycles: CycleSummary[] = normalizeArray<typeof serialized[number]>(serialized).map((c) => {
+    const entries = normalizeArray<{ date?: string | null }>(c.entries);
+    return {
+      id: c.id,
+      name: c.name,
+      status: c.status as CycleSummary["status"],
+      startDate: c.startDate ?? null,
+      endDate: c.endDate ?? null,
+      stack: c.stack ?? null,
+      _count: c._count ?? { entries: entries.length },
+      lastEntryDate: entries[0]?.date ?? null,
+    };
+  });
 
   const active = cycles.filter((c) => c.status === "ACTIVE");
   const planned = cycles.filter((c) => c.status === "PLANNED");

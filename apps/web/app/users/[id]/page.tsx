@@ -4,54 +4,96 @@ import { db } from "@/lib/db";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { StackCard } from "@/components/stack/StackCard";
 import type { StackSummary } from "@/components/stack/types";
+import { normalizeArray } from "@/lib/normalize";
 
 interface Props {
   params: { id: string };
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const user = await db.user.findUnique({
-    where: { id: params.id, deletedAt: null },
-    select: { name: true },
-  });
+  let user: { name: string | null } | null = null;
+  try {
+    user = await db.user.findUnique({
+      where: { id: params.id, deletedAt: null },
+      select: { name: true },
+    });
+  } catch {
+    user = await db.user.findUnique({
+      where: { id: params.id },
+      select: { name: true },
+    });
+  }
+
   if (!user) return { title: "Not Found" };
   return { title: `${user.name ?? "User"} — CompoundAtlas` };
 }
 
 export default async function UserProfilePage({ params }: Props) {
-  const user = await db.user.findUnique({
-    where: { id: params.id, deletedAt: null },
-    select: {
-      id: true,
-      name: true,
-      image: true,
-      createdAt: true,
-      stacks: {
-        where: { isPublic: true },
-        orderBy: { upvotes: "desc" },
-        take: 50,
-        include: {
-          creator: { select: { name: true, image: true } },
-          compounds: {
-            include: {
-              compound: { select: { name: true, slug: true, category: true } },
+  let user = null;
+
+  try {
+    user = await db.user.findUnique({
+      where: { id: params.id, deletedAt: null },
+      select: {
+        id: true,
+        name: true,
+        image: true,
+        createdAt: true,
+        stacks: {
+          where: { isPublic: true },
+          orderBy: { upvotes: "desc" },
+          take: 50,
+          include: {
+            creator: { select: { name: true, image: true } },
+            compounds: {
+              include: {
+                compound: { select: { name: true, slug: true, category: true } },
+              },
+              take: 6,
             },
-            take: 6,
+            _count: { select: { cycles: true, forks: true } },
           },
-          _count: { select: { cycles: true, forks: true } },
         },
       },
-    },
-  });
+    });
+  } catch {
+    // Backward-compatible fallback for DBs without soft-delete/fork counters.
+    user = await db.user.findUnique({
+      where: { id: params.id },
+      select: {
+        id: true,
+        name: true,
+        image: true,
+        createdAt: true,
+        stacks: {
+          where: { isPublic: true },
+          orderBy: { upvotes: "desc" },
+          take: 50,
+          include: {
+            creator: { select: { name: true, image: true } },
+            compounds: {
+              include: {
+                compound: { select: { name: true, slug: true, category: true } },
+              },
+              take: 6,
+            },
+            _count: { select: { cycles: true } },
+          },
+        },
+      },
+    });
+  }
 
   if (!user) notFound();
 
-  const totalUpvotes = user.stacks.reduce((sum, s) => sum + s.upvotes, 0);
+  const userStacks = normalizeArray<typeof user.stacks[number]>(user.stacks);
+
+  const totalUpvotes = userStacks.reduce((sum, s) => sum + (s.upvotes ?? 0), 0);
   const compoundSlugs = new Set(
-    user.stacks.flatMap((s) => s.compounds.map((c) => c.compound.slug))
+    userStacks.flatMap((s) => normalizeArray<typeof s.compounds[number]>(s.compounds).map((c) => c.compound.slug))
   );
 
-  const stacks: StackSummary[] = JSON.parse(JSON.stringify(user.stacks));
+  const stacks: StackSummary[] = JSON.parse(JSON.stringify(userStacks));
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
@@ -76,8 +118,8 @@ export default async function UserProfilePage({ params }: Props) {
           </p>
           <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
             <span>
-              <strong className="text-foreground">{user.stacks.length}</strong>{" "}
-              public stack{user.stacks.length !== 1 ? "s" : ""}
+              <strong className="text-foreground">{stacks.length}</strong>{" "}
+              public stack{stacks.length !== 1 ? "s" : ""}
             </span>
             <span>
               <strong className="text-foreground">{totalUpvotes}</strong> total

@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SectionNav } from "@/components/layout/SectionNav";
+import { normalizeArray } from "@/lib/normalize";
 
 export const metadata: Metadata = { title: "Research" };
 
@@ -28,6 +29,8 @@ const EVIDENCE_LEVEL_OPTIONS: EvidenceLevel[] = ["A", "B", "C", "D"];
 function formatStudyType(type: StudyType) {
   return type.replace(/_/g, " ");
 }
+
+type StudyListItem = Awaited<ReturnType<typeof db.study.findMany>>[number];
 
 export default async function ResearchPage({
   searchParams,
@@ -70,21 +73,58 @@ export default async function ResearchPage({
     }),
   };
 
-  const [studies, total, filteredCount] = await Promise.all([
-    db.study.findMany({
-      where,
-      orderBy: [{ publicationDate: "desc" }, { year: "desc" }],
-      take: 60,
-      include: {
-        compounds: {
-          include: { compound: { select: { name: true, slug: true } } },
-          take: 5,
+  let studies: unknown[] = [];
+  let total = 0;
+  let filteredCount = 0;
+
+  try {
+    [studies, total, filteredCount] = await Promise.all([
+      db.study.findMany({
+        where,
+        orderBy: [{ publicationDate: "desc" }, { year: "desc" }],
+        take: 60,
+        include: {
+          compounds: {
+            include: { compound: { select: { name: true, slug: true } } },
+            take: 5,
+          },
         },
-      },
-    }),
-    db.study.count(),
-    db.study.count({ where }),
-  ]);
+      }),
+      db.study.count(),
+      db.study.count({ where }),
+    ]);
+  } catch {
+    // Backward-compatible fallback for DBs without newer study columns.
+    [studies, total, filteredCount] = await Promise.all([
+      db.study.findMany({
+        where: {
+          ...(selectedType && { studyType: selectedType }),
+          ...(selectedLevel && { evidenceLevel: selectedLevel }),
+          ...(query && { title: { contains: query, mode: "insensitive" as const } }),
+        },
+        orderBy: [{ year: "desc" }],
+        take: 60,
+        include: {
+          compounds: {
+            include: { compound: { select: { name: true, slug: true } } },
+            take: 5,
+          },
+        },
+      }),
+      db.study.count().catch(() => 0),
+      db.study
+        .count({
+          where: {
+            ...(selectedType && { studyType: selectedType }),
+            ...(selectedLevel && { evidenceLevel: selectedLevel }),
+            ...(query && { title: { contains: query, mode: "insensitive" as const } }),
+          },
+        })
+        .catch(() => 0),
+    ]);
+  }
+
+  const normalizedStudies = normalizeArray<StudyListItem>(studies);
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
@@ -146,12 +186,12 @@ export default async function ResearchPage({
             Clear
           </Link>
           <p className="text-xs text-muted-foreground">
-            Showing {Math.min(filteredCount, studies.length).toLocaleString()} of {filteredCount.toLocaleString()} matching studies
+            Showing {Math.min(filteredCount, normalizedStudies.length).toLocaleString()} of {filteredCount.toLocaleString()} matching studies
           </p>
         </div>
       </form>
 
-      {studies.length === 0 ? (
+      {normalizedStudies.length === 0 ? (
         <div className="text-center py-16 border rounded-lg">
           <p className="text-muted-foreground mb-2">No studies match these filters.</p>
           <Link href="/research" className="text-sm underline underline-offset-2 hover:text-foreground">
@@ -160,7 +200,7 @@ export default async function ResearchPage({
         </div>
       ) : (
         <div className="space-y-3">
-          {studies.map((study) => (
+          {normalizedStudies.map((study) => (
             <Card key={study.id}>
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium leading-snug">

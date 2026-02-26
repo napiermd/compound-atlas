@@ -11,6 +11,7 @@ import { PipelineSection } from "@/components/compound/PipelineSection";
 import { SectionNav } from "@/components/layout/SectionNav";
 import type { CategoryCount } from "@/components/compound/CompoundFilters";
 import { isCompoundStale } from "@/lib/compound-freshness";
+import { normalizeArray } from "@/lib/normalize";
 
 export const metadata: Metadata = {
   title: "Compounds — CompoundAtlas",
@@ -191,8 +192,8 @@ export default async function CompoundsPage() {
   const compounds: CompoundSummary[] = rawCompounds.map((c) => ({
     ...c,
     evidenceLevel: c.evidenceLevel ?? null,
-    safetyCaveats: Array.isArray(c.safetyCaveats) ? c.safetyCaveats : [],
-    legalCaveats: Array.isArray(c.legalCaveats) ? c.legalCaveats : [],
+    safetyCaveats: normalizeArray<string>(c.safetyCaveats),
+    legalCaveats: normalizeArray<string>(c.legalCaveats),
     literatureLinks: c.literatureLinks ?? null,
     lastResearchSync: c.lastResearchSync ?? null,
     lastReviewedAt: c.lastReviewedAt ?? null,
