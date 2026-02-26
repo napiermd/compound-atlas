@@ -1,4 +1,5 @@
-import { signIn } from "@/lib/auth";
+import React from "react";
+import { authAvailability, signIn } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -8,15 +9,38 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { FlaskConical, Github, Mail } from "lucide-react";
+import { AlertCircle, FlaskConical, Github, Mail } from "lucide-react";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = { title: "Sign in — CompoundAtlas" };
 
-export default function LoginPage() {
-  const emailEnabled = Boolean(process.env.AUTH_RESEND_KEY);
-  const githubEnabled = Boolean(process.env.GITHUB_ID && process.env.GITHUB_SECRET);
+function getAuthErrorMessage(error?: string) {
+  switch (error) {
+    case "OAuthSignin":
+    case "OAuthCallback":
+    case "OAuthCreateAccount":
+    case "EmailCreateAccount":
+    case "Callback":
+    case "AuthUnavailable":
+      return "Sign-in is temporarily unavailable. Please try again later or continue browsing without signing in.";
+    case "AccessDenied":
+      return "Access was denied for this sign-in attempt.";
+    case "Verification":
+      return "Your magic-link session is invalid or expired. Request a new link.";
+    default:
+      return null;
+  }
+}
+
+export default function LoginPage({
+  searchParams,
+}: {
+  searchParams?: { error?: string };
+}) {
+  const { hasDatabase, emailEnabled, githubEnabled } = authAvailability;
+  const errorMessage = getAuthErrorMessage(searchParams?.error);
 
   return (
     <div className="flex min-h-[calc(100vh-3.5rem)] items-center justify-center px-4">
@@ -31,12 +55,28 @@ export default function LoginPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
-          {/* Email magic link */}
-          {emailEnabled && (
+          {errorMessage && (
+            <div className="rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-xs text-destructive flex gap-2">
+              <AlertCircle className="h-4 w-4 shrink-0" />
+              <span>{errorMessage}</span>
+            </div>
+          )}
+
+          {!hasDatabase && (
+            <div className="rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-xs text-amber-800 dark:text-amber-200">
+              Login is temporarily unavailable because auth storage is not configured.
+            </div>
+          )}
+
+          {emailEnabled ? (
             <form
               action={async (formData: FormData) => {
                 "use server";
-                await signIn("resend", formData);
+                try {
+                  await signIn("resend", formData);
+                } catch {
+                  redirect("/login?error=AuthUnavailable");
+                }
               }}
               className="flex flex-col gap-2"
             >
@@ -54,25 +94,31 @@ export default function LoginPage() {
                 Continue with Email
               </Button>
             </form>
+          ) : (
+            <Button type="button" className="w-full gap-2" disabled>
+              <Mail className="h-4 w-4" />
+              Continue with Email (Unavailable)
+            </Button>
           )}
 
-          {emailEnabled && githubEnabled && (
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">or</span>
-              </div>
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
             </div>
-          )}
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">or</span>
+            </div>
+          </div>
 
-          {/* GitHub OAuth */}
-          {githubEnabled && (
+          {githubEnabled ? (
             <form
               action={async () => {
                 "use server";
-                await signIn("github", { redirectTo: "/compounds" });
+                try {
+                  await signIn("github", { redirectTo: "/compounds" });
+                } catch {
+                  redirect("/login?error=AuthUnavailable");
+                }
               }}
             >
               <Button type="submit" variant="outline" className="w-full gap-2">
@@ -80,6 +126,11 @@ export default function LoginPage() {
                 Continue with GitHub
               </Button>
             </form>
+          ) : (
+            <Button type="button" variant="outline" className="w-full gap-2" disabled>
+              <Github className="h-4 w-4" />
+              Continue with GitHub (Unavailable)
+            </Button>
           )}
 
           {!emailEnabled && !githubEnabled && (
