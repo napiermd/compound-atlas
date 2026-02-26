@@ -66,7 +66,7 @@ export default async function CompoundDetailPage({ params }: Props) {
     }
   }
 
-  let raw: any = null;
+  let raw: unknown = null;
   try {
     raw = await db.compound.findUnique({
       where: { slug: params.slug },
@@ -99,7 +99,7 @@ export default async function CompoundDetailPage({ params }: Props) {
         },
       },
     });
-  } catch (e) {
+  } catch {
     // Backward-compat fallback for deployments where newest Prisma migrations
     // have not been applied yet. Avoid hard-crashing compound pages.
     raw = await db.compound.findUnique({
@@ -145,7 +145,7 @@ export default async function CompoundDetailPage({ params }: Props) {
           orderBy: { study: { year: "desc" } },
         },
       },
-    } as any);
+    });
   }
 
   if (!raw) notFound();
