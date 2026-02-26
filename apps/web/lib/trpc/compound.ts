@@ -2,6 +2,7 @@ import { z } from "zod";
 import { router, publicProcedure } from "./trpc";
 import { db } from "@/lib/db";
 import { CompoundCategory } from "@prisma/client";
+import { getStaleThresholdDays, isCompoundStale } from "@/lib/compound-freshness";
 
 export const compoundRouter = router({
   list: publicProcedure
@@ -42,13 +43,20 @@ export const compoundRouter = router({
       if (compounds.length > limit) {
         nextCursor = compounds.pop()?.id;
       }
-      return { compounds, nextCursor };
+
+      const staleThresholdDays = getStaleThresholdDays();
+      const enriched = compounds.map((compound) => ({
+        ...compound,
+        isStale: isCompoundStale(compound.lastResearchSync),
+      }));
+
+      return { compounds: enriched, nextCursor, staleThresholdDays };
     }),
 
   bySlug: publicProcedure
     .input(z.object({ slug: z.string() }))
     .query(async ({ input }) => {
-      return db.compound.findUnique({
+      const compound = await db.compound.findUnique({
         where: { slug: input.slug },
         include: {
           sideEffects: true,
@@ -68,6 +76,14 @@ export const compoundRouter = router({
           },
         },
       });
+
+      if (!compound) return null;
+      const staleThresholdDays = getStaleThresholdDays();
+      return {
+        ...compound,
+        isStale: isCompoundStale(compound.lastResearchSync),
+        staleThresholdDays,
+      };
     }),
 
   categories: publicProcedure.query(async () => {

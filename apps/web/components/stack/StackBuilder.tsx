@@ -51,6 +51,9 @@ export function StackBuilder({ compounds }: Props) {
   const [goal, setGoal] = useState<StackGoal>("COGNITIVE");
   const [durationWeeks, setDurationWeeks] = useState("");
   const [description, setDescription] = useState("");
+  const [folder, setFolder] = useState("");
+  const [tags, setTags] = useState("");
+  const [riskFlags, setRiskFlags] = useState("");
   const [isPublic, setIsPublic] = useState(false);
 
   // Stacked compounds
@@ -135,6 +138,15 @@ export function StackBuilder({ compounds }: Props) {
       goal,
       description: description.trim() || undefined,
       durationWeeks: durationWeeks ? parseInt(durationWeeks) : undefined,
+      folder: folder.trim() || undefined,
+      tags: tags
+        .split(",")
+        .map((t) => t.trim())
+        .filter(Boolean),
+      riskFlags: riskFlags
+        .split(",")
+        .map((f) => f.trim())
+        .filter(Boolean),
       isPublic,
       compounds: stackedCompounds.map((c) => ({
         compoundId: c.compoundId,
@@ -273,6 +285,37 @@ export function StackBuilder({ compounds }: Props) {
               rows={3}
               className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 resize-none"
               placeholder="Describe the protocol — target goals, rationale, timing notes, who it's for."
+            />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="space-y-1.5">
+              <Label htmlFor="stack-folder">Folder</Label>
+              <Input
+                id="stack-folder"
+                value={folder}
+                onChange={(e) => setFolder(e.target.value)}
+                placeholder="e.g. Morning protocols"
+              />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="stack-tags">Tags (comma-separated)</Label>
+              <Input
+                id="stack-tags"
+                value={tags}
+                onChange={(e) => setTags(e.target.value)}
+                placeholder="focus, workday, minimal"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-1.5">
+            <Label htmlFor="stack-risk">Risk Flags (comma-separated)</Label>
+            <Input
+              id="stack-risk"
+              value={riskFlags}
+              onChange={(e) => setRiskFlags(e.target.value)}
+              placeholder="stimulant load, sleep disruption"
             />
           </div>
 

@@ -23,6 +23,8 @@ export interface CompoundSummary {
   literatureLinks: unknown | null;
   createdAt: Date | string;
   lastResearchSync: Date | string | null;
+  lastReviewedAt?: Date | string | null;
+  isStale?: boolean;
 }
 
 export interface SideEffectData {

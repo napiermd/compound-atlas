@@ -13,7 +13,7 @@ export const stackRouter = router({
         goal: z.nativeEnum(StackGoal).optional(),
         publicOnly: z.boolean().default(true),
         sortBy: z
-          .enum(["newest", "evidenceScore", "upvotes"])
+          .enum(["newest", "evidenceScore", "upvotes", "custom"])
           .default("newest"),
       })
     )
@@ -34,7 +34,9 @@ export const stackRouter = router({
               ]
             : sortBy === "upvotes"
               ? [{ upvotes: "desc" }, { createdAt: "desc" }]
-              : [{ createdAt: "desc" }],
+              : sortBy === "custom"
+                ? [{ orderIndex: "asc" }, { createdAt: "desc" }]
+                : [{ createdAt: "desc" }],
         include: {
           creator: { select: { name: true, image: true } },
           compounds: {
@@ -132,6 +134,9 @@ export const stackRouter = router({
         description: z.string().optional(),
         goal: z.nativeEnum(StackGoal),
         durationWeeks: z.number().int().positive().optional(),
+        folder: z.string().trim().min(1).max(50).optional(),
+        tags: z.array(z.string().trim().min(1).max(30)).max(8).default([]),
+        riskFlags: z.array(z.string().trim().min(1).max(40)).max(6).default([]),
         isPublic: z.boolean().default(false),
         compounds: z.array(
           z.object({
@@ -147,7 +152,9 @@ export const stackRouter = router({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const { compounds, ...stackData } = input;
+      const { compounds, tags, riskFlags, ...stackData } = input;
+      const cleanedTags = Array.from(new Set(tags.map((t) => t.trim()).filter(Boolean)));
+      const cleanedRiskFlags = Array.from(new Set(riskFlags.map((f) => f.trim()).filter(Boolean)));
       const baseSlug = slugify(stackData.name);
       const slug = `${baseSlug}-${Date.now()}`;
 
@@ -167,11 +174,20 @@ export const stackRouter = router({
         }
       }
 
+      const highest = await db.stack.findFirst({
+        where: { creatorId: ctx.session.user.id },
+        orderBy: { orderIndex: "desc" },
+        select: { orderIndex: true },
+      });
+
       return db.stack.create({
         data: {
           ...stackData,
           slug,
+          tags: cleanedTags,
+          riskFlags: cleanedRiskFlags,
           evidenceScore,
+          orderIndex: (highest?.orderIndex ?? -1) + 1,
           creatorId: ctx.session.user.id,
           compounds: { create: compounds },
         },
@@ -206,6 +222,51 @@ export const stackRouter = router({
       }
     }),
 
+  reorder: protectedProcedure
+    .input(
+      z.object({
+        stackId: z.string(),
+        direction: z.enum(["up", "down"]),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const userId = ctx.session.user.id;
+      const current = await db.stack.findUnique({
+        where: { id: input.stackId },
+        select: { id: true, creatorId: true, orderIndex: true },
+      });
+
+      if (!current || current.creatorId !== userId) {
+        throw new Error("Stack not found");
+      }
+
+      const neighbor = await db.stack.findFirst({
+        where: {
+          creatorId: userId,
+          ...(input.direction === "up"
+            ? { orderIndex: { lt: current.orderIndex } }
+            : { orderIndex: { gt: current.orderIndex } }),
+        },
+        orderBy: { orderIndex: input.direction === "up" ? "desc" : "asc" },
+        select: { id: true, orderIndex: true },
+      });
+
+      if (!neighbor) return { ok: true };
+
+      await db.$transaction([
+        db.stack.update({
+          where: { id: current.id },
+          data: { orderIndex: neighbor.orderIndex },
+        }),
+        db.stack.update({
+          where: { id: neighbor.id },
+          data: { orderIndex: current.orderIndex },
+        }),
+      ]);
+
+      return { ok: true };
+    }),
+
   // Fork a stack
   fork: protectedProcedure
     .input(z.object({ stackId: z.string() }))
@@ -226,6 +287,12 @@ export const stackRouter = router({
         data: { forkCount: { increment: 1 } },
       });
 
+      const highest = await db.stack.findFirst({
+        where: { creatorId: userId },
+        orderBy: { orderIndex: "desc" },
+        select: { orderIndex: true },
+      });
+
       return db.stack.create({
         data: {
           name: newName,
@@ -233,6 +300,10 @@ export const stackRouter = router({
           description: original.description,
           goal: original.goal,
           durationWeeks: original.durationWeeks,
+          folder: original.folder,
+          tags: original.tags,
+          riskFlags: original.riskFlags,
+          orderIndex: (highest?.orderIndex ?? -1) + 1,
           isPublic: false,
           evidenceScore: original.evidenceScore,
           forkedFromId: input.stackId,

@@ -48,6 +48,11 @@ export function CompoundCard({ compound: c }: Props) {
           </div>
           <div className="flex flex-wrap gap-1.5 mt-1.5">
             <CategoryBadge category={c.category} />
+            {c.isStale && (
+              <Badge variant="outline" className="text-[10px] font-medium border-amber-500/40 text-amber-700 dark:text-amber-300">
+                Stale evidence
+              </Badge>
+            )}
             {c.legalStatus !== "LEGAL" && (
               <Badge variant="outline" className="text-[10px] font-medium">
                 {c.legalStatus === "PRESCRIPTION"
@@ -93,6 +98,11 @@ export function CompoundCard({ compound: c }: Props) {
               {c.safetyScore != null ? `${Math.round(c.safetyScore)}/100` : "n/a"}
             </span>
           </div>
+
+          <p className="text-[11px] text-muted-foreground">
+            Last sync: {c.lastResearchSync ? new Date(c.lastResearchSync).toLocaleDateString() : "never"}
+            {c.lastReviewedAt ? ` · reviewed ${new Date(c.lastReviewedAt).toLocaleDateString()}` : ""}
+          </p>
 
           <div className="flex items-center justify-between text-xs">
             <span className="text-muted-foreground flex items-center gap-1">

@@ -71,7 +71,7 @@ export default async function StacksPage() {
           </Link>
         </div>
       ) : (
-        <StackGallery stacks={stacks} />
+        <StackGallery stacks={stacks} currentUserId={session?.user?.id} />
       )}
     </div>
   );
