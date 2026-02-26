@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { EvidenceScoreBadge } from "@/components/compound/EvidenceScoreBadge";
 import { trpc } from "@/lib/trpc/client";
 import { GoalBadge } from "./GoalBadge";
+import { formatCategory } from "@/lib/utils";
 import { UpvoteButton } from "./UpvoteButton";
 import type { StackSummary } from "./types";
 
@@ -55,6 +56,9 @@ export function StackCard({ stack, currentUserId, canReorder = false }: Props) {
             </div>
             <div className="flex items-center gap-1 flex-wrap">
               <GoalBadge goal={stack.goal} className="w-fit" />
+              <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 font-normal">
+                {formatCategory(stack.category)}
+              </Badge>
               {stack.folder && (
                 <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 font-normal">
                   📁 {stack.folder}

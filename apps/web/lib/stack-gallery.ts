@@ -1,11 +1,12 @@
-import type { StackGoal } from "@prisma/client";
+import type { StackCategory, StackGoal } from "@prisma/client";
 import type { StackSummary } from "../components/stack/types";
 
-export type SortKey = "newest" | "evidenceScore" | "upvotes" | "custom";
+export type SortKey = "newest" | "evidenceScore" | "upvotes" | "cycles" | "custom";
 
 export interface StackFilters {
   search: string;
   goal: StackGoal | "ALL";
+  category: StackCategory | "ALL";
   folder: string | "ALL";
   tag: string | "ALL";
   risk: string | "ALL";
@@ -23,6 +24,7 @@ export function applyStackFilters(stacks: StackSummary[], filters: StackFilters)
       if (!haystack.includes(q)) return false;
     }
     if (filters.goal !== "ALL" && s.goal !== filters.goal) return false;
+    if (filters.category !== "ALL" && s.category !== filters.category) return false;
     if (filters.folder !== "ALL" && (s.folder ?? "Unfiled") !== filters.folder) return false;
     if (filters.tag !== "ALL" && !(s.tags ?? []).includes(filters.tag)) return false;
     if (filters.risk !== "ALL" && !(s.riskFlags ?? []).includes(filters.risk)) return false;
@@ -38,8 +40,17 @@ export function applyStackFilters(stacks: StackSummary[], filters: StackFilters)
       return b.evidenceScore - a.evidenceScore;
     }
     if (filters.sortBy === "upvotes") return b.upvotes - a.upvotes;
+    if (filters.sortBy === "cycles") return b._count.cycles - a._count.cycles;
     return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
   });
+}
+
+export function getCategoryCounts(stacks: StackSummary[]) {
+  const map = new Map<StackCategory, number>();
+  for (const s of stacks) {
+    map.set(s.category, (map.get(s.category) ?? 0) + 1);
+  }
+  return Array.from(map.entries()).map(([category, count]) => ({ category, count }));
 }
 
 export function getFolderCounts(stacks: StackSummary[]) {

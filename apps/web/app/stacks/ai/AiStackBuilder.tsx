@@ -25,7 +25,7 @@ import { CategoryBadge } from "@/components/compound/CategoryBadge";
 import { EvidenceScoreBadge } from "@/components/compound/EvidenceScoreBadge";
 import { GoalBadge } from "@/components/stack/GoalBadge";
 import { trpc } from "@/lib/trpc/client";
-import type { StackGoal, CompoundCategory } from "@prisma/client";
+import type { StackCategory, StackGoal, CompoundCategory } from "@prisma/client";
 
 const GOAL_PRESETS = [
   { value: "Recomp", label: "Recomp", icon: Dumbbell },
@@ -43,6 +43,30 @@ const CONSTRAINTS = [
   { id: "budget_friendly", label: "Budget-friendly" },
   { id: "minimal_sides", label: "Minimal side effects" },
 ];
+
+function categoryForGoal(goal: StackGoal): StackCategory {
+  switch (goal) {
+    case "RECOMP":
+    case "BULK":
+    case "CUT":
+    case "ATHLETIC_PERFORMANCE":
+      return "PERFORMANCE";
+    case "COGNITIVE":
+    case "MOOD":
+      return "COGNITION";
+    case "SLEEP":
+    case "RECOVERY":
+    case "JOINT_HEALTH":
+      return "RECOVERY";
+    case "LONGEVITY":
+      return "LONGEVITY";
+    case "GENERAL_HEALTH":
+    case "METABOLIC_HEALTH":
+      return "HEALTH";
+    default:
+      return "SPECIALTY";
+  }
+}
 
 type Experience = "beginner" | "intermediate" | "advanced";
 type BiologicalSex = "MALE" | "FEMALE";
@@ -189,6 +213,7 @@ export function AiStackBuilder({ profile }: { profile: AiProfile | null }) {
       name: result.stackName,
       description: result.description,
       goal: result.goal,
+      category: categoryForGoal(result.goal),
       durationWeeks: result.durationWeeks,
       isPublic: false,
       compounds: compoundInputs,

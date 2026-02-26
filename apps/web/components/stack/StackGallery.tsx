@@ -3,11 +3,11 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Search, X } from "lucide-react";
-import type { StackGoal } from "@prisma/client";
+import type { StackCategory, StackGoal } from "@prisma/client";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn, formatCategory } from "@/lib/utils";
-import { applyStackFilters, getFolderCounts, getRiskCounts, getTagCounts, type SortKey } from "@/lib/stack-gallery";
+import { applyStackFilters, getCategoryCounts, getFolderCounts, getRiskCounts, getTagCounts, type SortKey } from "@/lib/stack-gallery";
 import { StackCard } from "./StackCard";
 import type { StackSummary } from "./types";
 
@@ -18,6 +18,7 @@ interface Props {
 
 export function StackGallery({ stacks, currentUserId }: Props) {
   const [selectedGoal, setSelectedGoal] = useState<StackGoal | "ALL">("ALL");
+  const [selectedCategory, setSelectedCategory] = useState<StackCategory | "ALL">("ALL");
   const [selectedFolder, setSelectedFolder] = useState<string | "ALL">("ALL");
   const [selectedTag, setSelectedTag] = useState<string | "ALL">("ALL");
   const [selectedRisk, setSelectedRisk] = useState<string | "ALL">("ALL");
@@ -30,6 +31,7 @@ export function StackGallery({ stacks, currentUserId }: Props) {
     return Array.from(counts.entries()).map(([goal, count]) => ({ goal, count }));
   }, [stacks]);
 
+  const categories = useMemo(() => getCategoryCounts(stacks), [stacks]);
   const folders = useMemo(() => getFolderCounts(stacks), [stacks]);
   const tags = useMemo(() => getTagCounts(stacks), [stacks]);
   const risks = useMemo(() => getRiskCounts(stacks), [stacks]);
@@ -39,12 +41,13 @@ export function StackGallery({ stacks, currentUserId }: Props) {
       applyStackFilters(stacks, {
         search,
         goal: selectedGoal,
+        category: selectedCategory,
         folder: selectedFolder,
         tag: selectedTag,
         risk: selectedRisk,
         sortBy,
       }),
-    [stacks, search, selectedGoal, selectedFolder, selectedTag, selectedRisk, sortBy]
+    [stacks, search, selectedGoal, selectedCategory, selectedFolder, selectedTag, selectedRisk, sortBy]
   );
 
   return (
@@ -68,6 +71,7 @@ export function StackGallery({ stacks, currentUserId }: Props) {
             <SelectItem value="newest">Newest first</SelectItem>
             <SelectItem value="evidenceScore">Highest evidence</SelectItem>
             <SelectItem value="upvotes">Most upvoted</SelectItem>
+            <SelectItem value="cycles">Most run (cycles)</SelectItem>
             <SelectItem value="custom">Custom order</SelectItem>
           </SelectContent>
         </Select>
@@ -84,7 +88,14 @@ export function StackGallery({ stacks, currentUserId }: Props) {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-2">
+        <Select value={selectedCategory} onValueChange={(v) => setSelectedCategory(v as StackCategory | "ALL")}>
+          <SelectTrigger><SelectValue placeholder="Category" /></SelectTrigger>
+          <SelectContent>
+            <SelectItem value="ALL">All categories</SelectItem>
+            {categories.map((c) => <SelectItem key={c.category} value={c.category}>{formatCategory(c.category)} ({c.count})</SelectItem>)}
+          </SelectContent>
+        </Select>
         <Select value={selectedFolder} onValueChange={(v) => setSelectedFolder(v)}>
           <SelectTrigger><SelectValue placeholder="Folder" /></SelectTrigger>
           <SelectContent>

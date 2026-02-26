@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { router, publicProcedure, protectedProcedure } from "./trpc";
 import { db } from "@/lib/db";
-import { StackGoal } from "@prisma/client";
+import { StackCategory, StackGoal } from "@prisma/client";
 import { slugify } from "@/lib/utils";
 
 export const stackRouter = router({
@@ -13,7 +13,7 @@ export const stackRouter = router({
         goal: z.nativeEnum(StackGoal).optional(),
         publicOnly: z.boolean().default(true),
         sortBy: z
-          .enum(["newest", "evidenceScore", "upvotes", "custom"])
+          .enum(["newest", "evidenceScore", "upvotes", "cycles", "custom"])
           .default("newest"),
       })
     )
@@ -34,9 +34,11 @@ export const stackRouter = router({
               ]
             : sortBy === "upvotes"
               ? [{ upvotes: "desc" }, { createdAt: "desc" }]
-              : sortBy === "custom"
-                ? [{ orderIndex: "asc" }, { createdAt: "desc" }]
-                : [{ createdAt: "desc" }],
+              : sortBy === "cycles"
+                ? [{ cycles: { _count: "desc" } }, { createdAt: "desc" }]
+                : sortBy === "custom"
+                  ? [{ orderIndex: "asc" }, { createdAt: "desc" }]
+                  : [{ createdAt: "desc" }],
         include: {
           creator: { select: { name: true, image: true } },
           compounds: {
@@ -134,6 +136,7 @@ export const stackRouter = router({
         description: z.string().optional(),
         goal: z.nativeEnum(StackGoal),
         durationWeeks: z.number().int().positive().optional(),
+        category: z.nativeEnum(StackCategory).default(StackCategory.SPECIALTY),
         folder: z.string().trim().min(1).max(50).optional(),
         tags: z.array(z.string().trim().min(1).max(30)).max(8).default([]),
         riskFlags: z.array(z.string().trim().min(1).max(40)).max(6).default([]),

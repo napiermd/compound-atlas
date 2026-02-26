@@ -22,7 +22,7 @@ import { CompoundRow } from "./CompoundRow";
 import { InteractionWarnings } from "./InteractionWarnings";
 import { EvidenceSummary } from "./EvidenceSummary";
 import type { CompoundOption, StackedCompound, UpdatableField } from "./types";
-import type { StackGoal } from "@prisma/client";
+import type { StackCategory, StackGoal } from "@prisma/client";
 
 const STACK_GOALS: { value: StackGoal; label: string }[] = [
   { value: "COGNITIVE", label: "Cognitive" },
@@ -39,6 +39,15 @@ const STACK_GOALS: { value: StackGoal; label: string }[] = [
   { value: "CUSTOM", label: "Custom" },
 ];
 
+const STACK_CATEGORIES: { value: StackCategory; label: string }[] = [
+  { value: "PERFORMANCE", label: "Performance" },
+  { value: "COGNITION", label: "Cognition" },
+  { value: "RECOVERY", label: "Recovery" },
+  { value: "HEALTH", label: "Health" },
+  { value: "LONGEVITY", label: "Longevity" },
+  { value: "SPECIALTY", label: "Specialty" },
+];
+
 interface Props {
   compounds: CompoundOption[];
 }
@@ -49,6 +58,7 @@ export function StackBuilder({ compounds }: Props) {
   // Metadata
   const [name, setName] = useState("");
   const [goal, setGoal] = useState<StackGoal>("COGNITIVE");
+  const [category, setCategory] = useState<StackCategory>("SPECIALTY");
   const [durationWeeks, setDurationWeeks] = useState("");
   const [description, setDescription] = useState("");
   const [folder, setFolder] = useState("");
@@ -136,6 +146,7 @@ export function StackBuilder({ compounds }: Props) {
     createStack.mutate({
       name: name.trim(),
       goal,
+      category,
       description: description.trim() || undefined,
       durationWeeks: durationWeeks ? parseInt(durationWeeks) : undefined,
       folder: folder.trim() || undefined,
@@ -241,8 +252,8 @@ export function StackBuilder({ compounds }: Props) {
             />
           </div>
 
-          {/* Goal + Duration */}
-          <div className="grid grid-cols-2 gap-3">
+          {/* Goal + Category + Duration */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             <div className="space-y-1.5">
               <Label htmlFor="stack-goal">Goal</Label>
               <Select
@@ -256,6 +267,21 @@ export function StackBuilder({ compounds }: Props) {
                   {STACK_GOALS.map((g) => (
                     <SelectItem key={g.value} value={g.value}>
                       {g.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="stack-category">Category</Label>
+              <Select value={category} onValueChange={(v) => setCategory(v as StackCategory)}>
+                <SelectTrigger id="stack-category">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {STACK_CATEGORIES.map((c) => (
+                    <SelectItem key={c.value} value={c.value}>
+                      {c.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
