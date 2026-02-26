@@ -15,11 +15,12 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "lint": "turbo run lint",
+    "lint": "npm run check:placeholder-hrefs && turbo run lint",
     "type-check": "turbo run type-check",
     "test": "turbo run test",
     "smoke:routes": "npm --workspace web run smoke:routes",
     "smoke:links": "npm --workspace web run smoke:links",
+    "check:placeholder-hrefs": "npm --workspace web run check:placeholder-hrefs",
     "smoke:routes:ci": "npm run smoke:routes || (echo 'Route smoke check could not run in CI context; continuing (non-blocking).' && exit 0)",
     "smoke:links:ci": "npm run smoke:links || (echo 'Link smoke check could not run in CI context; continuing (non-blocking).' && exit 0)",
     "db:migrate": "cd apps/web && npx prisma migrate dev",

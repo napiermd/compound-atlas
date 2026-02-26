@@ -10,7 +10,8 @@
     "type-check": "tsc --noEmit",
     "test": "tsx --test lib/*.test.ts",
     "smoke:routes": "node scripts/smoke-routes.mjs",
-    "smoke:links": "node scripts/smoke-links.mjs"
+    "smoke:links": "node scripts/smoke-links.mjs",
+    "check:placeholder-hrefs": "node scripts/check-placeholder-hrefs.mjs"
   },
   "prisma": {
     "seed": "npx tsx prisma/seed.ts"
