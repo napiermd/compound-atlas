@@ -153,13 +153,41 @@ export default async function CompoundDetailPage({ params }: Props) {
   // Strip Date objects before passing to client component
   const compound: CompoundDetail = JSON.parse(JSON.stringify(raw));
 
-  const aliases = Array.isArray(compound.aliases) ? compound.aliases : [];
-  const safetyCaveats = Array.isArray(compound.safetyCaveats) ? compound.safetyCaveats : [];
-  const legalCaveats = Array.isArray(compound.legalCaveats) ? compound.legalCaveats : [];
+  // Runtime-safe defaults for partially migrated DB rows.
+  const safeCompound: CompoundDetail = {
+    ...compound,
+    aliases: Array.isArray(compound.aliases) ? compound.aliases : [],
+    routeOfAdmin: Array.isArray(compound.routeOfAdmin)
+      ? compound.routeOfAdmin
+      : [],
+    sideEffects: Array.isArray(compound.sideEffects) ? compound.sideEffects : [],
+    interactions: Array.isArray(compound.interactions) ? compound.interactions : [],
+    mechanisms: Array.isArray(compound.mechanisms) ? compound.mechanisms : [],
+    studies: Array.isArray(compound.studies) ? compound.studies : [],
+    safetyCaveats: Array.isArray(compound.safetyCaveats)
+      ? compound.safetyCaveats
+      : [],
+    legalCaveats: Array.isArray(compound.legalCaveats)
+      ? compound.legalCaveats
+      : [],
+    literatureLinks: compound.literatureLinks ?? null,
+    halfLife: compound.halfLife ?? null,
+    onset: compound.onset ?? null,
+    duration: compound.duration ?? null,
+    scoreBreakdown: compound.scoreBreakdown ?? null,
+    lastResearchSync: compound.lastResearchSync ?? null,
+    lastReviewedAt: compound.lastReviewedAt ?? null,
+    evidenceLevel: compound.evidenceLevel ?? null,
+    metaAnalysisCount: compound.metaAnalysisCount ?? 0,
+  };
+
+  const aliases = safeCompound.aliases;
+  const safetyCaveats = safeCompound.safetyCaveats;
+  const legalCaveats = safeCompound.legalCaveats;
 
   const displayAliases = aliases.slice(0, 3);
-  const literatureLinks = Array.isArray(compound.literatureLinks)
-    ? (compound.literatureLinks as Array<{
+  const literatureLinks = Array.isArray(safeCompound.literatureLinks)
+    ? (safeCompound.literatureLinks as Array<{
         title?: string;
         url?: string;
         source?: string;
@@ -167,22 +195,22 @@ export default async function CompoundDetailPage({ params }: Props) {
         kind?: string;
       }>).filter((item) => !!item?.title && !!item?.url)
     : [];
-  const refreshedText = compound.lastResearchSync
-    ? new Date(compound.lastResearchSync).toLocaleDateString("en-US", {
+  const refreshedText = safeCompound.lastResearchSync
+    ? new Date(safeCompound.lastResearchSync).toLocaleDateString("en-US", {
         month: "short",
         day: "numeric",
         year: "numeric",
       })
     : "Not synced yet";
-  const reviewedText = compound.lastReviewedAt
-    ? new Date(compound.lastReviewedAt).toLocaleDateString("en-US", {
+  const reviewedText = safeCompound.lastReviewedAt
+    ? new Date(safeCompound.lastReviewedAt).toLocaleDateString("en-US", {
         month: "short",
         day: "numeric",
         year: "numeric",
       })
     : "Not reviewed yet";
   const staleThresholdDays = getStaleThresholdDays();
-  const isStale = isCompoundStale(compound.lastResearchSync);
+  const isStale = isCompoundStale(safeCompound.lastResearchSync);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
@@ -368,7 +396,7 @@ export default async function CompoundDetailPage({ params }: Props) {
       <Separator className="mb-6" />
 
       {/* Tabbed detail */}
-      <CompoundDetailTabs compound={compound} biometrics={biometrics} />
+      <CompoundDetailTabs compound={safeCompound} biometrics={biometrics} />
     </div>
   );
 }
