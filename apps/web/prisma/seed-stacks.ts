@@ -4,7 +4,7 @@
  * Generates stacks for 15 goals × 3 experience levels × 2 variants = 90 public stacks.
  * Run: npm run db:seed-stacks
  */
-import { PrismaClient, StackGoal } from "@prisma/client";
+import { PrismaClient, StackCategory, StackGoal } from "@prisma/client";
 import { generateStack, ANABOLIC_DEPENDENT_GOALS } from "../lib/stack-generator";
 import type { ExperienceLevel } from "../lib/stack-generator";
 
@@ -94,6 +94,30 @@ function selectionOffsetFor(
     experience === "beginner" ? 0 : experience === "intermediate" ? 1 : 2;
   const variantOffset = variantKey === "core" ? 0 : 3;
   return (goalIndex % 4) + expOffset + variantOffset;
+}
+
+function categoryForGoal(goal: StackGoal): StackCategory {
+  switch (goal) {
+    case StackGoal.RECOMP:
+    case StackGoal.BULK:
+    case StackGoal.CUT:
+    case StackGoal.ATHLETIC_PERFORMANCE:
+      return StackCategory.PERFORMANCE;
+    case StackGoal.COGNITIVE:
+    case StackGoal.MOOD:
+      return StackCategory.COGNITION;
+    case StackGoal.SLEEP:
+    case StackGoal.RECOVERY:
+    case StackGoal.JOINT_HEALTH:
+      return StackCategory.RECOVERY;
+    case StackGoal.LONGEVITY:
+      return StackCategory.LONGEVITY;
+    case StackGoal.GENERAL_HEALTH:
+    case StackGoal.METABOLIC_HEALTH:
+      return StackCategory.HEALTH;
+    default:
+      return StackCategory.SPECIALTY;
+  }
 }
 
 function goalFolder(goal: StackGoal): string {
@@ -192,6 +216,7 @@ async function main() {
               slug,
               description: generated.description,
               goal,
+              category: categoryForGoal(goal),
               folder: goalFolder(goal),
               tags: [experience, variant.key, goal.toLowerCase()],
               riskFlags: deriveRiskFlags(variant.key, goal),
