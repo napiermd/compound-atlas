@@ -5,6 +5,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Button } from "@/components/ui/button";
 import { CycleCard } from "@/components/cycle/CycleCard";
+import { SectionNav } from "@/components/layout/SectionNav";
 import type { CycleSummary } from "@/components/cycle/types";
 
 export const metadata: Metadata = {
@@ -52,6 +53,8 @@ export default async function CyclesPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
+      <SectionNav current="/cycles" />
+
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">My Cycles</h1>
