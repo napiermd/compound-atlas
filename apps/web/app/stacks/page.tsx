@@ -17,24 +17,99 @@ export default async function StacksPage() {
   const session = await auth();
   const aiHref = session?.user?.id ? "/stacks/ai" : "/login";
 
-  const raw = await db.stack.findMany({
-    where: { isPublic: true },
-    orderBy: { createdAt: "desc" },
-    take: 100,
-    include: {
-      creator: { select: { name: true, image: true } },
-      compounds: {
-        include: {
-          compound: { select: { name: true, slug: true, category: true } },
+  type RawStack = {
+    id: string;
+    slug: string;
+    name: string;
+    description: string | null;
+    goal: StackSummary["goal"];
+    durationWeeks: number | null;
+    isPublic: boolean;
+    evidenceScore: number | null;
+    category?: StackSummary["category"];
+    folder?: string | null;
+    tags?: string[];
+    riskFlags?: string[];
+    orderIndex?: number;
+    upvotes: number;
+    forkCount: number;
+    forkedFromId: string | null;
+    createdAt: string | Date;
+    creatorId?: string;
+    creator: { name: string | null; image: string | null };
+    compounds: Array<{
+      id: string;
+      compound: {
+        name: string;
+        slug: string;
+        category: StackSummary["compounds"][number]["compound"]["category"];
+      };
+    }>;
+    _count: { cycles: number; forks: number };
+    userHasUpvoted?: boolean;
+  };
+
+  let raw: RawStack[] = [];
+  try {
+    raw = (await db.stack.findMany({
+      where: { isPublic: true },
+      orderBy: { createdAt: "desc" },
+      take: 100,
+      include: {
+        creator: { select: { name: true, image: true } },
+        compounds: {
+          include: {
+            compound: { select: { name: true, slug: true, category: true } },
+          },
+          take: 6,
         },
-        take: 6,
+        _count: { select: { cycles: true, forks: true } },
       },
-      _count: { select: { cycles: true, forks: true } },
-    },
-  });
+    })) as RawStack[];
+  } catch {
+    // Backward-compatible fallback for environments where Stack.category
+    // and related fields are not migrated yet.
+    raw = (await db.stack.findMany({
+      where: { isPublic: true },
+      orderBy: { createdAt: "desc" },
+      take: 100,
+      select: {
+        id: true,
+        slug: true,
+        name: true,
+        description: true,
+        goal: true,
+        durationWeeks: true,
+        isPublic: true,
+        evidenceScore: true,
+        upvotes: true,
+        forkCount: true,
+        forkedFromId: true,
+        createdAt: true,
+        creatorId: true,
+        creator: { select: { name: true, image: true } },
+        compounds: {
+          include: {
+            compound: { select: { name: true, slug: true, category: true } },
+          },
+          take: 6,
+        },
+        _count: { select: { cycles: true, forks: true } },
+      },
+    })) as RawStack[];
+  }
+
+  const normalized = raw.map((s) => ({
+    ...s,
+    category: s.category ?? ("SPECIALTY" as StackSummary["category"]),
+    folder: s.folder ?? null,
+    tags: Array.isArray(s.tags) ? s.tags : [],
+    riskFlags: Array.isArray(s.riskFlags) ? s.riskFlags : [],
+    orderIndex: typeof s.orderIndex === "number" ? s.orderIndex : 0,
+  }));
 
   // Serialize Date objects for client component
-  const stacks: StackSummary[] = JSON.parse(JSON.stringify(raw));
+  const stacks: StackSummary[] = JSON.parse(JSON.stringify(normalized));
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
