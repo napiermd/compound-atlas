@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -116,9 +117,9 @@ export function NewCycleForm({ stacks }: Props) {
           {stacks.length === 0 ? (
             <p className="text-sm text-muted-foreground">
               You don&apos;t have any stacks yet.{" "}
-              <a href="/stacks/new" className="underline">
+              <Link href="/stacks/new" className="underline">
                 Build one first.
-              </a>
+              </Link>
             </p>
           ) : (
             <Select value={selectedStackId} onValueChange={handleStackSelect}>

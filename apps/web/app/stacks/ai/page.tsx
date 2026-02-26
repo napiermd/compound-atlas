@@ -14,15 +14,21 @@ export default async function AiStackPage() {
   const session = await auth();
   if (!session?.user?.id) redirect("/login");
 
-  const profile = await db.user.findUnique({
-    where: { id: session.user.id },
-    select: {
-      sex: true,
-      weightLbs: true,
-      heightFt: true,
-      heightIn: true,
-    },
-  });
+  let profile = null;
+  try {
+    profile = await db.user.findUnique({
+      where: { id: session.user.id },
+      select: {
+        sex: true,
+        weightLbs: true,
+        heightFt: true,
+        heightIn: true,
+      },
+    });
+  } catch {
+    // Backward-compatible fallback for DBs without profile biometrics columns.
+    profile = null;
+  }
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">

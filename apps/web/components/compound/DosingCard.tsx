@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { scaleDose, type UserBiometrics } from "@/lib/dose-utils";
@@ -97,9 +98,9 @@ export function DosingCard({ compound: c, biometrics }: Props) {
             {personalizedDose == null && c.doseTypical != null && (
               <p className="text-xs text-muted-foreground pt-1 border-t">
                 Set height &amp; weight in{" "}
-                <a href="/settings" className="underline hover:text-foreground transition-colors">
+                <Link href="/settings" className="underline hover:text-foreground transition-colors">
                   Settings
-                </a>{" "}
+                </Link>{" "}
                 to see your dose.
               </p>
             )}

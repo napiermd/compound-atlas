@@ -157,19 +157,13 @@ export default async function CompoundDetailPage({ params }: Props) {
   const safeCompound: CompoundDetail = {
     ...compound,
     aliases: Array.isArray(compound.aliases) ? compound.aliases : [],
-    routeOfAdmin: Array.isArray(compound.routeOfAdmin)
-      ? compound.routeOfAdmin
-      : [],
+    routeOfAdmin: Array.isArray(compound.routeOfAdmin) ? compound.routeOfAdmin : [],
     sideEffects: Array.isArray(compound.sideEffects) ? compound.sideEffects : [],
     interactions: Array.isArray(compound.interactions) ? compound.interactions : [],
     mechanisms: Array.isArray(compound.mechanisms) ? compound.mechanisms : [],
     studies: Array.isArray(compound.studies) ? compound.studies : [],
-    safetyCaveats: Array.isArray(compound.safetyCaveats)
-      ? compound.safetyCaveats
-      : [],
-    legalCaveats: Array.isArray(compound.legalCaveats)
-      ? compound.legalCaveats
-      : [],
+    safetyCaveats: Array.isArray(compound.safetyCaveats) ? compound.safetyCaveats : [],
+    legalCaveats: Array.isArray(compound.legalCaveats) ? compound.legalCaveats : [],
     literatureLinks: compound.literatureLinks ?? null,
     halfLife: compound.halfLife ?? null,
     onset: compound.onset ?? null,
@@ -195,6 +189,7 @@ export default async function CompoundDetailPage({ params }: Props) {
         kind?: string;
       }>).filter((item) => !!item?.title && !!item?.url)
     : [];
+
   const refreshedText = safeCompound.lastResearchSync
     ? new Date(safeCompound.lastResearchSync).toLocaleDateString("en-US", {
         month: "short",

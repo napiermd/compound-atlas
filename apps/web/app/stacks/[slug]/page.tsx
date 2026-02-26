@@ -29,6 +29,7 @@ import { GoalBadge } from "@/components/stack/GoalBadge";
 import { InteractionWarnings } from "@/components/stack/InteractionWarnings";
 import { StackActions } from "@/components/stack/StackActions";
 import type { StackInteraction } from "@/components/stack/types";
+import { normalizeArray } from "@/lib/normalize";
 
 interface Props {
   params: { slug: string };
@@ -67,8 +68,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function StackDetailPage({ params }: Props) {
-  const [stack, session] = await Promise.all([
-    db.stack.findUnique({
+  const session = await auth();
+
+  let stack = null;
+  try {
+    stack = await db.stack.findUnique({
       where: { slug: params.slug },
       include: {
         creator: { select: { id: true, name: true, image: true } },
@@ -91,9 +95,42 @@ export default async function StackDetailPage({ params }: Props) {
         },
         _count: { select: { cycles: true, forks: true } },
       },
-    }),
-    auth(),
-  ]);
+    });
+  } catch {
+    // Backward-compatible fallback when stack fork counters/relations are not available yet.
+    stack = await db.stack.findUnique({
+      where: { slug: params.slug },
+      select: {
+        id: true,
+        slug: true,
+        name: true,
+        description: true,
+        goal: true,
+        durationWeeks: true,
+        isPublic: true,
+        evidenceScore: true,
+        upvotes: true,
+        creator: { select: { id: true, name: true, image: true } },
+        compounds: {
+          include: {
+            compound: {
+              select: {
+                id: true,
+                slug: true,
+                name: true,
+                category: true,
+                legalStatus: true,
+                evidenceScore: true,
+                doseUnit: true,
+              },
+            },
+          },
+          orderBy: { startWeek: "asc" },
+        },
+        _count: { select: { cycles: true } },
+      },
+    });
+  }
 
   if (!stack) notFound();
 
@@ -147,7 +184,7 @@ export default async function StackDetailPage({ params }: Props) {
         })
       : [];
 
-  const interactions: StackInteraction[] = rawInteractions;
+  const interactions = normalizeArray<StackInteraction>(rawInteractions);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
@@ -207,7 +244,7 @@ export default async function StackDetailPage({ params }: Props) {
         <StackActions
           stackId={stack.id}
           stackSlug={stack.slug}
-          upvoteCount={stack.upvotes}
+          upvoteCount={stack.upvotes ?? 0}
           userHasUpvoted={userHasUpvoted}
           isLoggedIn={!!userId}
         />
@@ -256,7 +293,7 @@ export default async function StackDetailPage({ params }: Props) {
         )}
         <span className="flex items-center gap-1.5">
           <GitFork className="h-4 w-4" />
-          {stack._count.forks} fork{stack._count.forks !== 1 ? "s" : ""}
+          {stack._count?.forks ?? 0} fork{(stack._count?.forks ?? 0) !== 1 ? "s" : ""}
         </span>
         <span>
           by{" "}
