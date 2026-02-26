@@ -19,7 +19,12 @@ export default async function CyclesPage() {
   const raw = await db.cycle.findMany({
     where: { userId: session.user.id },
     orderBy: { createdAt: "desc" },
-    include: {
+    select: {
+      id: true,
+      name: true,
+      status: true,
+      startDate: true,
+      endDate: true,
       stack: { select: { name: true, slug: true } },
       _count: { select: { entries: true } },
       entries: {

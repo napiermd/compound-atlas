@@ -17,6 +17,7 @@ import { Badge } from "@/components/ui/badge";
 import { CompoundCard } from "@/components/compound/CompoundCard";
 import { db } from "@/lib/db";
 import type { CompoundSummary } from "@/components/compound/types";
+import { withMissingColumnFallback } from "@/lib/prisma-compat";
 
 const FEATURES = [
   {
@@ -75,32 +76,61 @@ const SCORING_FACTORS = [
 ];
 
 export default async function HomePage() {
-  const [compoundCount, studyCount, topCompoundsRaw] = await Promise.all([
-    db.compound.count(),
-    db.study.count(),
-    db.compound.findMany({
-      where: { evidenceScore: { not: null } },
-      orderBy: { evidenceScore: "desc" },
-      take: 6,
-      select: {
-        id: true,
-        slug: true,
-        name: true,
-        aliases: true,
-        category: true,
-        subcategory: true,
-        legalStatus: true,
-        mechanismShort: true,
-        evidenceScore: true,
-        safetyScore: true,
-        studyCount: true,
-        metaAnalysisCount: true,
-        doseTypical: true,
-        doseUnit: true,
-        doseFrequency: true,
-      },
-    }),
-  ]);
+  const [compoundCount, studyCount, topCompoundsRaw] =
+    await withMissingColumnFallback(
+      () =>
+        Promise.all([
+          db.compound.count(),
+          db.study.count(),
+          db.compound.findMany({
+            where: { evidenceScore: { not: null } },
+            orderBy: { evidenceScore: "desc" },
+            take: 6,
+            select: {
+              id: true,
+              slug: true,
+              name: true,
+              aliases: true,
+              category: true,
+              subcategory: true,
+              legalStatus: true,
+              mechanismShort: true,
+              evidenceScore: true,
+              safetyScore: true,
+              studyCount: true,
+              metaAnalysisCount: true,
+              doseTypical: true,
+              doseUnit: true,
+              doseFrequency: true,
+            },
+          }),
+        ]),
+      () =>
+        Promise.all([
+          db.compound.count(),
+          db.study.count(),
+          db.compound.findMany({
+            where: { evidenceScore: { not: null } },
+            orderBy: { evidenceScore: "desc" },
+            take: 6,
+            select: {
+              id: true,
+              slug: true,
+              name: true,
+              aliases: true,
+              category: true,
+              legalStatus: true,
+              evidenceScore: true,
+              safetyScore: true,
+              studyCount: true,
+              metaAnalysisCount: true,
+              doseTypical: true,
+              doseUnit: true,
+              doseFrequency: true,
+            },
+          }),
+        ])
+    );
 
   const topCompounds = topCompoundsRaw as CompoundSummary[];
 

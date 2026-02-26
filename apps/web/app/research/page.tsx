@@ -5,6 +5,7 @@ import { db } from "@/lib/db";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SectionNav } from "@/components/layout/SectionNav";
+import { withMissingColumnFallback } from "@/lib/prisma-compat";
 
 export const metadata: Metadata = { title: "Research" };
 
@@ -70,21 +71,50 @@ export default async function ResearchPage({
     }),
   };
 
-  const [studies, total, filteredCount] = await Promise.all([
-    db.study.findMany({
-      where,
-      orderBy: [{ publicationDate: "desc" }, { year: "desc" }],
-      take: 60,
-      include: {
-        compounds: {
-          include: { compound: { select: { name: true, slug: true } } },
-          take: 5,
-        },
-      },
-    }),
-    db.study.count(),
-    db.study.count({ where }),
-  ]);
+  const [studies, total, filteredCount] = await withMissingColumnFallback(
+    () =>
+      Promise.all([
+        db.study.findMany({
+          where,
+          orderBy: [{ publicationDate: "desc" }, { year: "desc" }],
+          take: 60,
+          include: {
+            compounds: {
+              include: { compound: { select: { name: true, slug: true } } },
+              take: 5,
+            },
+          },
+        }),
+        db.study.count(),
+        db.study.count({ where }),
+      ]),
+    () =>
+      Promise.all([
+        db.study.findMany({
+          where,
+          orderBy: [{ publicationDate: "desc" }, { year: "desc" }],
+          take: 60,
+          select: {
+            id: true,
+            title: true,
+            studyType: true,
+            evidenceLevel: true,
+            year: true,
+            sampleSize: true,
+            journal: true,
+            pmid: true,
+            fullTextUrl: true,
+            tldr: true,
+            compounds: {
+              include: { compound: { select: { name: true, slug: true } } },
+              take: 5,
+            },
+          },
+        }),
+        db.study.count(),
+        db.study.count({ where }),
+      ])
+  );
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">

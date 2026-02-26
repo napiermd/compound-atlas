@@ -29,6 +29,7 @@ import { GoalBadge } from "@/components/stack/GoalBadge";
 import { InteractionWarnings } from "@/components/stack/InteractionWarnings";
 import { StackActions } from "@/components/stack/StackActions";
 import type { StackInteraction } from "@/components/stack/types";
+import { withMissingColumnFallback } from "@/lib/prisma-compat";
 
 interface Props {
   params: { slug: string };
@@ -68,30 +69,67 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function StackDetailPage({ params }: Props) {
   const [stack, session] = await Promise.all([
-    db.stack.findUnique({
-      where: { slug: params.slug },
-      include: {
-        creator: { select: { id: true, name: true, image: true } },
-        forkedFrom: { select: { name: true, slug: true } },
-        compounds: {
+    withMissingColumnFallback(
+      () =>
+        db.stack.findUnique({
+          where: { slug: params.slug },
           include: {
-            compound: {
-              select: {
-                id: true,
-                slug: true,
-                name: true,
-                category: true,
-                legalStatus: true,
-                evidenceScore: true,
-                doseUnit: true,
+            creator: { select: { id: true, name: true, image: true } },
+            forkedFrom: { select: { name: true, slug: true } },
+            compounds: {
+              include: {
+                compound: {
+                  select: {
+                    id: true,
+                    slug: true,
+                    name: true,
+                    category: true,
+                    legalStatus: true,
+                    evidenceScore: true,
+                    doseUnit: true,
+                  },
+                },
               },
+              orderBy: { startWeek: "asc" },
             },
+            _count: { select: { cycles: true, forks: true } },
           },
-          orderBy: { startWeek: "asc" },
-        },
-        _count: { select: { cycles: true, forks: true } },
-      },
-    }),
+        }),
+      () =>
+        db.stack.findUnique({
+          where: { slug: params.slug },
+          select: {
+            id: true,
+            slug: true,
+            name: true,
+            description: true,
+            goal: true,
+            durationWeeks: true,
+            isPublic: true,
+            evidenceScore: true,
+            upvotes: true,
+            creator: { select: { id: true, name: true, image: true } },
+            forkedFrom: { select: { name: true, slug: true } },
+            compounds: {
+              include: {
+                compound: {
+                  select: {
+                    id: true,
+                    slug: true,
+                    name: true,
+                    category: true,
+                    legalStatus: true,
+                    evidenceScore: true,
+                    doseUnit: true,
+                  },
+                },
+              },
+              orderBy: { startWeek: "asc" },
+            },
+            _count: { select: { cycles: true, forks: true } },
+          },
+        })
+    ),
     auth(),
   ]);
 

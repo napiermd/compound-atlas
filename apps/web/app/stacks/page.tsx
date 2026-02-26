@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { StackGallery } from "@/components/stack/StackGallery";
 import { SectionNav } from "@/components/layout/SectionNav";
 import type { StackSummary } from "@/components/stack/types";
+import { withMissingColumnFallback } from "@/lib/prisma-compat";
 
 export const metadata: Metadata = {
   title: "Stacks — CompoundAtlas",
@@ -49,55 +50,55 @@ export default async function StacksPage() {
     userHasUpvoted?: boolean;
   };
 
-  let raw: RawStack[] = [];
-  try {
-    raw = (await db.stack.findMany({
-      where: { isPublic: true },
-      orderBy: { createdAt: "desc" },
-      take: 100,
-      include: {
-        creator: { select: { name: true, image: true } },
-        compounds: {
-          include: {
-            compound: { select: { name: true, slug: true, category: true } },
+  const raw = (await withMissingColumnFallback(
+    () =>
+      db.stack.findMany({
+        where: { isPublic: true },
+        orderBy: { createdAt: "desc" },
+        take: 100,
+        include: {
+          creator: { select: { name: true, image: true } },
+          compounds: {
+            include: {
+              compound: { select: { name: true, slug: true, category: true } },
+            },
+            take: 6,
           },
-          take: 6,
+          _count: { select: { cycles: true, forks: true } },
         },
-        _count: { select: { cycles: true, forks: true } },
-      },
-    })) as RawStack[];
-  } catch {
+      }),
     // Backward-compatible fallback for environments where Stack.category
     // and related fields are not migrated yet.
-    raw = (await db.stack.findMany({
-      where: { isPublic: true },
-      orderBy: { createdAt: "desc" },
-      take: 100,
-      select: {
-        id: true,
-        slug: true,
-        name: true,
-        description: true,
-        goal: true,
-        durationWeeks: true,
-        isPublic: true,
-        evidenceScore: true,
-        upvotes: true,
-        forkCount: true,
-        forkedFromId: true,
-        createdAt: true,
-        creatorId: true,
-        creator: { select: { name: true, image: true } },
-        compounds: {
-          include: {
-            compound: { select: { name: true, slug: true, category: true } },
+    () =>
+      db.stack.findMany({
+        where: { isPublic: true },
+        orderBy: { createdAt: "desc" },
+        take: 100,
+        select: {
+          id: true,
+          slug: true,
+          name: true,
+          description: true,
+          goal: true,
+          durationWeeks: true,
+          isPublic: true,
+          evidenceScore: true,
+          upvotes: true,
+          forkCount: true,
+          forkedFromId: true,
+          createdAt: true,
+          creatorId: true,
+          creator: { select: { name: true, image: true } },
+          compounds: {
+            include: {
+              compound: { select: { name: true, slug: true, category: true } },
+            },
+            take: 6,
           },
-          take: 6,
+          _count: { select: { cycles: true, forks: true } },
         },
-        _count: { select: { cycles: true, forks: true } },
-      },
-    })) as RawStack[];
-  }
+      })
+  )) as RawStack[];
 
   const normalized = raw.map((s) => ({
     ...s,

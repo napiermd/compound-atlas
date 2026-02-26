@@ -20,6 +20,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import type { CompoundDetail } from "@/components/compound/types";
 import { getStaleThresholdDays, isCompoundStale } from "@/lib/compound-freshness";
+import { withMissingColumnFallback } from "@/lib/prisma-compat";
 
 interface Props {
   params: { slug: string };
@@ -66,87 +67,87 @@ export default async function CompoundDetailPage({ params }: Props) {
     }
   }
 
-  let raw: unknown = null;
-  try {
-    raw = await db.compound.findUnique({
-      where: { slug: params.slug },
-      include: {
-        sideEffects: { orderBy: { severity: "asc" } },
-        mechanisms: true,
-        interactions: {
-          include: {
-            target: { select: { name: true, slug: true, category: true } },
-          },
-        },
-        studies: {
-          include: {
-            study: {
-              select: {
-                id: true,
-                pmid: true,
-                title: true,
-                studyType: true,
-                evidenceLevel: true,
-                year: true,
-                sampleSize: true,
-                fullTextUrl: true,
-                tldr: true,
-              },
+  const raw = await withMissingColumnFallback(
+    () =>
+      db.compound.findUnique({
+        where: { slug: params.slug },
+        include: {
+          sideEffects: { orderBy: { severity: "asc" } },
+          mechanisms: true,
+          interactions: {
+            include: {
+              target: { select: { name: true, slug: true, category: true } },
             },
           },
-          take: 10,
-          orderBy: { study: { year: "desc" } },
+          studies: {
+            include: {
+              study: {
+                select: {
+                  id: true,
+                  pmid: true,
+                  title: true,
+                  studyType: true,
+                  evidenceLevel: true,
+                  year: true,
+                  sampleSize: true,
+                  fullTextUrl: true,
+                  tldr: true,
+                },
+              },
+            },
+            take: 10,
+            orderBy: { study: { year: "desc" } },
+          },
         },
-      },
-    });
-  } catch {
+      }),
     // Backward-compat fallback for deployments where newest Prisma migrations
     // have not been applied yet. Avoid hard-crashing compound pages.
-    raw = await db.compound.findUnique({
-      where: { slug: params.slug },
-      select: {
-        id: true,
-        slug: true,
-        name: true,
-        aliases: true,
-        category: true,
-        description: true,
-        legalStatus: true,
-        evidenceScore: true,
-        safetyScore: true,
-        studyCount: true,
-        clinicalPhase: true,
-        sideEffects: {
-          orderBy: { severity: "asc" },
-        },
-        mechanisms: true,
-        interactions: {
-          include: {
-            target: { select: { name: true, slug: true, category: true } },
+    () =>
+      db.compound.findUnique({
+        where: { slug: params.slug },
+        select: {
+          id: true,
+          slug: true,
+          name: true,
+          aliases: true,
+          category: true,
+          description: true,
+          legalStatus: true,
+          evidenceScore: true,
+          safetyScore: true,
+          studyCount: true,
+          clinicalPhase: true,
+          sideEffects: {
+            orderBy: { severity: "asc" },
           },
-        },
-        studies: {
-          include: {
-            study: {
-              select: {
-                id: true,
-                pmid: true,
-                title: true,
-                studyType: true,
-                evidenceLevel: true,
-                year: true,
-                sampleSize: true,
-                fullTextUrl: true,
-                tldr: true,
-              },
+          mechanisms: true,
+          interactions: {
+            include: {
+              target: { select: { name: true, slug: true, category: true } },
             },
           },
-          take: 10,
-          orderBy: { study: { year: "desc" } },
+          studies: {
+            include: {
+              study: {
+                select: {
+                  id: true,
+                  pmid: true,
+                  title: true,
+                  studyType: true,
+                  evidenceLevel: true,
+                  year: true,
+                  sampleSize: true,
+                  fullTextUrl: true,
+                  tldr: true,
+                },
+              },
+            },
+            take: 10,
+            orderBy: { study: { year: "desc" } },
+          },
         },
-      },
-    });
-  }
+      })
+  );
 
   if (!raw) notFound();
 

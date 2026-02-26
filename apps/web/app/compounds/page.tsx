@@ -11,6 +11,7 @@ import { PipelineSection } from "@/components/compound/PipelineSection";
 import { SectionNav } from "@/components/layout/SectionNav";
 import type { CategoryCount } from "@/components/compound/CompoundFilters";
 import { isCompoundStale } from "@/lib/compound-freshness";
+import { withMissingColumnFallback } from "@/lib/prisma-compat";
 
 export const metadata: Metadata = {
   title: "Compounds — CompoundAtlas",
@@ -27,44 +28,6 @@ const HIGH_TIER_STUDY_TYPES: StudyType[] = [
   "RCT",
 ];
 
-type RawCompoundRow = {
-  id: string;
-  slug: string;
-  name: string;
-  aliases: string[];
-  category: CompoundSummary["category"];
-  subcategory: string | null;
-  legalStatus: CompoundSummary["legalStatus"];
-  mechanismShort: string | null;
-  evidenceScore: number | null;
-  safetyScore: number | null;
-  studyCount: number;
-  metaAnalysisCount: number;
-  doseTypical: number | null;
-  doseUnit: string | null;
-  doseFrequency: string | null;
-  clinicalPhase: string | null;
-  evidenceLevel?: "A" | "B" | "C" | "D" | null;
-  createdAt: Date | string;
-  safetyCaveats?: string[];
-  legalCaveats?: string[];
-  literatureLinks?: unknown | null;
-  lastResearchSync?: Date | string | null;
-  lastReviewedAt?: Date | string | null;
-};
-
-type CategoryRow = {
-  category: CategoryCount["category"];
-  _count: { _all: number };
-};
-
-type RecentStudyRow = {
-  studyType: StudyType;
-  year: number | null;
-  publicationDate: Date | null;
-  compounds: { compoundId: string }[];
-};
-
 export default async function CompoundsPage() {
   const now = new Date();
   const recentWindowStart = new Date(
@@ -72,121 +35,119 @@ export default async function CompoundsPage() {
   );
   const recentYearFloor = now.getUTCFullYear() - 1;
 
-  let rawCompounds: RawCompoundRow[] = [];
-  let categories: CategoryRow[] = [];
-  let recentStudies: RecentStudyRow[] = [];
-
-  try {
-    [rawCompounds, categories, recentStudies] = await Promise.all([
-      db.compound.findMany({
-        select: {
-          id: true,
-          slug: true,
-          name: true,
-          aliases: true,
-          category: true,
-          subcategory: true,
-          legalStatus: true,
-          mechanismShort: true,
-          evidenceScore: true,
-          safetyScore: true,
-          studyCount: true,
-          metaAnalysisCount: true,
-          doseTypical: true,
-          doseUnit: true,
-          doseFrequency: true,
-          clinicalPhase: true,
-          evidenceLevel: true,
-          safetyCaveats: true,
-          legalCaveats: true,
-          literatureLinks: true,
-          createdAt: true,
-          lastResearchSync: true,
-          lastReviewedAt: true,
-        },
-        orderBy: [{ studyCount: "desc" }, { name: "asc" }],
-      }),
-      db.compound.groupBy({
-        by: ["category"],
-        _count: { _all: true },
-        orderBy: { _count: { category: "desc" } },
-      }),
-      db.study.findMany({
-        where: {
-          OR: [
-            { publicationDate: { gte: recentWindowStart } },
-            { year: { gte: recentYearFloor } },
-          ],
-        },
-        select: {
-          id: true,
-          studyType: true,
-          year: true,
-          publicationDate: true,
-          compounds: {
+  const [rawCompounds, categories, recentStudies] =
+    await withMissingColumnFallback(
+      () =>
+        Promise.all([
+          db.compound.findMany({
             select: {
-              compoundId: true,
+              id: true,
+              slug: true,
+              name: true,
+              aliases: true,
+              category: true,
+              subcategory: true,
+              legalStatus: true,
+              mechanismShort: true,
+              evidenceScore: true,
+              safetyScore: true,
+              studyCount: true,
+              metaAnalysisCount: true,
+              doseTypical: true,
+              doseUnit: true,
+              doseFrequency: true,
+              clinicalPhase: true,
+              evidenceLevel: true,
+              safetyCaveats: true,
+              legalCaveats: true,
+              literatureLinks: true,
+              createdAt: true,
+              lastResearchSync: true,
+              lastReviewedAt: true,
             },
-          },
-        },
-        take: 700,
-        orderBy: [{ publicationDate: "desc" }, { year: "desc" }],
-      }),
-    ]);
-  } catch {
-    // Backward-compatible fallback for environments where new DB columns
-    // are not migrated yet; keep compounds page functional.
-    [rawCompounds, categories, recentStudies] = await Promise.all([
-      db.compound.findMany({
-        select: {
-          id: true,
-          slug: true,
-          name: true,
-          aliases: true,
-          category: true,
-          subcategory: true,
-          legalStatus: true,
-          mechanismShort: true,
-          evidenceScore: true,
-          safetyScore: true,
-          studyCount: true,
-          metaAnalysisCount: true,
-          doseTypical: true,
-          doseUnit: true,
-          doseFrequency: true,
-          clinicalPhase: true,
-          createdAt: true,
-        },
-        orderBy: [{ studyCount: "desc" }, { name: "asc" }],
-      }),
-      db.compound.groupBy({
-        by: ["category"],
-        _count: { _all: true },
-        orderBy: { _count: { category: "desc" } },
-      }),
-      db.study.findMany({
-        where: {
-          OR: [
-            { publicationDate: { gte: recentWindowStart } },
-            { year: { gte: recentYearFloor } },
-          ],
-        },
-        select: {
-          id: true,
-          studyType: true,
-          year: true,
-          publicationDate: true,
-          compounds: {
+            orderBy: [{ studyCount: "desc" }, { name: "asc" }],
+          }),
+          db.compound.groupBy({
+            by: ["category"],
+            _count: { _all: true },
+            orderBy: { _count: { category: "desc" } },
+          }),
+          db.study.findMany({
+            where: {
+              OR: [
+                { publicationDate: { gte: recentWindowStart } },
+                { year: { gte: recentYearFloor } },
+              ],
+            },
             select: {
-              compoundId: true,
+              id: true,
+              studyType: true,
+              year: true,
+              publicationDate: true,
+              compounds: {
+                select: {
+                  compoundId: true,
+                },
+              },
             },
-          },
-        },
-        take: 700,
-        orderBy: [{ publicationDate: "desc" }, { year: "desc" }],
-      }),
-    ]);
-  }
+            take: 700,
+            orderBy: [{ publicationDate: "desc" }, { year: "desc" }],
+          }),
+        ]),
+      // Backward-compatible fallback for environments where new DB columns
+      // are not migrated yet; keep compounds page functional.
+      () =>
+        Promise.all([
+          db.compound.findMany({
+            select: {
+              id: true,
+              slug: true,
+              name: true,
+              aliases: true,
+              category: true,
+              subcategory: true,
+              legalStatus: true,
+              mechanismShort: true,
+              evidenceScore: true,
+              safetyScore: true,
+              studyCount: true,
+              metaAnalysisCount: true,
+              doseTypical: true,
+              doseUnit: true,
+              doseFrequency: true,
+              clinicalPhase: true,
+              createdAt: true,
+            },
+            orderBy: [{ studyCount: "desc" }, { name: "asc" }],
+          }),
+          db.compound.groupBy({
+            by: ["category"],
+            _count: { _all: true },
+            orderBy: { _count: { category: "desc" } },
+          }),
+          db.study.findMany({
+            where: {
+              OR: [
+                { publicationDate: { gte: recentWindowStart } },
+                { year: { gte: recentYearFloor } },
+              ],
+            },
+            select: {
+              id: true,
+              studyType: true,
+              year: true,
+              publicationDate: true,
+              compounds: {
+                select: {
+                  compoundId: true,
+                },
+              },
+            },
+            take: 700,
+            orderBy: [{ publicationDate: "desc" }, { year: "desc" }],
+          }),
+        ])
+    );
 
   const compounds: CompoundSummary[] = rawCompounds.map((c) => ({
     ...c,
