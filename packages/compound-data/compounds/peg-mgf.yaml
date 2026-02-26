@@ -1,0 +1,86 @@
+# PEG-MGF — pegylated mechano growth factor analog
+slug: peg-mgf
+name: PEG-MGF
+aliases:
+  - pegylated mechano growth factor
+  - PEGylated IGF-1Ec
+category: PEPTIDE
+subcategory: IGF_variant
+legalStatus: RESEARCH_ONLY
+clinicalPhase: "Preclinical"
+evidenceLevel: D
+description: |
+  PEG-MGF refers to pegylated variants of mechano growth factor (an IGF-1 splice-related peptide)
+  marketed in performance circles for injury recovery and local hypertrophy. Most evidence is
+  preclinical, and commercial products often lack batch-level analytical verification.
+
+halfLife: "Variable; pegylation extends native MGF persistence"
+onset: "Unknown in humans"
+duration: "Likely multi-hour to day-scale depending on construct"
+routeOfAdmin:
+  - subcutaneous
+  - intramuscular
+mechanismShort: "Experimental IGF-axis splice-variant signaling intended to influence muscle repair pathways"
+
+dosing:
+  min: 100
+  typical: 200
+  max: 400
+  unit: mcg
+  frequency: "2–4x/week in non-clinical protocols"
+  notes: "No standardized or approved human dosing framework."
+
+safetyCaveats:
+  - "Human efficacy and safety evidence is sparse and low quality."
+  - "Unknown long-term carcinogenic and fibrotic risk profile."
+  - "Significant peptide identity/purity uncertainty outside validated labs."
+legalCaveats:
+  - "Research-only status in most regions; typically not legal for medical marketing."
+  - "Likely anti-doping prohibited as a growth factor analog."
+
+literature:
+  - title: "Local expression of IGF-1 isoforms in muscle damage and repair"
+    source: "J Physiol"
+    year: 2003
+    kind: "preclinical"
+    url: "https://pubmed.ncbi.nlm.nih.gov/12788975/"
+  - title: "Growth factors and performance enhancement governance"
+    source: "WADA"
+    year: 2025
+    kind: "regulatory"
+    url: "https://www.wada-ama.org/en/prohibited-list"
+
+sideEffects:
+  - name: injection_site_reaction
+    severity: mild
+    frequency: common
+    notes: "Pain, erythema, local irritation"
+  - name: edema
+    severity: mild
+    frequency: uncommon
+    notes: "Potential class-related fluid retention"
+  - name: unknown_long_term_risk
+    severity: moderate
+    frequency: unknown
+    notes: "Insufficient human longitudinal data"
+
+interactions:
+  - target: igf-1-lr3
+    type: caution
+    severity: moderate
+    description: "Layering multiple IGF-axis peptides increases uncertainty and could amplify proliferative/metabolic risk"
+
+mechanisms:
+  - pathway: IGF_axis_modulation
+    description: "Targets muscle repair-related IGF splice-variant signaling pathways"
+  - pathway: satellite_cell_signaling
+    description: "Hypothesized support of myogenic precursor activation from preclinical data"
+  - pathway: prolonged_exposure_via_pegylation
+    description: "Pegylation may reduce clearance and prolong tissue exposure"
+
+searchTerms:
+  pubmed:
+    - "mechano growth factor isoform muscle repair"
+    - "PEG MGF peptide preclinical"
+  semanticScholar:
+    - "IGF-1Ec splice variant exercise muscle regeneration"

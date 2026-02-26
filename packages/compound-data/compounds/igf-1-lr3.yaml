@@ -1,0 +1,90 @@
+# IGF-1 LR3 — long-acting IGF-1 analog (research use)
+slug: igf-1-lr3
+name: IGF-1 LR3
+aliases:
+  - Long R3 IGF-1
+  - insulin-like growth factor-1 long arginine 3
+category: PEPTIDE
+subcategory: IGF_analog
+legalStatus: RESEARCH_ONLY
+clinicalPhase: "No formal trials"
+evidenceLevel: D
+description: |
+  IGF-1 LR3 is a modified long-acting analog of IGF-1 engineered for reduced IGFBP binding
+  and prolonged activity relative to native IGF-1. It is widely sold in gray/research channels
+  for bodybuilding and experimental use, but lacks robust controlled human safety/efficacy data.
+
+halfLife: "~20–30 hours (reported, context-dependent)"
+onset: "Hours for metabolic signaling; weeks for body-composition claims"
+duration: "~1 day biological activity window"
+routeOfAdmin:
+  - subcutaneous
+  - intramuscular
+mechanismShort: "IGF1R activation with prolonged exposure due to reduced binding to IGF-binding proteins"
+
+dosing:
+  min: 20
+  typical: 40
+  max: 100
+  unit: mcg
+  frequency: "Once daily (research protocols vary)"
+  notes: "Human dosing is non-standardized and not medically validated for enhancement use."
+
+safetyCaveats:
+  - "No high-quality clinical evidence supports routine non-medical use."
+  - "Potential hypoglycemia, edema, and theoretical tumor-promoting risk from chronic mitogenic signaling."
+  - "Product purity/counterfeit risk is substantial in non-pharmacy supply chains."
+legalCaveats:
+  - "Typically sold as research material; not approved for therapeutic use in most jurisdictions."
+  - "Likely prohibited by anti-doping organizations."
+
+literature:
+  - title: "IGF system in muscle hypertrophy and regeneration"
+    source: "Physiol Rev"
+    year: 2014
+    kind: "review"
+    url: "https://pubmed.ncbi.nlm.nih.gov/25287864/"
+  - title: "WADA prohibited list (growth factors)"
+    source: "WADA"
+    year: 2025
+    kind: "regulatory"
+    url: "https://www.wada-ama.org/en/prohibited-list"
+
+sideEffects:
+  - name: hypoglycemia
+    severity: moderate
+    frequency: uncommon
+    notes: "Biologically plausible via insulin-like signaling"
+  - name: edema
+    severity: mild
+    frequency: uncommon
+    notes: "Fluid retention may occur"
+  - name: headache
+    severity: mild
+    frequency: uncommon
+    notes: "Anecdotal reports in enhancement contexts"
+
+interactions:
+  - target: mk-677
+    type: caution
+    severity: moderate
+    description: "Additive GH/IGF axis stimulation may amplify edema, insulin resistance, and unknown long-term risk"
+  - target: hgh
+    type: caution
+    severity: moderate
+    description: "Combined use increases pathway intensity without supportive long-term safety data"
+
+mechanisms:
+  - pathway: IGF1R_agonism
+    description: "Activates IGF-1 receptor signaling in skeletal muscle and other insulin-responsive tissue"
+  - pathway: reduced_IGFBP_binding
+    description: "Structural modifications reduce sequestration by IGF-binding proteins"
+  - pathway: prolonged_anabolic_signaling
+    description: "Longer receptor exposure can extend anabolic signaling duration versus native IGF-1"
+
+searchTerms:
+  pubmed:
+    - "long R3 IGF-1 analog pharmacokinetics"
+    - "IGF-1 analog bodybuilding safety"
+  semanticScholar:
+    - "IGF-1 LR3 anabolic signaling review"

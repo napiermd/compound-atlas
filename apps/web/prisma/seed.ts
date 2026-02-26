@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 import * as fs from "fs";
 import * as path from "path";
 import * as yaml from "js-yaml";
@@ -33,6 +33,16 @@ interface CompoundYaml {
   subcategory?: string;
   legalStatus?: string;
   clinicalPhase?: string;
+  evidenceLevel?: "A" | "B" | "C" | "D";
+  safetyCaveats?: string[];
+  legalCaveats?: string[];
+  literature?: Array<{
+    title: string;
+    url: string;
+    source?: string;
+    year?: number;
+    kind?: string;
+  }>;
   description?: string;
   halfLife?: string;
   onset?: string;
@@ -91,6 +101,10 @@ async function main() {
         aliases: data.aliases ?? [],
         subcategory: data.subcategory ?? null,
         clinicalPhase: data.clinicalPhase ?? null,
+        evidenceLevel: data.evidenceLevel ?? null,
+        safetyCaveats: data.safetyCaveats ?? [],
+        legalCaveats: data.legalCaveats ?? [],
+        literatureLinks: data.literature ?? Prisma.JsonNull,
         description: data.description ?? null,
         legalStatus: (data.legalStatus as LegalStatus) ?? "LEGAL",
         halfLife: data.halfLife ?? null,
@@ -111,6 +125,10 @@ async function main() {
         category: data.category as CompoundCategory,
         subcategory: data.subcategory ?? null,
         clinicalPhase: data.clinicalPhase ?? null,
+        evidenceLevel: data.evidenceLevel ?? null,
+        safetyCaveats: data.safetyCaveats ?? [],
+        legalCaveats: data.legalCaveats ?? [],
+        literatureLinks: data.literature ?? Prisma.JsonNull,
         description: data.description ?? null,
         legalStatus: (data.legalStatus as LegalStatus) ?? "LEGAL",
         halfLife: data.halfLife ?? null,

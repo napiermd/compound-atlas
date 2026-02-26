@@ -126,6 +126,12 @@ model Compound {
 
   // Clinical development status
   clinicalPhase   String?          // "Phase I", "Phase II", "Phase III", "Approved", "Preclinical", "No formal trials"
+  evidenceLevel   EvidenceLevel?   // Optional manual summary grade for compound-level confidence
+
+  // Safety/legal context for detail pages
+  safetyCaveats   String[]         @default([])
+  legalCaveats    String[]         @default([])
+  literatureLinks Json?            // [{title,url,source,year,kind}]
 
   // Scores (computed by pipeline)
   evidenceScore   Float?           // 0-100 composite
@@ -133,7 +139,8 @@ model Compound {
   studyCount      Int              @default(0)
   metaAnalysisCount Int            @default(0)
   scoreBreakdown  Json?            // {study_count, study_quality, sample_size, consistency, replication, recency} each 0-100
-  lastResearchSync DateTime?
+  lastResearchSync DateTime?       // Most recent ingestion/sync timestamp
+  lastReviewedAt   DateTime?       // Last human or pipeline review of evidence freshness
 
   // Relations
   studies         CompoundStudy[]
@@ -309,6 +316,15 @@ enum StackGoal {
   METABOLIC_HEALTH
 }
 
+enum StackCategory {
+  PERFORMANCE
+  COGNITION
+  RECOVERY
+  HEALTH
+  LONGEVITY
+  SPECIALTY
+}
+
 model Stack {
   id            String          @id @default(cuid())
   name          String
@@ -318,6 +334,11 @@ model Stack {
   durationWeeks Int?
   isPublic      Boolean         @default(false)
   evidenceScore Float?          // Computed aggregate
+  category      StackCategory   @default(SPECIALTY)
+  folder        String?
+  tags          String[]        @default([])
+  riskFlags     String[]        @default([])
+  orderIndex    Int             @default(0)
   upvotes       Int             @default(0)
   forkCount     Int             @default(0)
   forkedFromId  String?
@@ -334,6 +355,7 @@ model Stack {
 
   @@index([goal])
   @@index([isPublic, upvotes])
+  @@index([creatorId, orderIndex])
 }
 
 model StackUpvote {

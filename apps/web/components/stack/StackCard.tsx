@@ -1,11 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { GitFork, Timer, RefreshCw } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { GitFork, Timer, RefreshCw, ArrowUp, ArrowDown, AlertTriangle } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { EvidenceScoreBadge } from "@/components/compound/EvidenceScoreBadge";
+import { trpc } from "@/lib/trpc/client";
 import { GoalBadge } from "./GoalBadge";
+import { formatCategory } from "@/lib/utils";
 import { UpvoteButton } from "./UpvoteButton";
 import type { StackSummary } from "./types";
 
@@ -23,11 +26,19 @@ function parseVariant(name: string): string | null {
 
 interface Props {
   stack: StackSummary;
+  currentUserId?: string;
+  canReorder?: boolean;
 }
 
-export function StackCard({ stack }: Props) {
+export function StackCard({ stack, currentUserId, canReorder = false }: Props) {
+  const router = useRouter();
   const experience = parseExperience(stack.name);
   const variant = parseVariant(stack.name);
+  const isOwner = !!currentUserId && stack.creatorId === currentUserId;
+
+  const reorder = trpc.stack.reorder.useMutation({
+    onSuccess: () => router.refresh(),
+  });
 
   return (
     <div className="group h-full">
@@ -45,6 +56,14 @@ export function StackCard({ stack }: Props) {
             </div>
             <div className="flex items-center gap-1 flex-wrap">
               <GoalBadge goal={stack.goal} className="w-fit" />
+              <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 font-normal">
+                {formatCategory(stack.category)}
+              </Badge>
+              {stack.folder && (
+                <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 font-normal">
+                  📁 {stack.folder}
+                </Badge>
+              )}
               {experience && (
                 <Badge variant="outline" className="text-[10px] px-1.5 py-0 h-4 font-normal">
                   {experience}
@@ -56,6 +75,15 @@ export function StackCard({ stack }: Props) {
                 </Badge>
               )}
             </div>
+            {(stack.tags?.length ?? 0) > 0 && (
+              <div className="flex items-center gap-1 flex-wrap mt-1">
+                {stack.tags!.slice(0, 3).map((tag) => (
+                  <Badge key={tag} variant="secondary" className="text-[10px] px-1.5 py-0 h-4 font-normal">
+                    #{tag}
+                  </Badge>
+                ))}
+              </div>
+            )}
             {stack.description && (
               <p className="text-xs text-muted-foreground line-clamp-2 mt-1 leading-relaxed">
                 {stack.description}
@@ -83,6 +111,20 @@ export function StackCard({ stack }: Props) {
               </div>
             )}
 
+            {(stack.riskFlags?.length ?? 0) > 0 && (
+              <div className="flex flex-wrap gap-1">
+                {stack.riskFlags!.slice(0, 2).map((flag) => (
+                  <span
+                    key={flag}
+                    className="inline-flex items-center rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-400 px-2 py-0.5 text-xs"
+                  >
+                    <AlertTriangle className="h-3 w-3 mr-1" />
+                    {flag}
+                  </span>
+                ))}
+              </div>
+            )}
+
             {/* Stats */}
             <div className="flex items-center justify-between text-xs text-muted-foreground border-t border-dashed pt-2">
               <div className="flex items-center gap-2">
@@ -106,6 +148,32 @@ export function StackCard({ stack }: Props) {
                   <span className="flex items-center gap-1">
                     <RefreshCw className="h-3 w-3" />
                     {stack._count.cycles}
+                  </span>
+                )}
+                {isOwner && canReorder && (
+                  <span className="inline-flex items-center gap-1 ml-1">
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        reorder.mutate({ stackId: stack.id, direction: "up" });
+                      }}
+                      className="rounded border p-0.5 hover:bg-accent"
+                      aria-label="Move up"
+                    >
+                      <ArrowUp className="h-3 w-3" />
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        reorder.mutate({ stackId: stack.id, direction: "down" });
+                      }}
+                      className="rounded border p-0.5 hover:bg-accent"
+                      aria-label="Move down"
+                    >
+                      <ArrowDown className="h-3 w-3" />
+                    </button>
                   </span>
                 )}
               </div>

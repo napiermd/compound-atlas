@@ -1,4 +1,4 @@
-import type { CompoundCategory, StackGoal } from "@prisma/client";
+import type { CompoundCategory, StackCategory, StackGoal } from "@prisma/client";
 
 export interface CompoundOption {
   id: string;
@@ -52,10 +52,16 @@ export interface StackSummary {
   durationWeeks: number | null;
   isPublic: boolean;
   evidenceScore: number | null;
+  category: StackCategory;
+  folder?: string | null;
+  tags?: string[];
+  riskFlags?: string[];
+  orderIndex?: number;
   upvotes: number;
   forkCount: number;
   forkedFromId: string | null;
   createdAt: string;
+  creatorId?: string;
   creator: { name: string | null; image: string | null };
   compounds: Array<{
     id: string;

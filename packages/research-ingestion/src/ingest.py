@@ -23,6 +23,7 @@ import time
 from pathlib import Path
 from datetime import datetime, timedelta
 from typing import Optional
+import re
 
 import yaml
 import psycopg2
@@ -58,6 +59,52 @@ STUDY_TYPE_TO_EVIDENCE_LEVEL = {
     "IN_VITRO": "D",
     "OTHER": "D",
 }
+
+
+def get_stale_threshold_days() -> int:
+    raw = os.environ.get("COMPOUND_STALE_DAYS", "180")
+    try:
+        days = int(raw)
+        return days if days > 0 else 180
+    except Exception:
+        return 180
+
+
+def normalize_doi(doi: Optional[str]) -> Optional[str]:
+    if not doi:
+        return None
+    normalized = doi.strip().lower()
+    normalized = re.sub(r"^https?://(dx\.)?doi\.org/", "", normalized)
+    return normalized or None
+
+
+def normalize_title(title: Optional[str]) -> str:
+    if not title:
+        return ""
+    value = re.sub(r"\s+", " ", title.strip().lower())
+    value = re.sub(r"[^a-z0-9 ]", "", value)
+    return value
+
+
+def make_study_dedup_key(study: dict) -> str:
+    doi = normalize_doi(study.get("doi"))
+    if doi:
+        return f"doi:{doi}"
+
+    pmid = (study.get("pmid") or "").strip()
+    if pmid:
+        return f"pmid:{pmid}"
+
+    s2_id = (study.get("s2_id") or "").strip()
+    if s2_id:
+        return f"s2:{s2_id}"
+
+    title = normalize_title(study.get("title"))
+    year = str(study.get("year") or "")
+    if title:
+        return f"title:{title}|year:{year}"
+
+    return f"fallback:{uuid.uuid4()}"
 
 
 def get_db_connection():
@@ -100,7 +147,7 @@ def upsert_studies(
 
     for study in studies:
         pmid = study.get("pmid")
-        doi = study.get("doi")
+        doi = normalize_doi(study.get("doi"))
         s2_id = study.get("s2_id")
         study_type = study.get("study_type", "OTHER")
         evidence_level = STUDY_TYPE_TO_EVIDENCE_LEVEL.get(study_type, "D")
@@ -121,15 +168,20 @@ def upsert_studies(
         cur = conn.cursor()
         try:
             # Find existing by any unique identifier
+            normalized_title = normalize_title(title)
             cur.execute(
                 """
                 SELECT id FROM "Study"
                 WHERE (pmid IS NOT NULL AND pmid = %s)
-                   OR (doi IS NOT NULL AND doi = %s)
+                   OR (doi IS NOT NULL AND lower(doi) = %s)
                    OR ("semanticScholarId" IS NOT NULL AND "semanticScholarId" = %s)
+                   OR (
+                     year IS NOT NULL AND year = %s
+                     AND lower(regexp_replace(title, '[^a-zA-Z0-9 ]', '', 'g')) = %s
+                   )
                 LIMIT 1
                 """,
-                [pmid, doi, s2_id],
+                [pmid, doi, s2_id, year, normalized_title],
             )
             existing = cur.fetchone()
             now = datetime.utcnow()
@@ -263,6 +315,7 @@ def update_compound_scores(
                 "metaAnalysisCount" = %s,
                 "scoreBreakdown"    = %s::jsonb,
                 "lastResearchSync"  = %s,
+                "lastReviewedAt"    = %s,
                 "updatedAt"         = %s
             WHERE id = %s
             """,
@@ -271,6 +324,7 @@ def update_compound_scores(
                 study_count,
                 meta_count,
                 score_breakdown_json,
+                datetime.utcnow(),
                 datetime.utcnow(),
                 datetime.utcnow(),
                 compound_id,
@@ -323,21 +377,21 @@ def ingest_compound(
         try:
             articles = pubmed.search_and_fetch(query, max_results=100, min_date=min_date)
             for article in articles:
-                dedup_key = article.doi or f"pmid:{article.pmid}"
+                candidate = {
+                    "source": "pubmed",
+                    "pmid": article.pmid,
+                    "doi": article.doi,
+                    "title": article.title,
+                    "abstract": article.abstract,
+                    "authors": article.authors,
+                    "journal": article.journal,
+                    "year": article.year,
+                    "study_type": classify_study_type(article),
+                }
+                dedup_key = make_study_dedup_key(candidate)
                 if dedup_key not in seen_ids:
                     seen_ids.add(dedup_key)
-                    study_type = classify_study_type(article)
-                    all_studies.append({
-                        "source": "pubmed",
-                        "pmid": article.pmid,
-                        "doi": article.doi,
-                        "title": article.title,
-                        "abstract": article.abstract,
-                        "authors": article.authors,
-                        "journal": article.journal,
-                        "year": article.year,
-                        "study_type": study_type,
-                    })
+                    all_studies.append(candidate)
         except Exception as e:
             console.print(f"  [red]PubMed error: {e}[/red]")
 
@@ -364,24 +418,25 @@ def ingest_compound(
                         raise
 
             for paper in papers:
-                dedup_key = paper.doi or f"s2:{paper.paper_id}"
+                candidate = {
+                    "source": "semantic_scholar",
+                    "s2_id": paper.paper_id,
+                    "doi": paper.doi,
+                    "pmid": paper.external_ids.get("PubMed"),
+                    "title": paper.title,
+                    "abstract": paper.abstract,
+                    "authors": paper.authors,
+                    "journal": paper.venue,
+                    "year": paper.year,
+                    "is_open_access": paper.is_open_access,
+                    "open_access_url": paper.open_access_url,
+                    "tldr": paper.tldr,
+                    "study_type": "OTHER",
+                }
+                dedup_key = make_study_dedup_key(candidate)
                 if dedup_key not in seen_ids:
                     seen_ids.add(dedup_key)
-                    all_studies.append({
-                        "source": "semantic_scholar",
-                        "s2_id": paper.paper_id,
-                        "doi": paper.doi,
-                        "pmid": paper.external_ids.get("PubMed"),
-                        "title": paper.title,
-                        "abstract": paper.abstract,
-                        "authors": paper.authors,
-                        "journal": paper.venue,
-                        "year": paper.year,
-                        "is_open_access": paper.is_open_access,
-                        "open_access_url": paper.open_access_url,
-                        "tldr": paper.tldr,
-                        "study_type": "OTHER",
-                    })
+                    all_studies.append(candidate)
         except Exception as e:
             console.print(f"  [red]S2 error: {e}[/red]")
 
@@ -709,6 +764,56 @@ def update_phases(
             r["current"],
             r["found"],
             f"[{action_style}]{r['action']}[/{action_style}]",
+        )
+
+    console.print(table)
+
+
+@app.command("stale-report")
+def stale_report(
+    threshold_days: int = typer.Option(get_stale_threshold_days(), "--threshold-days", help="Days since last sync to classify stale"),
+    limit: int = typer.Option(100, "--limit", help="Max compounds to display"),
+):
+    """List compounds with stale or missing research sync timestamps."""
+    console.print("[bold]Compound Freshness Report[/bold]")
+    cutoff = datetime.utcnow() - timedelta(days=threshold_days)
+
+    conn = get_db_connection()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    try:
+        cur.execute(
+            '''
+            SELECT slug, name, "lastResearchSync", "lastReviewedAt", "studyCount", "evidenceScore"
+            FROM "Compound"
+            WHERE "lastResearchSync" IS NULL OR "lastResearchSync" < %s
+            ORDER BY "lastResearchSync" ASC NULLS FIRST
+            LIMIT %s
+            ''',
+            [cutoff, limit],
+        )
+        rows = cur.fetchall()
+    finally:
+        cur.close()
+        conn.close()
+
+    table = Table(title=f"Stale compounds (>{threshold_days}d without sync)")
+    table.add_column("Slug")
+    table.add_column("Name")
+    table.add_column("Last Sync")
+    table.add_column("Last Reviewed")
+    table.add_column("Studies", justify="right")
+    table.add_column("Score", justify="right")
+
+    for r in rows:
+        last_sync = r["lastResearchSync"].strftime("%Y-%m-%d") if r["lastResearchSync"] else "never"
+        last_reviewed = r["lastReviewedAt"].strftime("%Y-%m-%d") if r["lastReviewedAt"] else "never"
+        table.add_row(
+            r["slug"],
+            r["name"],
+            last_sync,
+            last_reviewed,
+            str(r["studyCount"] or 0),
+            str(round(r["evidenceScore"] or 0, 1)),
         )
 
     console.print(table)

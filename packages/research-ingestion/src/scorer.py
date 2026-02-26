@@ -51,12 +51,12 @@ STUDY_TYPE_WEIGHTS = {
 # study_count and study_quality dominate because we don't NLP-extract
 # sample_size/consistency/replication from abstracts — defaults are generous.
 FACTOR_WEIGHTS = {
-    "study_count": 0.40,
-    "study_quality": 0.30,
-    "sample_size": 0.10,
-    "consistency": 0.10,
-    "replication": 0.05,
-    "recency": 0.05,
+    "study_count": 0.24,
+    "study_quality": 0.24,
+    "sample_size": 0.12,
+    "consistency": 0.14,
+    "replication": 0.08,
+    "recency": 0.18,
 }
 
 
@@ -128,6 +128,10 @@ def _score_study_count(studies: list[StudyInput]) -> float:
     return min(score, 100.0)
 
 
+def _study_quality_value(study: StudyInput) -> float:
+    return STUDY_TYPE_WEIGHTS.get(study.study_type, 2.0)
+
+
 def _score_study_quality(studies: list[StudyInput]) -> float:
     """
     Weighted average of study type quality scores, plus a meta-analysis bonus.
@@ -142,7 +146,7 @@ def _score_study_quality(studies: list[StudyInput]) -> float:
     weighted_sum = 0.0
 
     for study in studies:
-        w = STUDY_TYPE_WEIGHTS.get(study.study_type, 2.0)
+        w = _study_quality_value(study)
         weighted_sum += w
         total_weight += 1.0
 
@@ -152,11 +156,18 @@ def _score_study_quality(studies: list[StudyInput]) -> float:
     avg_quality = weighted_sum / total_weight  # 0.5 to 5.0
     normalized = (avg_quality / 5.0) * 100.0
 
-    # Bonus for having meta-analyses (+3 per meta, max +15)
+    # Bonus for having meta-analyses (+2.5 per meta, max +10)
     meta_count = sum(1 for s in studies if s.study_type == "META_ANALYSIS")
-    meta_bonus = min(15.0, meta_count * 3.0)
+    meta_bonus = min(10.0, meta_count * 2.5)
 
-    return min(normalized + meta_bonus, 100.0)
+    # Quality consistency bonus: tighter distribution across study types = more stable quality.
+    values = [_study_quality_value(s) for s in studies]
+    mean_quality = sum(values) / len(values)
+    variance = sum((v - mean_quality) ** 2 for v in values) / len(values)
+    # Variance 0 => +6, large variance => small/zero bonus
+    consistency_bonus = max(0.0, 6.0 - (variance * 2.5))
+
+    return min(normalized + meta_bonus + consistency_bonus, 100.0)
 
 
 def _score_sample_size(studies: list[StudyInput]) -> float:
@@ -226,23 +237,37 @@ def _score_replication(studies: list[StudyInput]) -> float:
 
 def _score_recency(studies: list[StudyInput]) -> float:
     """
-    Bonus for recent research (last 5 years).
-    Active research areas score higher.
+    Recency score with age decay and quality weighting.
+    Newer, higher-quality studies contribute more than older/preclinical studies.
     """
     current_year = datetime.now().year
-    years = [s.year for s in studies if s.year]
 
-    if not years:
+    weighted = 0.0
+    weights = 0.0
+    for s in studies:
+        if not s.year:
+            continue
+
+        age = max(0, current_year - s.year)
+        if age <= 2:
+            age_score = 100.0
+        elif age <= 5:
+            age_score = 75.0
+        elif age <= 10:
+            age_score = 50.0
+        elif age <= 15:
+            age_score = 30.0
+        else:
+            age_score = 15.0
+
+        quality_weight = max(0.6, _study_quality_value(s) / 5.0)
+        weighted += age_score * quality_weight
+        weights += quality_weight
+
+    if weights == 0:
         return 45.0
 
-    recent_count = sum(1 for y in years if current_year - y <= 5)
-    very_recent = sum(1 for y in years if current_year - y <= 3)  # 3-year window
-
-    recent_ratio = recent_count / len(years)
-    very_recent_ratio = very_recent / len(years) if years else 0
-
-    score = (recent_ratio * 50) + (very_recent_ratio * 40) + 10
-    return min(score, 100.0)
+    return min(100.0, weighted / weights)
 
 
 # ─── EVIDENCE LEVEL ──────────────────────────────────

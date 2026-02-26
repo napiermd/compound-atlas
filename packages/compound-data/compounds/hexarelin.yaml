@@ -1,0 +1,91 @@
+# Hexarelin — potent GHRP hexapeptide
+slug: hexarelin
+name: Hexarelin
+aliases:
+  - examorelin
+  - EP-23905
+category: GH_SECRETAGOGUE
+subcategory: GHRP
+legalStatus: RESEARCH_ONLY
+clinicalPhase: "Phase II"
+evidenceLevel: C
+description: |
+  Hexarelin is a synthetic ghrelin receptor agonist/GHRP with strong GH-releasing activity.
+  It has been explored in cardiometabolic and endocrine research, but is not approved for
+  routine therapeutic use. Tolerance (desensitization) with prolonged exposure is a practical
+  limitation in many protocols.
+
+halfLife: "~1 hour (peptide), endocrine effects longer"
+onset: "Within minutes for GH pulse"
+duration: "2–4 hours endocrine pulse window"
+routeOfAdmin:
+  - subcutaneous
+  - intramuscular
+mechanismShort: "GHS-R1a agonism causing pulsatile GH release with downstream IGF-1 increases"
+
+dosing:
+  min: 100
+  typical: 200
+  max: 400
+  unit: mcg
+  frequency: "1–2x/day, cyclical usage commonly used"
+  notes: "Continuous exposure may blunt response due to receptor desensitization."
+
+safetyCaveats:
+  - "Can elevate prolactin/cortisol more than highly selective GHRPs in some users."
+  - "May worsen insulin sensitivity in susceptible individuals with chronic high exposure."
+  - "Data quality is moderate-to-low for long-term enhancement contexts."
+legalCaveats:
+  - "Generally not approved for routine prescribing in US/EU enhancement contexts."
+  - "Likely prohibited in tested sport."
+
+literature:
+  - title: "Cardiovascular effects of growth hormone secretagogues including hexarelin"
+    source: "Eur J Endocrinol"
+    year: 2000
+    kind: "clinical"
+    url: "https://pubmed.ncbi.nlm.nih.gov/10872081/"
+  - title: "Hexarelin endocrine effects and receptor pharmacology"
+    source: "J Endocrinol Invest"
+    year: 2002
+    kind: "clinical"
+    url: "https://pubmed.ncbi.nlm.nih.gov/12199379/"
+
+sideEffects:
+  - name: water_retention
+    severity: mild
+    frequency: common
+    notes: "Class-related GH-mediated edema"
+  - name: increased_prolactin
+    severity: mild
+    frequency: uncommon
+    notes: "More likely vs highly selective peptides such as ipamorelin"
+  - name: insulin_resistance
+    severity: moderate
+    frequency: uncommon
+    notes: "Monitor fasting glucose when used chronically"
+
+interactions:
+  - target: cjc-1295
+    type: synergistic
+    severity: moderate
+    description: "GHRP+GHRH pairing can increase GH pulse magnitude"
+  - target: mk-677
+    type: caution
+    severity: moderate
+    description: "Additive GH-axis stimulation may increase edema and dysglycemia risk"
+
+mechanisms:
+  - pathway: GHS_R1a_agonism
+    description: "Activates ghrelin receptor in pituitary/hypothalamus to trigger GH release"
+  - pathway: GH_IGF_axis_activation
+    description: "Repeated GH pulses can increase circulating IGF-1 over time"
+  - pathway: receptor_desensitization
+    description: "Continuous stimulation can reduce response amplitude over time"
+
+searchTerms:
+  pubmed:
+    - "hexarelin growth hormone secretagogue human trial"
+    - "examorelin endocrine effects"
+  semanticScholar:
+    - "hexarelin ghrelin receptor agonist"

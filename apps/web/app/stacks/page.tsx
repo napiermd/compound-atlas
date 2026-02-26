@@ -5,6 +5,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Button } from "@/components/ui/button";
 import { StackGallery } from "@/components/stack/StackGallery";
+import { SectionNav } from "@/components/layout/SectionNav";
 import type { StackSummary } from "@/components/stack/types";
 
 export const metadata: Metadata = {
@@ -37,6 +38,8 @@ export default async function StacksPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
+      <SectionNav current="/stacks" />
+
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Stacks</h1>
@@ -68,7 +71,7 @@ export default async function StacksPage() {
           </Link>
         </div>
       ) : (
-        <StackGallery stacks={stacks} />
+        <StackGallery stacks={stacks} currentUserId={session?.user?.id} />
       )}
     </div>
   );

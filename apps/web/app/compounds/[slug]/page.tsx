@@ -1,7 +1,15 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { ChevronRight, Clock3, ShieldCheck, Stethoscope, Waves } from "lucide-react";
+import {
+  AlertTriangle,
+  ChevronRight,
+  Clock3,
+  ExternalLink,
+  ShieldCheck,
+  Stethoscope,
+  Waves,
+} from "lucide-react";
 import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { buildBiometrics } from "@/lib/dose-utils";
@@ -11,6 +19,7 @@ import { CompoundDetailTabs } from "@/components/compound/CompoundDetailTabs";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import type { CompoundDetail } from "@/components/compound/types";
+import { getStaleThresholdDays, isCompoundStale } from "@/lib/compound-freshness";
 
 interface Props {
   params: { slug: string };
@@ -95,6 +104,15 @@ export default async function CompoundDetailPage({ params }: Props) {
   const compound: CompoundDetail = JSON.parse(JSON.stringify(raw));
 
   const displayAliases = compound.aliases.slice(0, 3);
+  const literatureLinks = Array.isArray(compound.literatureLinks)
+    ? (compound.literatureLinks as Array<{
+        title?: string;
+        url?: string;
+        source?: string;
+        year?: number;
+        kind?: string;
+      }>).filter((item) => !!item?.title && !!item?.url)
+    : [];
   const refreshedText = compound.lastResearchSync
     ? new Date(compound.lastResearchSync).toLocaleDateString("en-US", {
         month: "short",
@@ -102,6 +120,15 @@ export default async function CompoundDetailPage({ params }: Props) {
         year: "numeric",
       })
     : "Not synced yet";
+  const reviewedText = compound.lastReviewedAt
+    ? new Date(compound.lastReviewedAt).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })
+    : "Not reviewed yet";
+  const staleThresholdDays = getStaleThresholdDays();
+  const isStale = isCompoundStale(compound.lastResearchSync);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
@@ -142,6 +169,11 @@ export default async function CompoundDetailPage({ params }: Props) {
                       : compound.legalStatus}
             </Badge>
           )}
+          {compound.evidenceLevel && (
+            <Badge variant="outline" className="font-mono text-xs">
+              Evidence Level {compound.evidenceLevel}
+            </Badge>
+          )}
           {compound.studyCount > 0 && (
             <Badge variant="secondary" className="font-normal text-xs">
               {compound.studyCount} stud{compound.studyCount === 1 ? "y" : "ies"}
@@ -177,7 +209,62 @@ export default async function CompoundDetailPage({ params }: Props) {
         </>
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
+      {(compound.legalCaveats.length > 0 || compound.safetyCaveats.length > 0) && (
+        <div className="mb-6 rounded-lg border border-red-500/40 bg-red-500/10 p-4">
+          <p className="text-sm font-semibold flex items-center gap-2 text-red-700 dark:text-red-300">
+            <AlertTriangle className="h-4 w-4" />
+            Safety & legal caution
+          </p>
+          <p className="text-xs text-muted-foreground mt-1">
+            Educational database only — not medical or legal advice.
+          </p>
+          <div className="grid gap-3 mt-3 sm:grid-cols-2">
+            {compound.safetyCaveats.length > 0 && (
+              <div>
+                <p className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1">Safety</p>
+                <ul className="list-disc pl-4 space-y-1 text-xs text-muted-foreground">
+                  {compound.safetyCaveats.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {compound.legalCaveats.length > 0 && (
+              <div>
+                <p className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1">Legal / compliance</p>
+                <ul className="list-disc pl-4 space-y-1 text-xs text-muted-foreground">
+                  {compound.legalCaveats.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {literatureLinks.length > 0 && (
+        <div className="mb-6 rounded-lg border bg-card p-4">
+          <p className="text-sm font-semibold mb-2">Current literature links</p>
+          <div className="space-y-1.5">
+            {literatureLinks.slice(0, 6).map((link) => (
+              <a
+                key={`${link.url}-${link.title}`}
+                href={link.url}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground underline underline-offset-2"
+              >
+                <ExternalLink className="h-3.5 w-3.5" />
+                <span>{link.title}</span>
+                {link.year && <span className="opacity-70">({link.year})</span>}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 mb-6">
         <div className="rounded-lg border bg-card px-3 py-3">
           <p className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1 flex items-center gap-1">
             <Waves className="h-3.5 w-3.5" />
@@ -206,11 +293,23 @@ export default async function CompoundDetailPage({ params }: Props) {
         <div className="rounded-lg border bg-card px-3 py-3">
           <p className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1 flex items-center gap-1">
             <Clock3 className="h-3.5 w-3.5" />
-            Research Sync
+            Last Sync
           </p>
           <p className="text-sm font-semibold">{refreshedText}</p>
         </div>
+        <div className="rounded-lg border bg-card px-3 py-3">
+          <p className="text-[11px] uppercase tracking-wide text-muted-foreground mb-1">
+            Last Reviewed
+          </p>
+          <p className="text-sm font-semibold">{reviewedText}</p>
+        </div>
       </div>
+
+      {isStale && (
+        <div className="mb-6 rounded-md border border-amber-500/40 bg-amber-500/10 p-3 text-sm text-amber-900 dark:text-amber-200">
+          Evidence data is stale: this compound has not been synced in the last {staleThresholdDays} days.
+        </div>
+      )}
 
       <Separator className="mb-6" />
 

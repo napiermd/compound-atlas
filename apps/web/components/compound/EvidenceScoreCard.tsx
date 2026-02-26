@@ -14,7 +14,7 @@ const FACTORS = [
   {
     key: "study_count",
     label: "Volume",
-    weight: 0.40,
+    weight: 0.24,
     description:
       "Number of studies indexed from PubMed and Semantic Scholar. " +
       "Uses a logarithmic curve — going from 0→5 studies matters more than 50→55.",
@@ -22,16 +22,16 @@ const FACTORS = [
   {
     key: "study_quality",
     label: "Quality",
-    weight: 0.30,
+    weight: 0.24,
     description:
       "Weighted average study type: meta-analysis (5×) > RCT (4×) > cohort (3×) > " +
       "case-control (2.5×) > cross-sectional (2×) > review (2.5×) > animal (1×) > in vitro (0.5×). " +
-      "Each meta-analysis adds +3 bonus points (max +15).",
+      "Quality consistency now adds confidence when multiple high-tier studies agree.",
   },
   {
     key: "sample_size",
     label: "Sample Size",
-    weight: 0.10,
+    weight: 0.12,
     description:
       "Total participants summed across all indexed studies. " +
       "Logarithmic scale: 100 participants ≈ 46pts, 1,000 ≈ 69pts, 10,000 ≈ 92pts.",
@@ -39,15 +39,15 @@ const FACTORS = [
   {
     key: "consistency",
     label: "Consistency",
-    weight: 0.10,
+    weight: 0.14,
     description:
       "What percentage of studies agree on the direction of effect " +
-      "(increase / decrease / no change). High consistency = high confidence.",
+      "(increase / decrease / no change), with added weighting for statistically significant studies.",
   },
   {
     key: "replication",
     label: "Replication",
-    weight: 0.05,
+    weight: 0.08,
     description:
       "Number of independent research groups that have studied this compound. " +
       "Single-lab findings score lower than findings replicated across many institutions.",
@@ -55,10 +55,10 @@ const FACTORS = [
   {
     key: "recency",
     label: "Recency",
-    weight: 0.05,
+    weight: 0.18,
     description:
-      "Proportion of studies published in the last 3–5 years. " +
-      "Active research areas score higher.",
+      "Proportion of studies published in the last 2–5 years, weighted by publication age and quality. " +
+      "Recently active, high-quality evidence scores higher.",
   },
 ] as const;
 
@@ -112,10 +112,10 @@ function deriveFactorScores(
   const metaRatio = studyCount > 0 ? metaAnalysisCount / studyCount : 0;
   const qualityScore = Math.min(100, Math.round(40 + 60 * Math.sqrt(metaRatio)));
 
-  // Remaining factors: solve from composite (weights: vol 40%, qual 30%, rest 30%)
-  const knownContribution = 0.40 * volumeScore + 0.30 * qualityScore;
+  // Remaining factors: solve from composite (weights: vol 24%, qual 24%, rest 52%)
+  const knownContribution = 0.24 * volumeScore + 0.24 * qualityScore;
   const remainingAvg = Math.max(0, Math.min(100,
-    Math.round((evidenceScore - knownContribution) / 0.30)
+    Math.round((evidenceScore - knownContribution) / 0.52)
   ));
 
   return {
