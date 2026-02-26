@@ -16,6 +16,7 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - run: npx prisma generate --schema apps/web/prisma/schema.prisma
       - run: npx turbo run lint type-check
 
   test-web:
@@ -44,6 +45,7 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - run: npx prisma generate --schema apps/web/prisma/schema.prisma
       - run: npx prisma migrate deploy --schema apps/web/prisma/schema.prisma
       - run: npx turbo run test
 
