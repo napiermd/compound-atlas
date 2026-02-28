@@ -100,6 +100,10 @@ enum LegalStatus {
   BANNED          // Prohibited (e.g., by WADA or law)
 }
 
+enum CommunityPlatform {
+  REDDIT
+}
+
 model Compound {
   id              String           @id @default(cuid())
   slug            String           @unique
@@ -150,6 +154,8 @@ model Compound {
   mechanisms      CompoundMechanism[]
   stackCompounds  StackCompound[]
   outcomes        Outcome[]
+  communityMentions  CommunityMention[]
+  communityAggregates CommunitySignalAggregate[]
 
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
@@ -294,6 +300,71 @@ model CompoundMechanism {
   pathway      String   // "mTOR activation", "acetylcholine modulation", "5-alpha reductase"
   description  String?  @db.Text
   compound     Compound @relation(fields: [compoundId], references: [id], onDelete: Cascade)
+}
+
+// ─── COMMUNITY SIGNALS ──────────────────────────────
+
+model CommunitySource {
+  id        String            @id @default(cuid())
+  platform  CommunityPlatform
+  identifier String
+  enabled   Boolean           @default(true)
+  mentions  CommunityMention[]
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+
+  @@unique([platform, identifier])
+}
+
+model CommunityMention {
+  id           String                 @id @default(cuid())
+  sourceId     String
+  compoundId   String
+  externalId   String
+  title        String?
+  body         String?                @db.Text
+  url          String?
+  score        Int                    @default(0)
+  commentCount Int                    @default(0)
+  occurredAt   DateTime
+  goals        CommunityMentionGoal[]
+  source       CommunitySource        @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+  compound     Compound               @relation(fields: [compoundId], references: [id], onDelete: Cascade)
+  createdAt    DateTime               @default(now())
+  updatedAt    DateTime               @updatedAt
+
+  @@unique([externalId, compoundId])
+  @@index([compoundId, occurredAt])
+}
+
+model CommunityMentionGoal {
+  id        String           @id @default(cuid())
+  mentionId String
+  label     String
+  mention   CommunityMention @relation(fields: [mentionId], references: [id], onDelete: Cascade)
+
+  @@unique([mentionId, label])
+  @@index([label])
+}
+
+model CommunitySignalAggregate {
+  id           String             @id @default(cuid())
+  compoundId   String
+  goalLabel    String
+  platform     CommunityPlatform
+  windowDays   Int
+  windowStart  DateTime
+  windowEnd    DateTime
+  mentionCount Int
+  scoreSum     Int                @default(0)
+  commentSum   Int                @default(0)
+  compound     Compound           @relation(fields: [compoundId], references: [id], onDelete: Cascade)
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+
+  @@index([compoundId, windowDays])
+  @@index([goalLabel, windowDays])
+  @@index([platform, windowDays])
 }
 
 // ─── STACKS ─────────────────────────────────────────
