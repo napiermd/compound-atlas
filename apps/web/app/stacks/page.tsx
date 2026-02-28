@@ -36,6 +36,7 @@ export default async function StacksPage() {
     forkCount: number;
     forkedFromId: string | null;
     createdAt: string | Date;
+    updatedAt?: string | Date;
     creatorId?: string;
     creator: { name: string | null; image: string | null };
     compounds: Array<{
@@ -60,7 +61,17 @@ export default async function StacksPage() {
         creator: { select: { name: true, image: true } },
         compounds: {
           include: {
-            compound: { select: { name: true, slug: true, category: true } },
+            compound: {
+              select: {
+                name: true,
+                slug: true,
+                category: true,
+                safetyCaveats: true,
+                legalCaveats: true,
+                lastResearchSync: true,
+                lastReviewedAt: true,
+              },
+            },
           },
           take: 6,
         },
@@ -87,11 +98,22 @@ export default async function StacksPage() {
         forkCount: true,
         forkedFromId: true,
         createdAt: true,
+        updatedAt: true,
         creatorId: true,
         creator: { select: { name: true, image: true } },
         compounds: {
           include: {
-            compound: { select: { name: true, slug: true, category: true } },
+            compound: {
+              select: {
+                name: true,
+                slug: true,
+                category: true,
+                safetyCaveats: true,
+                legalCaveats: true,
+                lastResearchSync: true,
+                lastReviewedAt: true,
+              },
+            },
           },
           take: 6,
         },
