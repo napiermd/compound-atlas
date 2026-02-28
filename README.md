@@ -389,7 +389,13 @@ python -m src.ingest --full
 
 # Incremental update (for cron)
 python -m src.ingest --incremental --since 7d
+
+# Community-signal ingestion (Reddit prevalence trends only)
+python -m src.community_reddit_ingest run --dry-run
+python -m src.community_reddit_ingest run
 ```
+
+See `docs/reddit-community-ingestion.md` for safety scope and reproducible runbook.
 
 ---
 

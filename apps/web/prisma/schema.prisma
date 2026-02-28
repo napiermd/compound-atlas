@@ -150,6 +150,7 @@ model Compound {
   mechanisms      CompoundMechanism[]
   stackCompounds  StackCompound[]
   outcomes        Outcome[]
+  communityMentions CommunitySignalMention[]
 
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
@@ -261,6 +262,68 @@ model Outcome {
 
   @@index([metric])
   @@index([compoundId])
+}
+
+// ─── COMMUNITY SIGNALS ──────────────────────────────
+
+enum CommunitySignalSource {
+  REDDIT
+}
+
+enum CommunityGoalLabel {
+  BULK
+  CUT
+  RECOMP
+  SIDE_EFFECTS
+  RECOVERY
+  PERFORMANCE
+  LIBIDO
+  SLEEP
+  MOOD
+  GENERAL
+}
+
+model CommunitySignalRun {
+  id             String                @id @default(cuid())
+  source         CommunitySignalSource
+  status         String                @default("COMPLETED")
+  subreddits     String[]              @default([])
+  postsScanned   Int                   @default(0)
+  commentsScanned Int                  @default(0)
+  mentionCount   Int                   @default(0)
+  notes          String?
+  startedAt      DateTime              @default(now())
+  completedAt    DateTime?
+  createdAt      DateTime              @default(now())
+  mentions       CommunitySignalMention[]
+
+  @@index([source, startedAt])
+}
+
+model CommunitySignalMention {
+  id             String                @id @default(cuid())
+  source         CommunitySignalSource
+  windowDays     Int
+  goalLabel      CommunityGoalLabel
+  mentionCount   Int                   @default(0)
+  uniqueThreads  Int                   @default(0)
+  uniqueAuthors  Int                   @default(0)
+  subredditBreakdown Json?
+  firstSeenAt    DateTime
+  lastSeenAt     DateTime
+
+  compoundId     String
+  compound       Compound              @relation(fields: [compoundId], references: [id], onDelete: Cascade)
+
+  runId          String?
+  run            CommunitySignalRun?   @relation(fields: [runId], references: [id], onDelete: SetNull)
+
+  createdAt      DateTime              @default(now())
+  updatedAt      DateTime              @updatedAt
+
+  @@unique([source, windowDays, compoundId, goalLabel])
+  @@index([windowDays, mentionCount])
+  @@index([compoundId, goalLabel])
 }
 
 // ─── COMPOUND METADATA ──────────────────────────────
