@@ -5,6 +5,7 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Button } from "@/components/ui/button";
 import { StackGallery } from "@/components/stack/StackGallery";
+import { BulkCutComparison } from "@/components/stack/BulkCutComparison";
 import { SectionNav } from "@/components/layout/SectionNav";
 import type { StackSummary } from "@/components/stack/types";
 import { normalizeArray } from "@/lib/normalize";
@@ -36,6 +37,7 @@ export default async function StacksPage() {
     forkCount: number;
     forkedFromId: string | null;
     createdAt: string | Date;
+    updatedAt?: string | Date;
     creatorId?: string;
     creator: { name: string | null; image: string | null };
     compounds: Array<{
@@ -44,6 +46,10 @@ export default async function StacksPage() {
         name: string;
         slug: string;
         category: StackSummary["compounds"][number]["compound"]["category"];
+        safetyCaveats?: string[];
+        legalCaveats?: string[];
+        lastResearchSync?: string | Date | null;
+        lastReviewedAt?: string | Date | null;
       };
     }>;
     _count: { cycles: number; forks: number };
@@ -60,7 +66,17 @@ export default async function StacksPage() {
         creator: { select: { name: true, image: true } },
         compounds: {
           include: {
-            compound: { select: { name: true, slug: true, category: true } },
+            compound: {
+              select: {
+                name: true,
+                slug: true,
+                category: true,
+                safetyCaveats: true,
+                legalCaveats: true,
+                lastResearchSync: true,
+                lastReviewedAt: true,
+              },
+            },
           },
           take: 6,
         },
@@ -87,11 +103,22 @@ export default async function StacksPage() {
         forkCount: true,
         forkedFromId: true,
         createdAt: true,
+        updatedAt: true,
         creatorId: true,
         creator: { select: { name: true, image: true } },
         compounds: {
           include: {
-            compound: { select: { name: true, slug: true, category: true } },
+            compound: {
+              select: {
+                name: true,
+                slug: true,
+                category: true,
+                safetyCaveats: true,
+                legalCaveats: true,
+                lastResearchSync: true,
+                lastReviewedAt: true,
+              },
+            },
           },
           take: 6,
         },
@@ -107,6 +134,7 @@ export default async function StacksPage() {
     tags: normalizeArray<string>(s.tags),
     riskFlags: normalizeArray<string>(s.riskFlags),
     orderIndex: typeof s.orderIndex === "number" ? s.orderIndex : 0,
+    updatedAt: (s.updatedAt as string | Date | undefined) ?? s.createdAt,
   }));
 
   // Serialize Date objects for client component
@@ -135,6 +163,8 @@ export default async function StacksPage() {
           </Button>
         </div>
       </div>
+
+      {stacks.length > 0 && <BulkCutComparison stacks={stacks} />}
 
       {stacks.length === 0 ? (
         <div className="py-24 text-center text-muted-foreground">

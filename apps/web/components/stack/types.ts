@@ -61,6 +61,7 @@ export interface StackSummary {
   forkCount: number;
   forkedFromId: string | null;
   createdAt: string;
+  updatedAt?: string;
   creatorId?: string;
   creator: { name: string | null; image: string | null };
   compounds: Array<{
@@ -69,6 +70,10 @@ export interface StackSummary {
       name: string;
       slug: string;
       category: CompoundCategory;
+      safetyCaveats?: string[];
+      legalCaveats?: string[];
+      lastResearchSync?: string | Date | null;
+      lastReviewedAt?: string | Date | null;
     };
   }>;
   _count: { cycles: number; forks: number };
