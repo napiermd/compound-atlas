@@ -99,11 +99,13 @@ export const compoundRouter = router({
           })
         ),
         windowDays: z.number().int().min(7).max(180).default(30),
+        staleThresholdDays: z.number().int().min(1).max(3650).optional(),
       })
     )
     .query(({ input }) => {
       return scoreCommunityAnalytics(input.events, {
         windowDays: input.windowDays,
+        staleThresholdDays: input.staleThresholdDays,
         now: new Date(),
       });
     }),
