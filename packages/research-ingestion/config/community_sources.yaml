@@ -1,0 +1,16 @@
+reddit:
+  subreddits:
+    - name: nootropics
+      enabled: true
+    - name: NootropicsDepot
+      enabled: true
+    - name: stackadvice
+      enabled: true
+    - name: biohackers
+      enabled: true
+    - name: supplements
+      enabled: true
+    - name: memory
+      enabled: true
+    - name: sleep
+      enabled: true

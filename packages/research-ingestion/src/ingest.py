@@ -37,12 +37,14 @@ from .pubmed import PubMedClient, classify_study_type
 from .semantic_scholar import SemanticScholarClient
 from .scorer import compute_evidence_score, StudyInput
 from .clinical_trials import ClinicalTrialsClient, phase_rank
+from .community_ingest import register_command as register_community_command
 
 load_dotenv()
 console = Console()
 app = typer.Typer()
 
 COMPOUND_DATA_DIR = Path(__file__).parent.parent.parent / "compound-data" / "compounds"
+register_community_command(app, get_db_connection=lambda: get_db_connection(), compound_data_dir=COMPOUND_DATA_DIR)
 
 # Map study type to per-study evidence level
 STUDY_TYPE_TO_EVIDENCE_LEVEL = {
