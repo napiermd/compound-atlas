@@ -20,6 +20,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import type { CompoundDetail } from "@/components/compound/types";
 import { getStaleThresholdDays, isCompoundStale } from "@/lib/compound-freshness";
+import { SIGNAL_VOCAB, riskLabelFromScore } from "@/lib/signal-vocabulary";
 
 interface Props {
   params: { slug: string };
@@ -34,10 +35,7 @@ function evidenceReadout(score: number | null): string {
 }
 
 function safetyReadout(score: number | null): string {
-  if (score == null) return "Unknown safety profile";
-  if (score >= 70) return "Relatively favorable";
-  if (score >= 45) return "Mixed risk profile";
-  return "Higher side-effect risk";
+  return riskLabelFromScore(score);
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -384,7 +382,7 @@ export default async function CompoundDetailPage({ params }: Props) {
 
       {isStale && (
         <div className="mb-6 rounded-md border border-amber-500/40 bg-amber-500/10 p-3 text-sm text-amber-900 dark:text-amber-200">
-          Evidence data is stale: this compound has not been synced in the last {staleThresholdDays} days.
+          {SIGNAL_VOCAB.stale}: this compound has not been synced in the last {staleThresholdDays} days.
         </div>
       )}
 

@@ -6,6 +6,7 @@ import { CategoryBadge } from "./CategoryBadge";
 import { EvidenceScoreBadge } from "./EvidenceScoreBadge";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { SIGNAL_VOCAB } from "@/lib/signal-vocabulary";
 
 export interface MomentumCompound extends CompoundSummary {
   recentMentions: number;
@@ -57,6 +58,9 @@ function MomentumCard({
                   </p>
                   <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
                     <CategoryBadge category={c.category} />
+                    <Badge variant="secondary" className="text-[10px]">
+                      {i < 3 ? SIGNAL_VOCAB.trend.high : SIGNAL_VOCAB.trend.rising}
+                    </Badge>
                     {c.legalStatus !== "LEGAL" && (
                       <Badge variant="outline" className="text-[10px]">
                         {c.legalStatus.replace(/_/g, " ")}
@@ -96,6 +100,9 @@ export function HotCompoundsSection({
           <h2 className="text-xl font-semibold tracking-tight">Hot & New</h2>
           <p className="text-sm text-muted-foreground">
             Weekly snapshot of compounds with the strongest recent research momentum.
+          </p>
+          <p className="text-xs text-muted-foreground mt-1">
+            How to read: {SIGNAL_VOCAB.trend.high} = strongest recent study velocity, {SIGNAL_VOCAB.trend.rising} = growing but less established.
           </p>
         </div>
         <div className="inline-flex items-center gap-1.5 rounded-full border bg-card px-3 py-1 text-xs text-muted-foreground">

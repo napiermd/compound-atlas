@@ -26,6 +26,7 @@ import { EvidenceScoreBadge } from "@/components/compound/EvidenceScoreBadge";
 import { GoalBadge } from "@/components/stack/GoalBadge";
 import { trpc } from "@/lib/trpc/client";
 import type { StackCategory, StackGoal, CompoundCategory } from "@prisma/client";
+import { confidenceLabelFromScore } from "@/lib/signal-vocabulary";
 
 const GOAL_PRESETS = [
   { value: "Recomp", label: "Recomp", icon: Dumbbell },
@@ -221,6 +222,10 @@ export function AiStackBuilder({ profile }: { profile: AiProfile | null }) {
   }
 
   const canGenerate = (goal.trim().length > 0 || goalPreset.length > 0) && !isGenerating;
+  const isAnabolicOrHypertrophyFocus =
+    goalPreset === "Bulk" ||
+    goalPreset === "Recomp" ||
+    /\b(bulk|hypertrophy|muscle|anabolic|lean mass|recomp)\b/i.test(goal);
 
   return (
     <div className="space-y-6">
@@ -255,6 +260,11 @@ export function AiStackBuilder({ profile }: { profile: AiProfile | null }) {
                 );
               })}
             </div>
+            {isAnabolicOrHypertrophyFocus && (
+              <p className="text-xs text-muted-foreground mt-2">
+                How to read anabolic/hypertrophy stacks: confidence reflects evidence coverage, not guaranteed personal response.
+              </p>
+            )}
           </div>
 
           {/* Custom goal textarea */}
@@ -465,7 +475,7 @@ export function AiStackBuilder({ profile }: { profile: AiProfile | null }) {
                 <span>{result.compounds.length} compounds</span>
                 <span className="flex items-center gap-1">
                   <Shield className="h-3 w-3" />
-                  AI Confidence:{" "}
+                  {confidenceLabelFromScore(result.confidenceScore)}
                   <strong
                     className={
                       result.confidenceScore >= 70

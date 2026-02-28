@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { CategoryBadge } from "./CategoryBadge";
 import { EvidenceScoreBadge } from "./EvidenceScoreBadge";
 import type { CompoundSummary } from "./types";
+import { SIGNAL_VOCAB, riskLabelFromScore } from "@/lib/signal-vocabulary";
 
 interface Props {
   compound: CompoundSummary;
@@ -26,14 +27,7 @@ export function CompoundCard({ compound: c }: Props) {
             ? "Early evidence"
             : "Preliminary";
 
-  const safetyTier =
-    c.safetyScore == null
-      ? "Safety unknown"
-      : c.safetyScore >= 70
-        ? "Lower risk profile"
-        : c.safetyScore >= 45
-          ? "Monitor side effects"
-          : "Higher risk profile";
+  const safetyTier = riskLabelFromScore(c.safetyScore);
 
   return (
     <Link href={`/compounds/${c.slug}`} className="group block h-full">
@@ -50,7 +44,7 @@ export function CompoundCard({ compound: c }: Props) {
             <CategoryBadge category={c.category} />
             {c.isStale && (
               <Badge variant="outline" className="text-[10px] font-medium border-amber-500/40 text-amber-700 dark:text-amber-300">
-                Stale evidence
+                {SIGNAL_VOCAB.stale}
               </Badge>
             )}
             {c.legalStatus !== "LEGAL" && (
