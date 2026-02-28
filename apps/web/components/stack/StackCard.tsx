@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { GitFork, Timer, RefreshCw, ArrowUp, ArrowDown, AlertTriangle } from "lucide-react";
+import { GitFork, RefreshCw, ArrowUp, ArrowDown, AlertTriangle } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { EvidenceScoreBadge } from "@/components/compound/EvidenceScoreBadge";
@@ -11,6 +11,7 @@ import { GoalBadge } from "./GoalBadge";
 import { formatCategory } from "@/lib/utils";
 import { UpvoteButton } from "./UpvoteButton";
 import type { StackSummary } from "./types";
+import { communityScore, communityTrend, evidenceConfidence, stackCommunityStale, stackEvidenceStale } from "@/lib/stack-metadata";
 
 function parseExperience(name: string): string | null {
   if (name.startsWith("Beginner")) return "Beginner";
@@ -35,6 +36,11 @@ export function StackCard({ stack, currentUserId, canReorder = false }: Props) {
   const experience = parseExperience(stack.name);
   const variant = parseVariant(stack.name);
   const isOwner = !!currentUserId && stack.creatorId === currentUserId;
+  const confidence = evidenceConfidence(stack.evidenceScore);
+  const trend = communityTrend(stack);
+  const community = Math.round(communityScore(stack));
+  const staleEvidence = stackEvidenceStale(stack);
+  const staleCommunity = stackCommunityStale(stack);
 
   const reorder = trpc.stack.reorder.useMutation({
     onSuccess: () => router.refresh(),
@@ -89,6 +95,13 @@ export function StackCard({ stack, currentUserId, canReorder = false }: Props) {
                 {stack.description}
               </p>
             )}
+            <div className="flex flex-wrap gap-1 mt-1">
+              <span className="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-[10px]">Community {community}</span>
+              <span className="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-[10px]">Trend: {trend}</span>
+              <span className="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-[10px]">Evidence: {confidence}</span>
+              {staleEvidence && <span className="inline-flex items-center rounded-full bg-amber-500/10 text-amber-700 px-2 py-0.5 text-[10px]">Stale evidence</span>}
+              {staleCommunity && <span className="inline-flex items-center rounded-full bg-amber-500/10 text-amber-700 px-2 py-0.5 text-[10px]">Stale community</span>}
+            </div>
           </CardHeader>
 
           <CardContent className="px-4 pb-4 space-y-3">
@@ -125,15 +138,13 @@ export function StackCard({ stack, currentUserId, canReorder = false }: Props) {
               </div>
             )}
 
+            <p className="text-[10px] text-muted-foreground border-t border-dashed pt-2">
+              Not medical advice. Educational metadata only; discuss risks/legal status with a licensed clinician.
+            </p>
+
             {/* Stats */}
-            <div className="flex items-center justify-between text-xs text-muted-foreground border-t border-dashed pt-2">
+            <div className="flex items-center justify-between text-xs text-muted-foreground">
               <div className="flex items-center gap-2">
-                {stack.durationWeeks && (
-                  <span className="flex items-center gap-1">
-                    <Timer className="h-3 w-3" />
-                    {stack.durationWeeks}w
-                  </span>
-                )}
                 <UpvoteButton
                   stackId={stack.id}
                   initialCount={stack.upvotes}
