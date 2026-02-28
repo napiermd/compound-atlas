@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { formatDistanceToNowStrict } from "date-fns";
 import type { CompoundCategory, StackGoal } from "@prisma/client";
 import {
   ChevronRight,
@@ -11,11 +12,15 @@ import {
   GitFork,
   Info,
   Bot,
+  TrendingUp,
+  Clock3,
+  AlertTriangle,
 } from "lucide-react";
 import { db } from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { buildBiometrics, scaleDose } from "@/lib/dose-utils";
 import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
 import {
   Table,
   TableBody,
@@ -111,6 +116,8 @@ export default async function StackDetailPage({ params }: Props) {
         isPublic: true,
         evidenceScore: true,
         upvotes: true,
+        riskFlags: true,
+        createdAt: true,
         creator: { select: { id: true, name: true, image: true } },
         compounds: {
           include: {
@@ -145,6 +152,8 @@ export default async function StackDetailPage({ params }: Props) {
     isPublic: boolean;
     evidenceScore: number | null;
     upvotes?: number;
+    riskFlags?: string[];
+    createdAt: string | Date;
     creator: { id: string; name: string | null; image: string | null };
     compounds: Array<{
       id: string;
@@ -173,6 +182,7 @@ export default async function StackDetailPage({ params }: Props) {
     ...base,
     forkedFrom: base.forkedFrom ?? null,
     upvotes: typeof base.upvotes === "number" ? base.upvotes : 0,
+    riskFlags: normalizeArray<string>(base.riskFlags),
     _count: {
       cycles: base._count?.cycles ?? 0,
       forks: typeof base._count?.forks === "number" ? base._count.forks : 0,
@@ -230,6 +240,46 @@ export default async function StackDetailPage({ params }: Props) {
       : [];
 
   const interactions = normalizeArray<StackInteraction>(rawInteractions);
+
+  const experience = safeStack.name.startsWith("Beginner")
+    ? "Beginner"
+    : safeStack.name.startsWith("Intermediate")
+      ? "Intermediate"
+      : safeStack.name.startsWith("Advanced")
+        ? "Advanced"
+        : null;
+
+  const stackFreshness = formatDistanceToNowStrict(new Date(safeStack.createdAt), {
+    addSuffix: true,
+  });
+
+  const trendScore =
+    (safeStack.upvotes ?? 0) * 1 +
+    (safeStack._count?.forks ?? 0) * 2 +
+    (safeStack._count?.cycles ?? 0) * 3;
+
+  const comparisonGoal: StackGoal | null =
+    safeStack.goal === "BULK" ? "CUT" : safeStack.goal === "CUT" ? "BULK" : null;
+
+  const comparisonCandidates = comparisonGoal
+    ? await db.stack.findMany({
+        where: {
+          isPublic: true,
+          goal: comparisonGoal,
+          ...(experience ? { name: { startsWith: experience } } : {}),
+        },
+        orderBy: [{ evidenceScore: "desc" }, { upvotes: "desc" }],
+        take: 3,
+        select: {
+          slug: true,
+          name: true,
+          description: true,
+          evidenceScore: true,
+          upvotes: true,
+          _count: { select: { forks: true, cycles: true } },
+        },
+      })
+    : [];
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
@@ -297,10 +347,63 @@ export default async function StackDetailPage({ params }: Props) {
 
       {/* Description */}
       {safeStack.description && (
-        <p className="text-muted-foreground text-sm leading-relaxed mb-6 whitespace-pre-line">
+        <p className="text-muted-foreground text-sm leading-relaxed mb-4 whitespace-pre-line">
           {safeStack.description}
         </p>
       )}
+
+      {/* Metadata framing */}
+      <section className="mb-6 rounded-lg border bg-muted/20 p-4 space-y-3">
+        <div className="flex items-center gap-2 text-sm font-medium">
+          <Info className="h-4 w-4 text-muted-foreground" />
+          Quick read before you run this stack
+        </div>
+        <div className="grid gap-2 sm:grid-cols-3 text-sm">
+          <div className="rounded-md border bg-background px-3 py-2">
+            <p className="text-[11px] uppercase tracking-wide text-muted-foreground">Confidence</p>
+            <div className="mt-1">
+              <EvidenceScoreBadge score={safeStack.evidenceScore} />
+            </div>
+          </div>
+          <div className="rounded-md border bg-background px-3 py-2">
+            <p className="text-[11px] uppercase tracking-wide text-muted-foreground">Trend</p>
+            <p className="mt-1 inline-flex items-center gap-1.5 font-medium">
+              <TrendingUp className="h-3.5 w-3.5 text-muted-foreground" />
+              {trendScore} momentum
+            </p>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              {(safeStack.upvotes ?? 0)} upvotes · {safeStack._count.forks ?? 0} forks · {safeStack._count.cycles} cycles
+            </p>
+          </div>
+          <div className="rounded-md border bg-background px-3 py-2">
+            <p className="text-[11px] uppercase tracking-wide text-muted-foreground">Freshness</p>
+            <p className="mt-1 inline-flex items-center gap-1.5 font-medium">
+              <Clock3 className="h-3.5 w-3.5 text-muted-foreground" />
+              Created {stackFreshness}
+            </p>
+          </div>
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
+          <Badge variant="outline">For: {safeStack.goal.toLowerCase().replace("_", " ")} outcomes</Badge>
+          {experience && <Badge variant="outline">{experience} framing</Badge>}
+          {variant && <Badge variant="secondary">{variant} variant</Badge>}
+        </div>
+        {(safeStack.riskFlags?.length ?? 0) > 0 && (
+          <div className="rounded-md border border-amber-500/40 bg-amber-500/5 px-3 py-2">
+            <p className="text-xs font-medium text-amber-700 dark:text-amber-400 inline-flex items-center gap-1.5">
+              <AlertTriangle className="h-3.5 w-3.5" />
+              Caveats to check first
+            </p>
+            <div className="flex flex-wrap gap-1.5 mt-1.5">
+              {safeStack.riskFlags!.slice(0, 4).map((flag) => (
+                <Badge key={flag} variant="outline" className="text-xs border-amber-500/40 text-amber-700 dark:text-amber-400">
+                  {flag}
+                </Badge>
+              ))}
+            </div>
+          </div>
+        )}
+      </section>
 
       {/* Variant explainer + auto-generated badge */}
       {(variantExplainer || isAutoGenerated) && (
@@ -350,6 +453,32 @@ export default async function StackDetailPage({ params }: Props) {
           </Link>
         </span>
       </div>
+
+      {/* Bulk vs Cut comparison */}
+      {comparisonGoal && comparisonCandidates.length > 0 && (
+        <section className="mb-8">
+          <h2 className="text-base font-semibold mb-3">Compare with {comparisonGoal === "BULK" ? "bulk" : "cut"} alternatives</h2>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {comparisonCandidates.map((candidate) => (
+              <Link
+                key={candidate.slug}
+                href={`/stacks/${candidate.slug}`}
+                className="rounded-lg border bg-card p-3 hover:border-foreground/30 transition-colors"
+              >
+                <p className="text-sm font-medium leading-snug line-clamp-2">{candidate.name}</p>
+                {candidate.description && (
+                  <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{candidate.description}</p>
+                )}
+                <div className="flex items-center gap-2 mt-2 text-xs text-muted-foreground">
+                  <EvidenceScoreBadge score={candidate.evidenceScore} />
+                  <span>{candidate.upvotes} upvotes</span>
+                  <span>{candidate._count.forks} forks</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Compound table */}
       {safeStack.compounds.length > 0 && (

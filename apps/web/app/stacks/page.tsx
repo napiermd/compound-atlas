@@ -120,7 +120,7 @@ export default async function StacksPage() {
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Stacks</h1>
           <p className="text-muted-foreground mt-1 text-sm">
-            Community-built compound protocols
+            Community-built protocols with confidence, trend, and caveats up front
           </p>
         </div>
         <div className="flex items-center gap-2">
