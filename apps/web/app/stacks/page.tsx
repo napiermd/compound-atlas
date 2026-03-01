@@ -72,6 +72,15 @@ export default async function StacksPage() {
                 legalCaveats: true,
                 lastResearchSync: true,
                 lastReviewedAt: true,
+                communityAggregates: {
+                  where: { windowDays: { in: [7, 30] } },
+                  select: {
+                    platform: true,
+                    windowDays: true,
+                    mentionCount: true,
+                    scoreSum: true,
+                  },
+                },
               },
             },
           },

@@ -14,3 +14,16 @@ reddit:
       enabled: true
     - name: sleep
       enabled: true
+    - name: steroids
+      enabled: true
+    - name: moreplatesmoredates
+      enabled: true
+
+twitter:
+  queries:
+    - q: '"stack" (nootropics OR biohacking) -is:retweet lang:en'
+      enabled: true
+    - q: '"cut stack" OR "bulk stack" -is:retweet lang:en'
+      enabled: true
+    - q: '"testosterone stack" OR "cycle support" -is:retweet lang:en'
+      enabled: true

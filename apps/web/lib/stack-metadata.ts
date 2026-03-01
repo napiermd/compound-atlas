@@ -21,7 +21,19 @@ export function evidenceConfidence(score: number | null): "High" | "Moderate" | 
 
 export function communityScore(stack: StackSummary): number {
   const recencyBoost = Math.max(0.4, 1 - (daysSince(stack.createdAt) ?? 365) / 120);
-  return (stack.upvotes * 1.4 + stack._count.forks * 2 + stack._count.cycles * 1.8) * recencyBoost;
+  const nativeScore = (stack.upvotes * 1.4 + stack._count.forks * 2 + stack._count.cycles * 1.8) * recencyBoost;
+
+  const externalSignal = stack.compounds.reduce((sum, sc) => {
+    const aggs = sc.compound.communityAggregates ?? [];
+    for (const agg of aggs) {
+      const platformWeight = agg.platform === "TWITTER" ? 1.2 : 1;
+      const windowWeight = agg.windowDays <= 7 ? 3 : 1.5;
+      sum += (agg.mentionCount + agg.scoreSum * 0.1) * platformWeight * windowWeight;
+    }
+    return sum;
+  }, 0);
+
+  return nativeScore + externalSignal;
 }
 
 export function communityTrend(stack: StackSummary): "rising" | "steady" | "cooling" {
