@@ -99,7 +99,6 @@ export default async function StackDetailPage({ params }: Props) {
         evidenceScore: true,
         upvotes: true,
         creator: { select: { id: true, name: true, image: true } },
-        forkedFrom: { select: { name: true, slug: true } },
         compounds: {
           include: {
             compound: {
@@ -111,14 +110,12 @@ export default async function StackDetailPage({ params }: Props) {
                 legalStatus: true,
                 evidenceScore: true,
                 doseUnit: true,
-                lastResearchSync: true,
-                lastReviewedAt: true,
               },
             },
           },
           orderBy: { startWeek: "asc" },
         },
-        _count: { select: { cycles: true, forks: true } },
+        _count: { select: { cycles: true } },
       },
     });
   } catch {
@@ -149,8 +146,6 @@ export default async function StackDetailPage({ params }: Props) {
                 legalStatus: true,
                 evidenceScore: true,
                 doseUnit: true,
-                lastResearchSync: true,
-                lastReviewedAt: true,
               },
             },
           },
