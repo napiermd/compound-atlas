@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     "Evidence-based database of supplements, nootropics, peptides, and more.",
 };
 
-export const revalidate = 60 * 60 * 24 * 7;
+export const dynamic = "force-dynamic";
 
 const RECENT_WINDOW_DAYS = 365;
 const HIGH_TIER_STUDY_TYPES: StudyType[] = [

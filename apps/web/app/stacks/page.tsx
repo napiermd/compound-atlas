@@ -14,6 +14,8 @@ export const metadata: Metadata = {
   description: "Community-built compound protocols, evidence-scored and forkable.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function StacksPage() {
   const session = await auth();
   const aiHref = session?.user?.id ? "/stacks/ai" : "/login";
@@ -79,8 +81,8 @@ export default async function StacksPage() {
       },
     })) as RawStack[];
   } catch {
-    // Backward-compatible fallback for environments where Stack.category
-    // and related fields are not migrated yet.
+    // Backward-compatible fallback for environments where newer Stack/Compound
+    // metadata columns are not migrated yet.
     raw = (await db.stack.findMany({
       where: { isPublic: true },
       orderBy: { createdAt: "desc" },
@@ -108,10 +110,6 @@ export default async function StacksPage() {
                 name: true,
                 slug: true,
                 category: true,
-                safetyCaveats: true,
-                legalCaveats: true,
-                lastResearchSync: true,
-                lastReviewedAt: true,
               },
             },
           },
