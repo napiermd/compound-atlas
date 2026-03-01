@@ -18,6 +18,15 @@ interface Props {
   currentUserId?: string;
 }
 
+const ANABOLIC_GOALS: StackGoal[] = [
+  "BULK",
+  "CUT",
+  "RECOMP",
+  "HORMONE_OPTIMIZATION",
+  "LIBIDO",
+  "ATHLETIC_PERFORMANCE",
+];
+
 export function StackGallery({ stacks, currentUserId }: Props) {
   const [selectedGoal, setSelectedGoal] = useState<StackGoal | "ALL">("ALL");
   const [selectedCategory, setSelectedCategory] = useState<StackCategory | "ALL">("ALL");
@@ -27,6 +36,7 @@ export function StackGallery({ stacks, currentUserId }: Props) {
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState<SortKey>("newest");
   const [template, setTemplate] = useState<NootropicTemplateKey>("focus");
+  const [anabolicOnly, setAnabolicOnly] = useState(false);
 
   const presentGoals = useMemo(() => {
     const counts = new Map<StackGoal, number>();
@@ -39,19 +49,19 @@ export function StackGallery({ stacks, currentUserId }: Props) {
   const tags = useMemo(() => getTagCounts(stacks), [stacks]);
   const risks = useMemo(() => getRiskCounts(stacks), [stacks]);
 
-  const filtered = useMemo(
-    () =>
-      applyStackFilters(stacks, {
-        search,
-        goal: selectedGoal,
-        category: selectedCategory,
-        folder: selectedFolder,
-        tag: selectedTag,
-        risk: selectedRisk,
-        sortBy,
-      }),
-    [stacks, search, selectedGoal, selectedCategory, selectedFolder, selectedTag, selectedRisk, sortBy]
-  );
+  const filtered = useMemo(() => {
+    const base = applyStackFilters(stacks, {
+      search,
+      goal: selectedGoal,
+      category: selectedCategory,
+      folder: selectedFolder,
+      tag: selectedTag,
+      risk: selectedRisk,
+      sortBy,
+    });
+    if (!anabolicOnly) return base;
+    return base.filter((s) => ANABOLIC_GOALS.includes(s.goal));
+  }, [stacks, search, selectedGoal, selectedCategory, selectedFolder, selectedTag, selectedRisk, sortBy, anabolicOnly]);
 
   const templateStacks = useMemo(() => {
     return stacks
@@ -60,8 +70,14 @@ export function StackGallery({ stacks, currentUserId }: Props) {
       .slice(0, 6);
   }, [stacks, template]);
 
+  const hasNootropicSignals = useMemo(
+    () => templateStacks.some((s) => Math.round(communityScore(s)) > 0),
+    [templateStacks]
+  );
+
   return (
     <div className="space-y-4">
+      {hasNootropicSignals && (
       <div className="rounded-lg border bg-muted/30 p-3">
         <div className="flex items-center justify-between gap-2 flex-wrap">
           <div>
@@ -131,6 +147,33 @@ export function StackGallery({ stacks, currentUserId }: Props) {
             </tbody>
           </table>
         </div>
+      </div>
+      )}
+
+      <div className="flex items-center justify-between gap-2 flex-wrap">
+        <div className="flex items-center gap-1">
+          <button
+            onClick={() => setAnabolicOnly(false)}
+            className={cn(
+              "rounded-full px-3 py-1 text-xs font-medium transition-colors",
+              !anabolicOnly ? "bg-primary text-primary-foreground" : "bg-muted hover:bg-muted/80 text-muted-foreground"
+            )}
+          >
+            All stacks
+          </button>
+          <button
+            onClick={() => setAnabolicOnly(true)}
+            className={cn(
+              "rounded-full px-3 py-1 text-xs font-medium transition-colors",
+              anabolicOnly ? "bg-primary text-primary-foreground" : "bg-muted hover:bg-muted/80 text-muted-foreground"
+            )}
+          >
+            Anabolic view
+          </button>
+        </div>
+        {anabolicOnly && (
+          <p className="text-xs text-muted-foreground">Showing bulk/cut/recomp/hormone/libido/performance stacks</p>
+        )}
       </div>
 
       <div className="flex gap-2">
