@@ -33,7 +33,7 @@ import { EvidenceScoreBadge } from "@/components/compound/EvidenceScoreBadge";
 import { GoalBadge } from "@/components/stack/GoalBadge";
 import { InteractionWarnings } from "@/components/stack/InteractionWarnings";
 import { StackActions } from "@/components/stack/StackActions";
-import type { StackInteraction } from "@/components/stack/types";
+import type { StackInteraction, StackSummary } from "@/components/stack/types";
 import { normalizeArray } from "@/lib/normalize";
 import {
   communityScore,
@@ -125,6 +125,7 @@ export default async function StackDetailPage({ params }: Props) {
         goal: true,
         category: true,
         durationWeeks: true,
+        createdAt: true,
         updatedAt: true,
         isPublic: true,
         evidenceScore: true,
@@ -165,6 +166,7 @@ export default async function StackDetailPage({ params }: Props) {
     goal: StackGoal;
     category: StackCategory;
     durationWeeks: number | null;
+    createdAt?: string | Date;
     updatedAt?: string | Date;
     isPublic: boolean;
     evidenceScore: number | null;
@@ -222,11 +224,47 @@ export default async function StackDetailPage({ params }: Props) {
   const nootropicGoals: StackGoal[] = ["COGNITIVE", "SLEEP", "MOOD", "LONGEVITY"];
   const isNootropicStack = safeStack.category === "COGNITION" || nootropicGoals.includes(safeStack.goal);
   const confidence = evidenceConfidence(safeStack.evidenceScore);
-  const trend = communityTrend(safeStack as any);
-  const community = Math.round(communityScore(safeStack as any));
-  const evidenceStale = stackEvidenceStale(safeStack as any);
-  const communityStale = stackCommunityStale(safeStack as any);
-  const caveats = topCaveats(safeStack as any);
+  const stackSummary: StackSummary = {
+    id: safeStack.id,
+    slug: safeStack.slug,
+    name: safeStack.name,
+    description: safeStack.description ?? null,
+    goal: safeStack.goal,
+    durationWeeks: safeStack.durationWeeks,
+    isPublic: safeStack.isPublic,
+    evidenceScore: safeStack.evidenceScore,
+    category: safeStack.category,
+    upvotes: safeStack.upvotes,
+    forkCount: safeStack._count.forks,
+    forkedFromId: null,
+    createdAt: new Date(safeStack.createdAt ?? safeStack.updatedAt ?? Date.now()).toISOString(),
+    updatedAt: safeStack.updatedAt ? new Date(safeStack.updatedAt).toISOString() : undefined,
+    creator: {
+      name: safeStack.creator.name,
+      image: safeStack.creator.image,
+    },
+    compounds: safeStack.compounds.map((sc) => ({
+      id: sc.id,
+      compound: {
+        name: sc.compound.name,
+        slug: sc.compound.slug,
+        category: sc.compound.category,
+        safetyCaveats: sc.compound.safetyCaveats ?? [],
+        legalCaveats: sc.compound.legalCaveats ?? [],
+        lastResearchSync: sc.compound.lastResearchSync,
+        lastReviewedAt: sc.compound.lastReviewedAt,
+      },
+    })),
+    _count: {
+      cycles: safeStack._count.cycles,
+      forks: safeStack._count.forks,
+    },
+  };
+  const trend = communityTrend(stackSummary);
+  const community = Math.round(communityScore(stackSummary));
+  const evidenceStale = stackEvidenceStale(stackSummary);
+  const communityStale = stackCommunityStale(stackSummary);
+  const caveats = topCaveats(stackSummary);
 
   const userId = session?.user?.id;
 
