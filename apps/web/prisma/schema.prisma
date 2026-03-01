@@ -320,21 +320,25 @@ model CommunitySource {
 }
 
 model CommunityMention {
-  id           String                 @id @default(cuid())
-  sourceId     String
-  compoundId   String
-  externalId   String
-  title        String?
-  body         String?                @db.Text
-  url          String?
-  score        Int                    @default(0)
-  commentCount Int                    @default(0)
-  occurredAt   DateTime
-  goals        CommunityMentionGoal[]
-  source       CommunitySource        @relation(fields: [sourceId], references: [id], onDelete: Cascade)
-  compound     Compound               @relation(fields: [compoundId], references: [id], onDelete: Cascade)
-  createdAt    DateTime               @default(now())
-  updatedAt    DateTime               @updatedAt
+  id             String                 @id @default(cuid())
+  sourceId       String
+  compoundId     String
+  externalId     String
+  title          String?
+  body           String?                @db.Text
+  url            String?
+  score          Int                    @default(0)
+  commentCount   Int                    @default(0)
+  sentimentScore Float?                 // -1..1 heuristic sentiment
+  qualityScore   Float?                 // 0..2 source/engagement quality multiplier
+  spamScore      Float?                 // 0..1 heuristic spam likelihood
+  themeTags      String[]               @default([])
+  occurredAt     DateTime
+  goals          CommunityMentionGoal[]
+  source         CommunitySource        @relation(fields: [sourceId], references: [id], onDelete: Cascade)
+  compound       Compound               @relation(fields: [compoundId], references: [id], onDelete: Cascade)
+  createdAt      DateTime               @default(now())
+  updatedAt      DateTime               @updatedAt
 
   @@unique([externalId, compoundId])
   @@index([compoundId, occurredAt])
