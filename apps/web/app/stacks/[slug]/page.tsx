@@ -87,7 +87,17 @@ export default async function StackDetailPage({ params }: Props) {
   try {
     stack = await db.stack.findUnique({
       where: { slug: params.slug },
-      include: {
+      select: {
+        id: true,
+        slug: true,
+        name: true,
+        description: true,
+        goal: true,
+        durationWeeks: true,
+        updatedAt: true,
+        isPublic: true,
+        evidenceScore: true,
+        upvotes: true,
         creator: { select: { id: true, name: true, image: true } },
         forkedFrom: { select: { name: true, slug: true } },
         compounds: {
@@ -123,7 +133,6 @@ export default async function StackDetailPage({ params }: Props) {
         name: true,
         description: true,
         goal: true,
-        category: true,
         durationWeeks: true,
         createdAt: true,
         updatedAt: true,
@@ -164,7 +173,7 @@ export default async function StackDetailPage({ params }: Props) {
     name: string;
     description: string | null;
     goal: StackGoal;
-    category: StackCategory;
+    category?: StackCategory;
     durationWeeks: number | null;
     createdAt?: string | Date;
     updatedAt?: string | Date;
@@ -201,6 +210,7 @@ export default async function StackDetailPage({ params }: Props) {
 
   const safeStack = {
     ...base,
+    category: base.category ?? ("SPECIALTY" as StackCategory),
     forkedFrom: base.forkedFrom ?? null,
     upvotes: typeof base.upvotes === "number" ? base.upvotes : 0,
     _count: {
