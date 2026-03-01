@@ -51,6 +51,31 @@ GOAL_KEYWORDS = {
     "clarity": ["clarity", "brain fog", "mental clarity", "fog"],
 }
 
+POSITIVE_WORDS = {
+    "effective", "works", "better", "improved", "great", "helped", "best", "strong", "clean", "focus", "energy"
+}
+NEGATIVE_WORDS = {
+    "anxiety", "crash", "worse", "insomnia", "headache", "panic", "nausea", "side effect", "tox", "depressed"
+}
+SPAM_MARKERS = {
+    "discount", "promo", "coupon", "buy now", "affiliate", "sponsored", "dm me", "telegram", "whatsapp"
+}
+
+THEME_KEYWORDS = {
+    "dosing": ["mg", "dose", "dosage", "cycle", "protocol", "twice daily"],
+    "side_effects": ["side effect", "anxiety", "crash", "headache", "insomnia", "bp", "blood pressure"],
+    "results": ["results", "progress", "before", "after", "strength", "fat loss", "muscle gain"],
+    "stacking": ["stack", "combine", "with", "added", "alongside"],
+    "safety": ["safe", "unsafe", "liver", "kidney", "labs", "bloodwork"],
+}
+
+PLATFORM_BASE_WEIGHT = {
+    "REDDIT": 1.0,
+    "TWITTER": 1.1,
+    "YOUTUBE": 1.05,
+    "FORUM": 0.95,
+}
+
 
 @dataclass
 class SourceConfig:
@@ -209,6 +234,76 @@ def extract_goal_labels(text: str, labels: Iterable[str] | None = None) -> list[
     return out
 
 
+def _tokenize(text: str) -> list[str]:
+    return re.findall(r"[a-z0-9]+", text.lower())
+
+
+def estimate_sentiment(text: str) -> float:
+    lowered = text.lower()
+    tokens = _tokenize(lowered)
+    if not tokens:
+        return 0.0
+
+    pos = sum(1 for t in tokens if t in POSITIVE_WORDS)
+    neg = sum(1 for t in tokens if t in NEGATIVE_WORDS)
+    if pos == 0 and neg == 0:
+        return 0.0
+
+    raw = (pos - neg) / max(pos + neg, 1)
+    return max(-1.0, min(1.0, raw))
+
+
+def estimate_spam_score(text: str, url: str | None = None) -> float:
+    lowered = text.lower()
+    markers = sum(1 for m in SPAM_MARKERS if m in lowered)
+    link_count = len(re.findall(r"https?://", lowered))
+    shouty = 1 if re.search(r"\b[A-Z]{6,}\b", text) else 0
+
+    score = (markers * 0.25) + (link_count * 0.15) + (shouty * 0.2)
+    if url and any(domain in url for domain in ["bit.ly", "t.co", "tinyurl", "linktr.ee"]):
+        score += 0.15
+    return max(0.0, min(1.0, score))
+
+
+def extract_theme_tags(text: str) -> list[str]:
+    lowered = text.lower()
+    out: list[str] = []
+    for tag, kws in THEME_KEYWORDS.items():
+        if any(k in lowered for k in kws):
+            out.append(tag)
+    return out
+
+
+def compute_quality_score(
+    platform: Literal["REDDIT", "TWITTER", "YOUTUBE", "FORUM"],
+    engagement_score: int,
+    comment_count: int,
+    spam_score: float,
+) -> float:
+    base = PLATFORM_BASE_WEIGHT.get(platform, 1.0)
+    engagement = min(0.7, (engagement_score / 1000.0))
+    discussion = min(0.5, (comment_count / 150.0))
+    quality = base + engagement + discussion - (spam_score * 0.9)
+    return max(0.1, min(2.0, quality))
+
+
+def apply_phase2_weighting(
+    platform: Literal["REDDIT", "TWITTER", "YOUTUBE", "FORUM"],
+    base_score: int,
+    comment_count: int,
+    text: str,
+    url: str | None = None,
+) -> tuple[int, float, float, list[str], float]:
+    sentiment = estimate_sentiment(text)
+    spam = estimate_spam_score(text, url)
+    themes = extract_theme_tags(text)
+    quality = compute_quality_score(platform, base_score, comment_count, spam)
+
+    sentiment_boost = 1.0 + (sentiment * 0.2)
+    weighted = int(max(0, round(base_score * quality * sentiment_boost * (1.0 - (spam * 0.6)))))
+    return weighted, sentiment, quality, themes, spam
+
+
 def ensure_sources(conn, sources: list[SourceConfig]):
     cur = conn.cursor()
     try:
@@ -279,6 +374,11 @@ def ingest_reddit(
             ext_id = data.get("name") or data.get("id")
             permalink = data.get("permalink", "")
             post_url = f"https://reddit.com{permalink}" if permalink else data.get("url")
+            raw_score = int(data.get("score") or 0)
+            raw_comments = int(data.get("num_comments") or 0)
+            weighted_score, sentiment, quality, themes, spam = apply_phase2_weighting(
+                "REDDIT", raw_score, raw_comments, text, post_url
+            )
 
             for slug in mention_slugs:
                 cur.execute('SELECT id FROM "Compound" WHERE slug = %s', [slug])
@@ -296,9 +396,10 @@ def ingest_reddit(
                     '''
                     INSERT INTO "CommunityMention" (
                       id, "sourceId", "compoundId", "externalId", title, body, url,
-                      score, "commentCount", "occurredAt", "createdAt", "updatedAt"
+                      score, "commentCount", "sentimentScore", "qualityScore", "spamScore", "themeTags",
+                      "occurredAt", "createdAt", "updatedAt"
                     )
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, NOW(), NOW())
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, NOW(), NOW())
                     ON CONFLICT ("externalId", "compoundId") DO NOTHING
                     ''',
                     [
@@ -309,8 +410,12 @@ def ingest_reddit(
                         title[:500],
                         body,
                         post_url,
-                        int(data.get("score") or 0),
-                        int(data.get("num_comments") or 0),
+                        weighted_score,
+                        raw_comments,
+                        sentiment,
+                        quality,
+                        spam,
+                        themes,
                         created,
                     ],
                 )
@@ -407,8 +512,11 @@ def ingest_twitter(
             reply_count = int(metrics.get("reply_count") or 0)
             repost_count = int(metrics.get("retweet_count") or 0)
             quote_count = int(metrics.get("quote_count") or 0)
-            weighted_score = like_count + (reply_count * 3) + (repost_count * 2) + (quote_count * 2)
+            raw_score = like_count + (reply_count * 3) + (repost_count * 2) + (quote_count * 2)
             tweet_url = f"https://x.com/i/web/status/{ext_id}" if ext_id else None
+            weighted_score, sentiment, quality, themes, spam = apply_phase2_weighting(
+                "TWITTER", raw_score, reply_count, text, tweet_url
+            )
 
             for slug in mention_slugs:
                 cur.execute('SELECT id FROM "Compound" WHERE slug = %s', [slug])
@@ -426,9 +534,10 @@ def ingest_twitter(
                     '''
                     INSERT INTO "CommunityMention" (
                       id, "sourceId", "compoundId", "externalId", title, body, url,
-                      score, "commentCount", "occurredAt", "createdAt", "updatedAt"
+                      score, "commentCount", "sentimentScore", "qualityScore", "spamScore", "themeTags",
+                      "occurredAt", "createdAt", "updatedAt"
                     )
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, NOW(), NOW())
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, NOW(), NOW())
                     ON CONFLICT ("externalId", "compoundId") DO NOTHING
                     ''',
                     [
@@ -441,6 +550,10 @@ def ingest_twitter(
                         tweet_url,
                         weighted_score,
                         reply_count,
+                        sentiment,
+                        quality,
+                        spam,
+                        themes,
                         created,
                     ],
                 )
@@ -539,6 +652,9 @@ def ingest_youtube(
             video_id = (item.get("id") or {}).get("videoId")
             ext_id = f"youtube:{video_id}" if video_id else None
             video_url = f"https://www.youtube.com/watch?v={video_id}" if video_id else None
+            weighted_score, sentiment, quality, themes, spam = apply_phase2_weighting(
+                "YOUTUBE", 10, 0, text, video_url
+            )
 
             for slug in mention_slugs:
                 cur.execute('SELECT id FROM "Compound" WHERE slug = %s', [slug])
@@ -556,9 +672,10 @@ def ingest_youtube(
                     '''
                     INSERT INTO "CommunityMention" (
                       id, "sourceId", "compoundId", "externalId", title, body, url,
-                      score, "commentCount", "occurredAt", "createdAt", "updatedAt"
+                      score, "commentCount", "sentimentScore", "qualityScore", "spamScore", "themeTags",
+                      "occurredAt", "createdAt", "updatedAt"
                     )
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, NOW(), NOW())
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, NOW(), NOW())
                     ON CONFLICT ("externalId", "compoundId") DO NOTHING
                     ''',
                     [
@@ -569,8 +686,12 @@ def ingest_youtube(
                         title[:500],
                         desc,
                         video_url,
+                        weighted_score,
                         0,
-                        0,
+                        sentiment,
+                        quality,
+                        spam,
+                        themes,
                         created,
                     ],
                 )
@@ -661,6 +782,9 @@ def ingest_forum_feed(
 
             labels = extract_goal_labels(text)
             ext_id = link or f"forum:{uuid.uuid4()}"
+            weighted_score, sentiment, quality, themes, spam = apply_phase2_weighting(
+                "FORUM", 6, 0, text, link
+            )
 
             for slug in mention_slugs:
                 cur.execute('SELECT id FROM "Compound" WHERE slug = %s', [slug])
@@ -678,9 +802,10 @@ def ingest_forum_feed(
                     '''
                     INSERT INTO "CommunityMention" (
                       id, "sourceId", "compoundId", "externalId", title, body, url,
-                      score, "commentCount", "occurredAt", "createdAt", "updatedAt"
+                      score, "commentCount", "sentimentScore", "qualityScore", "spamScore", "themeTags",
+                      "occurredAt", "createdAt", "updatedAt"
                     )
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, NOW(), NOW())
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, NOW(), NOW())
                     ON CONFLICT ("externalId", "compoundId") DO NOTHING
                     ''',
                     [
@@ -691,8 +816,12 @@ def ingest_forum_feed(
                         title[:500],
                         body,
                         link,
+                        weighted_score,
                         0,
-                        0,
+                        sentiment,
+                        quality,
+                        spam,
+                        themes,
                         created,
                     ],
                 )
