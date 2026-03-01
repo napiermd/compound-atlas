@@ -26,7 +26,8 @@ export function communityScore(stack: StackSummary): number {
   const externalSignal = stack.compounds.reduce((sum, sc) => {
     const aggs = sc.compound.communityAggregates ?? [];
     for (const agg of aggs) {
-      const platformWeight = agg.platform === "TWITTER" ? 1.2 : 1;
+      const platformWeight =
+        agg.platform === "TWITTER" ? 1.2 : agg.platform === "YOUTUBE" ? 1.1 : agg.platform === "FORUM" ? 0.9 : 1;
       const windowWeight = agg.windowDays <= 7 ? 3 : 1.5;
       sum += (agg.mentionCount + agg.scoreSum * 0.1) * platformWeight * windowWeight;
     }

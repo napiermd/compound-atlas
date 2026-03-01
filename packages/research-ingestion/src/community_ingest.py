@@ -11,8 +11,10 @@ import re
 import uuid
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Iterable, Literal
+from xml.etree import ElementTree as ET
 
 import httpx
 import psycopg2
@@ -52,7 +54,7 @@ GOAL_KEYWORDS = {
 
 @dataclass
 class SourceConfig:
-    platform: Literal["REDDIT", "TWITTER"]
+    platform: Literal["REDDIT", "TWITTER", "YOUTUBE", "FORUM"]
     identifier: str
     enabled: bool = True
 
@@ -100,6 +102,28 @@ def load_sources() -> list[SourceConfig]:
         if i.get("q")
     )
 
+    youtube_items = raw.get("youtube", {}).get("queries", [])
+    out.extend(
+        SourceConfig(
+            platform="YOUTUBE",
+            identifier=i.get("q", "").strip(),
+            enabled=bool(i.get("enabled", True)),
+        )
+        for i in youtube_items
+        if i.get("q")
+    )
+
+    forum_items = raw.get("forums", {}).get("feeds", [])
+    out.extend(
+        SourceConfig(
+            platform="FORUM",
+            identifier=i.get("url", "").strip(),
+            enabled=bool(i.get("enabled", True)),
+        )
+        for i in forum_items
+        if i.get("url")
+    )
+
     return out
 
 
@@ -123,13 +147,54 @@ def _unix_to_dt(ts: float) -> datetime:
     return datetime.fromtimestamp(ts, tz=timezone.utc)
 
 
-def find_mentioned_compounds(text: str, term_to_slug: dict[str, str]) -> set[str]:
+def load_stack_alias_map(conn) -> dict[str, set[str]]:
+    cur = conn.cursor()
+    out: dict[str, set[str]] = {}
+    try:
+        cur.execute(
+            '''
+            SELECT s.name, c.slug
+            FROM "Stack" s
+            JOIN "StackCompound" sc ON sc."stackId" = s.id
+            JOIN "Compound" c ON c.id = sc."compoundId"
+            WHERE s."isPublic" = true
+            '''
+        )
+        for stack_name, compound_slug in cur.fetchall():
+            raw_name = (stack_name or "").strip().lower()
+            if len(raw_name) < 4:
+                continue
+            aliases = {raw_name}
+            aliases.add(raw_name.replace("—", "-").replace("  ", " "))
+            aliases.add(raw_name.replace(" stack", ""))
+            for alias in aliases:
+                key = alias.strip()
+                if len(key) < 4:
+                    continue
+                out.setdefault(key, set()).add(compound_slug)
+    finally:
+        cur.close()
+    return out
+
+
+def find_mentioned_compounds(
+    text: str,
+    term_to_slug: dict[str, str],
+    stack_alias_to_compounds: dict[str, set[str]] | None = None,
+) -> set[str]:
     normalized = f" {text.lower()} "
     matched: set[str] = set()
     for term, slug in term_to_slug.items():
         escaped = re.escape(term)
         if re.search(rf"(?<![a-z0-9]){escaped}(?![a-z0-9])", normalized):
             matched.add(slug)
+
+    if stack_alias_to_compounds:
+        for alias, slugs in stack_alias_to_compounds.items():
+            escaped = re.escape(alias)
+            if re.search(rf"(?<![a-z0-9]){escaped}(?![a-z0-9])", normalized):
+                matched.update(slugs)
+
     return matched
 
 
@@ -166,6 +231,7 @@ def ingest_reddit(
     conn,
     source: SourceConfig,
     term_to_slug: dict[str, str],
+    stack_alias_to_compounds: dict[str, set[str]],
     since_days: int,
     dry_run: bool,
 ) -> int:
@@ -205,7 +271,7 @@ def ingest_reddit(
             title = data.get("title", "")
             body = data.get("selftext", "")
             text = f"{title}\n{body}".strip()
-            mention_slugs = find_mentioned_compounds(text, term_to_slug)
+            mention_slugs = find_mentioned_compounds(text, term_to_slug, stack_alias_to_compounds)
             if not mention_slugs:
                 continue
 
@@ -278,6 +344,7 @@ def ingest_twitter(
     conn,
     source: SourceConfig,
     term_to_slug: dict[str, str],
+    stack_alias_to_compounds: dict[str, set[str]],
     since_days: int,
     dry_run: bool,
 ) -> int:
@@ -329,7 +396,7 @@ def ingest_twitter(
             if created < cutoff:
                 continue
 
-            mention_slugs = find_mentioned_compounds(text, term_to_slug)
+            mention_slugs = find_mentioned_compounds(text, term_to_slug, stack_alias_to_compounds)
             if not mention_slugs:
                 continue
 
@@ -374,6 +441,258 @@ def ingest_twitter(
                         tweet_url,
                         weighted_score,
                         reply_count,
+                        created,
+                    ],
+                )
+                if cur.rowcount <= 0:
+                    continue
+
+                for label in labels:
+                    cur.execute(
+                        '''
+                        INSERT INTO "CommunityMentionGoal" (id, "mentionId", label)
+                        VALUES (%s, %s, %s)
+                        ON CONFLICT ("mentionId", label) DO NOTHING
+                        ''',
+                        [str(uuid.uuid4()), mention_id, label],
+                    )
+                inserted += 1
+
+        if not dry_run:
+            conn.commit()
+    except Exception:
+        conn.rollback()
+        raise
+    finally:
+        cur.close()
+
+    return inserted
+
+
+def ingest_youtube(
+    conn,
+    source: SourceConfig,
+    term_to_slug: dict[str, str],
+    stack_alias_to_compounds: dict[str, set[str]],
+    since_days: int,
+    dry_run: bool,
+) -> int:
+    if not source.enabled:
+        return 0
+
+    api_key = os.environ.get("YOUTUBE_API_KEY", "").strip()
+    if not api_key:
+        console.print("[yellow]Skipping YouTube ingest: YOUTUBE_API_KEY not set[/yellow]")
+        return 0
+
+    cutoff = datetime.now(timezone.utc) - timedelta(days=since_days)
+    query = source.identifier
+    url = "https://www.googleapis.com/youtube/v3/search"
+
+    with httpx.Client(timeout=20.0) as client:
+        resp = client.get(
+            url,
+            params={
+                "key": api_key,
+                "part": "snippet",
+                "q": query,
+                "type": "video",
+                "maxResults": 25,
+                "order": "date",
+            },
+        )
+        resp.raise_for_status()
+        payload = resp.json()
+
+    inserted = 0
+    cur = conn.cursor()
+    try:
+        cur.execute(
+            'SELECT id FROM "CommunitySource" WHERE platform = %s::"CommunityPlatform" AND identifier = %s',
+            ["YOUTUBE", query],
+        )
+        source_row = cur.fetchone()
+        if not source_row:
+            return 0
+        source_id = source_row[0]
+
+        for item in payload.get("items", []):
+            snippet = item.get("snippet") or {}
+            title = (snippet.get("title") or "").strip()
+            desc = (snippet.get("description") or "").strip()
+            text = f"{title}\n{desc}".strip()
+            if not text:
+                continue
+
+            published = snippet.get("publishedAt")
+            if not published:
+                continue
+            created = datetime.fromisoformat(published.replace("Z", "+00:00"))
+            if created < cutoff:
+                continue
+
+            mention_slugs = find_mentioned_compounds(text, term_to_slug, stack_alias_to_compounds)
+            if not mention_slugs:
+                continue
+
+            labels = extract_goal_labels(text)
+            video_id = (item.get("id") or {}).get("videoId")
+            ext_id = f"youtube:{video_id}" if video_id else None
+            video_url = f"https://www.youtube.com/watch?v={video_id}" if video_id else None
+
+            for slug in mention_slugs:
+                cur.execute('SELECT id FROM "Compound" WHERE slug = %s', [slug])
+                row = cur.fetchone()
+                if not row:
+                    continue
+                compound_id = row[0]
+
+                if dry_run:
+                    inserted += 1
+                    continue
+
+                mention_id = str(uuid.uuid4())
+                cur.execute(
+                    '''
+                    INSERT INTO "CommunityMention" (
+                      id, "sourceId", "compoundId", "externalId", title, body, url,
+                      score, "commentCount", "occurredAt", "createdAt", "updatedAt"
+                    )
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, NOW(), NOW())
+                    ON CONFLICT ("externalId", "compoundId") DO NOTHING
+                    ''',
+                    [
+                        mention_id,
+                        source_id,
+                        compound_id,
+                        ext_id,
+                        title[:500],
+                        desc,
+                        video_url,
+                        0,
+                        0,
+                        created,
+                    ],
+                )
+                if cur.rowcount <= 0:
+                    continue
+
+                for label in labels:
+                    cur.execute(
+                        '''
+                        INSERT INTO "CommunityMentionGoal" (id, "mentionId", label)
+                        VALUES (%s, %s, %s)
+                        ON CONFLICT ("mentionId", label) DO NOTHING
+                        ''',
+                        [str(uuid.uuid4()), mention_id, label],
+                    )
+                inserted += 1
+
+        if not dry_run:
+            conn.commit()
+    except Exception:
+        conn.rollback()
+        raise
+    finally:
+        cur.close()
+
+    return inserted
+
+
+def ingest_forum_feed(
+    conn,
+    source: SourceConfig,
+    term_to_slug: dict[str, str],
+    stack_alias_to_compounds: dict[str, set[str]],
+    since_days: int,
+    dry_run: bool,
+) -> int:
+    if not source.enabled:
+        return 0
+
+    cutoff = datetime.now(timezone.utc) - timedelta(days=since_days)
+    feed_url = source.identifier
+
+    with httpx.Client(timeout=20.0, headers={"User-Agent": "compound-atlas/1.0"}) as client:
+        resp = client.get(feed_url)
+        resp.raise_for_status()
+        payload = resp.text
+
+    root = ET.fromstring(payload)
+    inserted = 0
+
+    cur = conn.cursor()
+    try:
+        cur.execute(
+            'SELECT id FROM "CommunitySource" WHERE platform = %s::"CommunityPlatform" AND identifier = %s',
+            ["FORUM", feed_url],
+        )
+        source_row = cur.fetchone()
+        if not source_row:
+            return 0
+        source_id = source_row[0]
+
+        for item in root.findall(".//item"):
+            title = (item.findtext("title") or "").strip()
+            body = (item.findtext("description") or "").strip()
+            link = (item.findtext("link") or "").strip() or None
+            pub_date = (item.findtext("pubDate") or "").strip()
+
+            if not title and not body:
+                continue
+
+            if pub_date:
+                try:
+                    created = parsedate_to_datetime(pub_date)
+                    if created.tzinfo is None:
+                        created = created.replace(tzinfo=timezone.utc)
+                except Exception:
+                    created = datetime.now(timezone.utc)
+            else:
+                created = datetime.now(timezone.utc)
+
+            if created < cutoff:
+                continue
+
+            text = f"{title}\n{body}".strip()
+            mention_slugs = find_mentioned_compounds(text, term_to_slug, stack_alias_to_compounds)
+            if not mention_slugs:
+                continue
+
+            labels = extract_goal_labels(text)
+            ext_id = link or f"forum:{uuid.uuid4()}"
+
+            for slug in mention_slugs:
+                cur.execute('SELECT id FROM "Compound" WHERE slug = %s', [slug])
+                row = cur.fetchone()
+                if not row:
+                    continue
+                compound_id = row[0]
+
+                if dry_run:
+                    inserted += 1
+                    continue
+
+                mention_id = str(uuid.uuid4())
+                cur.execute(
+                    '''
+                    INSERT INTO "CommunityMention" (
+                      id, "sourceId", "compoundId", "externalId", title, body, url,
+                      score, "commentCount", "occurredAt", "createdAt", "updatedAt"
+                    )
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, NOW(), NOW())
+                    ON CONFLICT ("externalId", "compoundId") DO NOTHING
+                    ''',
+                    [
+                        mention_id,
+                        source_id,
+                        compound_id,
+                        ext_id,
+                        title[:500],
+                        body,
+                        link,
+                        0,
+                        0,
                         created,
                     ],
                 )
@@ -466,15 +785,49 @@ def run_community_ingest(
     ensure_sources(conn, sources)
 
     terms = load_compound_terms(compound_data_dir)
+    stack_alias_to_compounds = load_stack_alias_map(conn)
+
     inserted = 0
     for src in sources:
-      try:
-          if src.platform == "REDDIT":
-              inserted += ingest_reddit(conn, src, terms, since_days=since_days, dry_run=dry_run)
-          elif src.platform == "TWITTER":
-              inserted += ingest_twitter(conn, src, terms, since_days=since_days, dry_run=dry_run)
-      except Exception as e:
-          console.print(f"[red]{src.platform} ingestion failed for {src.identifier}: {e}[/red]")
+        try:
+            if src.platform == "REDDIT":
+                inserted += ingest_reddit(
+                    conn,
+                    src,
+                    terms,
+                    stack_alias_to_compounds,
+                    since_days=since_days,
+                    dry_run=dry_run,
+                )
+            elif src.platform == "TWITTER":
+                inserted += ingest_twitter(
+                    conn,
+                    src,
+                    terms,
+                    stack_alias_to_compounds,
+                    since_days=since_days,
+                    dry_run=dry_run,
+                )
+            elif src.platform == "YOUTUBE":
+                inserted += ingest_youtube(
+                    conn,
+                    src,
+                    terms,
+                    stack_alias_to_compounds,
+                    since_days=since_days,
+                    dry_run=dry_run,
+                )
+            elif src.platform == "FORUM":
+                inserted += ingest_forum_feed(
+                    conn,
+                    src,
+                    terms,
+                    stack_alias_to_compounds,
+                    since_days=since_days,
+                    dry_run=dry_run,
+                )
+        except Exception as e:
+            console.print(f"[red]{src.platform} ingestion failed for {src.identifier}: {e}[/red]")
 
     rollup_windows(conn, dry_run=dry_run)
     return {"sources": [f"{s.platform}:{s.identifier}" for s in sources], "mentions": inserted}

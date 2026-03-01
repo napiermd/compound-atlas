@@ -103,6 +103,8 @@ enum LegalStatus {
 enum CommunityPlatform {
   REDDIT
   TWITTER
+  YOUTUBE
+  FORUM
 }
 
 model Compound {

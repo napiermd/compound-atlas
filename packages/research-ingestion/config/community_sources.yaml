@@ -27,3 +27,19 @@ twitter:
       enabled: true
     - q: '"testosterone stack" OR "cycle support" -is:retweet lang:en'
       enabled: true
+
+youtube:
+  queries:
+    - q: "nootropics stack"
+      enabled: true
+    - q: "anabolic stack"
+      enabled: true
+    - q: "cycle support stack"
+      enabled: true
+
+forums:
+  feeds:
+    - url: "https://www.reddit.com/r/steroids/.rss"
+      enabled: true
+    - url: "https://www.reddit.com/r/nootropics/.rss"
+      enabled: true

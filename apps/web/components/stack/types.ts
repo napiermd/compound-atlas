@@ -75,7 +75,7 @@ export interface StackSummary {
       lastResearchSync?: string | Date | null;
       lastReviewedAt?: string | Date | null;
       communityAggregates?: Array<{
-        platform: "REDDIT" | "TWITTER";
+        platform: "REDDIT" | "TWITTER" | "YOUTUBE" | "FORUM";
         windowDays: number;
         mentionCount: number;
         scoreSum: number;
