@@ -1,7 +1,8 @@
 import type { StackCategory, StackGoal } from "@prisma/client";
 import type { StackSummary } from "../components/stack/types";
+import { communityScore } from "./stack-metadata";
 
-export type SortKey = "newest" | "evidenceScore" | "upvotes" | "cycles" | "custom";
+export type SortKey = "newest" | "evidenceScore" | "upvotes" | "cycles" | "community" | "custom";
 
 export interface StackFilters {
   search: string;
@@ -41,6 +42,7 @@ export function applyStackFilters(stacks: StackSummary[], filters: StackFilters)
     }
     if (filters.sortBy === "upvotes") return b.upvotes - a.upvotes;
     if (filters.sortBy === "cycles") return b._count.cycles - a._count.cycles;
+    if (filters.sortBy === "community") return communityScore(b) - communityScore(a);
     return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
   });
 }
