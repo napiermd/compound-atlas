@@ -3,6 +3,7 @@ import { router, publicProcedure } from "./trpc";
 import { db } from "@/lib/db";
 import { CompoundCategory } from "@prisma/client";
 import { getStaleThresholdDays, isCompoundStale } from "@/lib/compound-freshness";
+import { scoreCommunityAnalytics } from "@/lib/community-analytics";
 
 export const compoundRouter = router({
   list: publicProcedure
@@ -84,6 +85,29 @@ export const compoundRouter = router({
         isStale: isCompoundStale(compound.lastResearchSync),
         staleThresholdDays,
       };
+    }),
+
+  communityAnalytics: publicProcedure
+    .input(
+      z.object({
+        events: z.array(
+          z.object({
+            compounds: z.array(z.string().min(1)).min(1),
+            goalContext: z.string().min(1),
+            mentionedAt: z.string().datetime(),
+            confidence: z.number().min(0).max(1).optional(),
+          })
+        ),
+        windowDays: z.number().int().min(7).max(180).default(30),
+        staleThresholdDays: z.number().int().min(1).max(3650).optional(),
+      })
+    )
+    .query(({ input }) => {
+      return scoreCommunityAnalytics(input.events, {
+        windowDays: input.windowDays,
+        staleThresholdDays: input.staleThresholdDays,
+        now: new Date(),
+      });
     }),
 
   categories: publicProcedure.query(async () => {

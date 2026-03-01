@@ -389,7 +389,12 @@ python -m src.ingest --full
 
 # Incremental update (for cron)
 python -m src.ingest --incremental --since 7d
+
+# Community prevalence/trend ingestion (Reddit nootropics)
+python -m src.ingest community-signals --since 90d
 ```
+
+Community source config + runbook: `docs/community-signal-runbook.md`
 
 ---
 
