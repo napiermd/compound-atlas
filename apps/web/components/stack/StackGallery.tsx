@@ -78,6 +78,20 @@ export function StackGallery({ stacks, currentUserId }: Props) {
     [templateStacks]
   );
 
+  const communityPulse = useMemo(() => {
+    const trending = [...stacks]
+      .filter((s) => communityScore(s) > 0)
+      .sort((a, b) => communityScore(b) - communityScore(a))
+      .slice(0, 5);
+
+    const anabolicTrending = [...stacks]
+      .filter((s) => ANABOLIC_GOALS.includes(s.goal) && communityScore(s) > 0)
+      .sort((a, b) => communityScore(b) - communityScore(a))
+      .slice(0, 5);
+
+    return { trending, anabolicTrending };
+  }, [stacks]);
+
   const sectioned = useMemo(() => {
     const anabolic = filtered.filter((s) => ANABOLIC_GOALS.includes(s.goal));
     const nootropic = filtered.filter((s) => NOOTROPIC_GOALS.includes(s.goal));
@@ -166,6 +180,41 @@ export function StackGallery({ stacks, currentUserId }: Props) {
           </table>
         </div>
       </div>
+      )}
+
+      {(communityPulse.trending.length > 0 || communityPulse.anabolicTrending.length > 0) && (
+        <div className="rounded-lg border bg-muted/20 p-3 space-y-3">
+          <div className="flex items-center justify-between">
+            <p className="text-sm font-semibold">Community pulse</p>
+            <span className="text-xs text-muted-foreground">Reddit + X</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+            <div>
+              <p className="font-medium mb-1">Trending this week</p>
+              <ul className="space-y-1">
+                {communityPulse.trending.map((s) => (
+                  <li key={`trend-${s.id}`}>
+                    <Link href={`/stacks/${s.slug}`} className="hover:underline">
+                      {s.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p className="font-medium mb-1">Most discussed anabolic</p>
+              <ul className="space-y-1">
+                {communityPulse.anabolicTrending.map((s) => (
+                  <li key={`anabolic-${s.id}`}>
+                    <Link href={`/stacks/${s.slug}`} className="hover:underline">
+                      {s.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
       )}
 
       <div className="flex items-center justify-between gap-2 flex-wrap">

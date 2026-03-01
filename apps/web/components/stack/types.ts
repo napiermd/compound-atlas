@@ -74,6 +74,12 @@ export interface StackSummary {
       legalCaveats?: string[];
       lastResearchSync?: string | Date | null;
       lastReviewedAt?: string | Date | null;
+      communityAggregates?: Array<{
+        platform: "REDDIT" | "TWITTER";
+        windowDays: number;
+        mentionCount: number;
+        scoreSum: number;
+      }>;
     };
   }>;
   _count: { cycles: number; forks: number };
