@@ -32,6 +32,23 @@ function parseVariant(name: string): string | null {
   return match?.[1] ?? null;
 }
 
+function normalizeStackDescription(stack: StackSummary): string | null {
+  const raw = stack.description?.trim();
+  if (!raw) return null;
+
+  if (raw.startsWith("Auto-generated based on evidence scores")) {
+    const topCompounds = stack.compounds
+      .slice(0, 4)
+      .map((c) => c.compound.name)
+      .join(", ");
+    return topCompounds
+      ? `Template stack from evidence-ranked compounds: ${topCompounds}. Validate dose and interactions before use.`
+      : "Template stack generated from evidence-ranked compounds. Validate dose and interactions before use.";
+  }
+
+  return raw;
+}
+
 interface Props {
   stack: StackSummary;
   currentUserId?: string;
@@ -50,6 +67,7 @@ export function StackCard({ stack, currentUserId, canReorder = false }: Props) {
   const staleCommunity = stackCommunityStale(stack);
   const caveats = topCaveats(stack);
   const hasCommunitySignal = community > 0;
+  const displayDescription = normalizeStackDescription(stack);
 
   const reorder = trpc.stack.reorder.useMutation({
     onSuccess: () => router.refresh(),
@@ -98,11 +116,7 @@ export function StackCard({ stack, currentUserId, canReorder = false }: Props) {
                     </span>
                   )}
                 </>
-              ) : (
-                <span className="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-[10px] text-muted-foreground">
-                  Community signal unavailable
-                </span>
-              )}
+              ) : null}
               <span className="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-[10px]">Confidence: {confidence}</span>
               {staleEvidence && (
                 <span className="inline-flex items-center rounded-full bg-amber-500/10 text-amber-700 px-2 py-0.5 text-[10px]">
@@ -111,9 +125,9 @@ export function StackCard({ stack, currentUserId, canReorder = false }: Props) {
               )}
             </div>
 
-            {stack.description && (
+            {displayDescription && (
               <p className="text-xs text-muted-foreground line-clamp-2 mt-2 leading-relaxed">
-                {stack.description}
+                {displayDescription}
               </p>
             )}
           </CardHeader>
