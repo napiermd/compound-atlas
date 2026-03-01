@@ -49,6 +49,7 @@ export function StackCard({ stack, currentUserId, canReorder = false }: Props) {
   const staleEvidence = stackEvidenceStale(stack);
   const staleCommunity = stackCommunityStale(stack);
   const caveats = topCaveats(stack);
+  const hasCommunitySignal = community > 0;
 
   const reorder = trpc.stack.reorder.useMutation({
     onSuccess: () => router.refresh(),
@@ -84,20 +85,28 @@ export function StackCard({ stack, currentUserId, canReorder = false }: Props) {
             </div>
 
             <div className="flex flex-wrap gap-1 mt-1">
-              <span className="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-[10px]">Community {community}</span>
-              <span className="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-[10px] gap-1">
-                {trend === "rising" ? <Flame className="h-2.5 w-2.5" /> : trend === "steady" ? <Minus className="h-2.5 w-2.5" /> : <Snowflake className="h-2.5 w-2.5" />}
-                {trend}
-              </span>
+              {hasCommunitySignal ? (
+                <>
+                  <span className="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-[10px]">Community {community}</span>
+                  <span className="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-[10px] gap-1">
+                    {trend === "rising" ? <Flame className="h-2.5 w-2.5" /> : trend === "steady" ? <Minus className="h-2.5 w-2.5" /> : <Snowflake className="h-2.5 w-2.5" />}
+                    {trend}
+                  </span>
+                  {staleCommunity && (
+                    <span className="inline-flex items-center rounded-full bg-amber-500/10 text-amber-700 px-2 py-0.5 text-[10px]">
+                      Stale signal
+                    </span>
+                  )}
+                </>
+              ) : (
+                <span className="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-[10px] text-muted-foreground">
+                  Community signal unavailable
+                </span>
+              )}
               <span className="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-[10px]">Confidence: {confidence}</span>
               {staleEvidence && (
                 <span className="inline-flex items-center rounded-full bg-amber-500/10 text-amber-700 px-2 py-0.5 text-[10px]">
                   Stale evidence
-                </span>
-              )}
-              {staleCommunity && (
-                <span className="inline-flex items-center rounded-full bg-amber-500/10 text-amber-700 px-2 py-0.5 text-[10px]">
-                  Stale signal
                 </span>
               )}
             </div>

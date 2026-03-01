@@ -27,6 +27,9 @@ const ANABOLIC_GOALS: StackGoal[] = [
   "ATHLETIC_PERFORMANCE",
 ];
 
+const NOOTROPIC_GOALS: StackGoal[] = ["COGNITIVE", "SLEEP", "MOOD"];
+const LONGEVITY_RECOVERY_GOALS: StackGoal[] = ["LONGEVITY", "RECOVERY", "JOINT_HEALTH", "GENERAL_HEALTH"];
+
 export function StackGallery({ stacks, currentUserId }: Props) {
   const [selectedGoal, setSelectedGoal] = useState<StackGoal | "ALL">("ALL");
   const [selectedCategory, setSelectedCategory] = useState<StackCategory | "ALL">("ALL");
@@ -34,9 +37,9 @@ export function StackGallery({ stacks, currentUserId }: Props) {
   const [selectedTag, setSelectedTag] = useState<string | "ALL">("ALL");
   const [selectedRisk, setSelectedRisk] = useState<string | "ALL">("ALL");
   const [search, setSearch] = useState("");
-  const [sortBy, setSortBy] = useState<SortKey>("newest");
+  const [sortBy, setSortBy] = useState<SortKey>("community");
   const [template, setTemplate] = useState<NootropicTemplateKey>("focus");
-  const [anabolicOnly, setAnabolicOnly] = useState(false);
+  const [anabolicOnly, setAnabolicOnly] = useState(true);
 
   const presentGoals = useMemo(() => {
     const counts = new Map<StackGoal, number>();
@@ -74,6 +77,21 @@ export function StackGallery({ stacks, currentUserId }: Props) {
     () => templateStacks.some((s) => Math.round(communityScore(s)) > 0),
     [templateStacks]
   );
+
+  const sectioned = useMemo(() => {
+    const anabolic = filtered.filter((s) => ANABOLIC_GOALS.includes(s.goal));
+    const nootropic = filtered.filter((s) => NOOTROPIC_GOALS.includes(s.goal));
+    const longevityRecovery = filtered.filter((s) => LONGEVITY_RECOVERY_GOALS.includes(s.goal));
+    const used = new Set([...anabolic, ...nootropic, ...longevityRecovery].map((s) => s.id));
+    const other = filtered.filter((s) => !used.has(s.id));
+
+    return [
+      { key: "anabolic", title: "Anabolic", stacks: anabolic },
+      { key: "nootropic", title: "Nootropic", stacks: nootropic },
+      { key: "longevity", title: "Longevity & Recovery", stacks: longevityRecovery },
+      { key: "other", title: "Other", stacks: other },
+    ].filter((section) => section.stacks.length > 0);
+  }, [filtered]);
 
   return (
     <div className="space-y-4">
@@ -192,6 +210,7 @@ export function StackGallery({ stacks, currentUserId }: Props) {
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
+            <SelectItem value="community">Trending (community)</SelectItem>
             <SelectItem value="newest">Newest first</SelectItem>
             <SelectItem value="evidenceScore">Highest evidence</SelectItem>
             <SelectItem value="upvotes">Most upvoted</SelectItem>
@@ -245,17 +264,28 @@ export function StackGallery({ stacks, currentUserId }: Props) {
 
       <p className="text-sm text-muted-foreground">{filtered.length} stack{filtered.length !== 1 ? "s" : ""}</p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filtered.map((s) => (
-          <StackCard key={s.id} stack={s} currentUserId={currentUserId} canReorder={sortBy === "custom"} />
-        ))}
-        {filtered.length === 0 && (
-          <div className="col-span-full py-16 text-center text-muted-foreground">
-            <p className="text-sm">No stacks found.</p>
-            <Link href="/stacks/new" className="text-sm underline underline-offset-2 hover:text-foreground mt-1 block">Build the first one</Link>
-          </div>
-        )}
-      </div>
+      {filtered.length === 0 ? (
+        <div className="py-16 text-center text-muted-foreground">
+          <p className="text-sm">No stacks found.</p>
+          <Link href="/stacks/new" className="text-sm underline underline-offset-2 hover:text-foreground mt-1 block">Build the first one</Link>
+        </div>
+      ) : (
+        <div className="space-y-6">
+          {sectioned.map((section) => (
+            <section key={section.key} className="space-y-3">
+              <div className="flex items-center justify-between">
+                <h2 className="text-sm font-semibold tracking-wide uppercase text-muted-foreground">{section.title}</h2>
+                <span className="text-xs text-muted-foreground">{section.stacks.length}</span>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {section.stacks.map((s) => (
+                  <StackCard key={s.id} stack={s} currentUserId={currentUserId} canReorder={sortBy === "custom"} />
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
