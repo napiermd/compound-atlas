@@ -10,7 +10,6 @@ import {
 import { PipelineSection } from "@/components/compound/PipelineSection";
 import { SectionNav } from "@/components/layout/SectionNav";
 import type { CategoryCount } from "@/components/compound/CompoundFilters";
-import { isCompoundStale } from "@/lib/compound-freshness";
 import { normalizeArray } from "@/lib/normalize";
 
 export const metadata: Metadata = {
@@ -197,7 +196,6 @@ export default async function CompoundsPage() {
     literatureLinks: c.literatureLinks ?? null,
     lastResearchSync: c.lastResearchSync ?? null,
     lastReviewedAt: c.lastReviewedAt ?? null,
-    isStale: isCompoundStale(c.lastResearchSync ?? null),
   }));
 
   const categoryList: CategoryCount[] = categories.map((c) => ({
