@@ -1,154 +1,237 @@
 "use client";
 
 import Link from "next/link";
-import { trpc } from "@/lib/trpc/client";
-import { Button } from "@/components/ui/button";
+import {
+  User,
+  HeartPulse,
+  Target,
+  Settings,
+  FlaskConical,
+  Sparkles,
+} from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
-import { User, Activity, Target, FlaskConical } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import type {
+  ActivityLevel,
+  BiologicalSex,
+  HealthGoal,
+} from "@prisma/client";
 
-function formatGoal(goal: string) {
-  return goal.toLowerCase().replace(/_/g, " ");
+interface ProfileData {
+  age: number | null;
+  biologicalSex: BiologicalSex | null;
+  heightCm: number | null;
+  weightKg: number | null;
+  bodyFatPercent: number | null;
+  activityLevel: ActivityLevel | null;
+  sleepHours: number | null;
+  goals: HealthGoal[];
+  conditions: string[];
+  medications: string[];
+  allergies: string[];
+  dietType: string | null;
+  smokingStatus: string | null;
+  alcoholUse: string | null;
+  completedAt: Date | null;
 }
 
-export function ProfileDashboard() {
-  const { data: profile, isLoading: profileLoading } =
-    trpc.healthProfile.get.useQuery();
-  const { data: labs, isLoading: labsLoading } = trpc.labs.list.useQuery({
-    limit: 10,
-  });
+const ACTIVITY_LABELS: Record<ActivityLevel, string> = {
+  SEDENTARY: "Sedentary",
+  LIGHTLY_ACTIVE: "Lightly active",
+  MODERATELY_ACTIVE: "Moderately active",
+  VERY_ACTIVE: "Very active",
+  ATHLETE: "Athlete",
+};
 
-  if (profileLoading || labsLoading) {
-    return (
-      <div className="space-y-4">
-        <Skeleton className="h-40 w-full" />
-        <Skeleton className="h-40 w-full" />
-      </div>
-    );
-  }
+const GOAL_LABELS: Record<HealthGoal, string> = {
+  MUSCLE_GROWTH: "Muscle Growth",
+  FAT_LOSS: "Fat Loss",
+  COGNITIVE_ENHANCEMENT: "Cognitive Enhancement",
+  SLEEP_OPTIMIZATION: "Sleep Optimization",
+  LONGEVITY: "Longevity",
+  HORMONE_OPTIMIZATION: "Hormone Optimization",
+  GENERAL_WELLNESS: "General Wellness",
+  ATHLETIC_PERFORMANCE: "Athletic Performance",
+  STRESS_MANAGEMENT: "Stress Management",
+  JOINT_HEALTH: "Joint Health",
+};
 
-  if (!profile) {
-    return (
-      <Card>
-        <CardContent className="py-12 text-center">
-          <User className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-          <h2 className="text-lg font-semibold mb-2">No Health Profile Yet</h2>
-          <p className="text-sm text-muted-foreground mb-4">
-            Set up your profile to get personalized stack recommendations.
-          </p>
-          <Button asChild>
-            <Link href="/profile/setup">Get Started</Link>
-          </Button>
-        </CardContent>
-      </Card>
-    );
-  }
+function InfoRow({ label, value }: { label: string; value: string | null }) {
+  if (!value) return null;
+  return (
+    <div className="flex justify-between text-sm py-1">
+      <span className="text-muted-foreground">{label}</span>
+      <span>{value}</span>
+    </div>
+  );
+}
 
+export function ProfileDashboard({
+  profile,
+  labCount,
+}: {
+  profile: ProfileData;
+  labCount: number;
+}) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold">Your Health Profile</h2>
+        <h1 className="text-3xl font-bold tracking-tight">Your Profile</h1>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" asChild>
-            <Link href="/profile/setup">Edit Profile</Link>
+          <Button asChild variant="outline" size="sm">
+            <Link href="/profile/setup">
+              <Settings className="h-3.5 w-3.5 mr-1.5" />
+              Edit
+            </Link>
           </Button>
-          <Button size="sm" asChild>
-            <Link href="/stacks/personalized">View Recommendations</Link>
+          <Button asChild size="sm">
+            <Link href="/stacks/personalized">
+              <Sparkles className="h-3.5 w-3.5 mr-1.5" />
+              View Recommendations
+            </Link>
           </Button>
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2">
         {/* Demographics */}
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium flex items-center gap-2">
+            <CardTitle className="text-sm flex items-center gap-1.5">
               <User className="h-4 w-4" />
               Demographics
             </CardTitle>
           </CardHeader>
-          <CardContent className="text-sm space-y-1">
-            {profile.age && <p>Age: {profile.age}</p>}
-            {profile.biologicalSex && (
-              <p>Sex: {profile.biologicalSex.toLowerCase()}</p>
-            )}
-            {profile.heightCm && <p>Height: {profile.heightCm} cm</p>}
-            {profile.weightKg && <p>Weight: {profile.weightKg} kg</p>}
-            {profile.bodyFatPercent && (
-              <p>Body Fat: {profile.bodyFatPercent}%</p>
-            )}
+          <CardContent className="space-y-0">
+            <InfoRow label="Age" value={profile.age?.toString() ?? null} />
+            <InfoRow label="Sex" value={profile.biologicalSex} />
+            <InfoRow
+              label="Height"
+              value={profile.heightCm ? `${profile.heightCm} cm` : null}
+            />
+            <InfoRow
+              label="Weight"
+              value={profile.weightKg ? `${profile.weightKg} kg` : null}
+            />
+            <InfoRow
+              label="Body Fat"
+              value={
+                profile.bodyFatPercent ? `${profile.bodyFatPercent}%` : null
+              }
+            />
+            <InfoRow
+              label="Activity"
+              value={
+                profile.activityLevel
+                  ? ACTIVITY_LABELS[profile.activityLevel]
+                  : null
+              }
+            />
+            <InfoRow
+              label="Sleep"
+              value={
+                profile.sleepHours ? `${profile.sleepHours} hrs/night` : null
+              }
+            />
           </CardContent>
         </Card>
 
-        {/* Activity & Lifestyle */}
+        {/* Health History */}
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <Activity className="h-4 w-4" />
-              Lifestyle
+            <CardTitle className="text-sm flex items-center gap-1.5">
+              <HeartPulse className="h-4 w-4" />
+              Health History
             </CardTitle>
           </CardHeader>
-          <CardContent className="text-sm space-y-1">
-            {profile.activityLevel && (
-              <p>
-                Activity:{" "}
-                {profile.activityLevel.toLowerCase().replace(/_/g, " ")}
-              </p>
+          <CardContent className="space-y-2">
+            {profile.conditions.length > 0 && (
+              <div>
+                <p className="text-xs text-muted-foreground mb-1">Conditions</p>
+                <div className="flex flex-wrap gap-1">
+                  {profile.conditions.map((c) => (
+                    <Badge key={c} variant="outline" className="text-xs">
+                      {c}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
             )}
-            {profile.sleepHours && <p>Sleep: {profile.sleepHours} hrs/night</p>}
-            {profile.dietType && <p>Diet: {profile.dietType}</p>}
-          </CardContent>
-        </Card>
-
-        {/* Goals */}
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <Target className="h-4 w-4" />
-              Goals
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-wrap gap-1.5">
-              {profile.goals.map((goal) => (
-                <Badge key={goal} variant="secondary" className="text-xs">
-                  {formatGoal(goal)}
-                </Badge>
-              ))}
-              {profile.goals.length === 0 && (
-                <p className="text-sm text-muted-foreground">No goals set</p>
-              )}
-            </div>
+            {profile.medications.length > 0 && (
+              <div>
+                <p className="text-xs text-muted-foreground mb-1">
+                  Medications
+                </p>
+                <div className="flex flex-wrap gap-1">
+                  {profile.medications.map((m) => (
+                    <Badge key={m} variant="outline" className="text-xs">
+                      {m}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            )}
+            {profile.allergies.length > 0 && (
+              <div>
+                <p className="text-xs text-muted-foreground mb-1">Allergies</p>
+                <div className="flex flex-wrap gap-1">
+                  {profile.allergies.map((a) => (
+                    <Badge key={a} variant="outline" className="text-xs">
+                      {a}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            )}
+            <InfoRow label="Diet" value={profile.dietType} />
+            <InfoRow label="Smoking" value={profile.smokingStatus} />
+            <InfoRow label="Alcohol" value={profile.alcoholUse} />
           </CardContent>
         </Card>
       </div>
 
-      {/* Recent Labs */}
-      {labs && labs.length > 0 && (
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <FlaskConical className="h-4 w-4" />
-              Recent Lab Results
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-              {labs.map((lab) => (
-                <div key={lab.id} className="text-sm">
-                  <p className="font-medium">
-                    {lab.marker.replace(/_/g, " ")}
-                  </p>
-                  <p className="text-muted-foreground">
-                    {lab.value} {lab.unit}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      )}
+      {/* Goals */}
+      <Card>
+        <CardHeader className="pb-2">
+          <CardTitle className="text-sm flex items-center gap-1.5">
+            <Target className="h-4 w-4" />
+            Goals
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-wrap gap-2">
+            {profile.goals.map((g) => (
+              <Badge key={g} className="text-xs">
+                {GOAL_LABELS[g]}
+              </Badge>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Lab Results summary */}
+      <Card>
+        <CardHeader className="pb-2">
+          <CardTitle className="text-sm flex items-center gap-1.5">
+            <FlaskConical className="h-4 w-4" />
+            Lab Results
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-muted-foreground">
+            {labCount > 0
+              ? `${labCount} lab result${labCount !== 1 ? "s" : ""} on file`
+              : "No lab results yet"}
+          </p>
+          <Separator className="my-3" />
+          <p className="text-xs text-muted-foreground">
+            Lab results improve recommendation accuracy by identifying
+            biomarker-specific needs (e.g., low testosterone, high CRP).
+          </p>
+        </CardContent>
+      </Card>
     </div>
   );
 }

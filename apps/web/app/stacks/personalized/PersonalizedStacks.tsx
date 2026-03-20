@@ -1,96 +1,114 @@
 "use client";
 
 import Link from "next/link";
-import { trpc } from "@/lib/trpc/client";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { Skeleton } from "@/components/ui/skeleton";
 import {
-  AlertTriangle,
-  ArrowRight,
-  Sparkles,
   Target,
   Shield,
   FlaskConical,
   TrendingUp,
+  AlertTriangle,
+  Settings,
+  Loader2,
 } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { trpc } from "@/lib/trpc/client";
 
-function formatGoal(goal: string) {
-  return goal.toLowerCase().replace(/_/g, " ");
-}
+function ScoreBar({
+  label,
+  value,
+  icon: Icon,
+}: {
+  label: string;
+  value: number;
+  icon: React.ComponentType<{ className?: string }>;
+}) {
+  const color =
+    value >= 70
+      ? "bg-green-500"
+      : value >= 40
+        ? "bg-yellow-500"
+        : "bg-red-500";
 
-function scoreColor(score: number) {
-  if (score >= 75) return "text-green-600";
-  if (score >= 50) return "text-yellow-600";
-  return "text-red-500";
+  return (
+    <div className="flex items-center gap-2 text-xs">
+      <Icon className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+      <span className="w-20 text-muted-foreground">{label}</span>
+      <div className="flex-1 h-1.5 rounded-full bg-muted overflow-hidden">
+        <div
+          className={`h-full rounded-full ${color}`}
+          style={{ width: `${value}%` }}
+        />
+      </div>
+      <span className="w-8 text-right font-mono">{value}</span>
+    </div>
+  );
 }
 
 export function PersonalizedStacks() {
-  const { data, isLoading } = trpc.personalizedStacks.recommend.useQuery();
+  const { data, isLoading, error } =
+    trpc.personalizedStacks.recommend.useQuery();
 
   if (isLoading) {
     return (
-      <div className="space-y-4">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <Skeleton key={i} className="h-48 w-full" />
-        ))}
+      <div className="flex items-center justify-center py-24">
+        <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+        <span className="ml-2 text-sm text-muted-foreground">
+          Scoring stacks for your profile...
+        </span>
       </div>
     );
   }
 
-  if (!data?.hasProfile) {
+  if (error) {
     return (
-      <Card>
-        <CardContent className="py-12 text-center">
-          <Sparkles className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-          <h2 className="text-lg font-semibold mb-2">
-            Set Up Your Profile First
-          </h2>
-          <p className="text-sm text-muted-foreground mb-4">
-            We need to know about your health goals, body composition, and lab
-            results to make personalized recommendations.
-          </p>
-          <Button asChild>
-            <Link href="/profile/setup">Set Up Profile</Link>
-          </Button>
-        </CardContent>
-      </Card>
+      <div className="py-24 text-center text-destructive">
+        <p className="text-sm">Failed to load recommendations. {error.message}</p>
+      </div>
     );
   }
 
-  if (data.stacks.length === 0) {
+  if (!data || data.stacks.length === 0) {
     return (
-      <Card>
-        <CardContent className="py-12 text-center">
-          <p className="text-sm text-muted-foreground">
-            No public stacks available yet. Check back soon or{" "}
-            <Link href="/stacks/new" className="underline hover:text-foreground">
-              build your own
-            </Link>
-            .
-          </p>
-        </CardContent>
-      </Card>
+      <div className="py-24 text-center text-muted-foreground">
+        <p className="text-sm">
+          No public stacks available yet. Check back soon or{" "}
+          <Link href="/stacks/new" className="underline underline-offset-2">
+            build one
+          </Link>
+          .
+        </p>
+      </div>
     );
   }
 
   return (
-    <div className="space-y-4">
-      {data.stacks.map((scored, i) => (
-        <Card key={scored.stack.id} className="overflow-hidden">
-          <div className="flex">
-            {/* Rank badge */}
-            <div className="flex items-center justify-center w-14 bg-muted/50 border-r text-lg font-bold text-muted-foreground">
-              #{i + 1}
-            </div>
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <p className="text-sm text-muted-foreground">
+          {data.stacks.length} stacks ranked for you
+        </p>
+        <Button asChild variant="outline" size="sm">
+          <Link href="/profile/setup">
+            <Settings className="h-3.5 w-3.5 mr-1.5" />
+            Edit Profile
+          </Link>
+        </Button>
+      </div>
 
-            <div className="flex-1">
-              <CardHeader className="pb-2">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <CardTitle className="text-base">
+      <div className="grid gap-4">
+        {data.stacks.map((scored, i) => (
+          <Card key={scored.stack.id}>
+            <CardHeader className="pb-3">
+              <div className="flex items-start justify-between">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-lg font-bold text-muted-foreground/50">
+                      #{i + 1}
+                    </span>
+                    <CardTitle className="text-lg">
                       <Link
                         href={`/stacks/${scored.stack.slug}`}
                         className="hover:underline"
@@ -98,135 +116,86 @@ export function PersonalizedStacks() {
                         {scored.stack.name}
                       </Link>
                     </CardTitle>
-                    <div className="flex items-center gap-2 mt-1">
-                      <Badge variant="outline" className="text-xs">
-                        {formatGoal(scored.stack.goal)}
-                      </Badge>
-                      <span className="text-xs text-muted-foreground">
-                        {scored.stack.compounds.length} compound
-                        {scored.stack.compounds.length !== 1 ? "s" : ""}
-                      </span>
-                    </div>
                   </div>
-                  <div className="text-right">
-                    <div
-                      className={`text-2xl font-bold ${scoreColor(scored.totalScore)}`}
-                    >
-                      {scored.totalScore}
-                    </div>
-                    <p className="text-xs text-muted-foreground">match score</p>
-                  </div>
-                </div>
-              </CardHeader>
-
-              <CardContent className="space-y-3">
-                {/* Score breakdown */}
-                <div className="grid grid-cols-5 gap-3 text-xs">
-                  <div>
-                    <div className="flex items-center gap-1 text-muted-foreground mb-1">
-                      <Target className="h-3 w-3" />
-                      Goal
-                    </div>
-                    <Progress value={scored.goalFit} className="h-1.5" />
-                    <span className="text-muted-foreground">
-                      {scored.goalFit}
-                    </span>
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-1 text-muted-foreground mb-1">
-                      <FlaskConical className="h-3 w-3" />
-                      Evidence
-                    </div>
-                    <Progress value={scored.evidenceFit} className="h-1.5" />
-                    <span className="text-muted-foreground">
-                      {scored.evidenceFit}
-                    </span>
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-1 text-muted-foreground mb-1">
-                      <Shield className="h-3 w-3" />
-                      Safety
-                    </div>
-                    <Progress value={scored.safetyFit} className="h-1.5" />
-                    <span className="text-muted-foreground">
-                      {scored.safetyFit}
-                    </span>
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-1 text-muted-foreground mb-1">
-                      <TrendingUp className="h-3 w-3" />
-                      Phenotype
-                    </div>
-                    <Progress value={scored.phenotypeFit} className="h-1.5" />
-                    <span className="text-muted-foreground">
-                      {scored.phenotypeFit}
-                    </span>
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-1 text-muted-foreground mb-1">
-                      <FlaskConical className="h-3 w-3" />
-                      Labs
-                    </div>
-                    <Progress value={scored.labFit} className="h-1.5" />
-                    <span className="text-muted-foreground">
-                      {scored.labFit}
+                  <div className="flex items-center gap-2 mt-1">
+                    <Badge variant="secondary" className="text-xs">
+                      {scored.stack.goal.replace(/_/g, " ")}
+                    </Badge>
+                    <span className="text-xs text-muted-foreground">
+                      {scored.stack.compounds.length} compounds
                     </span>
                   </div>
                 </div>
+                <div className="text-right">
+                  <div className="text-2xl font-bold tabular-nums">
+                    {scored.totalScore}
+                  </div>
+                  <div className="text-xs text-muted-foreground">match score</div>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              {/* Score breakdown */}
+              <div className="space-y-1.5">
+                <ScoreBar label="Goal fit" value={scored.goalFit} icon={Target} />
+                <ScoreBar
+                  label="Evidence"
+                  value={Math.round(scored.evidenceFit)}
+                  icon={FlaskConical}
+                />
+                <ScoreBar label="Safety" value={scored.safetyFit} icon={Shield} />
+                <ScoreBar
+                  label="Phenotype"
+                  value={scored.phenotypeFit}
+                  icon={TrendingUp}
+                />
+              </div>
 
-                {/* Reasons */}
-                {scored.reasons.length > 0 && (
+              {/* Reasons */}
+              {scored.reasons.length > 0 && (
+                <>
+                  <Separator />
                   <div className="flex flex-wrap gap-1.5">
-                    {scored.reasons.map((r, j) => (
-                      <Badge key={j} variant="secondary" className="text-xs">
+                    {scored.reasons.map((r) => (
+                      <Badge key={r} variant="outline" className="text-xs">
                         {r}
                       </Badge>
                     ))}
                   </div>
-                )}
+                </>
+              )}
 
-                {/* Warnings */}
-                {scored.warnings.length > 0 && (
+              {/* Warnings */}
+              {scored.warnings.length > 0 && (
+                <>
+                  <Separator />
                   <div className="space-y-1">
-                    {scored.warnings.map((w, j) => (
+                    {scored.warnings.map((w) => (
                       <div
-                        key={j}
-                        className="flex items-start gap-1.5 text-xs text-amber-600"
+                        key={w}
+                        className="flex items-start gap-1.5 text-xs text-amber-600 dark:text-amber-400"
                       >
-                        <AlertTriangle className="h-3 w-3 mt-0.5 shrink-0" />
+                        <AlertTriangle className="h-3.5 w-3.5 shrink-0 mt-0.5" />
                         {w}
                       </div>
                     ))}
                   </div>
-                )}
+                </>
+              )}
 
-                {/* Compounds list */}
-                <div className="flex flex-wrap gap-1.5">
-                  {scored.stack.compounds.map((sc) => (
-                    <Badge
-                      key={sc.compound.id}
-                      variant="outline"
-                      className="text-xs"
-                    >
-                      {sc.compound.name}
-                      {sc.dose ? ` ${sc.dose}${sc.unit ?? ""}` : ""}
-                    </Badge>
-                  ))}
-                </div>
-
-                <div className="pt-1">
-                  <Button variant="ghost" size="sm" asChild>
-                    <Link href={`/stacks/${scored.stack.slug}`}>
-                      View Stack
-                      <ArrowRight className="h-3 w-3 ml-1" />
-                    </Link>
-                  </Button>
-                </div>
-              </CardContent>
-            </div>
-          </div>
-        </Card>
-      ))}
+              {/* Compounds preview */}
+              <Separator />
+              <div className="flex flex-wrap gap-1.5">
+                {scored.stack.compounds.map((c) => (
+                  <Badge key={c.compound.slug} variant="secondary" className="text-xs">
+                    {c.compound.name}
+                  </Badge>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 }
