@@ -1,0 +1,117 @@
+# Garlic Extract — Allicin/SAC; blood pressure, lipids, cardiovascular
+slug: garlic-extract
+name: Aged Garlic Extract
+aliases:
+  - AGE
+  - Kyolic
+  - garlic supplement
+  - allicin extract
+  - S-allylcysteine
+  - SAC
+category: SUPPLEMENT
+subcategory: cardiovascular_botanical
+legalStatus: LEGAL
+clinicalPhase: "Multiple RCTs and meta-analyses; OTC supplement"
+evidenceLevel: A
+description: |
+  Aged Garlic Extract (AGE) is the most clinically studied form of garlic supplementation,
+  produced by aging sliced garlic in ethanol for 20+ months. This process converts unstable
+  allicin into stable, bioavailable organosulfur compounds — primarily S-allylcysteine (SAC)
+  and S-allylmercaptocysteine (SAMC). AGE has the strongest evidence base of any garlic
+  form for blood pressure reduction: a 2020 Cochrane-quality meta-analysis of 12 RCTs
+  (Ried et al.) found AGE reduces systolic BP by 8-10 mmHg in hypertensive individuals,
+  comparable to first-line antihypertensives. In TRT contexts, garlic extract is relevant
+  because testosterone increases erythropoiesis and hematocrit — cardiovascular risk
+  factors that AGE can partially offset via BP reduction, improved arterial compliance,
+  and reduced coronary artery calcification. The 2016 Matsumoto trial demonstrated AGE
+  reduced coronary plaque progression in metabolic syndrome patients. Also shows modest
+  LDL reduction and immune support via NK cell activation.
+
+halfLife: "S-allylcysteine: ~10 hours"
+onset: "Blood pressure effects within 2-4 weeks; lipid effects 8-12 weeks"
+duration: "Ongoing with daily dosing"
+routeOfAdmin:
+  - oral
+mechanismShort: "S-allylcysteine inhibits ACE and activates eNOS → vasodilation and BP reduction; polysulfides activate TRPA1/H2S signaling; organosulfur compounds reduce oxidative stress and inflammation"
+
+dosing:
+  min: 600
+  typical: 1200
+  max: 2400
+  unit: mg
+  frequency: "daily (1-2 divided doses with meals)"
+  notes: "Use aged garlic extract (AGE/Kyolic), not raw garlic or allicin-standardized supplements — AGE has the clinical evidence. 1200mg/day is the most studied dose. Higher doses (2400mg) used in coronary plaque studies. Minimal garlic odor compared to raw supplements."
+
+sideEffects:
+  - name: GI_discomfort
+    severity: mild
+    frequency: uncommon
+    notes: "Less GI irritation than raw garlic; take with food"
+  - name: garlic_odor
+    severity: mild
+    frequency: uncommon
+    notes: "AGE produces significantly less odor than raw garlic supplements; still possible at higher doses"
+  - name: bleeding_risk
+    severity: mild
+    frequency: rare
+    notes: "Mild antiplatelet effects; discontinue 7 days before surgery. Caution with anticoagulants."
+
+interactions:
+  - target: nattokinase
+    type: synergistic
+    severity: mild
+    description: "Complementary cardiovascular stack: AGE reduces blood pressure and plaque progression, nattokinase reduces fibrin and blood viscosity — different mechanisms, additive cardiovascular protection"
+  - target: fish-oil
+    type: synergistic
+    severity: mild
+    description: "Fish oil reduces triglycerides; AGE reduces blood pressure and LDL — comprehensive lipid/CV support"
+  - target: pycnogenol
+    type: synergistic
+    severity: mild
+    description: "Both improve endothelial function via different pathways: AGE via H2S/ACE inhibition, Pycnogenol via eNOS/NO. Additive BP reduction."
+  - target: testosterone-cypionate
+    type: synergistic
+    severity: mild
+    description: "Offsets testosterone-induced cardiovascular risk factors: reduces blood pressure elevation, improves arterial compliance, and may slow coronary calcification"
+  - target: vitamin-k2
+    type: synergistic
+    severity: mild
+    description: "K2 prevents arterial calcification; AGE slows plaque progression — complementary arterial health stack"
+
+mechanisms:
+  - pathway: ACE_inhibition
+    description: "S-allylcysteine and gamma-glutamylcysteine inhibit angiotensin-converting enzyme (ACE), reducing angiotensin II-mediated vasoconstriction — the primary blood pressure mechanism"
+  - pathway: hydrogen_sulfide_signaling
+    description: "Garlic polysulfides (DATS, DADS) are converted to H2S by red blood cells; H2S activates KATP channels in vascular smooth muscle, causing vasodilation. Also activates TRPA1 on perivascular sensory nerves."
+  - pathway: eNOS_activation
+    description: "SAC increases eNOS expression and NO bioavailability; complementary to H2S-mediated vasodilation"
+  - pathway: antioxidant_Nrf2
+    description: "Organosulfur compounds activate Nrf2-ARE pathway, upregulating endogenous antioxidant enzymes (SOD, catalase, glutathione peroxidase)"
+  - pathway: coronary_plaque_stabilization
+    description: "AGE reduces low-attenuation plaque volume and slows coronary artery calcium progression — demonstrated in CT angiography studies"
+
+literature:
+  - title: "Aged garlic extract reduces blood pressure in hypertensives: a dose-response trial"
+    url: "https://pubmed.ncbi.nlm.nih.gov/37686723/"
+    source: PubMed
+    year: 2023
+    kind: RCT
+  - title: "Garlic lowers blood pressure in hypertensive subjects, improves arterial stiffness"
+    url: "https://pubmed.ncbi.nlm.nih.gov/26764327/"
+    source: PubMed
+    year: 2016
+    kind: RCT
+  - title: "Effect of garlic on blood pressure: systematic review and meta-analysis"
+    url: "https://pubmed.ncbi.nlm.nih.gov/20594781/"
+    source: PubMed
+    year: 2010
+    kind: meta-analysis
+
+searchTerms:
+  pubmed:
+    - "aged garlic extract AND blood pressure AND hypertension AND randomized"
+    - "S-allylcysteine AND cardiovascular AND clinical trial"
+    - "garlic AND coronary artery calcium AND plaque AND human"
+  semanticScholar:
+    - "aged garlic extract blood pressure cardiovascular clinical"
+    - "S-allylcysteine ACE inhibition hydrogen sulfide vasodilation"

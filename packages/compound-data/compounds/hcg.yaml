@@ -1,0 +1,119 @@
+# HCG — LH analog; TRT fertility preservation, intratesticular testosterone
+slug: hcg
+name: Human Chorionic Gonadotropin
+aliases:
+  - HCG
+  - hCG
+  - Pregnyl
+  - Novarel
+  - Ovidrel
+  - chorionic gonadotropin
+category: HORMONAL
+subcategory: gonadotropin_analog
+legalStatus: PRESCRIPTION
+clinicalPhase: "Approved"
+evidenceLevel: A
+description: |
+  Human Chorionic Gonadotropin (hCG) is a glycoprotein hormone structurally similar to
+  luteinizing hormone (LH). In men on TRT, exogenous testosterone suppresses the HPG axis,
+  shutting down intratesticular testosterone (ITT) production and spermatogenesis. HCG
+  directly stimulates Leydig cells via the LH/hCG receptor, maintaining ITT at levels
+  sufficient to preserve spermatogenesis and prevent testicular atrophy — the primary reason
+  it is co-administered with TRT. Coviello et al. (2005) demonstrated that 250 IU EOD
+  maintains ITT in men receiving exogenous testosterone, while 500 IU EOD fully preserves
+  spermatogenesis. Also used off-label for hypogonadism monotherapy in younger men wanting
+  to avoid full TRT commitment. FDA-approved for female fertility (ovulation induction) and
+  male cryptorchidism. Now increasingly replaced by gonadorelin in some TRT clinics due to
+  compounding pharmacy restrictions post-2020 FDA enforcement.
+
+halfLife: "~24-36 hours"
+onset: "ITT increase within 24-48 hours; spermatogenesis preservation requires weeks of consistent use"
+duration: "Effects persist ~48-72 hours per injection"
+routeOfAdmin:
+  - subcutaneous
+  - intramuscular
+mechanismShort: "LH/hCG receptor agonist on Leydig cells; maintains intratesticular testosterone and spermatogenesis during exogenous testosterone administration"
+
+dosing:
+  min: 250
+  typical: 500
+  max: 2000
+  unit: IU
+  frequency: "2-3x/week (EOD or Mon/Wed/Fri)"
+  notes: "TRT adjunct: 250-500 IU EOD or 500 IU 2-3x/week. Monotherapy: 1000-2000 IU 2-3x/week. Higher doses increase estradiol via aromatization in Leydig cells. Must be refrigerated after reconstitution. Bacteriostatic water for reconstitution."
+
+sideEffects:
+  - name: estrogen_elevation
+    severity: moderate
+    frequency: common
+    notes: "HCG stimulates intratesticular aromatase; can raise estradiol disproportionately at higher doses. May require AI adjustment."
+  - name: injection_site_reaction
+    severity: mild
+    frequency: common
+    notes: "Subcutaneous injection; rotate sites. Less volume than IM testosterone."
+  - name: water_retention
+    severity: mild
+    frequency: common
+    notes: "Estrogen-mediated; dose-dependent"
+  - name: gynecomastia
+    severity: moderate
+    frequency: uncommon
+    notes: "At higher doses (>1000 IU) due to increased intratesticular aromatization"
+  - name: headache
+    severity: mild
+    frequency: uncommon
+    notes: "Transient; more common at initiation"
+
+interactions:
+  - target: testosterone-cypionate
+    type: synergistic
+    severity: moderate
+    description: "Gold standard TRT protocol: exogenous testosterone + HCG to preserve fertility and testicular volume. HCG maintains ITT that exogenous T suppresses."
+  - target: testosterone-enanthate
+    type: synergistic
+    severity: moderate
+    description: "Same mechanism as with Test Cyp — HCG preserves ITT and spermatogenesis during TRT"
+  - target: anastrozole
+    type: caution
+    severity: mild
+    description: "HCG increases intratesticular estradiol; AI dose may need adjustment. Some clinicians reduce AI when adding HCG."
+  - target: enclomiphene
+    type: caution
+    severity: mild
+    description: "Both stimulate LH pathway (HCG directly, enclomiphene via SERM). Typically not co-administered — choose one approach."
+
+mechanisms:
+  - pathway: LH_hCG_receptor_agonism
+    description: "Binds LH/hCG receptor on Leydig cells with similar affinity to LH; activates cAMP/PKA signaling cascade stimulating steroidogenesis (cholesterol → pregnenolone → testosterone)"
+  - pathway: intratesticular_testosterone
+    description: "Maintains ITT at 50-100x serum levels, which is required for Sertoli cell support of spermatogenesis. Without ITT, sperm production ceases within 8-12 weeks."
+  - pathway: spermatogenesis_preservation
+    description: "ITT maintains the seminiferous tubule microenvironment; Sertoli cells require high local testosterone for germ cell maturation through meiosis"
+  - pathway: Leydig_cell_trophic
+    description: "Prevents Leydig cell atrophy and testicular volume loss that occurs during HPG axis suppression from exogenous testosterone"
+
+literature:
+  - title: "Human chorionic gonadotropin maintains intratesticular testosterone in normal men with testosterone-induced gonadotropin suppression"
+    url: "https://pubmed.ncbi.nlm.nih.gov/15713727/"
+    source: PubMed
+    year: 2005
+    kind: RCT
+  - title: "Low-dose human chorionic gonadotropin maintains intratesticular testosterone in normal men with testosterone-induced gonadotropin suppression"
+    url: "https://pubmed.ncbi.nlm.nih.gov/23260550/"
+    source: PubMed
+    year: 2013
+    kind: RCT
+  - title: "Spermatogenesis recovery with hCG/FSH after testosterone-induced azoospermia"
+    url: "https://pubmed.ncbi.nlm.nih.gov/24123916/"
+    source: PubMed
+    year: 2013
+    kind: review
+
+searchTerms:
+  pubmed:
+    - "human chorionic gonadotropin AND intratesticular testosterone AND spermatogenesis"
+    - "HCG AND testosterone replacement therapy AND fertility preservation"
+    - "hCG AND Leydig cell AND testosterone AND male hypogonadism"
+  semanticScholar:
+    - "HCG intratesticular testosterone spermatogenesis TRT fertility"
+    - "human chorionic gonadotropin male hypogonadism Leydig cell"

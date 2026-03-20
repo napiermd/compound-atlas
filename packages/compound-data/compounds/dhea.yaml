@@ -1,0 +1,115 @@
+# DHEA — Adrenal precursor hormone; androgen/estrogen substrate, neurosteroid
+slug: dhea
+name: Dehydroepiandrosterone
+aliases:
+  - DHEA
+  - DHEA-S
+  - dehydroepiandrostenedione
+  - prasterone
+category: HORMONAL
+subcategory: adrenal_precursor
+legalStatus: LEGAL
+clinicalPhase: "Approved (intravaginal); OTC as supplement"
+evidenceLevel: B
+description: |
+  DHEA is the most abundant circulating steroid hormone, produced primarily by the adrenal
+  cortex. It serves as a precursor to both androgens (testosterone, DHT) and estrogens
+  (estradiol, estrone). Serum DHEA-S peaks in the mid-20s and declines ~2-3% per year —
+  by age 70, levels are 10-20% of peak. In TRT contexts, DHEA is relevant because
+  exogenous testosterone suppresses adrenal androgen production, and some men report
+  improved well-being, libido, and cognitive function with DHEA supplementation alongside
+  TRT. The 2006 Mayo Clinic RCT (Nair et al., NEJM) found no significant benefit in
+  elderly adults, but subsequent trials in adrenal insufficiency and specific populations
+  show clearer effects. DHEA is also a neurosteroid — it modulates GABA-A, NMDA, and
+  sigma-1 receptors, contributing to neuroprotective and mood-enhancing effects. Legal
+  OTC in the US (classified as a dietary supplement under DSHEA 1994), prescription-only
+  in many other countries.
+
+halfLife: "DHEA: ~15-30 minutes; DHEA-S (sulfated form): ~7-10 hours"
+onset: "Serum DHEA-S elevation within 1-2 hours; downstream androgen effects 2-4 weeks"
+duration: "Ongoing with daily dosing"
+routeOfAdmin:
+  - oral
+  - sublingual
+  - topical
+mechanismShort: "Adrenal steroid precursor converted to testosterone/estradiol via 3β-HSD and 17β-HSD; also a neurosteroid modulating GABA-A, NMDA, and sigma-1 receptors"
+
+dosing:
+  min: 25
+  typical: 50
+  max: 100
+  unit: mg
+  frequency: "daily (morning)"
+  notes: "Men on TRT: 25-50mg/day. Standalone: 50-100mg/day. Take in the morning to mimic circadian adrenal output. Monitor DHEA-S levels (target 250-400 mcg/dL for men). Higher doses can increase estradiol and DHT — monitor accordingly."
+
+sideEffects:
+  - name: acne
+    severity: mild
+    frequency: common
+    notes: "Androgen-driven; more common at doses >50mg. DHT conversion contributes."
+  - name: hair_loss
+    severity: mild
+    frequency: uncommon
+    notes: "Via DHT conversion; dose-dependent, primarily in genetically predisposed individuals"
+  - name: estrogen_elevation
+    severity: mild
+    frequency: uncommon
+    notes: "Aromatization to estradiol; typically clinically insignificant at 25-50mg but monitor in sensitive individuals"
+  - name: oily_skin
+    severity: mild
+    frequency: common
+    notes: "Sebaceous gland stimulation via androgen metabolites"
+  - name: insomnia
+    severity: mild
+    frequency: uncommon
+    notes: "Neurosteroid effects; take in morning to minimize"
+
+interactions:
+  - target: testosterone-cypionate
+    type: synergistic
+    severity: mild
+    description: "DHEA provides precursor substrate for downstream androgen and estrogen synthesis; may improve well-being markers and neurosteroid availability that TRT alone doesn't address"
+  - target: anastrozole
+    type: caution
+    severity: mild
+    description: "DHEA aromatizes to estradiol; adding DHEA to a TRT+AI protocol may partially counteract estrogen suppression"
+  - target: ashwagandha
+    type: synergistic
+    severity: mild
+    description: "Ashwagandha has been shown to increase DHEA-S levels; additive effects on stress resilience and androgen support"
+
+mechanisms:
+  - pathway: steroid_precursor
+    description: "Converted to androstenedione via 3β-HSD, then to testosterone via 17β-HSD. Also converts to estrone/estradiol via aromatase. The body's primary androgen precursor pool."
+  - pathway: neurosteroid_modulation
+    description: "DHEA and its sulfate (DHEA-S) are negative allosteric modulators of GABA-A receptors and positive modulators of NMDA and sigma-1 receptors — contributing to alertness, memory, and neuroprotection"
+  - pathway: immune_modulation
+    description: "Shifts Th1/Th2 balance; opposes cortisol's immunosuppressive effects. The DHEA:cortisol ratio is a marker of immune and stress resilience."
+  - pathway: IGF_1_signaling
+    description: "DHEA supplementation modestly increases IGF-1 levels, potentially contributing to anabolic and tissue-repair effects"
+
+literature:
+  - title: "DHEA in Elderly Women and DHEA or Testosterone in Elderly Men (Mayo Clinic RCT)"
+    url: "https://pubmed.ncbi.nlm.nih.gov/17062768/"
+    source: PubMed
+    year: 2006
+    kind: RCT
+  - title: "Effect of DHEA supplementation on serum levels of androgens in middle-aged men"
+    url: "https://pubmed.ncbi.nlm.nih.gov/33045358/"
+    source: PubMed
+    year: 2020
+    kind: RCT
+  - title: "Dehydroepiandrosterone replacement in aging men and women — potential remedial therapy"
+    url: "https://pubmed.ncbi.nlm.nih.gov/10673146/"
+    source: PubMed
+    year: 2000
+    kind: review
+
+searchTerms:
+  pubmed:
+    - "DHEA AND supplementation AND testosterone AND clinical trial AND men"
+    - "dehydroepiandrosterone AND neurosteroid AND cognitive function AND human"
+    - "DHEA AND adrenal AND aging AND androgen AND randomized"
+  semanticScholar:
+    - "DHEA supplementation testosterone aging men adrenal androgen"
+    - "dehydroepiandrosterone neurosteroid GABA NMDA sigma receptor"

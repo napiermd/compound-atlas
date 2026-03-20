@@ -1,0 +1,113 @@
+# CJC-1295 DAC — Long-acting GHRH analog; sustained GH/IGF-1 elevation
+slug: cjc-1295-dac
+name: CJC-1295 DAC
+aliases:
+  - CJC-1295 with DAC
+  - Drug Affinity Complex CJC-1295
+  - DAC:GRF
+  - tesamorelin-adjacent
+category: PEPTIDE
+subcategory: GHRH_analog
+legalStatus: GRAY_MARKET
+clinicalPhase: "Phase II (Conjuchem research compound)"
+evidenceLevel: C
+description: |
+  CJC-1295 DAC is a synthetic GHRH analog with a Drug Affinity Complex (DAC) that binds
+  albumin in vivo, extending its half-life from minutes (native GHRH) to ~8 days. This
+  creates a fundamentally different pharmacological profile from CJC-1295 without DAC
+  (mod-GRF 1-29): instead of producing discrete GH pulses, CJC-1295 DAC creates sustained,
+  tonic elevation of GH and IGF-1 — more like a continuous GH infusion than pulsatile
+  release. The original Conjuchem Phase II data showed a single 60 mcg/kg injection
+  elevated mean GH levels 2-10x above baseline for 6+ days and IGF-1 by 1.5-3x for
+  9-11 days. This is both its advantage (one injection per week) and its controversy:
+  the loss of pulsatile GH release may reduce GH receptor sensitivity over time and
+  cause more side effects (water retention, insulin resistance) than pulsatile protocols.
+  Most peptide clinicians now prefer CJC-1295 no-DAC (mod-GRF 1-29) for this reason, but
+  CJC-1295 DAC remains popular for its convenience. Never combine with other sustained GH
+  elevation approaches (MK-677) due to additive insulin resistance risk.
+
+halfLife: "~8 days (albumin-bound)"
+onset: "GH elevation begins within 2-4 hours; peak IGF-1 at 3-5 days"
+duration: "Sustained GH elevation for 6-8 days; IGF-1 elevation for 9-11 days per injection"
+routeOfAdmin:
+  - subcutaneous
+mechanismShort: "GHRH receptor agonist with albumin-binding DAC moiety extending half-life to ~8 days; creates sustained (non-pulsatile) GH and IGF-1 elevation"
+
+dosing:
+  min: 1000
+  typical: 2000
+  max: 4000
+  unit: mcg
+  frequency: "1x/week (subcutaneous)"
+  notes: "Once-weekly dosing due to 8-day half-life. Start at 1000mcg/week and titrate. Inject at bedtime to align initial GH surge with sleep. Do not combine with MK-677 (additive sustained GH, insulin resistance). Monitor fasting glucose and IGF-1 levels."
+
+sideEffects:
+  - name: water_retention
+    severity: moderate
+    frequency: common
+    notes: "More pronounced than pulsatile GH protocols due to sustained GH elevation. Carpal tunnel, facial puffiness."
+  - name: insulin_resistance
+    severity: moderate
+    frequency: common
+    notes: "Sustained GH is diabetogenic; monitor fasting glucose and HbA1c. More concerning than pulsatile GHRP/GHRH protocols."
+  - name: injection_site_reaction
+    severity: mild
+    frequency: common
+    notes: "Subcutaneous lumps possible due to albumin-binding complex"
+  - name: numbness_tingling
+    severity: mild
+    frequency: common
+    notes: "GH-mediated; carpal tunnel-like symptoms from fluid retention"
+  - name: joint_pain
+    severity: mild
+    frequency: uncommon
+    notes: "GH and IGF-1-mediated; dose-dependent"
+
+interactions:
+  - target: ipamorelin
+    type: synergistic
+    severity: moderate
+    description: "CJC-1295 DAC provides baseline GH elevation; ipamorelin adds acute GH pulses on top. However, this creates both sustained + pulsatile GH which increases side effect risk."
+  - target: ghrp-2
+    type: synergistic
+    severity: moderate
+    description: "DAC GHRH + GHRP produces very high GH output. Use with caution — increased insulin resistance and water retention risk."
+  - target: mk-677
+    type: caution
+    severity: severe
+    description: "Both create sustained (non-pulsatile) GH elevation. Combining produces additive insulin resistance, water retention, and appetite. Do not combine."
+  - target: metformin
+    type: synergistic
+    severity: mild
+    description: "Metformin can offset GH-induced insulin resistance by improving insulin sensitivity via AMPK activation. Common co-administration in anti-aging protocols."
+
+mechanisms:
+  - pathway: GHRH_receptor_agonism
+    description: "Binds GHRH receptor (GHRHR) on anterior pituitary somatotrophs; activates cAMP/PKA signaling → GH gene transcription and vesicle release"
+  - pathway: albumin_binding_DAC
+    description: "The Drug Affinity Complex (reactive glutaric acid derivative) covalently binds serum albumin in vivo, extending half-life from ~7 minutes (native GHRH) to ~8 days. Creates sustained rather than pulsatile receptor activation."
+  - pathway: IGF_1_axis
+    description: "Sustained GH elevation drives hepatic IGF-1 production; IGF-1 mediates most anabolic, tissue-repair, and anti-aging effects of the GH axis"
+  - pathway: somatotroph_proliferation
+    description: "Chronic GHRH receptor activation may increase somatotroph mass over time (trophic effect), potentially increasing overall GH secretory capacity"
+
+literature:
+  - title: "Prolonged stimulation of growth hormone by CJC-1295, a GHRH analog (Conjuchem Phase II)"
+    url: "https://pubmed.ncbi.nlm.nih.gov/16352683/"
+    source: PubMed
+    year: 2006
+    kind: RCT
+  - title: "CJC-1295 stimulates GH secretion and is well tolerated in healthy subjects"
+    url: "https://pubmed.ncbi.nlm.nih.gov/16822960/"
+    source: PubMed
+    year: 2006
+    kind: RCT
+
+searchTerms:
+  pubmed:
+    - "CJC-1295 AND growth hormone AND GHRH analog AND human"
+    - "drug affinity complex AND growth hormone releasing hormone AND sustained"
+    - "long-acting GHRH AND IGF-1 AND clinical"
+  semanticScholar:
+    - "CJC-1295 DAC drug affinity complex GHRH growth hormone sustained"
+    - "long-acting GHRH analog albumin binding pharmacokinetics"

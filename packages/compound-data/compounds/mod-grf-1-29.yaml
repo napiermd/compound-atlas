@@ -1,0 +1,101 @@
+# Mod-GRF 1-29 — Modified GHRH(1-29); pulsatile GH, the "no-DAC" CJC-1295
+slug: mod-grf-1-29
+name: Modified GRF(1-29)
+aliases:
+  - Mod GRF 1-29
+  - CJC-1295 no DAC
+  - CJC-1295 without DAC
+  - tetrasubstituted GRF(1-29)
+  - sermorelin analog
+category: PEPTIDE
+subcategory: GHRH_analog
+legalStatus: GRAY_MARKET
+clinicalPhase: "Preclinical (modified research analog of sermorelin)"
+evidenceLevel: C
+description: |
+  Modified GRF(1-29) — commonly mislabeled as "CJC-1295 without DAC" — is a synthetic
+  analog of the first 29 amino acids of native GHRH with four amino acid substitutions
+  (Ala2→D-Ala, Asn8→Gln, Ala15→Ala(Me), Met27→Leu) that protect against enzymatic
+  degradation (DPP-IV, trypsin). This extends its half-life from ~7 minutes (native GHRH)
+  to ~30 minutes — long enough to produce a meaningful GH pulse but short enough to
+  preserve natural pulsatile GH physiology. This is the key advantage over CJC-1295 DAC:
+  mod-GRF 1-29 triggers discrete GH pulses that mimic natural secretion patterns, then
+  clears, allowing GH receptor resensitization between doses. Combined with a GHRP
+  (ipamorelin being the preferred partner), this produces the "cleanest" GH-amplifying
+  protocol available — physiologically pulsatile, no cortisol/prolactin elevation (when
+  paired with ipamorelin), and no sustained insulin resistance. The standard of care in
+  modern peptide therapy for anti-aging, recovery, and body composition.
+
+halfLife: "~30 minutes"
+onset: "GH pulse within 15-30 minutes post-injection"
+duration: "GH pulse lasts 2-3 hours; clears completely by 4 hours"
+routeOfAdmin:
+  - subcutaneous
+mechanismShort: "GHRH receptor agonist; produces discrete, physiological GH pulses (unlike DAC variant which creates sustained elevation). Four amino acid substitutions resist DPP-IV degradation."
+
+dosing:
+  min: 100
+  typical: 100
+  max: 200
+  unit: mcg
+  frequency: "2-3x/day, fasted (pre-bed primary, AM optional, pre-workout optional)"
+  notes: "Always combine with a GHRP (ipamorelin preferred) — GHRH alone produces minimal GH release if somatostatin tone is high. Inject fasted (no carbs/fat 1h before). Pre-bed injection is most important — amplifies the natural nocturnal GH pulse. 100mcg is the saturation dose; higher doses don't produce proportionally more GH."
+
+sideEffects:
+  - name: facial_flushing
+    severity: mild
+    frequency: common
+    notes: "Transient warmth/flushing for 5-15 minutes post-injection; vasodilatory effect of GHRH"
+  - name: injection_site_reaction
+    severity: mild
+    frequency: common
+    notes: "Brief redness; rotate sites"
+  - name: headache
+    severity: mild
+    frequency: uncommon
+    notes: "Mild vasodilatory effect; transient"
+  - name: water_retention
+    severity: mild
+    frequency: uncommon
+    notes: "Less than CJC-1295 DAC or MK-677 due to pulsatile (not sustained) GH release"
+
+interactions:
+  - target: ipamorelin
+    type: synergistic
+    severity: moderate
+    description: "The gold standard peptide combination: mod-GRF 1-29 (GHRH) + ipamorelin (GHRP) produces 5-10x greater GH release than either alone while maintaining clean pulsatile physiology (no cortisol, no prolactin, no sustained elevation)"
+  - target: ghrp-2
+    type: synergistic
+    severity: moderate
+    description: "More potent GH release than ipamorelin pairing but with cortisol and prolactin trade-offs. For maximum GH output when side effects are acceptable."
+  - target: ghrp-6
+    type: synergistic
+    severity: moderate
+    description: "Synergistic GH release; GHRP-6 adds significant appetite stimulation (useful for bulking, problematic for cutting)"
+  - target: cjc-1295-dac
+    type: caution
+    severity: moderate
+    description: "Both are GHRH receptor agonists. Combining produces unpredictable GHRH receptor kinetics — choose one GHRH approach, not both."
+  - target: hgh
+    type: caution
+    severity: moderate
+    description: "Exogenous GH suppresses endogenous GH pathways; mod-GRF works by amplifying endogenous release. Using both is pharmacologically redundant."
+
+mechanisms:
+  - pathway: GHRH_receptor_agonism
+    description: "Binds GHRHR on pituitary somatotrophs; activates Gs/cAMP/PKA cascade → GH gene transcription, GH vesicle mobilization, and exocytosis"
+  - pathway: pulsatile_GH_preservation
+    description: "30-minute half-life ensures GH is released in discrete pulses rather than sustained elevation. This preserves GH receptor sensitivity, diurnal GH rhythm, and insulin sensitivity."
+  - pathway: DPP_IV_resistance
+    description: "D-Ala2 substitution protects against dipeptidyl peptidase IV (DPP-IV) cleavage — the primary degradation pathway of native GHRH. Other substitutions protect against trypsin and methionine oxidation."
+  - pathway: synergy_with_GHRP
+    description: "GHRH and GHRP activate different receptor systems on somatotrophs (cAMP vs. IP3/calcium). Their signals converge intracellularly, producing multiplicative (not additive) GH release."
+
+searchTerms:
+  pubmed:
+    - "modified GRF 1-29 AND growth hormone AND GHRH analog"
+    - "tetrasubstituted GHRH AND growth hormone releasing AND pulsatile"
+    - "GHRH analog AND GHRP AND synergy AND growth hormone AND clinical"
+  semanticScholar:
+    - "modified GRF 1-29 CJC-1295 no DAC pulsatile growth hormone"
+    - "GHRH GHRP synergy somatotroph calcium cAMP growth hormone"

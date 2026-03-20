@@ -1,0 +1,114 @@
+# Kisspeptin — Upstream GnRH activator; reproductive neuroendocrinology, fertility
+slug: kisspeptin
+name: Kisspeptin
+aliases:
+  - Kisspeptin-54
+  - Kisspeptin-10
+  - KP-54
+  - KP-10
+  - metastin
+  - KISS1
+category: PEPTIDE
+subcategory: reproductive_neuropeptide
+legalStatus: RESEARCH_ONLY
+clinicalPhase: "Phase II (fertility, IVF)"
+evidenceLevel: B
+description: |
+  Kisspeptin is the master upstream regulator of the reproductive axis — the peptide that
+  tells the hypothalamus to release GnRH. Encoded by the KISS1 gene, kisspeptin binds
+  KISS1R (GPR54) on hypothalamic GnRH neurons, triggering GnRH pulsatile release which
+  then drives LH and FSH secretion. The discovery of kisspeptin's role (2003) was a
+  paradigm shift in reproductive neuroendocrinology: loss-of-function KISS1R mutations
+  cause hypogonadotropic hypogonadism, while gain-of-function causes precocious puberty.
+  In clinical trials, kisspeptin-54 (the full-length active form) potently stimulates LH
+  release in healthy men — a single 1 nmol/kg IV injection produces an 8-fold LH surge
+  (Dhillo et al., 2005). Now being developed for IVF (oocyte maturation trigger with lower
+  OHSS risk than HCG), functional hypothalamic amenorrhea, and as a diagnostic tool for
+  HPG axis assessment. In the peptide/TRT space, kisspeptin represents the most upstream
+  point of intervention possible — stimulating the entire cascade (GnRH → LH/FSH →
+  testosterone/spermatogenesis) from the top. Research-phase for TRT adjunct use; the
+  short half-life and need for frequent dosing are current limitations.
+
+halfLife: "Kisspeptin-54: ~28 minutes IV; Kisspeptin-10: ~4 minutes"
+onset: "LH surge within 30-60 minutes (kisspeptin-54)"
+duration: "LH elevation lasts 4-6 hours after kisspeptin-54; shorter for KP-10"
+routeOfAdmin:
+  - subcutaneous
+  - intravenous
+mechanismShort: "KISS1R (GPR54) agonist on hypothalamic GnRH neurons; triggers GnRH pulsatile release → LH/FSH secretion. The most upstream activator of the reproductive axis."
+
+dosing:
+  min: 1
+  typical: 6
+  max: 12
+  unit: nmol/kg
+  frequency: "Variable — research protocols use IV bolus or SC infusion; practical TRT protocols not yet established"
+  notes: "Research compound. KP-54 is preferred for clinical use (longer half-life than KP-10). IVF trigger dose: 76 nmol/kg single SC injection. Male diagnostic: 1 nmol/kg IV. No established dosing for TRT adjunct use. Must be administered by healthcare provider in most contexts."
+
+sideEffects:
+  - name: facial_flushing
+    severity: mild
+    frequency: very_common
+    notes: "Most common side effect; transient warmth and flushing lasting 5-15 minutes"
+  - name: abdominal_discomfort
+    severity: mild
+    frequency: common
+    notes: "Mild cramping; transient"
+  - name: headache
+    severity: mild
+    frequency: uncommon
+    notes: "Possibly related to acute hormonal changes"
+  - name: tachyphylaxis
+    severity: moderate
+    frequency: common
+    notes: "Sustained kisspeptin exposure causes KISS1R desensitization and reduced LH response — pulsatile or intermittent dosing may be required to maintain efficacy"
+
+interactions:
+  - target: gonadorelin
+    type: synergistic
+    severity: mild
+    description: "Kisspeptin stimulates endogenous GnRH release; gonadorelin provides exogenous GnRH. Theoretically additive but pharmacologically redundant — kisspeptin acts upstream of the same pathway."
+  - target: hcg
+    type: synergistic
+    severity: mild
+    description: "Kisspeptin stimulates the HPG axis from the top (GnRH → LH); HCG stimulates from the bottom (direct Leydig cell). Complementary but complex pharmacologically."
+  - target: testosterone-cypionate
+    type: caution
+    severity: moderate
+    description: "Exogenous testosterone suppresses hypothalamic kisspeptin neurons via negative feedback. Kisspeptin may partially overcome this suppression but efficacy during TRT is not established."
+
+mechanisms:
+  - pathway: KISS1R_GPR54_activation
+    description: "Kisspeptin binds KISS1R (GPR54, a Gq-coupled receptor) on hypothalamic GnRH neurons in the arcuate nucleus and AVPV. Activates PLC/IP3/calcium signaling, depolarizing GnRH neurons."
+  - pathway: GnRH_pulse_generation
+    description: "Kisspeptin neurons are the 'pulse generator' for GnRH — they fire in coordinated episodes (KNDy neurons: kisspeptin/neurokinin B/dynorphin) that drive pulsatile GnRH release into the portal circulation"
+  - pathway: sex_steroid_feedback_integration
+    description: "Kisspeptin neurons express ERα and AR — they are the primary site where sex steroid negative feedback is integrated. This is how testosterone suppresses gonadotropins: T → AR on kisspeptin neurons → reduced kisspeptin → reduced GnRH."
+  - pathway: puberty_initiation
+    description: "Developmental increase in kisspeptin expression is the trigger for puberty onset. KISS1/KISS1R mutations are the clearest monogenic cause of hypogonadotropic hypogonadism."
+
+literature:
+  - title: "Kisspeptin and reproductive function — a review of clinical potential"
+    url: "https://pubmed.ncbi.nlm.nih.gov/36446322/"
+    source: PubMed
+    year: 2022
+    kind: review
+  - title: "Kisspeptin as a neuroendocrine regulator of reproduction"
+    url: "https://pubmed.ncbi.nlm.nih.gov/25905253/"
+    source: PubMed
+    year: 2015
+    kind: review
+  - title: "Kisspeptin-54 triggers LH secretion in healthy men"
+    url: "https://pubmed.ncbi.nlm.nih.gov/29039178/"
+    source: PubMed
+    year: 2017
+    kind: RCT
+
+searchTerms:
+  pubmed:
+    - "kisspeptin AND GnRH AND LH AND male AND clinical"
+    - "kisspeptin-54 AND reproductive AND gonadotropin AND human"
+    - "KISS1R AND GPR54 AND hypogonadism AND fertility"
+  semanticScholar:
+    - "kisspeptin KISS1R GPR54 GnRH pulse generator reproductive"
+    - "kisspeptin clinical fertility LH FSH neuroendocrine"

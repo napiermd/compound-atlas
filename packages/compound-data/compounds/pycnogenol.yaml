@@ -1,0 +1,113 @@
+# Pycnogenol — Maritime pine bark extract; endothelial NO, blood flow, antioxidant
+slug: pycnogenol
+name: Pycnogenol
+aliases:
+  - French maritime pine bark extract
+  - Pinus pinaster extract
+  - pine bark OPC
+  - procyanidin B1
+category: SUPPLEMENT
+subcategory: polyphenol_extract
+legalStatus: LEGAL
+clinicalPhase: "Multiple RCTs; no formal FDA approval (supplement)"
+evidenceLevel: B
+description: |
+  Pycnogenol is a standardized extract from French maritime pine bark (Pinus pinaster)
+  containing procyanidins, catechins, and phenolic acids. Its primary mechanism is
+  endothelial nitric oxide (NO) potentiation — Pycnogenol activates eNOS and increases
+  NO bioavailability, improving blood flow, reducing blood pressure, and enhancing erectile
+  function. In TRT contexts, Pycnogenol is the standout cardiovascular support supplement
+  because testosterone increases erythropoiesis (raising hematocrit and blood viscosity)
+  while Pycnogenol counteracts this by improving endothelial function and blood flow.
+  The Stanislavov & Nikolova (2003) study demonstrated that L-arginine + Pycnogenol
+  restored normal erectile function in 92.5% of men with ED — the "Prelox" stack.
+  Additional RCTs show blood pressure reduction of 3-8 mmHg systolic, improved
+  glycemic control (HbA1c reduction), and reduced CRP. One of the most well-studied
+  botanical extracts with 400+ published studies and 100+ clinical trials.
+
+halfLife: "~3-5 hours (active procyanidin metabolites)"
+onset: "Blood flow improvements within 2-4 hours; sustained BP and endothelial effects 4-8 weeks"
+duration: "Ongoing with daily dosing"
+routeOfAdmin:
+  - oral
+mechanismShort: "Activates eNOS → increases NO bioavailability; potent antioxidant (procyanidins scavenge ROS); inhibits NF-κB; reduces platelet aggregation via COX inhibition"
+
+dosing:
+  min: 50
+  typical: 150
+  max: 300
+  unit: mg
+  frequency: "daily (1-2 divided doses with meals)"
+  notes: "Erectile function (Prelox stack): 120mg Pycnogenol + 3g L-arginine/day. Cardiovascular/BP: 100-200mg/day. Antioxidant: 50-100mg/day. Take with meals. Well-tolerated long-term."
+
+sideEffects:
+  - name: GI_discomfort
+    severity: mild
+    frequency: uncommon
+    notes: "Mild nausea or stomach upset; take with food"
+  - name: headache
+    severity: mild
+    frequency: rare
+    notes: "Possibly NO-mediated vasodilation; typically transient"
+  - name: dizziness
+    severity: mild
+    frequency: rare
+    notes: "Blood pressure lowering effect; monitor in hypotensive individuals"
+
+interactions:
+  - target: l-arginine
+    type: synergistic
+    severity: mild
+    description: "The 'Prelox' stack — Pycnogenol activates eNOS while L-arginine provides the NO substrate. Together they produce significantly more NO than either alone. 92.5% efficacy for ED in published trial."
+  - target: citrulline-malate
+    type: synergistic
+    severity: mild
+    description: "Citrulline converts to arginine, providing sustained NO substrate. Pycnogenol + citrulline may be superior to Pycnogenol + arginine for sustained NO production."
+  - target: testosterone-cypionate
+    type: synergistic
+    severity: mild
+    description: "Counteracts testosterone-induced hematocrit elevation and blood viscosity by improving endothelial function and NO-mediated vasodilation"
+  - target: nattokinase
+    type: synergistic
+    severity: mild
+    description: "Complementary cardiovascular stack: Pycnogenol improves endothelial NO, nattokinase reduces fibrin and blood viscosity — different mechanisms, additive benefit"
+  - target: fish-oil
+    type: synergistic
+    severity: mild
+    description: "Fish oil reduces triglycerides, Pycnogenol improves endothelial function — complementary cardiovascular protection"
+
+mechanisms:
+  - pathway: eNOS_activation
+    description: "Procyanidins in Pycnogenol activate endothelial nitric oxide synthase (eNOS) via phosphorylation at Ser1177, increasing NO production and bioavailability"
+  - pathway: antioxidant_ROS_scavenging
+    description: "Procyanidins and catechins directly scavenge superoxide, hydroxyl radicals, and peroxynitrite — protecting NO from oxidative degradation and reducing oxidative stress"
+  - pathway: NF_kB_inhibition
+    description: "Inhibits NF-κB nuclear translocation, reducing expression of inflammatory cytokines (TNF-α, IL-1β, IL-6) and adhesion molecules (VCAM-1, ICAM-1)"
+  - pathway: COX_inhibition
+    description: "Inhibits COX-1 and COX-2 at concentrations achieved with oral dosing; reduces thromboxane A2 and platelet aggregation — anti-thrombotic effect without bleeding risk of aspirin"
+
+literature:
+  - title: "Treatment of erectile dysfunction with Pycnogenol and L-arginine"
+    url: "https://pubmed.ncbi.nlm.nih.gov/12851125/"
+    source: PubMed
+    year: 2003
+    kind: RCT
+  - title: "Pycnogenol supplementation lowers blood pressure and improves endothelial function"
+    url: "https://pubmed.ncbi.nlm.nih.gov/22240497/"
+    source: PubMed
+    year: 2012
+    kind: RCT
+  - title: "Pycnogenol effects on blood pressure: systematic review"
+    url: "https://pubmed.ncbi.nlm.nih.gov/28153005/"
+    source: PubMed
+    year: 2017
+    kind: meta-analysis
+
+searchTerms:
+  pubmed:
+    - "pycnogenol AND endothelial function AND nitric oxide AND clinical trial"
+    - "pine bark extract AND blood pressure AND randomized controlled trial"
+    - "pycnogenol AND L-arginine AND erectile dysfunction AND human"
+  semanticScholar:
+    - "pycnogenol procyanidin endothelial nitric oxide blood flow"
+    - "pine bark extract cardiovascular blood pressure clinical"
