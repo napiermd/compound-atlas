@@ -56,10 +56,11 @@ That's it. No AI, no community features, no freshness theater.
 - Studies should link to **actual PDFs** when available (via PubMed Central, Sci-Hub mirrors, or preprints)
 
 ### 2. No ML Theater
-- No AI stack generation until we have:
-  - 100+ compounds with real evidence scores
-  - 1000+ studies ingested
-  - User feedback showing manual stack building is insufficient
+- No AI stack generation until the evidence database can ground recommendations:
+  - 200+ compounds with complete, validated data
+  - 2000+ studies ingested with correct evidence levels
+  - Evidence scoring algorithm validated with comprehensive test suite
+  - Manual stack building proven insufficient through real user feedback
 - No "community analytics" until we have actual users sharing protocols
 
 ### 3. One Way to Do Things
@@ -136,7 +137,7 @@ That's it. No AI, no community features, no freshness theater.
 
 ## What V2 Should NOT Include
 
-Until we have 50+ active users and real usage data:
+Until the evidence database is comprehensive enough to ground recommendations (benchmarks: 200+ compounds with complete data, 2000+ studies ingested, evidence scoring algorithm validated with test suite):
 
 - ❌ AI-powered anything
 - ❌ Social features (upvotes, comments, profiles)
@@ -284,7 +285,7 @@ V2 success metrics:
 
 1. **100+ compounds** with accurate YAML files (category, dosing, mechanisms, interactions)
 2. **500+ studies** ingested from PubMed with correct evidence levels
-3. **Evidence scoring** algorithm documented and tested
+3. **Evidence scoring** algorithm documented and tested (see `packages/research-ingestion/src/scorer.py` for the canonical implementation — 6 factors: Study Count, Study Quality, Sample Size, Consistency, Replication, Recency)
 4. **Zero placeholder content** — every compound page has real data or is marked "incomplete"
 
 **Not:**
@@ -382,10 +383,11 @@ After this spec is approved:
 
 6. **Next PRs (sequence)**
    - PR 2: Simplify stack builder (remove AI tab, remove experience gating)
-   - PR 3: Simplify compound pages (remove stale badges, remove community signals)
-   - PR 4: Simplify research page (remove personalization)
-   - PR 5: Update README.md with v2 product thesis
-   - PR 6: Add 50 more compound YAML files (data quality push)
+   - PR 3: SEO infrastructure (JSON-LD structured data for compounds, meta descriptions from compound data, sitemap generation from database)
+   - PR 4: Simplify compound pages (remove stale badges, remove community signals)
+   - PR 5: Simplify research page (remove personalization)
+   - PR 6: Update README.md with v2 product thesis
+   - PR 7: Add 50 more compound YAML files (data quality push)
 
 ---
 
