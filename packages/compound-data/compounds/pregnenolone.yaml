@@ -1,0 +1,111 @@
+# Pregnenolone — Master steroid precursor; neurosteroid, cognitive enhancement
+slug: pregnenolone
+name: Pregnenolone
+aliases:
+  - P5
+  - pregnenolone sulfate
+  - 3β-hydroxypregn-5-en-20-one
+category: HORMONAL
+subcategory: neurosteroid_precursor
+legalStatus: LEGAL
+clinicalPhase: "Phase II (psychiatric indications); OTC as supplement"
+evidenceLevel: B
+description: |
+  Pregnenolone is the "mother of all steroid hormones" — synthesized from cholesterol via
+  CYP11A1 (P450scc), it is the first step in steroidogenesis and the precursor to DHEA,
+  progesterone, cortisol, testosterone, and estradiol. Critically relevant to TRT because
+  exogenous testosterone suppresses the entire steroidogenic cascade upstream, potentially
+  depleting pregnenolone and its neurosteroid metabolites (allopregnanolone, pregnenolone
+  sulfate). Many men on TRT report "emotional blunting" or cognitive fog that resolves with
+  pregnenolone supplementation — hypothesized to be from neurosteroid depletion. Pregnenolone
+  sulfate is a potent positive allosteric modulator of NMDA receptors and negative modulator
+  of GABA-A receptors, enhancing memory consolidation and cognitive flexibility. Phase II
+  trials show promise for schizophrenia negative symptoms (Marx et al., 2009) and cannabis
+  use disorder. OTC in the US; the most upstream point of intervention in the steroid cascade.
+
+halfLife: "~1-2 hours (unconjugated); pregnenolone sulfate ~12-24 hours"
+onset: "Subjective cognitive/mood effects within 30-60 minutes; steroid cascade effects 1-2 weeks"
+duration: "Acute neurosteroid effects 4-8 hours; systemic effects ongoing with daily dosing"
+routeOfAdmin:
+  - oral
+  - sublingual
+  - topical
+mechanismShort: "Master steroid precursor (cholesterol → pregnenolone → all steroid hormones); neurosteroid modulating NMDA (positive) and GABA-A (negative) receptors; enhances memory and cognitive flexibility"
+
+dosing:
+  min: 10
+  typical: 50
+  max: 200
+  unit: mg
+  frequency: "daily (morning or split AM/PM)"
+  notes: "TRT adjunct: 30-50mg/day to replenish neurosteroid pool. Cognitive focus: 50-100mg sublingual for faster onset. Higher doses (100-200mg) used in psychiatric trials. Sublingual avoids first-pass metabolism and preserves more pregnenolone vs. downstream metabolites. Start low — individual conversion pathways vary significantly."
+
+sideEffects:
+  - name: irritability
+    severity: mild
+    frequency: uncommon
+    notes: "At higher doses, may convert preferentially to progesterone or DHEA depending on individual enzyme expression; progesterone metabolites can cause irritability in some men"
+  - name: headache
+    severity: mild
+    frequency: uncommon
+    notes: "NMDA modulation effects; more common at higher doses"
+  - name: insomnia
+    severity: mild
+    frequency: uncommon
+    notes: "Due to GABA-A antagonism and NMDA potentiation; take in the morning"
+  - name: acne
+    severity: mild
+    frequency: rare
+    notes: "Via downstream conversion to androgens; minimal at typical supplement doses"
+
+interactions:
+  - target: testosterone-cypionate
+    type: synergistic
+    severity: mild
+    description: "Replenishes the neurosteroid pool depleted by HPG axis suppression from exogenous testosterone. Addresses 'emotional blunting' reported by some TRT patients."
+  - target: dhea
+    type: synergistic
+    severity: mild
+    description: "Pregnenolone is upstream of DHEA; co-administration provides both the precursor pool and the direct adrenal androgen. Some clinicians use both in comprehensive HRT protocols."
+  - target: hcg
+    type: synergistic
+    severity: mild
+    description: "HCG stimulates Leydig cell steroidogenesis from cholesterol; pregnenolone supplementation ensures substrate availability for the full cascade"
+
+mechanisms:
+  - pathway: steroidogenesis_precursor
+    description: "First steroid synthesized from cholesterol by CYP11A1; branches into progesterone (via 3β-HSD) and DHEA (via CYP17A1). All downstream steroids depend on pregnenolone availability."
+  - pathway: NMDA_positive_modulation
+    description: "Pregnenolone sulfate is a positive allosteric modulator of NMDA receptors at the GluN2A and GluN2B subunits, enhancing glutamatergic transmission, LTP, and memory consolidation"
+  - pathway: GABA_A_negative_modulation
+    description: "Pregnenolone sulfate is a negative allosteric modulator of GABA-A receptors, reducing GABAergic inhibition — contributing to alertness and cognitive flexibility"
+  - pathway: sigma_1_receptor
+    description: "Pregnenolone and pregnenolone sulfate bind sigma-1 receptors, which are implicated in neuroplasticity, neuroprotection, and antidepressant-like effects"
+  - pathway: microtubule_stabilization
+    description: "Pregnenolone binds MAP2 (microtubule-associated protein 2) and stabilizes neuronal microtubules, promoting neurite outgrowth — a unique non-receptor mechanism of neuroprotection"
+
+literature:
+  - title: "Pregnenolone as a novel therapeutic candidate in schizophrenia"
+    url: "https://pubmed.ncbi.nlm.nih.gov/35108514/"
+    source: PubMed
+    year: 2022
+    kind: review
+  - title: "Neurosteroid pregnenolone sulfate as a modulator of synaptic plasticity"
+    url: "https://pubmed.ncbi.nlm.nih.gov/38710208/"
+    source: PubMed
+    year: 2024
+    kind: review
+  - title: "Pregnenolone and cognitive function: neurobiological mechanisms"
+    url: "https://pubmed.ncbi.nlm.nih.gov/24997854/"
+    source: PubMed
+    year: 2014
+    kind: review
+
+searchTerms:
+  pubmed:
+    - "pregnenolone AND neurosteroid AND cognitive AND human"
+    - "pregnenolone sulfate AND NMDA AND memory AND clinical"
+    - "pregnenolone AND testosterone replacement AND steroidogenesis"
+  semanticScholar:
+    - "pregnenolone neurosteroid NMDA GABA cognitive enhancement"
+    - "pregnenolone steroidogenesis precursor testosterone depletion TRT"

@@ -28,7 +28,7 @@ export function CompoundCard({ compound: c }: Props) {
 
   const safetyTier =
     c.safetyScore == null
-      ? "Safety unknown"
+      ? "Not yet assessed"
       : c.safetyScore >= 70
         ? "Lower risk profile"
         : c.safetyScore >= 45
@@ -41,18 +41,13 @@ export function CompoundCard({ compound: c }: Props) {
         <div className="h-1 bg-gradient-to-r from-primary/80 via-primary/30 to-transparent" />
         <CardHeader className="pb-2 pt-4 px-4">
           <div className="flex items-start justify-between gap-3">
-            <h3 className="font-semibold text-sm leading-snug line-clamp-2 group-hover:text-foreground">
+            <h3 className="font-semibold text-base leading-snug line-clamp-2 group-hover:text-foreground">
               {c.name}
             </h3>
             <EvidenceScoreBadge score={c.evidenceScore} className="shrink-0 mt-0.5" />
           </div>
           <div className="flex flex-wrap gap-1.5 mt-1.5">
             <CategoryBadge category={c.category} />
-            {c.isStale && (
-              <Badge variant="outline" className="text-[10px] font-medium border-amber-500/40 text-amber-700 dark:text-amber-300">
-                Stale evidence
-              </Badge>
-            )}
             {c.legalStatus !== "LEGAL" && (
               <Badge variant="outline" className="text-[10px] font-medium">
                 {c.legalStatus === "PRESCRIPTION"
@@ -98,11 +93,6 @@ export function CompoundCard({ compound: c }: Props) {
               {c.safetyScore != null ? `${Math.round(c.safetyScore)}/100` : "n/a"}
             </span>
           </div>
-
-          <p className="text-[11px] text-muted-foreground">
-            Last sync: {c.lastResearchSync ? new Date(c.lastResearchSync).toLocaleDateString() : "never"}
-            {c.lastReviewedAt ? ` · reviewed ${new Date(c.lastReviewedAt).toLocaleDateString()}` : ""}
-          </p>
 
           <div className="flex items-center justify-between text-xs">
             <span className="text-muted-foreground flex items-center gap-1">

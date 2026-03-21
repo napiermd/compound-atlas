@@ -53,6 +53,18 @@ interactions:
     type: synergistic
     severity: mild
     description: "Complementary cardiovascular support: omega-3s reduce triglycerides and platelet aggregation, nattokinase reduces fibrinogen and blood viscosity"
+  - target: pycnogenol
+    type: synergistic
+    severity: mild
+    description: "Different cardiovascular mechanisms: nattokinase reduces fibrin/viscosity, Pycnogenol improves endothelial NO — additive blood flow improvement"
+  - target: garlic-extract
+    type: synergistic
+    severity: mild
+    description: "AGE reduces blood pressure via ACE/H2S; nattokinase reduces fibrin and viscosity — complementary cardiovascular protection stack"
+  - target: testosterone-cypionate
+    type: synergistic
+    severity: mild
+    description: "TRT increases erythropoiesis/hematocrit, raising blood viscosity. Nattokinase counteracts by reducing fibrinogen and blood viscosity — important cardiovascular support for men on TRT."
 
 mechanisms:
   - pathway: fibrinolysis
@@ -63,6 +75,25 @@ mechanisms:
     description: "Degrades plasminogen activator inhibitor-1 (PAI-1), removing the primary brake on endogenous fibrinolysis"
   - pathway: blood_viscosity
     description: "Reduces fibrinogen (a major determinant of viscosity), reducing whole blood viscosity and improving microcirculatory flow"
+
+evidenceLevel: B
+
+literature:
+  - title: "Nattokinase decreases plasma levels of fibrinogen, factor VII, and factor VIII in human subjects"
+    url: "https://pubmed.ncbi.nlm.nih.gov/19358878/"
+    source: PubMed
+    year: 2009
+    kind: RCT
+  - title: "Nattokinase atherothrombotic prevention study (NAPS): effect on coronary artery calcium and carotid intima-media thickness"
+    url: "https://pubmed.ncbi.nlm.nih.gov/36339184/"
+    source: PubMed
+    year: 2022
+    kind: RCT
+  - title: "Effects of nattokinase on blood pressure: a systematic review and meta-analysis"
+    url: "https://pubmed.ncbi.nlm.nih.gov/27408729/"
+    source: PubMed
+    year: 2016
+    kind: meta-analysis
 
 searchTerms:
   pubmed:

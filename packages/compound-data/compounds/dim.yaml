@@ -1,0 +1,108 @@
+# DIM — Estrogen metabolism modulator; I3C metabolite, 2-OHE1 promoter
+slug: dim
+name: Diindolylmethane
+aliases:
+  - DIM
+  - 3,3'-diindolylmethane
+  - BioResponse DIM
+category: SUPPLEMENT
+subcategory: estrogen_modulator
+legalStatus: LEGAL
+clinicalPhase: "Phase II (cancer prevention); OTC as supplement"
+evidenceLevel: B
+description: |
+  DIM (3,3'-diindolylmethane) is the primary bioactive metabolite of indole-3-carbinol (I3C),
+  found in cruciferous vegetables (broccoli, cauliflower, cabbage). DIM shifts estrogen
+  metabolism toward the 2-hydroxylation pathway (producing 2-OHE1, a weaker, potentially
+  protective estrogen metabolite) and away from the 16α-hydroxylation pathway (producing
+  16α-OHE1, a more proliferative metabolite). This 2:16 ratio shift is the primary mechanism
+  of interest for both cancer chemoprevention and TRT estrogen management. In men on TRT,
+  DIM is used as a "natural" estrogen modulator — not an aromatase inhibitor (it doesn't
+  block estrogen production) but a metabolism shifter that redirects estrogen toward less
+  potent metabolites. Clinical trials confirm DIM shifts urinary 2:16-OHE1 ratios in both
+  men and women. It also has anti-androgenic effects at very high doses, so dosing precision
+  matters in TRT contexts. The bioavailability of crystalline DIM is poor; microencapsulated
+  or absorption-enhanced formulations (BioResponse DIM) are standard.
+
+halfLife: "~2-6 hours"
+onset: "2:16 ratio shift measurable within 2-4 weeks"
+duration: "Ongoing with daily dosing; reverses within 1-2 weeks of cessation"
+routeOfAdmin:
+  - oral
+mechanismShort: "Shifts estrogen metabolism toward 2-hydroxylation (2-OHE1) and away from 16α-hydroxylation (16α-OHE1); modulates estrogen receptor signaling without blocking aromatase"
+
+dosing:
+  min: 100
+  typical: 200
+  max: 400
+  unit: mg
+  frequency: "daily (with food)"
+  notes: "Use absorption-enhanced/microencapsulated DIM (BioResponse or equivalent) — crystalline DIM has very poor bioavailability. TRT adjunct: 100-200mg/day. Cancer prevention trials use 300mg/day. Doses >400mg may have anti-androgenic effects. Take with a fat-containing meal."
+
+sideEffects:
+  - name: GI_discomfort
+    severity: mild
+    frequency: common
+    notes: "Nausea, bloating; take with food to minimize. Dose-dependent."
+  - name: dark_urine
+    severity: mild
+    frequency: common
+    notes: "Harmless; DIM metabolites are colored. Not a sign of toxicity."
+  - name: headache
+    severity: mild
+    frequency: uncommon
+    notes: "Transient; more common at initiation"
+  - name: anti_androgenic_effects
+    severity: moderate
+    frequency: rare
+    notes: "At high doses (>400mg), DIM can act as an androgen receptor antagonist. Keep doses moderate in TRT contexts."
+
+interactions:
+  - target: testosterone-cypionate
+    type: synergistic
+    severity: mild
+    description: "DIM modulates estrogen metabolism without blocking aromatase, providing gentler estrogen management for men on TRT who don't want to use anastrozole"
+  - target: anastrozole
+    type: caution
+    severity: moderate
+    description: "DIM + AI may over-suppress estrogen signaling. Most clinicians recommend one approach: either AI or DIM, not both at full doses. If combining, reduce AI dose."
+  - target: nattokinase
+    type: synergistic
+    severity: mild
+    description: "Complementary cardiovascular support: DIM shifts estrogen toward protective metabolites while nattokinase reduces fibrin and blood viscosity"
+
+mechanisms:
+  - pathway: CYP1A1_induction
+    description: "DIM induces CYP1A1 and CYP1A2 expression, which catalyze 2-hydroxylation of estrone (E1) and estradiol (E2), producing 2-OHE1 and 2-OHE2 — weaker estrogen metabolites"
+  - pathway: estrogen_metabolism_shift
+    description: "Increases the 2-OHE1:16α-OHE1 ratio. 2-OHE1 has minimal estrogenic activity and may be anti-proliferative; 16α-OHE1 is a potent estrogen receptor agonist associated with proliferative signaling."
+  - pathway: AhR_activation
+    description: "DIM is a ligand for the aryl hydrocarbon receptor (AhR), which mediates CYP1A1 induction and has independent anti-inflammatory and immune-modulatory effects"
+  - pathway: NF_kB_inhibition
+    description: "DIM suppresses NF-κB signaling, reducing pro-inflammatory cytokine expression — independent of estrogen metabolism"
+
+literature:
+  - title: "Absorption-enhanced 3,3'-diindolylmethane: human use and tolerability"
+    url: "https://pubmed.ncbi.nlm.nih.gov/36111381/"
+    source: PubMed
+    year: 2022
+    kind: RCT
+  - title: "Diindolylmethane modulates estrogen metabolism in patients with thyroid proliferative disease"
+    url: "https://pubmed.ncbi.nlm.nih.gov/21254914/"
+    source: PubMed
+    year: 2011
+    kind: RCT
+  - title: "Indole-3-carbinol and diindolylmethane as estrogen metabolism modulators"
+    url: "https://pubmed.ncbi.nlm.nih.gov/28560655/"
+    source: PubMed
+    year: 2017
+    kind: review
+
+searchTerms:
+  pubmed:
+    - "diindolylmethane AND estrogen metabolism AND 2-hydroxyestrone AND clinical trial"
+    - "DIM AND 3,3'-diindolylmethane AND estrogen AND men AND testosterone"
+    - "indole-3-carbinol AND DIM AND cancer prevention AND randomized"
+  semanticScholar:
+    - "diindolylmethane estrogen metabolism 2-hydroxyestrone 16alpha clinical"
+    - "DIM aryl hydrocarbon receptor CYP1A1 estrogen modulation"

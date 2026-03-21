@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, FlaskConical, Sparkles } from "lucide-react";
+import { Menu, FlaskConical } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -63,16 +63,6 @@ export function MobileNav({ isLoggedIn }: Props) {
                   {link.label}
                 </Link>
               )
-            )}
-            {isLoggedIn && (
-              <Link
-                href="/stacks/ai"
-                className="flex items-center gap-2 rounded-md px-3 py-2.5 text-sm font-medium hover:bg-accent transition-colors"
-                onClick={() => setOpen(false)}
-              >
-                <Sparkles className="h-4 w-4" />
-                AI Stack Builder
-              </Link>
             )}
             {isLoggedIn && (
               <Link

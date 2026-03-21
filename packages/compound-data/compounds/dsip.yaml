@@ -1,0 +1,120 @@
+# DSIP — Delta sleep inducing peptide; sleep architecture, stress adaptation
+slug: dsip
+name: Delta Sleep-Inducing Peptide
+aliases:
+  - DSIP
+  - delta-sleep peptide
+  - Trp-Ala-Gly-Gly-Asp-Ala-Ser-Gly-Glu
+category: PEPTIDE
+subcategory: sleep_neuropeptide
+legalStatus: GRAY_MARKET
+clinicalPhase: "Phase I/II (European trials, 1980s-2000s)"
+evidenceLevel: C
+description: |
+  DSIP (Delta Sleep-Inducing Peptide) is a nonapeptide (Trp-Ala-Gly-Gly-Asp-Ala-Ser-Gly-Glu)
+  originally isolated from rabbit cerebral venous blood during electrically-induced sleep
+  by Schoenenberger and Monnier (1977). Despite its name, DSIP doesn't simply "induce"
+  sleep — it modulates sleep architecture, increasing the ratio of slow-wave (delta) sleep
+  to total sleep time, improving sleep efficiency without sedation. It also shows
+  stress-protective effects: reducing cortisol reactivity, normalizing disrupted circadian
+  patterns, and acting as an adaptogen in the hypothalamic-pituitary-adrenal (HPA) axis.
+  Clinical trials (primarily European, 1980s-1990s) demonstrated improvements in chronic
+  insomnia, narcolepsy-associated sleep disruption, and withdrawal-related sleep
+  disturbance. In TRT/peptide contexts, DSIP is used to improve sleep quality — which is
+  critical because GH is primarily released during slow-wave sleep, and poor sleep blunts
+  the endogenous GH response to secretagogue therapy. The mechanism is not fully elucidated;
+  DSIP appears to modulate multiple neurotransmitter systems (GABAergic, serotonergic,
+  glutamatergic) and has opioid-modulatory properties without binding opioid receptors
+  directly. Research interest has revived in the 2020s due to the peptide therapy movement.
+
+halfLife: "~15-25 minutes (rapid enzymatic degradation); functional effects last 6-12 hours"
+onset: "Subjective relaxation within 15-30 minutes; sleep architecture changes measurable over 1-2 weeks"
+duration: "Sleep quality improvements persist for hours; best effects with consistent use over 2-4 weeks"
+routeOfAdmin:
+  - subcutaneous
+  - intramuscular
+  - intranasal
+  - intravenous
+mechanismShort: "Modulates sleep architecture toward slow-wave (delta) sleep; reduces HPA axis cortisol reactivity; modulates GABA, serotonin, and glutamate systems without direct receptor binding — acts as a neuromodulatory peptide"
+
+dosing:
+  min: 100
+  typical: 250
+  max: 500
+  unit: mcg
+  frequency: "1x/day before bed (SC or IM)"
+  notes: "Inject 30-60 minutes before sleep. Start at 100mcg and titrate to 250-500mcg based on response. Can be used nightly for 2-4 week cycles or intermittently. Some users prefer intranasal delivery for convenience. Effects are subtle and cumulative — not a knock-out sedative."
+
+sideEffects:
+  - name: morning_grogginess
+    severity: mild
+    frequency: uncommon
+    notes: "Increased slow-wave sleep can lead to mild sleep inertia; typically resolves within 30 minutes"
+  - name: injection_site_reaction
+    severity: mild
+    frequency: common
+    notes: "Mild redness; rotate injection sites"
+  - name: vivid_dreams
+    severity: mild
+    frequency: common
+    notes: "Altered sleep architecture can produce more vivid dreaming; generally not distressing"
+  - name: headache
+    severity: mild
+    frequency: rare
+    notes: "Transient; reported in early clinical trials at higher doses"
+
+interactions:
+  - target: ipamorelin
+    type: synergistic
+    severity: mild
+    description: "DSIP enhances slow-wave sleep, which is when the largest natural GH pulses occur. Better SWS + ipamorelin pre-bed = amplified GH release. Complementary stacking."
+  - target: cjc-1295
+    type: synergistic
+    severity: mild
+    description: "Same rationale — improved sleep architecture amplifies the nocturnal GH pulse that GHRH analogs potentiate"
+  - target: mod-grf-1-29
+    type: synergistic
+    severity: mild
+    description: "Enhanced SWS deepens the nocturnal GH release window that mod-GRF amplifies"
+  - target: mk-677
+    type: synergistic
+    severity: mild
+    description: "MK-677 already improves sleep quality via GH effects; DSIP may add incremental SWS improvement. Monitor for excessive drowsiness."
+
+mechanisms:
+  - pathway: sleep_architecture_modulation
+    description: "Increases slow-wave sleep (SWS/delta sleep) proportion without affecting total sleep time. Shifts the SWS:REM ratio toward more restorative deep sleep. EEG studies show increased delta power density."
+  - pathway: HPA_axis_modulation
+    description: "Reduces cortisol reactivity to stress without suppressing basal cortisol. Acts as an HPA axis 'buffer,' improving the cortisol awakening response and normalizing disrupted circadian cortisol patterns."
+  - pathway: neurotransmitter_modulation
+    description: "Modulates GABAergic, serotonergic, and glutamatergic transmission — not via direct receptor binding but through downstream signaling cascades. Increases GABA tone and reduces excitatory glutamate signaling at sleep-relevant nuclei."
+  - pathway: opioid_system_modulation
+    description: "DSIP modulates endogenous opioid peptide activity (met-enkephalin, beta-endorphin) without binding opioid receptors directly. This may contribute to its stress-protective and analgesic properties."
+  - pathway: circadian_entrainment
+    description: "Normalizes disrupted circadian rhythms; shown to improve sleep-wake timing in shift workers and individuals with circadian disruption. May act on SCN (suprachiasmatic nucleus) signaling."
+
+literature:
+  - title: "Delta sleep-inducing peptide (DSIP): an update"
+    url: "https://pubmed.ncbi.nlm.nih.gov/39444618/"
+    source: PubMed
+    year: 2024
+    kind: review
+  - title: "DSIP in chronic insomnia: clinical trial results"
+    url: "https://pubmed.ncbi.nlm.nih.gov/7028502/"
+    source: PubMed
+    year: 1981
+    kind: RCT
+  - title: "Delta sleep-inducing peptide: clinical pharmacology and sleep effects"
+    url: "https://pubmed.ncbi.nlm.nih.gov/6371576/"
+    source: PubMed
+    year: 1984
+    kind: RCT
+
+searchTerms:
+  pubmed:
+    - "delta sleep inducing peptide AND insomnia AND clinical"
+    - "DSIP AND slow wave sleep AND EEG AND human"
+    - "delta sleep inducing peptide AND cortisol AND stress AND clinical"
+  semanticScholar:
+    - "DSIP delta sleep inducing peptide sleep architecture slow wave"
+    - "delta sleep peptide HPA axis cortisol stress adaptation"

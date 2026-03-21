@@ -2,15 +2,6 @@ import Link from "next/link";
 import {
   ArrowRight,
   Github,
-  BookOpen,
-  Layers,
-  Activity,
-  FlaskConical,
-  Star,
-  Users,
-  RefreshCw,
-  Clock,
-  TrendingUp,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -19,57 +10,28 @@ import { db } from "@/lib/db";
 import { normalizeArray } from "@/lib/normalize";
 import type { CompoundSummary } from "@/components/compound/types";
 
-const FEATURES = [
-  {
-    icon: BookOpen,
-    title: "Research-Backed",
-    desc: "Evidence scores computed from real peer-reviewed studies on PubMed and Semantic Scholar.",
-  },
-  {
-    icon: Layers,
-    title: "Stack Builder",
-    desc: "Combine compounds into goal-driven protocols. Check interactions. Fork and share community stacks.",
-  },
-  {
-    icon: Activity,
-    title: "Cycle Tracker",
-    desc: "Log doses, bloodwork, weight, and subjective markers daily. Visualize progress over time.",
-  },
-  {
-    icon: FlaskConical,
-    title: "Open Source",
-    desc: "Community-driven. No paywalls, no ads. Every compound, every study, always free.",
-  },
-];
-
 const SCORING_FACTORS = [
   {
-    icon: FlaskConical,
     label: "Study Count",
     desc: "More studies mean a stronger evidence signal.",
   },
   {
-    icon: Star,
     label: "Study Quality",
     desc: "RCTs and systematic reviews weighted over case reports.",
   },
   {
-    icon: Users,
     label: "Sample Size",
     desc: "Larger cohorts reduce noise in the signal.",
   },
   {
-    icon: TrendingUp,
     label: "Consistency",
     desc: "Aligned results across independent research groups.",
   },
   {
-    icon: RefreshCw,
     label: "Replication",
     desc: "Multiple independent replications required for high scores.",
   },
   {
-    icon: Clock,
     label: "Recency",
     desc: "Recent research weighted more heavily than older studies.",
   },
@@ -157,7 +119,7 @@ export default async function HomePage() {
         {/* Fade to background at bottom */}
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background" />
 
-        <div className="relative max-w-5xl mx-auto px-4 py-28 sm:py-36 text-center">
+        <div className="relative max-w-5xl mx-auto px-4 py-16 sm:py-24 text-center">
           <Badge variant="outline" className="mb-5 px-3 py-1 text-xs">
             Open Source · MIT License
           </Badge>
@@ -209,24 +171,18 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── FEATURES ─────────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 py-16 w-full">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {FEATURES.map(({ icon: Icon, title, desc }) => (
-            <div
-              key={title}
-              className="rounded-xl border bg-card p-6 space-y-3"
-            >
-              <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                <Icon className="h-5 w-5 text-primary" />
-              </div>
-              <h3 className="font-semibold text-sm">{title}</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                {desc}
-              </p>
-            </div>
-          ))}
-        </div>
+      {/* ── WHAT THIS IS ─────────────────────────────── */}
+      <section className="max-w-3xl mx-auto px-4 py-12 w-full">
+        <p className="text-base text-muted-foreground leading-relaxed">
+          CompoundAtlas indexes{" "}
+          <span className="text-foreground font-medium">peer-reviewed studies</span>{" "}
+          from PubMed and Semantic Scholar, computes transparent evidence scores,
+          and lets you{" "}
+          <span className="text-foreground font-medium">build stacks</span>,{" "}
+          <span className="text-foreground font-medium">track cycles</span>, and{" "}
+          <span className="text-foreground font-medium">check interactions</span>{" "}
+          — all open source, no paywalls, no ads.
+        </p>
       </section>
 
       {/* ── TOP COMPOUNDS ────────────────────────────── */}
@@ -270,18 +226,13 @@ export default async function HomePage() {
               Pure data.
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {SCORING_FACTORS.map(({ icon: Icon, label, desc }) => (
-              <div key={label} className="flex gap-3">
-                <div className="h-8 w-8 rounded-md bg-muted flex items-center justify-center shrink-0 mt-0.5">
-                  <Icon className="h-3.5 w-3.5 text-muted-foreground" />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold">{label}</p>
-                  <p className="text-xs text-muted-foreground mt-0.5 leading-snug">
-                    {desc}
-                  </p>
-                </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-4">
+            {SCORING_FACTORS.map(({ label, desc }) => (
+              <div key={label}>
+                <p className="text-sm font-medium">{label}</p>
+                <p className="text-xs text-muted-foreground mt-0.5 leading-snug">
+                  {desc}
+                </p>
               </div>
             ))}
           </div>
@@ -303,8 +254,8 @@ export default async function HomePage() {
             <Button
               asChild
               size="lg"
-              variant="outline"
-              className="border-primary-foreground/20 text-primary-foreground hover:bg-primary-foreground/10"
+              variant="secondary"
+              className="bg-primary-foreground/15 text-primary-foreground hover:bg-primary-foreground/25 border-0"
             >
               <Link href="https://github.com/napiermd/compound-atlas" target="_blank" rel="noopener noreferrer">Contribute on GitHub</Link>
             </Button>

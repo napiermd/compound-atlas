@@ -19,7 +19,6 @@ import { CompoundDetailTabs } from "@/components/compound/CompoundDetailTabs";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import type { CompoundDetail } from "@/components/compound/types";
-import { getStaleThresholdDays, isCompoundStale } from "@/lib/compound-freshness";
 
 interface Props {
   params: { slug: string };
@@ -204,9 +203,6 @@ export default async function CompoundDetailPage({ params }: Props) {
         year: "numeric",
       })
     : "Not reviewed yet";
-  const staleThresholdDays = getStaleThresholdDays();
-  const isStale = isCompoundStale(safeCompound.lastResearchSync);
-
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       {/* Breadcrumb */}
@@ -382,11 +378,6 @@ export default async function CompoundDetailPage({ params }: Props) {
         </div>
       </div>
 
-      {isStale && (
-        <div className="mb-6 rounded-md border border-amber-500/40 bg-amber-500/10 p-3 text-sm text-amber-900 dark:text-amber-200">
-          Evidence data is stale: this compound has not been synced in the last {staleThresholdDays} days.
-        </div>
-      )}
 
       <Separator className="mb-6" />
 

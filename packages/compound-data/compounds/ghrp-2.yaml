@@ -1,0 +1,117 @@
+# GHRP-2 — Potent growth hormone releasing peptide; GHS-R1a agonist
+slug: ghrp-2
+name: GHRP-2
+aliases:
+  - Growth Hormone Releasing Peptide 2
+  - KP-102
+  - pralmorelin
+  - GHRP2
+category: PEPTIDE
+subcategory: GHRP
+legalStatus: GRAY_MARKET
+clinicalPhase: "Phase II (diagnostic use approved in Japan as pralmorelin)"
+evidenceLevel: B
+description: |
+  GHRP-2 (pralmorelin) is a synthetic hexapeptide that potently stimulates growth hormone
+  release by mimicking ghrelin at the GHS-R1a receptor on pituitary somatotrophs. It is
+  the most potent GHRP in terms of peak GH release — producing larger GH pulses than
+  ipamorelin, GHRP-6, or hexarelin — but with a less clean side effect profile. Unlike
+  ipamorelin, GHRP-2 significantly increases cortisol (~20-40% transient elevation) and
+  prolactin (~50-100% transient elevation), which limits its use in protocols where
+  hormonal cleanliness matters. It also stimulates appetite via ghrelin pathway activation,
+  though less than GHRP-6. GHRP-2 is approved in Japan as a diagnostic agent for GH
+  deficiency (pralmorelin/GHRP Kaken). The synergy with GHRH analogs (CJC-1295, mod-GRF
+  1-29) is well-documented: GHRP-2 + GHRH produces 5-10x the GH release of either alone.
+  Preferred by users who want maximum GH output and tolerate the cortisol/prolactin trade-off.
+
+halfLife: "~15-30 minutes (active peptide); GH pulse lasts 2-3 hours"
+onset: "GH release within 15-30 minutes post-injection"
+duration: "GH pulse 2-3 hours; return to baseline by 4 hours"
+routeOfAdmin:
+  - subcutaneous
+  - intravenous
+mechanismShort: "Potent ghrelin mimetic at GHS-R1a; amplifies GH pulse via calcium-dependent exocytosis; also activates ACTH/cortisol and prolactin pathways (less selective than ipamorelin)"
+
+dosing:
+  min: 100
+  typical: 200
+  max: 300
+  unit: mcg
+  frequency: "2-3x/day, fasted (pre-bed, AM, pre-workout)"
+  notes: "Inject fasted (no carbs/fat 1h before or after). Pre-bed dosing maximizes GH pulse during slow-wave sleep. Combine with GHRH analog for synergy. Cortisol and prolactin elevation are transient (normalize within 1-2 hours). Appetite stimulation is significant — useful for bulking, problematic for cutting."
+
+sideEffects:
+  - name: cortisol_elevation
+    severity: moderate
+    frequency: common
+    notes: "Transient 20-40% cortisol increase post-injection; normalizes within 1-2 hours. More pronounced than ipamorelin. Chronic use may blunt this response."
+  - name: prolactin_elevation
+    severity: moderate
+    frequency: common
+    notes: "Transient 50-100% prolactin increase; normalizes within 2 hours. May be problematic for men sensitive to prolactin (libido, mood). Not seen with ipamorelin."
+  - name: appetite_stimulation
+    severity: mild
+    frequency: very_common
+    notes: "Ghrelin pathway activation; less intense than GHRP-6 but more than ipamorelin. Can be advantageous for muscle gain phases."
+  - name: water_retention
+    severity: mild
+    frequency: common
+    notes: "GH-mediated; dose-dependent. Carpal tunnel symptoms at higher GH levels."
+  - name: injection_site_reaction
+    severity: mild
+    frequency: common
+    notes: "Redness, brief soreness; rotate injection sites"
+
+interactions:
+  - target: cjc-1295
+    type: synergistic
+    severity: moderate
+    description: "GHRP-2 (ghrelin mimetic) + CJC-1295 (GHRH analog) produces 5-10x greater GH release than either alone — the gold standard secretagogue stack"
+  - target: ipamorelin
+    type: synergistic
+    severity: mild
+    description: "Can be alternated with ipamorelin: GHRP-2 for maximum GH pulses (pre-bed), ipamorelin for cleaner daytime doses (no cortisol/prolactin)"
+  - target: mk-677
+    type: caution
+    severity: moderate
+    description: "Both are GHS-R1a agonists. Combining may cause receptor desensitization and excessive appetite/water retention. Use one or the other, not both simultaneously."
+  - target: hgh
+    type: caution
+    severity: moderate
+    description: "Exogenous GH + GHRP-2 may cause excessive GH/IGF-1 levels. If using both, reduce doses of each."
+
+mechanisms:
+  - pathway: GHS_R1a_agonism
+    description: "Binds ghrelin/GHS-R1a receptor on anterior pituitary somatotrophs with high affinity; triggers IP3/calcium signaling cascade → GH vesicle exocytosis"
+  - pathway: somatostatin_suppression
+    description: "Reduces somatostatin (SRIF) tone at the hypothalamic level, removing the tonic brake on GH release"
+  - pathway: ACTH_cortisol_activation
+    description: "Unlike ipamorelin, GHRP-2 activates CRH/ACTH pathway, causing transient cortisol elevation. This is a selectivity trade-off for more potent GH release."
+  - pathway: prolactin_release
+    description: "Stimulates prolactin secretion from lactotrophs — likely via hypothalamic dopamine pathway modulation. Transient but clinically relevant."
+
+literature:
+  - title: "Growth hormone-releasing peptide-2 clinical pharmacology"
+    url: "https://pubmed.ncbi.nlm.nih.gov/15230633/"
+    source: PubMed
+    year: 2004
+    kind: review
+  - title: "Comparison of GHRP-2 and GHRH on GH secretion in humans"
+    url: "https://pubmed.ncbi.nlm.nih.gov/9543135/"
+    source: PubMed
+    year: 1998
+    kind: RCT
+  - title: "GHRP-2 as diagnostic test for growth hormone deficiency"
+    url: "https://pubmed.ncbi.nlm.nih.gov/26401470/"
+    source: PubMed
+    year: 2015
+    kind: RCT
+
+searchTerms:
+  pubmed:
+    - "GHRP-2 AND growth hormone AND secretagogue AND clinical"
+    - "pralmorelin AND growth hormone AND diagnostic AND human"
+    - "growth hormone releasing peptide 2 AND cortisol AND prolactin"
+  semanticScholar:
+    - "GHRP-2 pralmorelin growth hormone releasing peptide selectivity"
+    - "GHRP-2 ghrelin receptor GHS-R1a somatotroph pharmacology"

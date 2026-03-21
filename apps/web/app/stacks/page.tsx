@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { Sparkles } from "lucide-react";
+
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { Button } from "@/components/ui/button";
@@ -18,8 +18,6 @@ export const dynamic = "force-dynamic";
 
 export default async function StacksPage() {
   const session = await auth();
-  const aiHref = session?.user?.id ? "/stacks/ai" : "/login";
-
   type RawStack = {
     id: string;
     slug: string;
@@ -152,17 +150,9 @@ export default async function StacksPage() {
             Community-built compound protocols
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          <Button asChild variant="outline">
-            <Link href={aiHref} className="gap-1.5">
-              <Sparkles className="h-4 w-4" />
-              {session?.user?.id ? "AI Builder" : "Sign in for AI"}
-            </Link>
-          </Button>
-          <Button asChild>
-            <Link href="/stacks/new">Build Stack</Link>
-          </Button>
-        </div>
+        <Button asChild>
+          <Link href="/stacks/new">Build Stack</Link>
+        </Button>
       </div>
 
       {stacks.length === 0 ? (

@@ -1,0 +1,117 @@
+# Gonadorelin — GnRH analog; pulsatile LH/FSH, TRT fertility preservation
+slug: gonadorelin
+name: Gonadorelin
+aliases:
+  - GnRH
+  - gonadotropin-releasing hormone
+  - Factrel
+  - Lutrepulse
+  - LHRH
+category: PEPTIDE
+subcategory: GnRH_analog
+legalStatus: PRESCRIPTION
+clinicalPhase: "Approved (diagnostic and therapeutic)"
+evidenceLevel: B
+description: |
+  Gonadorelin is synthetic gonadotropin-releasing hormone (GnRH), identical to the
+  endogenous decapeptide produced by the hypothalamus. When administered in a pulsatile
+  fashion (mimicking natural hypothalamic output), it stimulates LH and FSH release from
+  the anterior pituitary, maintaining downstream gonadal function — including
+  spermatogenesis and intratesticular testosterone production. This makes gonadorelin the
+  emerging replacement for HCG in TRT fertility preservation protocols, driven by the 2020
+  FDA enforcement action that restricted compounding pharmacies from producing HCG (as a
+  biologic under BPCIA). Unlike continuous GnRH agonist administration (which causes
+  receptor downregulation and paradoxical LH suppression — the basis of leuprolide/
+  goserelin in prostate cancer), pulsatile gonadorelin at physiological frequencies
+  (every 90-120 minutes or simplified to 2x/day subcutaneous) maintains gonadotropin
+  secretion. FDA-approved for diagnostic GnRH stimulation testing and therapeutic use
+  in hypothalamic amenorrhea (Lutrepulse). Now widely prescribed off-label by TRT clinics
+  as an HCG alternative.
+
+halfLife: "~2-4 minutes (native GnRH); synthetic analog ~10-40 minutes"
+onset: "LH pulse within 15-30 minutes; FSH response slower (hours)"
+duration: "LH pulse lasts 1-2 hours; sustained gonadotropin effects require consistent pulsatile dosing"
+routeOfAdmin:
+  - subcutaneous
+  - intravenous
+mechanismShort: "GnRH receptor agonist on pituitary gonadotrophs; pulsatile administration stimulates LH/FSH release, preserving spermatogenesis and intratesticular testosterone during exogenous T administration"
+
+dosing:
+  min: 50
+  typical: 100
+  max: 200
+  unit: mcg
+  frequency: "2x/day subcutaneous (approximates pulsatile delivery)"
+  notes: "TRT adjunct: 100mcg SC 2x/day (simplified pulsatile protocol). True pulsatile delivery (every 90-120 min via pump) is most physiological but impractical. 2x/day is the standard TRT clinic protocol. Continuous high-dose administration will DOWNREGULATE the receptor — pulsatile delivery is essential. Store refrigerated."
+
+sideEffects:
+  - name: headache
+    severity: mild
+    frequency: uncommon
+    notes: "Transient GnRH-mediated effects"
+  - name: injection_site_reaction
+    severity: mild
+    frequency: common
+    notes: "Small volume subcutaneous; rotate sites"
+  - name: nausea
+    severity: mild
+    frequency: rare
+    notes: "Transient; more common at initiation"
+  - name: multi_pregnancy_risk
+    severity: moderate
+    frequency: rare
+    notes: "Only relevant for female use (ovulation induction). Not applicable to male TRT use."
+
+interactions:
+  - target: testosterone-cypionate
+    type: synergistic
+    severity: moderate
+    description: "Gonadorelin preserves LH/FSH pulsatility during TRT, maintaining spermatogenesis and testicular volume — the HCG alternative for fertility preservation on TRT"
+  - target: testosterone-enanthate
+    type: synergistic
+    severity: moderate
+    description: "Same TRT fertility preservation mechanism as with Test Cyp"
+  - target: hcg
+    type: caution
+    severity: mild
+    description: "Both preserve gonadal function during TRT via different mechanisms (gonadorelin: upstream LH/FSH; HCG: direct Leydig cell). Typically choose one — co-administration is redundant."
+  - target: enclomiphene
+    type: synergistic
+    severity: mild
+    description: "Enclomiphene blocks estrogen negative feedback, increasing GnRH pulsatility. Gonadorelin provides direct GnRH — synergistic but usually not co-administered."
+
+mechanisms:
+  - pathway: GnRH_receptor_pulsatile_activation
+    description: "Binds GnRH receptor (GnRHR) on anterior pituitary gonadotrophs. Pulsatile activation (every 60-120 min) drives LH and FSH synthesis and secretion. Continuous activation causes receptor internalization and downregulation (the paradox exploited by leuprolide in prostate cancer)."
+  - pathway: LH_FSH_secretion
+    description: "LH pulse frequency determines the LH:FSH ratio. Higher frequency favors LH; lower frequency favors FSH. The simplified 2x/day clinical protocol produces sufficient LH for ITT maintenance."
+  - pathway: intratesticular_testosterone_preservation
+    description: "LH stimulates Leydig cells to produce testosterone locally; this ITT is required for Sertoli cell-mediated spermatogenesis. Without LH (as occurs during TRT), ITT drops >95% within weeks."
+  - pathway: hypothalamic_pituitary_gonadal_axis
+    description: "Gonadorelin acts at the pituitary level, bypassing hypothalamic suppression from exogenous testosterone. This is why it works during TRT — the hypothalamus is suppressed but the pituitary can still respond to exogenous GnRH."
+
+literature:
+  - title: "Pulsatile GnRH therapy for male infertility and hypogonadism"
+    url: "https://pubmed.ncbi.nlm.nih.gov/39016284/"
+    source: PubMed
+    year: 2024
+    kind: review
+  - title: "GnRH agonists vs antagonists in assisted reproduction"
+    url: "https://pubmed.ncbi.nlm.nih.gov/18796540/"
+    source: PubMed
+    year: 2008
+    kind: review
+  - title: "Gonadorelin as HCG alternative in testosterone therapy"
+    url: "https://pubmed.ncbi.nlm.nih.gov/39797269/"
+    source: PubMed
+    year: 2024
+    kind: review
+
+searchTerms:
+  pubmed:
+    - "gonadorelin AND pulsatile AND LH AND spermatogenesis AND male"
+    - "GnRH AND testosterone replacement AND fertility preservation AND clinical"
+    - "gonadotropin releasing hormone AND pulsatile AND gonadotroph AND human"
+  semanticScholar:
+    - "gonadorelin pulsatile GnRH LH FSH spermatogenesis TRT fertility"
+    - "GnRH analog HCG alternative testosterone therapy male fertility"
