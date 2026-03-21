@@ -28,6 +28,8 @@ model User {
   stacks        Stack[]
   cycles        Cycle[]
   stackUpvotes  StackUpvote[]
+  healthProfile HealthProfile?
+  labResults    LabResult[]
   weightUnit    String?        @default("lbs")
   tempUnit      String?        @default("F")
   sex           BiologicalSex?
@@ -531,4 +533,70 @@ model BloodworkPanel {
   cycle Cycle @relation(fields: [cycleId], references: [id], onDelete: Cascade)
 
   @@index([cycleId, date])
+}
+
+// ─── HEALTH PROFILE & LABS ─────────────────────────
+
+enum ActivityLevel {
+  SEDENTARY
+  LIGHTLY_ACTIVE
+  MODERATELY_ACTIVE
+  VERY_ACTIVE
+  ATHLETE
+}
+
+enum HealthGoal {
+  MUSCLE_GROWTH
+  FAT_LOSS
+  COGNITIVE_ENHANCEMENT
+  SLEEP_OPTIMIZATION
+  LONGEVITY
+  HORMONE_OPTIMIZATION
+  GENERAL_WELLNESS
+  ATHLETIC_PERFORMANCE
+  STRESS_MANAGEMENT
+  JOINT_HEALTH
+}
+
+model HealthProfile {
+  id              String        @id @default(cuid())
+  userId          String        @unique
+  age             Int?
+  biologicalSex   BiologicalSex?
+  heightCm        Float?
+  weightKg        Float?
+  bodyFatPercent   Float?
+  activityLevel   ActivityLevel?
+  sleepHours      Float?
+  goals           HealthGoal[]
+  conditions      String[]      // ["hypertension", "hypothyroid", etc.]
+  medications     String[]      // Current medications
+  allergies       String[]      // Known allergies/sensitivities
+  dietType        String?       // "omnivore", "vegan", "keto", etc.
+  smokingStatus   String?       // "never", "former", "current"
+  alcoholUse      String?       // "none", "moderate", "heavy"
+  notes           String?       @db.Text
+  completedAt     DateTime?     // When profile setup was finished
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model LabResult {
+  id          String   @id @default(cuid())
+  userId      String
+  marker      String   // "testosterone_total", "tsh", "hdl", etc.
+  value       Float
+  unit        String   // "ng/dL", "mIU/L", "mg/dL"
+  refRangeLow Float?
+  refRangeHigh Float?
+  testedAt    DateTime
+  labName     String?
+  notes       String?
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId, marker])
+  @@index([userId, testedAt])
 }
