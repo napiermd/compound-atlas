@@ -78,4 +78,11 @@ export interface CompoundDetail extends CompoundSummary {
   interactions: InteractionData[];
   mechanisms: MechanismData[];
   studies: { study: StudyData }[];
+  // Clinical (Velix physician data)
+  fdaStatus: string | null;
+  fdaStatusNote: string | null;
+  evidenceGrade: string | null;
+  clinicalNotes: string | null;
+  monitoringRequirements: string[];
+  contraindications: string[];
 }

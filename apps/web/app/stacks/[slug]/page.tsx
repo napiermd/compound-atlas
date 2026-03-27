@@ -24,6 +24,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { CategoryBadge } from "@/components/compound/CategoryBadge";
+import { VelixCTA } from "@/components/velix/VelixCTA";
 import { EvidenceScoreBadge } from "@/components/compound/EvidenceScoreBadge";
 import { GoalBadge } from "@/components/stack/GoalBadge";
 import { InteractionWarnings } from "@/components/stack/InteractionWarnings";
@@ -454,6 +455,8 @@ export default async function StackDetailPage({ params }: Props) {
       )}
 
       <Separator className="mb-6" />
+
+      <VelixCTA variant="stack" className="mb-6" />
 
       {/* Meta */}
       <p className="text-xs text-muted-foreground">

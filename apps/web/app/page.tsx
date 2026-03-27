@@ -3,6 +3,7 @@ import {
   ArrowRight,
   Github,
 } from "lucide-react";
+import { VelixCTA } from "@/components/velix/VelixCTA";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CompoundCard } from "@/components/compound/CompoundCard";
@@ -237,6 +238,11 @@ export default async function HomePage() {
             ))}
           </div>
         </div>
+      </section>
+
+      {/* ── VELIX HEALTH ──────────────────────────────── */}
+      <section className="max-w-7xl mx-auto px-4 pb-8 w-full">
+        <VelixCTA variant="general" />
       </section>
 
       {/* ── BOTTOM CTA ───────────────────────────────── */}

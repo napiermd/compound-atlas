@@ -19,6 +19,7 @@ import { CompoundDetailTabs } from "@/components/compound/CompoundDetailTabs";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import type { CompoundDetail } from "@/components/compound/types";
+import { VelixCTA } from "@/components/velix/VelixCTA";
 
 interface Props {
   params: { slug: string };
@@ -172,6 +173,12 @@ export default async function CompoundDetailPage({ params }: Props) {
     lastReviewedAt: compound.lastReviewedAt ?? null,
     evidenceLevel: compound.evidenceLevel ?? null,
     metaAnalysisCount: compound.metaAnalysisCount ?? 0,
+    fdaStatus: compound.fdaStatus ?? null,
+    fdaStatusNote: compound.fdaStatusNote ?? null,
+    evidenceGrade: compound.evidenceGrade ?? null,
+    clinicalNotes: compound.clinicalNotes ?? null,
+    monitoringRequirements: Array.isArray(compound.monitoringRequirements) ? compound.monitoringRequirements : [],
+    contraindications: Array.isArray(compound.contraindications) ? compound.contraindications : [],
   };
 
   const aliases = safeCompound.aliases;
@@ -378,6 +385,65 @@ export default async function CompoundDetailPage({ params }: Props) {
         </div>
       </div>
 
+
+      {/* Physician Clinical Notes */}
+      {safeCompound.clinicalNotes && (
+        <div className="mb-6 rounded-lg border border-[#4FFFB0]/20 bg-[#080C10] p-5">
+          <p className="text-[11px] font-mono uppercase tracking-wider text-[#4FFFB0] mb-3">
+            Physician Notes
+          </p>
+          <p className="text-sm text-[#C8CDD4] leading-relaxed whitespace-pre-line mb-4">
+            {safeCompound.clinicalNotes}
+          </p>
+
+          {safeCompound.fdaStatus && (
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-[10px] font-mono uppercase tracking-wide text-[#8B95A5]">FDA Status:</span>
+              <span className={`text-xs font-medium px-2 py-0.5 rounded-sm ${
+                safeCompound.fdaStatus === "fda-approved" ? "bg-[#4FFFB0]/10 text-[#4FFFB0]" :
+                safeCompound.fdaStatus === "compounding-503a" ? "bg-blue-400/10 text-blue-400" :
+                safeCompound.fdaStatus === "pending-reclassification" ? "bg-yellow-400/10 text-yellow-400" :
+                "bg-neutral-500/10 text-neutral-400"
+              }`}>
+                {safeCompound.fdaStatusNote || safeCompound.fdaStatus}
+              </span>
+            </div>
+          )}
+
+          {safeCompound.monitoringRequirements.length > 0 && (
+            <div className="mb-3">
+              <p className="text-[10px] font-mono uppercase tracking-wide text-[#8B95A5] mb-1.5">Monitoring</p>
+              <ul className="space-y-1">
+                {safeCompound.monitoringRequirements.map((req) => (
+                  <li key={req} className="flex items-start gap-2 text-xs text-[#8B95A5]">
+                    <span className="block w-1 h-1 rounded-full bg-[#4FFFB0] mt-1.5 shrink-0" />
+                    {req}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {safeCompound.contraindications.length > 0 && (
+            <div>
+              <p className="text-[10px] font-mono uppercase tracking-wide text-red-400/80 mb-1.5">Contraindications</p>
+              <ul className="space-y-1">
+                {safeCompound.contraindications.map((ci) => (
+                  <li key={ci} className="flex items-start gap-2 text-xs text-[#8B95A5]">
+                    <span className="block w-1 h-1 rounded-full bg-red-400 mt-1.5 shrink-0" />
+                    {ci}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Velix CTA — only for prescribable compounds */}
+      {safeCompound.fdaStatus && (
+        <VelixCTA variant="compound" compoundSlug={safeCompound.slug} className="mb-6" />
+      )}
 
       <Separator className="mb-6" />
 

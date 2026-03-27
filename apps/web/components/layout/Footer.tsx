@@ -15,6 +15,9 @@ export function Footer() {
           </Link>
 
           <nav className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground">
+            <Link href="https://velix.health?ref=compoundatlas&utm_source=compoundatlas&utm_medium=footer" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors font-medium text-[#4FFFB0]/80 hover:text-[#4FFFB0]">
+              Velix Health
+            </Link>
             <Link href="https://github.com/napiermd/compound-atlas" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
               GitHub
             </Link>

@@ -64,7 +64,7 @@ interface CompoundYaml {
     frequency?: string;
     notes?: string;
   };
-  // Clinical (from Velix)
+  // Clinical
   fdaStatus?: string;
   fdaStatusNote?: string;
   evidenceGrade?: string;
