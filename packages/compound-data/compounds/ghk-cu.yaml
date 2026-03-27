@@ -55,6 +55,23 @@ mechanisms:
   - pathway: angiogenesis
     description: "Promotes new blood vessel formation and nerve fiber growth to accelerate wound closure"
 
+# Clinical data (synced from Velix)
+fdaStatus: "pending-reclassification"
+fdaStatusNote: "Category 2. Pending reclassification to Category 1."
+evidenceGrade: "C"
+clinicalNotes: |
+  Part of the injury recovery stack. Topical form widely used in skincare. Injectable form for systemic tissue remodeling.
+monitoringRequirements:
+  - "No specific labs"
+  - "Clinical assessment of tissue repair"
+contraindications:
+  - "Wilson disease (copper metabolism disorder)"
+citations:
+  - pmid: "25431880"
+    title: "GHK-Cu promotes wound healing and tissue remodeling"
+    finding: "GHK-Cu accelerated wound closure and improved collagen architecture in multiple models."
+    year: 2014
+
 searchTerms:
   pubmed:
     - "GHK-Cu AND (skin OR wound OR collagen) AND human"

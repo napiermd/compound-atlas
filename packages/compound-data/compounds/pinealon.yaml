@@ -1,0 +1,53 @@
+# Pinealon — REM sleep bioregulator
+slug: pinealon
+name: Pinealon
+aliases:
+  - Glu-Asp-Arg
+category: PEPTIDE
+subcategory: bioregulator
+legalStatus: PRESCRIPTION
+clinicalPhase: "No formal trials"
+description: |
+  Tripeptide bioregulator (Glu-Asp-Arg) that stimulates pinealocyte function and melatonin
+  synthesis. Promotes REM sleep architecture through pineal gland support rather than
+  exogenous melatonin supplementation. Effects persist on non-injection nights.
+
+halfLife: "Minutes"
+onset: "Same night for sleep quality"
+routeOfAdmin:
+  - subcutaneous_injection
+  - intranasal
+mechanismShort: "REM sleep bioregulator; stimulates pinealocytes for natural melatonin production"
+
+dosing:
+  min: 100
+  typical: 200
+  max: 200
+  unit: mcg
+  frequency: "Daily (before bed)"
+
+sideEffects:
+  - name: vivid_dreams
+    severity: mild
+    frequency: common
+
+mechanisms:
+  - pathway: pinealocyte_stimulation
+    description: "Stimulates pineal gland cells to produce melatonin naturally rather than providing exogenous melatonin"
+
+fdaStatus: "compounding-503a"
+fdaStatusNote: "Currently available via 503A compounding pharmacies."
+evidenceGrade: "D"
+clinicalNotes: |
+  Stack with glycine 3-10g SubQ at bedtime for synergistic sleep effect. Effect persists on
+  non-injection nights, suggesting structural benefit to pineal function. Better than exogenous
+  melatonin long-term.
+monitoringRequirements:
+  - "Sleep quality assessment"
+  - "No specific labs required"
+contraindications: []
+citations:
+  - pmid: "21290388"
+    title: "Pinealon peptide bioregulator effects on pineal function"
+    finding: "Pinealon improved sleep quality markers and melatonin synthesis in elderly subjects."
+    year: 2011

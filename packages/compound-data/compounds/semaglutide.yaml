@@ -83,6 +83,33 @@ mechanisms:
   - pathway: cardiovascular_protection
     description: "Direct GLP-1 receptor effects on cardiac and vascular tissue reduce MACE risk independent of weight loss"
 
+# Clinical data (synced from Velix)
+fdaStatus: "fda-approved"
+fdaStatusNote: "FDA-approved as Ozempic (diabetes) and Wegovy (obesity)."
+evidenceGrade: "A"
+clinicalNotes: |
+  Start low (0.25mg), titrate slowly. Nausea = too fast. Pair with resistance training and high protein (1g/lb target) to protect lean mass.
+monitoringRequirements:
+  - "HbA1c/fasting glucose q3mo"
+  - "Weight + body composition q3mo"
+  - "Lipid panel q6mo"
+  - "Renal function baseline"
+  - "GI symptom assessment"
+contraindications:
+  - "Personal/family history of medullary thyroid carcinoma"
+  - "MEN2 syndrome"
+  - "Pancreatitis history (relative)"
+  - "Pregnancy"
+citations:
+  - pmid: "33567185"
+    title: "STEP 1: Semaglutide 2.4mg for Weight Management"
+    finding: "Semaglutide 2.4mg produced 14.9% mean body weight loss vs 2.4% placebo over 68 weeks."
+    year: 2021
+  - pmid: "36351458"
+    title: "SELECT: Semaglutide Cardiovascular Outcomes"
+    finding: "Semaglutide reduced MACE by 20% in overweight/obese adults with established cardiovascular disease."
+    year: 2023
+
 searchTerms:
   pubmed:
     - "semaglutide AND weight loss AND randomized controlled trial"

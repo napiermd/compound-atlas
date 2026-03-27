@@ -70,6 +70,23 @@ mechanisms:
   - pathway: albumin_binding_DAC
     description: "DAC variant covalently binds serum albumin, extending half-life from 30 min to 6–8 days"
 
+# Clinical data (synced from Velix)
+fdaStatus: "compounding-503a"
+fdaStatusNote: "Restored to 503A compounding list."
+evidenceGrade: "B"
+clinicalNotes: |
+  The DAC version provides sustained GH elevation vs the acute pulse of non-DAC (Mod GRF 1-29). Some practitioners prefer the more physiologic pulse of the non-DAC version combined with ipamorelin.
+monitoringRequirements:
+  - "IGF-1 q3mo"
+  - "Fasting glucose/HbA1c"
+contraindications:
+  - "Active malignancy"
+citations:
+  - pmid: "16352683"
+    title: "CJC-1295 Prolonged GH Secretion"
+    finding: "CJC-1295 produced sustained, dose-dependent increases in GH and IGF-1 for 6+ days after single injection."
+    year: 2006
+
 searchTerms:
   pubmed:
     - "GHRH analog AND growth hormone secretion AND human"

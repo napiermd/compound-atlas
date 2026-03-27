@@ -71,6 +71,25 @@ mechanisms:
   - pathway: tau_aggregation_inhibition
     description: "Inhibits tau protein aggregation; studied as potential Alzheimer's disease modifier"
 
+# Clinical data (synced from Velix)
+fdaStatus: "fda-approved"
+fdaStatusNote: "FDA-approved for methemoglobinemia. Off-label for cognitive/mitochondrial support."
+evidenceGrade: "C"
+clinicalNotes: |
+  Low dose only (10mg 3x/week). Blue urine is expected and harmless. Mild MAOI activity: avoid combining with SSRIs/SNRIs (serotonin syndrome risk).
+monitoringRequirements:
+  - "G6PD screen before starting (hemolytic anemia risk)"
+  - "Medication review for serotonergic drugs"
+contraindications:
+  - "G6PD deficiency"
+  - "Concurrent SSRI/SNRI use"
+  - "Renal impairment"
+citations:
+  - pmid: "27327783"
+    title: "Methylene blue improves brain mitochondrial function and memory"
+    finding: "Low-dose methylene blue enhanced memory retention and mitochondrial complex IV activity in animal models."
+    year: 2016
+
 searchTerms:
   pubmed:
     - "methylene blue AND cognitive function AND memory AND clinical OR randomized"

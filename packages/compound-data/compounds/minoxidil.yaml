@@ -1,0 +1,73 @@
+# Minoxidil — Vasodilator for hair regrowth
+slug: minoxidil
+name: Minoxidil
+aliases:
+  - Rogaine
+  - Loniten
+category: HORMONAL
+subcategory: vasodilator
+legalStatus: LEGAL
+clinicalPhase: "Approved"
+description: |
+  Potassium channel opener and vasodilator that increases blood flow to hair follicles.
+  Prolongs anagen (growth) phase and enlarges miniaturized follicles. Available OTC topical
+  and off-label oral. Oral low-dose increasingly popular for convenience and efficacy.
+
+halfLife: "~4 hours (oral)"
+onset: "3-6 months for visible results"
+routeOfAdmin:
+  - topical
+  - oral
+mechanismShort: "Potassium channel opener; vasodilator that increases follicular blood flow and prolongs anagen phase"
+
+dosing:
+  min: 2.5
+  typical: 5
+  max: 10
+  unit: "%/mg"
+  frequency: "1-2x/day topical; 2.5-5mg/day oral"
+
+sideEffects:
+  - name: hypertrichosis
+    severity: mild
+    frequency: common
+    notes: "Unwanted facial/body hair growth. More common with oral form."
+  - name: scalp_irritation
+    severity: mild
+    frequency: common
+    notes: "Topical form only. May be from propylene glycol vehicle."
+  - name: fluid_retention
+    severity: moderate
+    frequency: uncommon
+    notes: "Oral form. Monitor weight and blood pressure."
+  - name: tachycardia
+    severity: moderate
+    frequency: uncommon
+    notes: "Oral form. Vasodilator reflex tachycardia."
+
+mechanisms:
+  - pathway: potassium_channel_opening
+    description: "Opens ATP-sensitive potassium channels in vascular smooth muscle, causing vasodilation and increased blood flow to hair follicles"
+  - pathway: anagen_prolongation
+    description: "Extends the growth phase of hair follicles and promotes conversion from telogen to anagen"
+
+fdaStatus: "fda-approved"
+fdaStatusNote: "FDA-approved (Rogaine) for topical use. Oral use is off-label."
+evidenceGrade: "A"
+clinicalNotes: |
+  Oral low-dose minoxidil (2.5mg) is increasingly used off-label with good results and better
+  compliance than topical. Monitor blood pressure and heart rate. Compounded topical formulations
+  often combine with finasteride.
+monitoringRequirements:
+  - "Blood pressure (oral form)"
+  - "Heart rate (oral form)"
+  - "Echocardiogram baseline if oral (some providers)"
+  - "Clinical hair assessment photos q3mo"
+contraindications:
+  - "Pheochromocytoma"
+  - "Severe cardiovascular disease (oral form)"
+citations:
+  - pmid: "30386803"
+    title: "Oral minoxidil for hair loss"
+    finding: "Low-dose oral minoxidil (2.5-5mg) showed efficacy for hair loss with manageable cardiovascular monitoring."
+    year: 2019

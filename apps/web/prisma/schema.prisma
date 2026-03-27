@@ -142,6 +142,14 @@ model Compound {
   legalCaveats    String[]         @default([])
   literatureLinks Json?            // [{title,url,source,year,kind}]
 
+  // Clinical (physician-authored from Velix)
+  fdaStatus             String?    // "fda-approved", "compounding-503a", "category-2-banned", "pending-reclassification", "research-only"
+  fdaStatusNote         String?    @db.Text
+  evidenceGrade         String?    // "A", "B", "C", "D"
+  clinicalNotes         String?    @db.Text
+  monitoringRequirements String[]
+  contraindications     String[]
+
   // Scores (computed by pipeline)
   evidenceScore   Float?           // 0-100 composite
   safetyScore     Float?           // 0-100

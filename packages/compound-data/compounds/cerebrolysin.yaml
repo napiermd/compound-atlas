@@ -66,6 +66,28 @@ mechanisms:
   - pathway: cholinergic_enhancement
     description: "Enhances cholinergic neurotransmission; may contribute to improvements in Alzheimer's-related cognitive deficits"
 
+# Clinical data (synced from Velix)
+fdaStatus: "research-only"
+fdaStatusNote: "Not FDA-approved in the US. Approved in 40+ countries for neurological indications."
+evidenceGrade: "B"
+clinicalNotes: |
+  Expect 1-2 day mood depression post-infusion. This is common and transient. Approved in 40+ countries. Used in courses (10-20 daily infusions) rather than ongoing.
+monitoringRequirements:
+  - "Neurological assessment"
+  - "Mood monitoring post-infusion"
+contraindications:
+  - "Epilepsy (may lower seizure threshold)"
+  - "Severe renal failure"
+citations:
+  - pmid: "23297757"
+    title: "Cerebrolysin in acute ischemic stroke"
+    finding: "Cerebrolysin improved functional outcomes when administered within 24h of acute stroke."
+    year: 2013
+  - pmid: "28211351"
+    title: "Cerebrolysin in traumatic brain injury"
+    finding: "Cerebrolysin accelerated cognitive recovery post-TBI with improvements in attention and memory."
+    year: 2017
+
 searchTerms:
   pubmed:
     - "cerebrolysin AND stroke AND randomized controlled trial AND CASTA"

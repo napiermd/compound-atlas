@@ -25,6 +25,13 @@ interface Mechanism {
   description?: string;
 }
 
+interface Citation {
+  pmid: string;
+  title: string;
+  finding: string;
+  year: number;
+}
+
 interface CompoundYaml {
   slug: string;
   name: string;
@@ -57,6 +64,15 @@ interface CompoundYaml {
     frequency?: string;
     notes?: string;
   };
+  // Clinical (from Velix)
+  fdaStatus?: string;
+  fdaStatusNote?: string;
+  evidenceGrade?: string;
+  clinicalNotes?: string;
+  monitoringRequirements?: string[];
+  contraindications?: string[];
+  citations?: Citation[];
+
   sideEffects?: SideEffect[];
   interactions?: Interaction[];
   mechanisms?: Mechanism[];
@@ -94,6 +110,15 @@ async function main() {
 
     allData.push(data);
 
+    const clinicalFields = {
+      fdaStatus: data.fdaStatus ?? null,
+      fdaStatusNote: data.fdaStatusNote ?? null,
+      evidenceGrade: data.evidenceGrade ?? null,
+      clinicalNotes: data.clinicalNotes ?? null,
+      monitoringRequirements: data.monitoringRequirements ?? [],
+      contraindications: data.contraindications ?? [],
+    };
+
     const compound = await db.compound.upsert({
       where: { slug: data.slug },
       update: {
@@ -117,6 +142,7 @@ async function main() {
         doseMax: data.dosing?.max ?? null,
         doseUnit: data.dosing?.unit ?? null,
         doseFrequency: data.dosing?.frequency ?? null,
+        ...clinicalFields,
       },
       create: {
         slug: data.slug,
@@ -141,6 +167,7 @@ async function main() {
         doseMax: data.dosing?.max ?? null,
         doseUnit: data.dosing?.unit ?? null,
         doseFrequency: data.dosing?.frequency ?? null,
+        ...clinicalFields,
       },
     });
 

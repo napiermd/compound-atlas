@@ -73,6 +73,26 @@ mechanisms:
   - pathway: energy_expenditure_increase
     description: "Glucagon component drives higher energy expenditure vs. GLP-1 or dual agonists, contributing to superior weight loss"
 
+# Clinical data (synced from Velix)
+fdaStatus: "research-only"
+fdaStatusNote: "Phase 3 clinical trials. Available via compounding in some jurisdictions."
+evidenceGrade: "B"
+clinicalNotes: |
+  The glucagon component may cause transient heart rate increase. Start at lowest dose. Dysesthesia reported in some patients.
+monitoringRequirements:
+  - "HbA1c/fasting glucose q3mo"
+  - "Heart rate monitoring"
+  - "Liver function (glucagon component)"
+  - "Weight + body composition q3mo"
+contraindications:
+  - "Same as tirzepatide/semaglutide class"
+  - "Hepatic insufficiency (relative)"
+citations:
+  - pmid: "37351564"
+    title: "Retatrutide Phase 2 Obesity Trial"
+    finding: "Retatrutide produced up to 24.2% body weight loss at 48 weeks, exceeding tirzepatide results."
+    year: 2023
+
 searchTerms:
   pubmed:
     - "retatrutide AND obesity AND Phase II AND weight loss"

@@ -78,6 +78,25 @@ mechanisms:
   - pathway: erythropoiesis
     description: "Stimulates EPO production in kidneys; increases red blood cell mass and oxygen carrying capacity"
 
+# Clinical data (synced from Velix)
+fdaStatus: "fda-approved"
+fdaStatusNote: "FDA-approved for male hypogonadism."
+evidenceGrade: "A"
+clinicalNotes: |
+  Functionally interchangeable with cypionate. Some patients report slightly different subjective response due to ester kinetics. Same monitoring protocol applies.
+monitoringRequirements:
+  - "Total T + Free T (trough, q3mo initially)"
+  - "Hematocrit/CBC q3mo"
+  - "PSA baseline + q6mo"
+  - "Estradiol (sensitive) q3mo"
+contraindications:
+  - "Same as testosterone cypionate"
+citations:
+  - pmid: "31957395"
+    title: "Subcutaneous Testosterone Enanthate-Autoinjector"
+    finding: "SubQ testosterone enanthate maintains stable serum levels with high patient satisfaction."
+    year: 2020
+
 searchTerms:
   pubmed:
     - "testosterone enanthate AND muscle AND strength AND randomized"

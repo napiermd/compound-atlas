@@ -79,6 +79,27 @@ mechanisms:
   - pathway: incretin_amplification
     description: "Combined GLP-1 and GIP incretin effects produce more robust glucose-dependent insulin secretion"
 
+# Clinical data (synced from Velix)
+fdaStatus: "fda-approved"
+fdaStatusNote: "FDA-approved as Mounjaro (diabetes) and Zepbound (obesity)."
+evidenceGrade: "A"
+clinicalNotes: |
+  Microdose and go slow. Compounded tirzepatide allows flexible dosing. Stack with sermorelin for muscle preservation.
+monitoringRequirements:
+  - "HbA1c/fasting glucose q3mo"
+  - "Weight + body composition q3mo"
+  - "Lipid panel q6mo"
+  - "GI symptom assessment"
+contraindications:
+  - "Personal/family history of medullary thyroid carcinoma"
+  - "MEN2 syndrome"
+  - "Pancreatitis history (relative)"
+citations:
+  - pmid: "35658024"
+    title: "SURMOUNT-1: Tirzepatide for Obesity"
+    finding: "Tirzepatide produced up to 22.5% body weight loss vs 2.4% placebo at 72 weeks."
+    year: 2022
+
 searchTerms:
   pubmed:
     - "tirzepatide AND weight loss AND SURMOUNT AND randomized controlled trial"

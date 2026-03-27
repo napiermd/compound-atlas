@@ -61,6 +61,23 @@ mechanisms:
   - pathway: anti_inflammatory
     description: "Reduces pro-inflammatory cytokines including TNF-α; promotes regulatory T-cell activity"
 
+# Clinical data (synced from Velix)
+fdaStatus: "compounding-503a"
+fdaStatusNote: "Restored to 503A compounding list."
+evidenceGrade: "C"
+clinicalNotes: |
+  Pairs synergistically with BPC-157/PDA for injury recovery. Part of the injury recovery stack (PDA + TB-500 + KPV + GHK-Cu + Tesamorelin).
+monitoringRequirements:
+  - "No specific labs"
+  - "Clinical assessment"
+contraindications:
+  - "Active cancer (theoretical)"
+citations:
+  - pmid: "20709109"
+    title: "Thymosin Beta 4 and wound healing"
+    finding: "TB-4 accelerated wound closure and promoted cardiac repair after myocardial infarction in animal models."
+    year: 2010
+
 searchTerms:
   pubmed:
     - "thymosin beta-4 AND (wound healing OR tendon OR tissue repair)"

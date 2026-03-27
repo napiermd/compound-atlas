@@ -1,0 +1,55 @@
+# PDA — BPC-157 structural replacement
+slug: pda
+name: PDA (Pentadecapeptide Arginate)
+aliases:
+  - PDA
+  - BPC-157 Arginate
+  - Pentadecapeptide Arginate
+category: PEPTIDE
+subcategory: healing_peptide
+legalStatus: PRESCRIPTION
+clinicalPhase: "No formal trials"
+description: |
+  Structural analog of BPC-157 with arginine salt form. Similar tissue repair and
+  anti-inflammatory mechanisms. Currently the primary available replacement for BPC-157
+  while it awaits FDA reclassification.
+
+halfLife: "Minutes (tissue effects persist)"
+onset: "Days to weeks depending on injury"
+routeOfAdmin:
+  - subcutaneous_injection
+mechanismShort: "BPC-157 structural replacement; tissue repair via angiogenesis and GH receptor upregulation"
+
+dosing:
+  min: 250
+  typical: 500
+  max: 500
+  unit: mcg
+  frequency: "Daily (5 on / 2 off)"
+
+sideEffects:
+  - name: injection_site_irritation
+    severity: mild
+    frequency: uncommon
+
+mechanisms:
+  - pathway: VEGF_upregulation
+    description: "Promotes angiogenesis at injury sites via VEGF expression, similar to parent compound BPC-157"
+  - pathway: GH_receptor_sensitization
+    description: "Upregulates growth hormone receptor expression, amplifying GH-mediated tissue repair"
+
+fdaStatus: "compounding-503a"
+fdaStatusNote: "Currently available via 503A pharmacies. Primary replacement for BPC-157."
+evidenceGrade: "C"
+clinicalNotes: |
+  Use this instead of BPC-157 until BPC-157 is formally reclassified. 250-500mcg daily,
+  5 on/2 off. Include in the bedtime body composition stack (PDA + Ipamorelin + Tesamorelin).
+monitoringRequirements:
+  - "Clinical assessment of healing response"
+contraindications:
+  - "Active cancer (theoretical)"
+citations:
+  - pmid: "29300342"
+    title: "BPC 157 in GI protection"
+    finding: "Parent compound (BPC-157) demonstrated cytoprotective effects. PDA is the arginate salt analog."
+    year: 2018

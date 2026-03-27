@@ -68,6 +68,30 @@ mechanisms:
   - pathway: visceral_fat_reduction
     description: "Elevated GH activates hormone-sensitive lipase in visceral adipocytes, selectively mobilizing intra-abdominal fat stores"
 
+# Clinical data (synced from Velix)
+fdaStatus: "fda-approved"
+fdaStatusNote: "FDA-approved (Egrifta) for HIV lipodystrophy. Compounded versions available via 503A."
+evidenceGrade: "A"
+clinicalNotes: |
+  2mg pre-sleep is the standard dose. No carbs 45-60 minutes prior (insulin blunts GH release). Works better in females than ipamorelin (GHRH pathway vs ghrelin pathway). Stack with ipamorelin for synergistic GH pulse.
+monitoringRequirements:
+  - "IGF-1 q3mo"
+  - "Fasting glucose/HbA1c (GH can affect insulin sensitivity)"
+  - "Joint symptoms (excess GH signal)"
+contraindications:
+  - "Active malignancy"
+  - "Active pituitary pathology"
+  - "Pregnancy"
+citations:
+  - pmid: "25285638"
+    title: "Tesamorelin Reduces Visceral Fat and Hepatic Fat in HIV"
+    finding: "Tesamorelin reduced trunk fat by 10% and liver fat by 37% over 12 months."
+    year: 2014
+  - pmid: "31093539"
+    title: "Tesamorelin Effects on Cognition in Aging Adults"
+    finding: "Tesamorelin improved executive function and verbal memory in adults over 55."
+    year: 2019
+
 searchTerms:
   pubmed:
     - "tesamorelin AND lipodystrophy AND randomized controlled trial"

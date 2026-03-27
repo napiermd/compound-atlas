@@ -66,6 +66,27 @@ mechanisms:
   - pathway: gut_cytoprotection
     description: "Direct cytoprotective effects on GI mucosa; upregulates prostaglandin E2 and reduces mucosal inflammatory damage"
 
+# Clinical data (synced from Velix)
+fdaStatus: "pending-reclassification"
+fdaStatusNote: "Category 2 banned Oct 2023. RFK Jr. announced reclassification to Category 1 on Feb 27, 2026. Formal FDA list NOT yet published as of March 2026."
+evidenceGrade: "C"
+clinicalNotes: |
+  Currently banned from 503A compounding. Use PDA (Pentadecapeptide Arginate) as the structural replacement until BPC-157 is formally restored. Clinical response is similar. PDA 250-500mcg daily, 5 on/2 off.
+monitoringRequirements:
+  - "No specific labs required"
+  - "Clinical assessment of healing response"
+contraindications:
+  - "Active cancer (theoretical concern with angiogenesis)"
+citations:
+  - pmid: "21030672"
+    title: "BPC 157 and tendon healing"
+    finding: "BPC-157 promoted tendon-to-bone healing and improved biomechanical properties in rat models."
+    year: 2010
+  - pmid: "29300342"
+    title: "BPC 157 in GI protection"
+    finding: "BPC-157 demonstrated cytoprotective effects in multiple GI injury models with NO system modulation."
+    year: 2018
+
 searchTerms:
   pubmed:
     - "BPC-157 AND (tendon OR ligament OR muscle) AND (healing OR repair)"

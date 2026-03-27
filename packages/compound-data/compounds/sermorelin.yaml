@@ -69,6 +69,24 @@ mechanisms:
   - pathway: IGF_1_elevation
     description: "GH stimulates hepatic IGF-1 production; most anabolic and body composition effects mediated via IGF-1"
 
+# Clinical data (synced from Velix)
+fdaStatus: "compounding-503a"
+fdaStatusNote: "Available via 503A compounding pharmacies."
+evidenceGrade: "B"
+clinicalNotes: |
+  Excellent pairing with tirzepatide/semaglutide for muscle preservation during GLP-1-mediated weight loss. Broad dosing range (200-3000mcg) allows conservative titration.
+monitoringRequirements:
+  - "IGF-1 q3mo"
+  - "Fasting glucose/HbA1c"
+contraindications:
+  - "Active malignancy"
+  - "Pregnancy"
+citations:
+  - pmid: "9467534"
+    title: "Sermorelin for Growth Hormone Deficiency"
+    finding: "Sermorelin increased GH secretion and IGF-1 levels with sustained response over 12 months."
+    year: 1998
+
 searchTerms:
   pubmed:
     - "sermorelin AND growth hormone AND body composition AND human"

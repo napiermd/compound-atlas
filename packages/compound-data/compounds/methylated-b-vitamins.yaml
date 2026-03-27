@@ -1,0 +1,62 @@
+# Methylated B Vitamins — Methylation support
+slug: methylated-b-vitamins
+name: Methylated B Vitamins
+aliases:
+  - Methylfolate
+  - Methylcobalamin
+  - L-methylfolate
+  - B-Complex
+category: VITAMIN_MINERAL
+subcategory: methylation_support
+legalStatus: LEGAL
+clinicalPhase: "Approved"
+description: |
+  Pre-methylated forms of B9 (L-methylfolate) and B12 (methylcobalamin) that bypass MTHFR
+  enzyme variants. Support homocysteine metabolism, DNA methylation, neurotransmitter synthesis,
+  and red blood cell production. Essential for patients with MTHFR mutations.
+
+halfLife: "Variable by form"
+routeOfAdmin:
+  - oral
+  - subcutaneous_injection
+  - intramuscular_injection
+mechanismShort: "Pre-activated B vitamins; bypass MTHFR variants for methylation support and homocysteine management"
+
+dosing:
+  min: 1
+  typical: 1
+  max: 15
+  unit: mg
+  frequency: "Daily"
+  notes: "L-methylfolate 1mg + methylcobalamin 1000mcg daily. Higher doses for elevated homocysteine or MTHFR mutations."
+
+sideEffects:
+  - name: nausea
+    severity: mild
+    frequency: rare
+    notes: "Uncommon at standard doses"
+
+mechanisms:
+  - pathway: methylation_cycle
+    description: "Provides pre-activated methyl donors for the folate cycle, supporting SAMe production and homocysteine recycling"
+  - pathway: homocysteine_metabolism
+    description: "Methylfolate and methylcobalamin serve as cofactors for methionine synthase, converting homocysteine to methionine"
+
+fdaStatus: "fda-approved"
+fdaStatusNote: "Available OTC and via prescription compounding."
+evidenceGrade: "A"
+clinicalNotes: |
+  Target homocysteine <7. Mandatory with MOTS-c use (depletes folate cycle). MTHFR variants
+  (C677T, A1298C) are common and impair folate metabolism. Always use methylated forms, not
+  folic acid.
+monitoringRequirements:
+  - "Homocysteine q3-6mo (target <7)"
+  - "B12 levels"
+  - "Folate levels"
+  - "MMA if B12 deficiency suspected"
+contraindications: []
+citations:
+  - pmid: "20838622"
+    title: "Homocysteine lowering with B vitamins"
+    finding: "B vitamin supplementation reduced stroke risk by 25% through homocysteine lowering."
+    year: 2010

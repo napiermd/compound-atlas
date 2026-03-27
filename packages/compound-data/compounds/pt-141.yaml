@@ -64,6 +64,24 @@ mechanisms:
   - pathway: oxytocin_release
     description: "MC4R activation promotes hypothalamic oxytocin release, contributing to arousal and pair-bonding behavior"
 
+# Clinical data (synced from Velix)
+fdaStatus: "fda-approved"
+fdaStatusNote: "FDA-approved as Vyleesi for female hypoactive sexual desire disorder (HSDD). Off-label for male libido and neurogenic ED."
+evidenceGrade: "A"
+clinicalNotes: |
+  Narrow therapeutic window. Start at 0.5mg. Nausea is the primary dose-limiting side effect and usually means the dose is too high.
+monitoringRequirements:
+  - "Blood pressure (can increase transiently)"
+  - "Clinical assessment"
+contraindications:
+  - "Uncontrolled hypertension"
+  - "Cardiovascular disease"
+citations:
+  - pmid: "31076367"
+    title: "Bremelanotide for Female Sexual Dysfunction (RECONNECT trials)"
+    finding: "Bremelanotide significantly improved sexual desire and reduced distress in premenopausal women with HSDD."
+    year: 2019
+
 searchTerms:
   pubmed:
     - "bremelanotide AND sexual dysfunction AND randomized controlled trial"

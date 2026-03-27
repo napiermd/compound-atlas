@@ -1,0 +1,53 @@
+# KPV — Anti-inflammatory tripeptide
+slug: kpv
+name: KPV
+aliases:
+  - Lysine-Proline-Valine
+  - alpha-MSH fragment
+category: PEPTIDE
+subcategory: anti_inflammatory
+legalStatus: GRAY_MARKET
+clinicalPhase: "Preclinical"
+description: |
+  Tripeptide fragment of alpha-MSH that reduces inflammation by inhibiting NFkB activation,
+  reducing TNF-alpha, IL-6, and IL-1beta. Works both systemically and locally in the GI tract.
+
+halfLife: "Minutes"
+routeOfAdmin:
+  - subcutaneous_injection
+  - oral
+mechanismShort: "Anti-inflammatory; reduces TNF-alpha and interleukins via NFkB inhibition"
+
+dosing:
+  min: 500
+  typical: 1000
+  max: 1000
+  unit: mcg
+  frequency: "Daily"
+
+sideEffects:
+  - name: injection_site_irritation
+    severity: mild
+    frequency: uncommon
+
+mechanisms:
+  - pathway: NFkB_inhibition
+    description: "Inhibits nuclear factor kappa-B activation, reducing downstream inflammatory cytokine production"
+  - pathway: TNF_alpha_reduction
+    description: "Reduces TNF-alpha, IL-6, and IL-1beta levels in inflamed tissue"
+
+fdaStatus: "pending-reclassification"
+fdaStatusNote: "Category 2. Pending reclassification to Category 1."
+evidenceGrade: "C"
+clinicalNotes: |
+  Part of the injury recovery stack. Oral form useful for GI inflammation.
+  Injectable for systemic anti-inflammatory effect. Pending reclassification.
+monitoringRequirements:
+  - "Inflammatory markers (CRP, ESR) if indicated"
+  - "Clinical assessment"
+contraindications: []
+citations:
+  - pmid: "15781289"
+    title: "KPV ameliorates colitis"
+    finding: "KPV reduced colonic inflammation and improved mucosal healing in experimental colitis models."
+    year: 2005

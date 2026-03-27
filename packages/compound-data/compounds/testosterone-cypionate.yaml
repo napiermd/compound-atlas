@@ -81,6 +81,35 @@ mechanisms:
   - pathway: erythropoiesis
     description: "Stimulates renal EPO production and directly stimulates bone marrow; increases red blood cell mass and oxygen-carrying capacity"
 
+# Clinical data (synced from Velix)
+fdaStatus: "fda-approved"
+fdaStatusNote: "FDA-approved for male hypogonadism."
+evidenceGrade: "A"
+clinicalNotes: |
+  Start low (100-120mg/week), titrate based on trough levels and symptoms. Split dosing (2x/week) reduces E2 spikes and hematocrit elevation. Monitor hematocrit closely. If >52%, reduce dose or consider therapeutic phlebotomy.
+monitoringRequirements:
+  - "Total T + Free T (trough, q3mo initially)"
+  - "Hematocrit/CBC q3mo"
+  - "PSA baseline + q6mo"
+  - "Estradiol (sensitive) q3mo"
+  - "Lipid panel q6mo"
+  - "Liver function baseline + q12mo"
+contraindications:
+  - "Polycythemia (Hct >54%)"
+  - "Untreated severe OSA"
+  - "Uncontrolled CHF"
+  - "Active prostate or breast cancer"
+  - "Desire for near-term fertility (without HCG/enclomiphene)"
+citations:
+  - pmid: "27716209"
+    title: "Testosterone Trials: Effect on sexual function, physical function, vitality, and mood"
+    finding: "Testosterone treatment significantly improved sexual activity, desire, and erectile function in men with low testosterone."
+    year: 2016
+  - pmid: "31957395"
+    title: "Subcutaneous Testosterone Enanthate-Autoinjector"
+    finding: "SubQ administration achieves equivalent serum levels to IM with fewer injection-site reactions."
+    year: 2020
+
 searchTerms:
   pubmed:
     - "testosterone cypionate AND hypogonadism AND randomized controlled trial"

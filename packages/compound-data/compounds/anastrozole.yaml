@@ -64,6 +64,25 @@ mechanisms:
   - pathway: testosterone_preservation
     description: "By reducing testosterone aromatization, anastrozole increases free testosterone levels — beneficial effect beyond estrogen management"
 
+# Clinical data (synced from Velix)
+fdaStatus: "fda-approved"
+fdaStatusNote: "FDA-approved for breast cancer. Used off-label in TRT management."
+evidenceGrade: "B"
+clinicalNotes: |
+  Use sparingly. E2 management is nuanced. Some estradiol is protective for cardiovascular health, bone density, and libido. Manage symptoms, not numbers. Crashing E2 causes joint pain, low libido, and cognitive fog.
+monitoringRequirements:
+  - "Estradiol (sensitive) q3mo"
+  - "Lipid panel (AIs can worsen lipids)"
+  - "Bone density if prolonged use"
+contraindications:
+  - "Osteoporosis"
+  - "Already low estradiol"
+citations:
+  - pmid: "14671183"
+    title: "Aromatase inhibitors for male infertility"
+    finding: "Anastrozole improved testosterone-to-estradiol ratio and sperm parameters in men with low T:E2 ratios."
+    year: 2003
+
 searchTerms:
   pubmed:
     - "anastrozole AND testosterone AND hypogonadism AND estrogen"

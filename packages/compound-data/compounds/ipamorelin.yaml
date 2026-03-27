@@ -64,6 +64,24 @@ mechanisms:
   - pathway: selective_GH_release
     description: "Unlike GHRP-2/6, does not activate ACTH/cortisol or prolactin pathways"
 
+# Clinical data (synced from Velix)
+fdaStatus: "compounding-503a"
+fdaStatusNote: "Available via 503A compounding pharmacies."
+evidenceGrade: "B"
+clinicalNotes: |
+  100mcg pre-sleep is the standard starting dose. Stack with tesamorelin for synergistic GHRH + ghrelin pathway activation. Best for lean-out and sleep quality. No carbs 45-60 min prior.
+monitoringRequirements:
+  - "IGF-1 q3mo"
+  - "Fasting glucose/HbA1c"
+contraindications:
+  - "Active malignancy"
+  - "Pregnancy"
+citations:
+  - pmid: "9849822"
+    title: "Ipamorelin, the first selective growth hormone secretagogue"
+    finding: "Ipamorelin is highly selective for GH release without affecting ACTH, cortisol, PRL, or FSH/LH."
+    year: 1998
+
 searchTerms:
   pubmed:
     - "ipamorelin AND growth hormone AND secretagogue"

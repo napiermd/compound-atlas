@@ -71,6 +71,26 @@ mechanisms:
   - pathway: testicular_steroidogenesis
     description: "LH stimulates Leydig cell cAMP/PKA pathway, driving testosterone synthesis from cholesterol; FSH stimulates Sertoli cells, maintaining spermatogenesis"
 
+# Clinical data (synced from Velix)
+fdaStatus: "compounding-503a"
+fdaStatusNote: "Available via 503A compounding pharmacies. Not FDA-approved as a standalone product."
+evidenceGrade: "B"
+clinicalNotes: |
+  Preferred over clomiphene (Clomid) because the trans-isomer avoids the estrogenic side effects of the cis-isomer (zuclomiphene). Good option for younger men who want testosterone optimization without exogenous testosterone.
+monitoringRequirements:
+  - "Total T + Free T q3mo"
+  - "LH/FSH q3mo"
+  - "Estradiol q3mo"
+  - "Semen analysis if fertility-focused"
+contraindications:
+  - "Liver disease"
+  - "Known hypersensitivity to clomiphene compounds"
+citations:
+  - pmid: "25262198"
+    title: "Enclomiphene citrate stimulates testosterone while maintaining normal concentrations of sperm"
+    finding: "Enclomiphene increased testosterone to eugonadal levels while maintaining or improving sperm parameters."
+    year: 2014
+
 searchTerms:
   pubmed:
     - "enclomiphene AND testosterone AND hypogonadism AND randomized"

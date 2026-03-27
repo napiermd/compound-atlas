@@ -65,6 +65,28 @@ mechanisms:
   - pathway: MHC_upregulation
     description: "Increases MHC class I expression on tumor cells, making them visible to cytotoxic T lymphocytes"
 
+# Clinical data (synced from Velix)
+fdaStatus: "pending-reclassification"
+fdaStatusNote: "Category 2 banned. Pending reclassification to Category 1. FDA-approved in 35+ countries (Zadaxin)."
+evidenceGrade: "B"
+clinicalNotes: |
+  The strongest immune modulator in the peptide toolkit. Used for autoimmune conditions, chronic viral infections, and cancer adjunct therapy in 35+ countries.
+monitoringRequirements:
+  - "CBC with differential"
+  - "T-cell subsets if clinically indicated"
+contraindications:
+  - "Immunosuppressive therapy (relative)"
+  - "Organ transplant recipients"
+citations:
+  - pmid: "17382943"
+    title: "Thymosin Alpha 1 in hepatitis B and C"
+    finding: "TA1 improved viral clearance rates and sustained response when combined with interferon therapy."
+    year: 2007
+  - pmid: "32361028"
+    title: "Thymosin Alpha 1 in COVID-19"
+    finding: "TA1 reduced mortality in severe COVID-19 patients by restoring T-cell counts."
+    year: 2020
+
 searchTerms:
   pubmed:
     - "thymosin alpha-1 AND immune AND clinical AND randomized"

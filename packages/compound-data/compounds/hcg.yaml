@@ -109,6 +109,30 @@ literature:
     year: 2013
     kind: review
 
+# Clinical data (synced from Velix)
+fdaStatus: "fda-approved"
+fdaStatusNote: "FDA-approved. Compounded versions widely available via 503A pharmacies."
+evidenceGrade: "B"
+clinicalNotes: |
+  Always discuss fertility goals before starting TRT. HCG is the standard adjunct for fertility
+  preservation. 500 IU 2x/week is the most common protocol. Can increase E2 more than TRT alone.
+monitoringRequirements:
+  - "Estradiol (may increase)"
+  - "Semen analysis if fertility is the goal"
+  - "Testicular ultrasound if clinically indicated"
+contraindications:
+  - "Hormone-sensitive malignancy"
+  - "Precocious puberty"
+citations:
+  - pmid: "15843482"
+    title: "HCG maintains intratesticular testosterone in normal men with testosterone-induced gonadotropin suppression"
+    finding: "250 IU EOD maintains intratesticular testosterone at 25% of baseline, sufficient for spermatogenesis."
+    year: 2005
+  - pmid: "31199829"
+    title: "HCG in Male Infertility and Hypogonadism"
+    finding: "HCG effectively preserves fertility parameters when used adjunctively with TRT."
+    year: 2019
+
 searchTerms:
   pubmed:
     - "human chorionic gonadotropin AND intratesticular testosterone AND spermatogenesis"

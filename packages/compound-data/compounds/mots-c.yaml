@@ -55,6 +55,26 @@ mechanisms:
   - pathway: nuclear_retrograde_signaling
     description: "Translocates from mitochondria to nucleus, acting as a transcription factor to regulate stress response genes"
 
+# Clinical data (synced from Velix)
+fdaStatus: "pending-reclassification"
+fdaStatusNote: "Category 2. Pending reclassification to Category 1 (RFK announcement Feb 27, 2026). Not yet formally available."
+evidenceGrade: "C"
+clinicalNotes: |
+  Critical: depletes folate at 2-3 weeks of use. Start leucovorin + methylcobalamin from day one. Do not wait for symptoms. Use on workout days.
+monitoringRequirements:
+  - "Folate levels (can deplete)"
+  - "Homocysteine"
+  - "Fasting glucose"
+  - "Supplement leucovorin + methylcobalamin from day 1"
+contraindications:
+  - "Folate deficiency (correct first)"
+  - "MTHFR mutations (relative, supplement aggressively)"
+citations:
+  - pmid: "25738459"
+    title: "MOTS-c: A mitochondrial-derived peptide regulates muscle homeostasis"
+    finding: "MOTS-c improved glucose tolerance and reduced obesity in mice on high-fat diet by activating AMPK."
+    year: 2015
+
 searchTerms:
   pubmed:
     - "MOTS-c AND mitochondrial peptide AND (metabolism OR insulin OR AMPK)"

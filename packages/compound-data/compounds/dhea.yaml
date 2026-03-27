@@ -105,6 +105,26 @@ literature:
     year: 2000
     kind: review
 
+# Clinical data (synced from Velix)
+fdaStatus: "fda-approved"
+fdaStatusNote: "Available as OTC supplement. Prescription compounded forms also available."
+evidenceGrade: "B"
+clinicalNotes: |
+  Check DHEA-S levels before supplementing. Most useful in patients with documented adrenal
+  insufficiency or low DHEA-S. Can convert to estrogen in women and DHT in men.
+monitoringRequirements:
+  - "DHEA-S levels"
+  - "Estradiol (in women)"
+  - "DHT (in men with hair loss concerns)"
+contraindications:
+  - "Hormone-sensitive cancers"
+  - "PCOS (may worsen androgen excess)"
+citations:
+  - pmid: "16670164"
+    title: "DHEA supplementation in aging adults"
+    finding: "DHEA replacement improved well-being, body composition, and bone density in older adults with low DHEA-S."
+    year: 2006
+
 searchTerms:
   pubmed:
     - "DHEA AND supplementation AND testosterone AND clinical trial AND men"

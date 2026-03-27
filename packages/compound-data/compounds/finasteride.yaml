@@ -1,0 +1,65 @@
+# Finasteride — 5-alpha reductase inhibitor for hair loss
+slug: finasteride
+name: Finasteride
+aliases:
+  - Propecia
+  - Proscar
+category: HORMONAL
+subcategory: 5_alpha_reductase_inhibitor
+legalStatus: PRESCRIPTION
+clinicalPhase: "Approved"
+description: |
+  Selectively inhibits Type II 5-alpha reductase, reducing conversion of testosterone to DHT
+  by approximately 70%. DHT is the primary androgen responsible for miniaturization of hair
+  follicles in androgenic alopecia. Also FDA-approved for BPH at higher doses.
+
+halfLife: "6-8 hours"
+onset: "3-6 months for visible hair results"
+routeOfAdmin:
+  - oral
+  - topical
+mechanismShort: "Selective Type II 5-alpha reductase inhibitor; reduces DHT by ~70% to prevent follicle miniaturization"
+
+dosing:
+  min: 0.5
+  typical: 1
+  max: 5
+  unit: mg
+  frequency: "Daily"
+  notes: "1mg for hair loss, 5mg for BPH. Topical compounded formulations reduce systemic DHT suppression."
+
+sideEffects:
+  - name: decreased_libido
+    severity: mild
+    frequency: uncommon
+    notes: "2-3% in clinical trials. Usually reversible on discontinuation."
+  - name: erectile_changes
+    severity: moderate
+    frequency: uncommon
+  - name: post_finasteride_syndrome
+    severity: severe
+    frequency: rare
+    notes: "Persistent sexual and cognitive side effects after discontinuation. Rare but real."
+
+mechanisms:
+  - pathway: 5_alpha_reductase_type_II_inhibition
+    description: "Selectively inhibits Type II 5-alpha reductase, blocking testosterone to DHT conversion in hair follicles, prostate, and skin"
+
+fdaStatus: "fda-approved"
+fdaStatusNote: "FDA-approved (Propecia) for male pattern hair loss."
+evidenceGrade: "A"
+clinicalNotes: |
+  Topical formulations (compounded) reduce systemic DHT suppression and side effect risk.
+  Post-finasteride syndrome is rare but real. Discuss before prescribing. Monitor DHT levels.
+monitoringRequirements:
+  - "DHT levels baseline + q6mo"
+  - "PSA (finasteride halves PSA, double the reading for screening)"
+  - "Sexual function assessment"
+contraindications:
+  - "Women who are or may become pregnant"
+  - "Liver disease"
+citations:
+  - pmid: "9951956"
+    title: "Finasteride in the treatment of men with androgenetic alopecia"
+    finding: "Finasteride 1mg daily increased hair count by 7% at 1 year and prevented further loss in 83% of men."
+    year: 1999

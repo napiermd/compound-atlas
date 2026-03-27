@@ -70,6 +70,28 @@ mechanisms:
   - pathway: mitochondrial_biogenesis
     description: "SIRT1 activation by NAD+ deacetylates and activates PGC-1α; drives mitochondrial biogenesis and oxidative metabolism"
 
+# Clinical data (synced from Velix)
+fdaStatus: "compounding-503a"
+fdaStatusNote: "Available via 503A compounding pharmacies for IV and SubQ formulations."
+evidenceGrade: "B"
+clinicalNotes: |
+  No oral NAD+ is bioavailable. Delivery hierarchy: IV >> SubQ >> NMN sublingual > NR oral. Loading protocol: 750mg IV x5 sessions over 10 days, then monthly maintenance. SubQ maintenance: 100mg 5 on/2 off.
+monitoringRequirements:
+  - "No standard labs for NAD+ levels"
+  - "Clinical assessment: energy, cognition, recovery"
+  - "Blood pressure during IV (can cause transient flushing/tachycardia)"
+contraindications:
+  - "Active cancer (theoretical concern with PARP/sirtuin activation)"
+citations:
+  - pmid: "29514064"
+    title: "NAD+ metabolism in aging and disease"
+    finding: "NAD+ depletion is a common feature of aging and contributes to metabolic dysfunction, neurodegeneration, and DNA damage accumulation."
+    year: 2018
+  - pmid: "33432175"
+    title: "NAD+ supplementation and aging hallmarks"
+    finding: "Restoring NAD+ levels ameliorated age-related metabolic and cognitive decline in animal models."
+    year: 2021
+
 searchTerms:
   pubmed:
     - "nicotinamide riboside AND NAD AND human AND clinical trial AND randomized"

@@ -1,0 +1,62 @@
+# Dutasteride — Dual 5-alpha reductase inhibitor
+slug: dutasteride
+name: Dutasteride
+aliases:
+  - Avodart
+category: HORMONAL
+subcategory: 5_alpha_reductase_inhibitor
+legalStatus: PRESCRIPTION
+clinicalPhase: "Approved"
+description: |
+  Inhibits both Type I and Type II 5-alpha reductase, reducing DHT by approximately 90%.
+  More complete DHT suppression than finasteride but with a longer half-life and potentially
+  more persistent side effects. FDA-approved for BPH, off-label for hair loss.
+
+halfLife: "~5 weeks"
+onset: "3-6 months for hair results"
+routeOfAdmin:
+  - oral
+mechanismShort: "Dual Type I/II 5-alpha reductase inhibitor; reduces DHT by ~90%"
+
+dosing:
+  min: 0.5
+  typical: 0.5
+  max: 0.5
+  unit: mg
+  frequency: "Daily or 3x/week"
+
+sideEffects:
+  - name: decreased_libido
+    severity: moderate
+    frequency: uncommon
+  - name: gynecomastia
+    severity: moderate
+    frequency: rare
+  - name: persistent_sexual_side_effects
+    severity: severe
+    frequency: rare
+    notes: "Very long half-life (5 weeks) means side effects persist long after discontinuation"
+
+mechanisms:
+  - pathway: 5_alpha_reductase_dual_inhibition
+    description: "Inhibits both Type I and Type II 5-alpha reductase enzymes, providing more complete DHT suppression than finasteride"
+
+fdaStatus: "fda-approved"
+fdaStatusNote: "FDA-approved for BPH (Avodart). Off-label for hair loss."
+evidenceGrade: "A"
+clinicalNotes: |
+  Reserve for patients who do not respond adequately to finasteride. The very long half-life
+  (5 weeks) means side effects persist long after discontinuation. 3x/week dosing may reduce
+  systemic exposure while maintaining efficacy.
+monitoringRequirements:
+  - "DHT levels"
+  - "PSA (dutasteride reduces PSA, adjust screening accordingly)"
+  - "Sexual function assessment"
+contraindications:
+  - "Women who are or may become pregnant"
+  - "Liver disease"
+citations:
+  - pmid: "16842372"
+    title: "Dutasteride vs finasteride for hair loss"
+    finding: "Dutasteride 0.5mg was superior to finasteride 1mg for increasing hair count at 24 weeks."
+    year: 2006

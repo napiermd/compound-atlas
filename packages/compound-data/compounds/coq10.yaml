@@ -63,6 +63,21 @@ mechanisms:
   - pathway: statin_depletion_reversal
     description: "Statins block HMG-CoA reductase, reducing mevalonate pathway — the same pathway used for CoQ10 synthesis; supplementation reverses statin-induced CoQ10 depletion"
 
+# Clinical data (synced from Velix)
+fdaStatus: "fda-approved"
+fdaStatusNote: "Available as OTC supplement. Ubiquinol form has better absorption."
+evidenceGrade: "B"
+clinicalNotes: |
+  Ubiquinol form is better absorbed than ubiquinone. 200mg/day is the standard dose. Higher doses (400mg) for migraine prevention. Always supplement if on statins.
+monitoringRequirements:
+  - "No specific labs"
+  - "CoQ10 serum level if clinically indicated"
+citations:
+  - pmid: "24920421"
+    title: "CoQ10 for statin myopathy and migraine prevention"
+    finding: "CoQ10 200mg/day reduced migraine frequency by 48% and improved statin-related muscle symptoms."
+    year: 2014
+
 searchTerms:
   pubmed:
     - "coenzyme Q10 AND heart failure AND Q-SYMBIO AND randomized"
