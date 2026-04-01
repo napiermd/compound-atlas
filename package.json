@@ -1,13 +1,14 @@
 {
   "name": "compound-atlas",
   "version": "0.1.0",
-  "private": true,
-  "description": "Open-source evidence-based compound and stack planning platform",
+  "private": false,
+  "description": "Evidence-based compound research, stack planning, and cycle tracking",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/YOUR_USERNAME/compound-atlas"
+    "url": "https://github.com/napiermd/compound-atlas.git"
   },
+  "homepage": "https://compound-atlas.vercel.app",
   "workspaces": [
     "apps/*",
     "packages/*"
