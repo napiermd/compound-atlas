@@ -15,17 +15,17 @@ export function Footer() {
           </Link>
 
           <nav className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground">
-            <Link href="https://velix.health?ref=compoundatlas&utm_source=compoundatlas&utm_medium=footer" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors font-medium text-[#4FFFB0]/80 hover:text-[#4FFFB0]">
-              Velix Health
-            </Link>
             <Link href="https://github.com/napiermd/compound-atlas" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
               GitHub
             </Link>
-            <Link href="https://github.com/napiermd/compound-atlas/blob/main/README.md#contributing" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-              Contributing
+            <Link href="https://github.com/napiermd/compound-atlas#compoundatlas" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+              Overview
             </Link>
             <Link href="https://github.com/napiermd/compound-atlas/tree/main/docs" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-              API Docs
+              Docs
+            </Link>
+            <Link href="https://compound-atlas.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
+              Live App
             </Link>
           </nav>
         </div>

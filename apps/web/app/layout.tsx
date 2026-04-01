@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     template: "%s | CompoundAtlas",
   },
   description:
-    "Evidence-based compound and stack planning platform. Browse peer-reviewed research on supplements, nootropics, and performance compounds.",
+    "Research-first compound database for evidence review, stack planning, and cycle tracking.",
 };
 
 export default function RootLayout({

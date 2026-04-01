@@ -3,7 +3,6 @@ import {
   ArrowRight,
   Github,
 } from "lucide-react";
-import { VelixCTA } from "@/components/velix/VelixCTA";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CompoundCard } from "@/components/compound/CompoundCard";
@@ -122,15 +121,16 @@ export default async function HomePage() {
 
         <div className="relative max-w-5xl mx-auto px-4 py-16 sm:py-24 text-center">
           <Badge variant="outline" className="mb-5 px-3 py-1 text-xs">
-            Open Source · MIT License
+            Open Source Research Tool
           </Badge>
           <h1 className="text-4xl sm:text-5xl lg:text-[3.5rem] font-bold tracking-tight leading-[1.15] mb-6 max-w-4xl mx-auto">
-            Evidence-Based Enhancement,{" "}
-            <span className="text-muted-foreground">Open Source</span>
+            Research-first compound intelligence
+            <span className="text-muted-foreground"> for stacks, cycles, and evidence review</span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-10 leading-relaxed">
-            Browse compounds scored by real research from PubMed and Semantic
-            Scholar. Build stacks. Track cycles. Free forever.
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
+            Explore compounds through indexed literature, transparent scoring,
+            and structured tracking workflows. CompoundAtlas is built for people
+            who want to inspect the evidence, not just consume recommendations.
           </p>
 
           <div className="flex flex-wrap gap-3 justify-center">
@@ -165,8 +165,8 @@ export default async function HomePage() {
               </div>
             )}
             <div>
-              <p className="text-3xl font-bold">100%</p>
-              <p className="text-muted-foreground mt-1">free, forever</p>
+              <p className="text-3xl font-bold">MIT</p>
+              <p className="text-muted-foreground mt-1">open-source license</p>
             </div>
           </div>
         </div>
@@ -223,8 +223,8 @@ export default async function HomePage() {
             </h2>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Every compound gets a score from 0–100 based on six factors
-              computed from indexed research. No manual curation. No opinion.
-              Pure data.
+              computed from indexed research. The goal is not to replace judgment,
+              but to make the underlying signal easier to inspect and compare.
             </p>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-4">
@@ -240,18 +240,13 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── VELIX HEALTH ──────────────────────────────── */}
-      <section className="max-w-7xl mx-auto px-4 pb-8 w-full">
-        <VelixCTA variant="general" />
-      </section>
-
       {/* ── BOTTOM CTA ───────────────────────────────── */}
       <section className="max-w-7xl mx-auto px-4 pb-16 w-full">
         <div className="rounded-xl bg-primary text-primary-foreground px-8 py-12 text-center">
-          <h2 className="text-2xl font-bold mb-2">Start Exploring</h2>
-          <p className="text-primary-foreground/70 text-sm mb-8 max-w-sm mx-auto leading-relaxed">
-            Browse the compound database, build a stack, or contribute to the
-            open-source project.
+          <h2 className="text-2xl font-bold mb-2">Inspect the evidence directly</h2>
+          <p className="text-primary-foreground/70 text-sm mb-8 max-w-md mx-auto leading-relaxed">
+            Browse the database, compare compounds, and contribute improvements
+            to the scoring and research workflows.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Button asChild size="lg" variant="secondary">
